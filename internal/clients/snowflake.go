@@ -23,6 +23,141 @@ const (
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal snowflake credentials as JSON"
 )
+// For the full list of supported config keys, see the Snowflake TF provider schema:
+// https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs#schema
+
+// Config keys matching the Snowflake TF provider schema.
+// See https://registry.terraform.io/providers/snowflakedb/snowflake/latest/docs#schema
+const (
+	keyAccountName                  = "account_name"
+	keyOrganizationName             = "organization_name"
+	keyUser                         = "user"
+	keyPassword                     = "password"
+	keyAuthenticator                = "authenticator"
+	keyPrivateKey                   = "private_key"
+	keyPrivateKeyPassphrase         = "private_key_passphrase"
+	keyToken                        = "token"
+	keyRole                         = "role"
+	keyWarehouse                    = "warehouse"
+	keyHost                         = "host"
+	keyProtocol                     = "protocol"
+	keyPort                         = "port"
+	keyProfile                      = "profile"
+	keyPasscode                     = "passcode"
+	keyPasscodeInPassword           = "passcode_in_password"
+	keyOktaURL                      = "okta_url"
+	keyLoginTimeout                 = "login_timeout"
+	keyRequestTimeout               = "request_timeout"
+	keyClientTimeout                = "client_timeout"
+	keyJwtClientTimeout             = "jwt_client_timeout"
+	keyJwtExpireTimeout             = "jwt_expire_timeout"
+	keyExternalBrowserTimeout       = "external_browser_timeout"
+	keyMaxRetryCount                = "max_retry_count"
+	keyClientRequestMfaToken        = "client_request_mfa_token"
+	keyClientStoreTemporaryCred     = "client_store_temporary_credential"
+	keyKeepSessionAlive             = "keep_session_alive"
+	keyValidateDefaultParameters    = "validate_default_parameters"
+	keyOcspFailOpen                 = "ocsp_fail_open"
+	keyDisableOcspChecks            = "disable_ocsp_checks"
+	keyDisableQueryContextCache     = "disable_query_context_cache"
+	keyInsecureMode                 = "insecure_mode"
+	keyDisableTelemetry             = "disable_telemetry"
+	keyIncludeRetryReason           = "include_retry_reason"
+	keyDisableConsoleLogin          = "disable_console_login"
+	keyDisableSamlURLCheck          = "disable_saml_url_check"
+	keyTmpDirPath                   = "tmp_dir_path"
+	keyDriverTracing                = "driver_tracing"
+	keyOauthClientID                = "oauth_client_id"
+	keyOauthClientSecret            = "oauth_client_secret"
+	keyOauthAuthorizationURL        = "oauth_authorization_url"
+	keyOauthTokenRequestURL         = "oauth_token_request_url"
+	keyOauthRedirectURI             = "oauth_redirect_uri"
+	keyOauthScope                   = "oauth_scope"
+	keyWorkloadIdentityProvider     = "workload_identity_provider"
+	keyWorkloadIdentityEntraResource = "workload_identity_entra_resource"
+	keyEnableSingleUseRefreshTokens = "enable_single_use_refresh_tokens"
+	keyCertRevocationCheckMode      = "cert_revocation_check_mode"
+	keyCrlAllowCertsWithoutCrlURL   = "crl_allow_certificates_without_crl_url"
+	keyCrlInMemoryCacheDisabled     = "crl_in_memory_cache_disabled"
+	keyCrlOnDiskCacheDisabled       = "crl_on_disk_cache_disabled"
+	keyCrlHTTPClientTimeout         = "crl_http_client_timeout"
+	keyProxyHost                    = "proxy_host"
+	keyProxyPort                    = "proxy_port"
+	keyProxyUser                    = "proxy_user"
+	keyProxyPassword                = "proxy_password"
+	keyProxyProtocol                = "proxy_protocol"
+	keyNoProxy                      = "no_proxy"
+	keyLogQueryText                 = "log_query_text"
+	keyLogQueryParameters           = "log_query_parameters"
+	keySkipTomlFilePermVerification = "skip_toml_file_permission_verification"
+	keyUseLegacyTomlFile            = "use_legacy_toml_file"
+)
+
+// configKeys lists all supported Snowflake provider config keys.
+var configKeys = []string{
+	keyAccountName,
+	keyOrganizationName,
+	keyUser,
+	keyPassword,
+	keyAuthenticator,
+	keyPrivateKey,
+	keyPrivateKeyPassphrase,
+	keyToken,
+	keyRole,
+	keyWarehouse,
+	keyHost,
+	keyProtocol,
+	keyPort,
+	keyProfile,
+	keyPasscode,
+	keyPasscodeInPassword,
+	keyOktaURL,
+	keyLoginTimeout,
+	keyRequestTimeout,
+	keyClientTimeout,
+	keyJwtClientTimeout,
+	keyJwtExpireTimeout,
+	keyExternalBrowserTimeout,
+	keyMaxRetryCount,
+	keyClientRequestMfaToken,
+	keyClientStoreTemporaryCred,
+	keyKeepSessionAlive,
+	keyValidateDefaultParameters,
+	keyOcspFailOpen,
+	keyDisableOcspChecks,
+	keyDisableQueryContextCache,
+	keyInsecureMode,
+	keyDisableTelemetry,
+	keyIncludeRetryReason,
+	keyDisableConsoleLogin,
+	keyDisableSamlURLCheck,
+	keyTmpDirPath,
+	keyDriverTracing,
+	keyOauthClientID,
+	keyOauthClientSecret,
+	keyOauthAuthorizationURL,
+	keyOauthTokenRequestURL,
+	keyOauthRedirectURI,
+	keyOauthScope,
+	keyWorkloadIdentityProvider,
+	keyWorkloadIdentityEntraResource,
+	keyEnableSingleUseRefreshTokens,
+	keyCertRevocationCheckMode,
+	keyCrlAllowCertsWithoutCrlURL,
+	keyCrlInMemoryCacheDisabled,
+	keyCrlOnDiskCacheDisabled,
+	keyCrlHTTPClientTimeout,
+	keyProxyHost,
+	keyProxyPort,
+	keyProxyUser,
+	keyProxyPassword,
+	keyProxyProtocol,
+	keyNoProxy,
+	keyLogQueryText,
+	keyLogQueryParameters,
+	keySkipTomlFilePermVerification,
+	keyUseLegacyTomlFile,
+}
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
@@ -50,11 +185,13 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		// Map credentials to Terraform provider configuration.
+		ps.Configuration = make(map[string]any, len(configKeys))
+		for _, k := range configKeys {
+			if v, ok := creds[k]; ok {
+				ps.Configuration[k] = v
+			}
+		}
 		return ps, nil
 	}
 }
