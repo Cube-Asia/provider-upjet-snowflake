@@ -7,17 +7,42 @@ import (
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": idWithStub(),
-}
+	// =============================================================================
+	// Stable User resources
+	// =============================================================================
 
-func idWithStub() config.ExternalName {
-	e := config.IdentifierFromProvider
-	e.GetExternalNameFn = func(tfstate map[string]any) (string, error) {
-		en, _ := config.IDAsExternalName(tfstate)
-		return en, nil
-	}
-	return e
+	// snowflake_user: import with '"<user_name>"' — ID is the user name.
+	// ponytail: uses name field as identifier, omitted from CRD spec (set via external-name annotation).
+	"snowflake_user": config.NameAsIdentifier,
+
+	// snowflake_service_user: same pattern as snowflake_user.
+	"snowflake_service_user": config.NameAsIdentifier,
+
+	// snowflake_legacy_service_user: same pattern as snowflake_user.
+	"snowflake_legacy_service_user": config.NameAsIdentifier,
+
+	// snowflake_user_programmatic_access_token: compound ID '"<user>"|"<name>"'.
+	// ID combines user and token name — cannot derive from a single field.
+	"snowflake_user_programmatic_access_token": config.IdentifierFromProvider,
+
+	// snowflake_user_session_policy_attachment: compound ID
+	// '"<user_name>"|"<database>"."<schema>"."<session_policy>"'.
+	"snowflake_user_session_policy_attachment": config.IdentifierFromProvider,
+
+	// =============================================================================
+	// Preview User resources (subject to breaking changes)
+	// =============================================================================
+
+	// snowflake_user_public_keys: uses name field (user name) as identifier.
+	"snowflake_user_public_keys": config.NameAsIdentifier,
+
+	// snowflake_user_authentication_policy_attachment: no import section;
+	// ID format is provider-generated compound.
+	"snowflake_user_authentication_policy_attachment": config.IdentifierFromProvider,
+
+	// snowflake_user_password_policy_attachment: pipe-separated compound ID
+	// "DATABASE|SCHEMA|POLICY|USER".
+	"snowflake_user_password_policy_attachment": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

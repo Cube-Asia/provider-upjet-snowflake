@@ -1,0 +1,27 @@
+apiVersion: userpreview.snowflake.m.crossplane.io/v1alpha1
+kind: AuthenticationPolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userpreview/v1alpha1/authenticationpolicyattachment
+  labels:
+    testing.upbound.io/example-name: apa
+  name: apa
+  namespace: crossplane-system
+spec:
+  forProvider:
+    authenticationPolicyName: ${snowflake_authentication_policy.ap.fully_qualified_name}
+    userName: ${snowflake_user.user.name}
+
+---
+
+apiVersion: user.snowflake.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: userpreview/v1alpha1/authenticationpolicyattachment
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+  namespace: crossplane-system
+spec:
+  forProvider: {}

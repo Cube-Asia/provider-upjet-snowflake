@@ -1,5 +1,6 @@
 [tools]
 go = "1.25.9"
 "go:golang.org/x/tools/cmd/goimports" = "0.48.0"
+golangci-lint = "2.12.1"
 kind = "0.31.0"
 terraform = "1.15.7"

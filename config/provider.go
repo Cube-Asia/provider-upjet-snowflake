@@ -6,8 +6,10 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-	nullCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/null"
-	nullNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/null"
+	userCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/user"
+	userpreviewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/userpreview"
+	userNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/user"
+	userpreviewNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/userpreview"
 )
 
 const (
@@ -33,7 +35,8 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullCluster.Configure,
+		userCluster.Configure,
+		userpreviewCluster.Configure,
 	} {
 		configure(pc)
 	}
@@ -57,7 +60,8 @@ func GetProviderNamespaced() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullNamespaced.Configure,
+		userNamespaced.Configure,
+		userpreviewNamespaced.Configure,
 	} {
 		configure(pc)
 	}

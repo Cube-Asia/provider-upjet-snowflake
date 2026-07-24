@@ -1,0 +1,11 @@
+apiVersion: user.snowflake.m.crossplane.io/v1alpha1
+kind: LegacyServiceUser
+metadata:
+  annotations:
+    meta.upbound.io/example-id: user/v1alpha1/legacyserviceuser
+  labels:
+    testing.upbound.io/example-name: minimal
+  name: minimal
+  namespace: crossplane-system
+spec:
+  forProvider: {}

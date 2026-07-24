@@ -10,7 +10,8 @@ package namespaced
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/null/v1alpha1"
+	v1alpha1 "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/user/v1alpha1"
+	v1alpha1userpreview "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/userpreview/v1alpha1"
 	v1alpha1namespaced "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/v1alpha1"
 	v1beta1 "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/v1beta1"
 )
@@ -19,6 +20,7 @@ func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1userpreview.SchemeBuilder.AddToScheme,
 		v1alpha1namespaced.SchemeBuilder.AddToScheme,
 		v1beta1.SchemeBuilder.AddToScheme,
 	)
