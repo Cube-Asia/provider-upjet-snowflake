@@ -1,4 +1,4 @@
-module github.com/crossplane/upjet-provider-template
+module github.com/Cube-Asia/provider-upjet-snowflake
 
 go 1.25.9
 

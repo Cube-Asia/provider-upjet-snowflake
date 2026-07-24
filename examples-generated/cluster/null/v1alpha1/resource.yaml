@@ -1,4 +1,4 @@
-apiVersion: null.template.crossplane.io/v1alpha1
+apiVersion: null.snowflake.crossplane.io/v1alpha1
 kind: Resource
 metadata:
   annotations:

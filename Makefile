@@ -1,8 +1,8 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= upjet-provider-template
-PROJECT_REPO ?= github.com/crossplane/$(PROJECT_NAME)
+PROJECT_NAME ?= provider-snowflake
+PROJECT_REPO ?= github.com/Cube-Asia/provider-upjet-snowflake
 
 export TERRAFORM_VERSION ?= 1.5.7
 
@@ -10,7 +10,7 @@ export TERRAFORM_VERSION ?= 1.5.7
 # licensed under BSL, which is not permitted.
 TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAFORM_VERSION)\n1.6" | sort -V | head -n1`" ] && echo 1 || echo 0)
 
-export TERRAFORM_PROVIDER_SOURCE ?= hashicorp/null
+export TERRAFORM_PROVIDER_SOURCE ?= snowflakedb/snowflake
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/hashicorp/terraform-provider-null
 export TERRAFORM_PROVIDER_VERSION ?= 3.2.4
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-null
@@ -95,7 +95,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.upjet-provider-template: do.build.images
+xpkg.build.provider-snowflake: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
