@@ -1,0 +1,16 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: ExternalVolume
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/externalvolume
+  labels:
+    testing.upbound.io/example-name: s3_basic
+  name: s3-basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    storageLocation:
+    - storageAwsRoleArn: arn:aws:iam::123456789012:role/myrole
+      storageBaseUrl: s3://mybucket/
+      storageLocationName: my-s3-location
+      storageProvider: S3

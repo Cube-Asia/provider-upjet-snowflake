@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: StreamOnView
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/streamonview
+  labels:
+    testing.upbound.io/example-name: stream
+  name: stream
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+    schema: schema
+    view: ${snowflake_view.example.fully_qualified_name}

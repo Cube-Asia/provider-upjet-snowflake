@@ -4,53 +4,24 @@ metadata:
   annotations:
     meta.upbound.io/example-id: stable/v1alpha1/databaserole
   labels:
-    testing.upbound.io/example-name: g
-  name: g
+    testing.upbound.io/example-name: test_database_role
+  name: test-database-role
   namespace: crossplane-system
 spec:
   forProvider:
-    parentRoleName: ${snowflake_account_role.parent_role.name}
+    comment: my database role
+    database: ${snowflake_database.test_database.fully_qualified_name}
 
 ---
 
 apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
-kind: AccountRole
+kind: Database
 metadata:
   annotations:
     meta.upbound.io/example-id: stable/v1alpha1/databaserole
   labels:
-    testing.upbound.io/example-name: parent_role
-  name: parent-role
+    testing.upbound.io/example-name: test_database
+  name: test-database
   namespace: crossplane-system
 spec:
   forProvider: {}
-
----
-
-apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
-kind: Role
-metadata:
-  annotations:
-    meta.upbound.io/example-id: stable/v1alpha1/databaserole
-  labels:
-    testing.upbound.io/example-name: database_role
-  name: database-role
-  namespace: crossplane-system
-spec:
-  forProvider:
-    database: ${var.database}
-
----
-
-apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
-kind: Role
-metadata:
-  annotations:
-    meta.upbound.io/example-id: stable/v1alpha1/databaserole
-  labels:
-    testing.upbound.io/example-name: parent_database_role
-  name: parent-database-role
-  namespace: crossplane-system
-spec:
-  forProvider:
-    database: ${var.database}

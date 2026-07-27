@@ -1,0 +1,15 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: IcebergTableFromFiles
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/icebergtablefromfiles
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: DATABASE
+    externalVolume: my_external_volume
+    metadataFilePath: path/to/metadata/v1.metadata.json
+    schema: SCHEMA

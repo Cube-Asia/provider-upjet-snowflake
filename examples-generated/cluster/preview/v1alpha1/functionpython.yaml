@@ -1,0 +1,25 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: FunctionPython
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/functionpython
+  labels:
+    testing.upbound.io/example-name: minimal
+  name: minimal
+spec:
+  forProvider:
+    arguments:
+    - argDataType: NUMBER(36, 2)
+      argName: x
+    database: ${snowflake_database.test.name}
+    functionDefinition: |
+      def some_function(x):
+        result = ''
+        for a in range(5):
+          result += x
+        return result
+    handler: some_function
+    name: my_function_function
+    returnType: NUMBER(36, 2)
+    runtimeVersion: "3.9"
+    schema: ${snowflake_schema.test.name}

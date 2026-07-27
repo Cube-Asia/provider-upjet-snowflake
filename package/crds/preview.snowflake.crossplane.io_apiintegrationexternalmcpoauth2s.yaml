@@ -1,0 +1,561 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: apiintegrationexternalmcpoauth2s.preview.snowflake.crossplane.io
+spec:
+  group: preview.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: ApiIntegrationExternalMcpOauth2
+    listKind: ApiIntegrationExternalMcpOauth2List
+    plural: apiintegrationexternalmcpoauth2s
+    singular: apiintegrationexternalmcpoauth2
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: ApiIntegrationExternalMcpOauth2 is the Schema for the ApiIntegrationExternalMcpOauth2s
+          API. Resource used to manage API integration for external MCP (Model Context
+          Protocol) servers using OAuth 2.0 authentication. For more information,
+          check api integration documentation https://docs.snowflake.com/en/sql-reference/sql/create-api-integration.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ApiIntegrationExternalMcpOauth2Spec defines the desired state
+              of ApiIntegrationExternalMcpOauth2
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  apiAllowedPrefixes:
+                    description: |-
+                      (List of String) Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                      Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                    items:
+                      type: string
+                    type: array
+                  apiBlockedPrefixes:
+                    description: |-
+                      (List of String) Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                      Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                    items:
+                      type: string
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether this API integration is enabled or disabled.
+                      Specifies whether this API integration is enabled or disabled.
+                    type: boolean
+                  oauthAuthorizationEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                    type: string
+                  oauthClientAuthMethod:
+                    description: |-
+                      insensitive): CLIENT_SECRET_BASIC | CLIENT_SECRET_POST.
+                      Specifies the OAuth 2.0 client authentication method. Valid values are (case-insensitive): `CLIENT_SECRET_BASIC` | `CLIENT_SECRET_POST`.
+                    type: string
+                  oauthClientId:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 client ID for the MCP server.
+                      Specifies the OAuth 2.0 client ID for the MCP server.
+                    type: string
+                  oauthClientSecretSecretRef:
+                    description: Specifies the OAuth 2.0 client secret for the MCP
+                      server. External changes for this field won't be detected.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  oauthRefreshTokenValidity:
+                    description: |-
+                      (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                      Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                    type: number
+                  oauthTokenEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  apiAllowedPrefixes:
+                    description: |-
+                      (List of String) Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                      Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                    items:
+                      type: string
+                    type: array
+                  apiBlockedPrefixes:
+                    description: |-
+                      (List of String) Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                      Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                    items:
+                      type: string
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether this API integration is enabled or disabled.
+                      Specifies whether this API integration is enabled or disabled.
+                    type: boolean
+                  oauthAuthorizationEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                    type: string
+                  oauthClientAuthMethod:
+                    description: |-
+                      insensitive): CLIENT_SECRET_BASIC | CLIENT_SECRET_POST.
+                      Specifies the OAuth 2.0 client authentication method. Valid values are (case-insensitive): `CLIENT_SECRET_BASIC` | `CLIENT_SECRET_POST`.
+                    type: string
+                  oauthClientId:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 client ID for the MCP server.
+                      Specifies the OAuth 2.0 client ID for the MCP server.
+                    type: string
+                  oauthClientSecretSecretRef:
+                    description: Specifies the OAuth 2.0 client secret for the MCP
+                      server. External changes for this field won't be detected.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                  oauthRefreshTokenValidity:
+                    description: |-
+                      (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                      Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                    type: number
+                  oauthTokenEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                    type: string
+                required:
+                - oauthClientSecretSecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.apiAllowedPrefixes is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.apiAllowedPrefixes)
+                || (has(self.initProvider) && has(self.initProvider.apiAllowedPrefixes))'
+            - message: spec.forProvider.enabled is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.enabled)
+                || (has(self.initProvider) && has(self.initProvider.enabled))'
+            - message: spec.forProvider.oauthAuthorizationEndpoint is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.oauthAuthorizationEndpoint)
+                || (has(self.initProvider) && has(self.initProvider.oauthAuthorizationEndpoint))'
+            - message: spec.forProvider.oauthClientId is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.oauthClientId)
+                || (has(self.initProvider) && has(self.initProvider.oauthClientId))'
+            - message: spec.forProvider.oauthClientSecretSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.oauthClientSecretSecretRef)'
+            - message: spec.forProvider.oauthTokenEndpoint is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.oauthTokenEndpoint)
+                || (has(self.initProvider) && has(self.initProvider.oauthTokenEndpoint))'
+          status:
+            description: ApiIntegrationExternalMcpOauth2Status defines the observed
+              state of ApiIntegrationExternalMcpOauth2.
+            properties:
+              atProvider:
+                properties:
+                  apiAllowedPrefixes:
+                    description: |-
+                      (List of String) Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                      Explicitly limits external functions that use the integration to reference one or more HTTPS proxy service and remote service endpoints and resources.
+                    items:
+                      type: string
+                    type: array
+                  apiBlockedPrefixes:
+                    description: |-
+                      (List of String) Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                      Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
+                    items:
+                      type: string
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE API INTEGRATION for the given integration. (see below for nested schema)
+                      Outputs the result of `DESCRIBE API INTEGRATION` for the given integration.
+                    items:
+                      properties:
+                        allowedPrefixes:
+                          description: (List of String)
+                          items:
+                            type: string
+                          type: array
+                        apiProvider:
+                          description: (String)
+                          type: string
+                        blockedPrefixes:
+                          description: (List of String)
+                          items:
+                            type: string
+                          type: array
+                        comment:
+                          description: (String) Specifies a comment for the integration.
+                          type: string
+                        enabled:
+                          description: (Boolean) Specifies whether this API integration
+                            is enabled or disabled.
+                          type: boolean
+                        oauthAccessTokenValidity:
+                          description: (Number)
+                          type: number
+                        oauthAllowedScopes:
+                          description: (List of String)
+                          items:
+                            type: string
+                          type: array
+                        oauthAssertionIssuer:
+                          description: (String)
+                          type: string
+                        oauthAuthorizationEndpoint:
+                          description: (String) Specifies the OAuth 2.0 authorization
+                            endpoint URL for the MCP server.
+                          type: string
+                        oauthClientAuthMethod:
+                          description: 'insensitive): CLIENT_SECRET_BASIC | CLIENT_SECRET_POST.'
+                          type: string
+                        oauthClientId:
+                          description: (String) Specifies the OAuth 2.0 client ID
+                            for the MCP server.
+                          type: string
+                        oauthGrant:
+                          description: (String)
+                          type: string
+                        oauthRefreshTokenValidity:
+                          description: (Number) Specifies the validity period (in
+                            seconds) for refresh tokens issued by the MCP server.
+                          type: number
+                        oauthTokenEndpoint:
+                          description: (String) Specifies the OAuth 2.0 token endpoint
+                            URL for the MCP server.
+                          type: string
+                        oauthUsername:
+                          description: (String)
+                          type: string
+                        userAuthType:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether this API integration is enabled or disabled.
+                      Specifies whether this API integration is enabled or disabled.
+                    type: boolean
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  oauthAuthorizationEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 authorization endpoint URL for the MCP server.
+                    type: string
+                  oauthClientAuthMethod:
+                    description: |-
+                      insensitive): CLIENT_SECRET_BASIC | CLIENT_SECRET_POST.
+                      Specifies the OAuth 2.0 client authentication method. Valid values are (case-insensitive): `CLIENT_SECRET_BASIC` | `CLIENT_SECRET_POST`.
+                    type: string
+                  oauthClientId:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 client ID for the MCP server.
+                      Specifies the OAuth 2.0 client ID for the MCP server.
+                    type: string
+                  oauthRefreshTokenValidity:
+                    description: |-
+                      (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                      Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
+                    type: number
+                  oauthTokenEndpoint:
+                    description: |-
+                      (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                      Specifies the OAuth 2.0 token endpoint URL for the MCP server.
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW API INTEGRATIONS for the given integration. (see below for nested schema)
+                      Outputs the result of `SHOW API INTEGRATIONS` for the given integration.
+                    items:
+                      properties:
+                        apiType:
+                          description: (String)
+                          type: string
+                        category:
+                          description: (String)
+                          type: string
+                        comment:
+                          description: (String) Specifies a comment for the integration.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        enabled:
+                          description: (Boolean) Specifies whether this API integration
+                            is enabled or disabled.
+                          type: boolean
+                        name:
+                          description: '(String) Specifies the identifier (i.e. name)
+                            for the integration. This value must be unique in your
+                            account. Due to technical limitations (read more here),
+                            avoid using the following characters: |, ., ".'
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

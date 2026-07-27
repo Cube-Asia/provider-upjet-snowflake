@@ -113,7 +113,7 @@ func (tr *Table) GetMergedParameters(shouldMergeInitProvider bool) (map[string]a
 // LateInitialize this Table using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Table) LateInitialize(attrs []byte) (bool, error) {
-	params := &TableParameters_3{}
+	params := &TableParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}

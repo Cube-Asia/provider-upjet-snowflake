@@ -1,0 +1,18 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: MaterializedView
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/materializedview
+  labels:
+    testing.upbound.io/example-name: view
+  name: view
+spec:
+  forProvider:
+    comment: comment
+    database: db
+    isSecure: false
+    orReplace: false
+    schema: schema
+    statement: |
+      select * from foo;
+    warehouse: warehouse

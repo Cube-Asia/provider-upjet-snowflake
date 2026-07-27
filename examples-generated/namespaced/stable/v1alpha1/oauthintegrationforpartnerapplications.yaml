@@ -1,0 +1,15 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: OauthIntegrationForPartnerApplications
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/oauthintegrationforpartnerapplications
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    oauthClient: LOOKER
+    oauthRedirectUriSecretRef:
+      key: example-key
+      name: example-secret

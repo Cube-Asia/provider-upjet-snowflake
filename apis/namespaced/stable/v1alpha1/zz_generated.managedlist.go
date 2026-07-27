@@ -17,6 +17,15 @@ func (l *AccountList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this AccountParameterList.
+func (l *AccountParameterList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this AccountRoleList.
 func (l *AccountRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -35,8 +44,8 @@ func (l *AccountSessionPolicyAttachmentList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this ApplicationRoleList.
-func (l *ApplicationRoleList) GetItems() []resource.Managed {
+// GetItems of this ApiAuthenticationIntegrationWithAuthorizationCodeGrantList.
+func (l *ApiAuthenticationIntegrationWithAuthorizationCodeGrantList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -44,8 +53,8 @@ func (l *ApplicationRoleList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this AssociationList.
-func (l *AssociationList) GetItems() []resource.Managed {
+// GetItems of this ApiAuthenticationIntegrationWithClientCredentialsList.
+func (l *ApiAuthenticationIntegrationWithClientCredentialsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -53,26 +62,8 @@ func (l *AssociationList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this AuthenticationIntegrationWithAuthorizationCodeGrantList.
-func (l *AuthenticationIntegrationWithAuthorizationCodeGrantList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this AuthenticationIntegrationWithClientCredentialsList.
-func (l *AuthenticationIntegrationWithClientCredentialsList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this AuthenticationIntegrationWithJwtBearerList.
-func (l *AuthenticationIntegrationWithJwtBearerList) GetItems() []resource.Managed {
+// GetItems of this ApiAuthenticationIntegrationWithJwtBearerList.
+func (l *ApiAuthenticationIntegrationWithJwtBearerList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -89,8 +80,62 @@ func (l *AuthenticationPolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this ConnectionList.
-func (l *ConnectionList) GetItems() []resource.Managed {
+// GetItems of this CatalogIntegrationAwsGlueList.
+func (l *CatalogIntegrationAwsGlueList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this CatalogIntegrationIcebergRestList.
+func (l *CatalogIntegrationIcebergRestList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this CatalogIntegrationObjectStorageList.
+func (l *CatalogIntegrationObjectStorageList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this CatalogIntegrationOpenCatalogList.
+func (l *CatalogIntegrationOpenCatalogList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this ComputePoolList.
+func (l *ComputePoolList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this CurrentAccountList.
+func (l *CurrentAccountList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this CurrentOrganizationAccountList.
+func (l *CurrentOrganizationAccountList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -125,8 +170,8 @@ func (l *ExecuteList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this ExternalAzureList.
-func (l *ExternalAzureList) GetItems() []resource.Managed {
+// GetItems of this ExternalOauthIntegrationList.
+func (l *ExternalOauthIntegrationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -134,8 +179,8 @@ func (l *ExternalAzureList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this ExternalGcsList.
-func (l *ExternalGcsList) GetItems() []resource.Managed {
+// GetItems of this ExternalVolumeList.
+func (l *ExternalVolumeList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -143,17 +188,8 @@ func (l *ExternalGcsList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this ExternalS3CompatibleList.
-func (l *ExternalS3CompatibleList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this ExternalS3List.
-func (l *ExternalS3List) GetItems() []resource.Managed {
+// GetItems of this GitRepositoryList.
+func (l *GitRepositoryList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -170,8 +206,8 @@ func (l *GrantAccountRoleList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationAwsGlueList.
-func (l *IntegrationAwsGlueList) GetItems() []resource.Managed {
+// GetItems of this GrantApplicationRoleList.
+func (l *GrantApplicationRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -179,8 +215,8 @@ func (l *IntegrationAwsGlueList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationAwsList.
-func (l *IntegrationAwsList) GetItems() []resource.Managed {
+// GetItems of this GrantDatabaseRoleList.
+func (l *GrantDatabaseRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -188,8 +224,8 @@ func (l *IntegrationAwsList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationAzureList.
-func (l *IntegrationAzureList) GetItems() []resource.Managed {
+// GetItems of this GrantOwnershipList.
+func (l *GrantOwnershipList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -197,8 +233,8 @@ func (l *IntegrationAzureList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationForCustomClientsList.
-func (l *IntegrationForCustomClientsList) GetItems() []resource.Managed {
+// GetItems of this GrantPrivilegesToAccountRoleList.
+func (l *GrantPrivilegesToAccountRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -206,8 +242,8 @@ func (l *IntegrationForCustomClientsList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationForPartnerApplicationsList.
-func (l *IntegrationForPartnerApplicationsList) GetItems() []resource.Managed {
+// GetItems of this GrantPrivilegesToDatabaseRoleList.
+func (l *GrantPrivilegesToDatabaseRoleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -215,8 +251,8 @@ func (l *IntegrationForPartnerApplicationsList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationGcsList.
-func (l *IntegrationGcsList) GetItems() []resource.Managed {
+// GetItems of this GrantPrivilegesToShareList.
+func (l *GrantPrivilegesToShareList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -224,35 +260,8 @@ func (l *IntegrationGcsList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this IntegrationIcebergRestList.
-func (l *IntegrationIcebergRestList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this IntegrationList.
-func (l *IntegrationList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this IntegrationObjectStorageList.
-func (l *IntegrationObjectStorageList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this IntegrationOpenCatalogList.
-func (l *IntegrationOpenCatalogList) GetItems() []resource.Managed {
+// GetItems of this ImageRepositoryList.
+func (l *ImageRepositoryList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -287,8 +296,8 @@ func (l *MaskingPolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this MonitorList.
-func (l *MonitorList) GetItems() []resource.Managed {
+// GetItems of this NetworkPolicyList.
+func (l *NetworkPolicyList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -296,8 +305,8 @@ func (l *MonitorList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this OauthIntegrationList.
-func (l *OauthIntegrationList) GetItems() []resource.Managed {
+// GetItems of this NetworkRuleList.
+func (l *NetworkRuleList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -305,8 +314,8 @@ func (l *OauthIntegrationList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this OnDirectoryTableList.
-func (l *OnDirectoryTableList) GetItems() []resource.Managed {
+// GetItems of this OauthIntegrationForCustomClientsList.
+func (l *OauthIntegrationForCustomClientsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -314,53 +323,8 @@ func (l *OnDirectoryTableList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this OnExternalTableList.
-func (l *OnExternalTableList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this OnTableList.
-func (l *OnTableList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this OnViewList.
-func (l *OnViewList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this OrganizationAccountList.
-func (l *OrganizationAccountList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this OwnershipList.
-func (l *OwnershipList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this ParameterList.
-func (l *ParameterList) GetItems() []resource.Managed {
+// GetItems of this OauthIntegrationForPartnerApplicationsList.
+func (l *OauthIntegrationForPartnerApplicationsList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -377,8 +341,8 @@ func (l *PasswordPolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this PolicyList.
-func (l *PolicyList) GetItems() []resource.Managed {
+// GetItems of this PrimaryConnectionList.
+func (l *PrimaryConnectionList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -386,62 +350,8 @@ func (l *PolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this PoolList.
-func (l *PoolList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this PrivilegesToAccountRoleList.
-func (l *PrivilegesToAccountRoleList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this PrivilegesToDatabaseRoleList.
-func (l *PrivilegesToDatabaseRoleList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this PrivilegesToShareList.
-func (l *PrivilegesToShareList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this ProgrammaticAccessTokenList.
-func (l *ProgrammaticAccessTokenList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this RepositoryList.
-func (l *RepositoryList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this RoleList.
-func (l *RoleList) GetItems() []resource.Managed {
+// GetItems of this ResourceMonitorList.
+func (l *ResourceMonitorList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -458,8 +368,8 @@ func (l *RowAccessPolicyList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this RuleList.
-func (l *RuleList) GetItems() []resource.Managed {
+// GetItems of this Saml2IntegrationList.
+func (l *Saml2IntegrationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -476,8 +386,62 @@ func (l *SchemaList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this ScimIntegrationList.
+func (l *ScimIntegrationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecondaryConnectionList.
+func (l *SecondaryConnectionList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this SecondaryDatabaseList.
 func (l *SecondaryDatabaseList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecretWithAuthorizationCodeGrantList.
+func (l *SecretWithAuthorizationCodeGrantList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecretWithBasicAuthenticationList.
+func (l *SecretWithBasicAuthenticationList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecretWithClientCredentialsList.
+func (l *SecretWithClientCredentialsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this SecretWithGenericStringList.
+func (l *SecretWithGenericStringList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -503,15 +467,6 @@ func (l *ServiceUserList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this SessionPolicyAttachmentList.
-func (l *SessionPolicyAttachmentList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this SessionPolicyList.
 func (l *SessionPolicyList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -530,6 +485,42 @@ func (l *SharedDatabaseList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this StageExternalAzureList.
+func (l *StageExternalAzureList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StageExternalGcsList.
+func (l *StageExternalGcsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StageExternalS3CompatibleList.
+func (l *StageExternalS3CompatibleList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StageExternalS3List.
+func (l *StageExternalS3List) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this StageInternalList.
 func (l *StageInternalList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -539,8 +530,80 @@ func (l *StageInternalList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this StorageIntegrationAwsList.
+func (l *StorageIntegrationAwsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StorageIntegrationAzureList.
+func (l *StorageIntegrationAzureList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StorageIntegrationGcsList.
+func (l *StorageIntegrationGcsList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StreamOnDirectoryTableList.
+func (l *StreamOnDirectoryTableList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StreamOnExternalTableList.
+func (l *StreamOnExternalTableList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StreamOnTableList.
+func (l *StreamOnTableList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this StreamOnViewList.
+func (l *StreamOnViewList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this StreamlitList.
 func (l *StreamlitList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this TagAssociationList.
+func (l *TagAssociationList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]
@@ -575,6 +638,24 @@ func (l *UserList) GetItems() []resource.Managed {
 	return items
 }
 
+// GetItems of this UserProgrammaticAccessTokenList.
+func (l *UserProgrammaticAccessTokenList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
+// GetItems of this UserSessionPolicyAttachmentList.
+func (l *UserSessionPolicyAttachmentList) GetItems() []resource.Managed {
+	items := make([]resource.Managed, len(l.Items))
+	for i := range l.Items {
+		items[i] = &l.Items[i]
+	}
+	return items
+}
+
 // GetItems of this ViewList.
 func (l *ViewList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
@@ -584,53 +665,8 @@ func (l *ViewList) GetItems() []resource.Managed {
 	return items
 }
 
-// GetItems of this VolumeList.
-func (l *VolumeList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
 // GetItems of this WarehouseList.
 func (l *WarehouseList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this WithAuthorizationCodeGrantList.
-func (l *WithAuthorizationCodeGrantList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this WithBasicAuthenticationList.
-func (l *WithBasicAuthenticationList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this WithClientCredentialsList.
-func (l *WithClientCredentialsList) GetItems() []resource.Managed {
-	items := make([]resource.Managed, len(l.Items))
-	for i := range l.Items {
-		items[i] = &l.Items[i]
-	}
-	return items
-}
-
-// GetItems of this WithGenericStringList.
-func (l *WithGenericStringList) GetItems() []resource.Managed {
 	items := make([]resource.Managed, len(l.Items))
 	for i := range l.Items {
 		items[i] = &l.Items[i]

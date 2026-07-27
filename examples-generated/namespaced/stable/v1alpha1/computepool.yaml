@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: ComputePool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/computepool
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    instanceFamily: CPU_X64_S
+    maxNodes: 2
+    minNodes: 1

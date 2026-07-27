@@ -1,0 +1,13 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: FileFormat
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/fileformat
+  labels:
+    testing.upbound.io/example-name: example_file_format
+  name: example-file-format
+spec:
+  forProvider:
+    database: EXAMPLE_DB
+    formatType: CSV
+    schema: EXAMPLE_SCHEMA

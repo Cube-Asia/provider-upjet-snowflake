@@ -1,0 +1,13 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: StreamOnDirectoryTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/streamondirectorytable
+  labels:
+    testing.upbound.io/example-name: stream
+  name: stream
+spec:
+  forProvider:
+    database: database
+    schema: schema
+    stage: ${snowflake_stage.example.fully_qualified_name}

@@ -1,0 +1,24 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ProcedureJavascript
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/procedurejavascript
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    name: Name
+    procedureDefinition: |2
+        if (x == 0) {
+          return 1;
+        } else {
+          return 2;
+        }
+    returnType: VARCHAR(100)
+    schema: Schema

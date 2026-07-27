@@ -249,7 +249,7 @@ type TableColumnParameters struct {
 	Type *string `json:"type" tf:"type,omitempty"`
 }
 
-type TableInitParameters_3 struct {
+type TableInitParameters struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
 	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
@@ -280,7 +280,7 @@ type TableInitParameters_3 struct {
 	Tag []TableTagInitParameters `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
-type TableObservation_3 struct {
+type TableObservation struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
 	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
@@ -330,7 +330,7 @@ type TableObservation_3 struct {
 	Tag []TableTagObservation `json:"tag,omitempty" tf:"tag,omitempty"`
 }
 
-type TableParameters_3 struct {
+type TableParameters struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
 	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
@@ -434,7 +434,7 @@ type TableTagParameters struct {
 // TableSpec defines the desired state of Table
 type TableSpec struct {
 	v2.ManagedResourceSpec `json:",inline"`
-	ForProvider            TableParameters_3 `json:"forProvider"`
+	ForProvider            TableParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -445,13 +445,13 @@ type TableSpec struct {
 	// required on creation, but we do not desire to update them after creation,
 	// for example because of an external controller is managing them, like an
 	// autoscaler.
-	InitProvider TableInitParameters_3 `json:"initProvider,omitempty"`
+	InitProvider TableInitParameters `json:"initProvider,omitempty"`
 }
 
 // TableStatus defines the observed state of Table.
 type TableStatus struct {
 	v1.ResourceStatus `json:",inline"`
-	AtProvider        TableObservation_3 `json:"atProvider,omitempty"`
+	AtProvider        TableObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

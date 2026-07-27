@@ -1,0 +1,20 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ApiIntegrationGitRepositoryOauth2
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/apiintegrationgitrepositoryoauth2
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://gitlab.com/my-org/
+    enabled: true
+    oauthAuthorizationEndpoint: https://gitlab.com/oauth/authorize
+    oauthClientId: my-client-id
+    oauthClientSecretSecretRef:
+      key: example-key
+      name: example-secret
+    oauthTokenEndpoint: https://gitlab.com/oauth/token

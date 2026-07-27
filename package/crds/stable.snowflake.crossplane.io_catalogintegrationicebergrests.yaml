@@ -1,0 +1,872 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: catalogintegrationicebergrests.stable.snowflake.crossplane.io
+spec:
+  group: stable.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: CatalogIntegrationIcebergRest
+    listKind: CatalogIntegrationIcebergRestList
+    plural: catalogintegrationicebergrests
+    singular: catalogintegrationicebergrest
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: CatalogIntegrationIcebergRest is the Schema for the CatalogIntegrationIcebergRests
+          API. Resource used to manage catalog integration objects for Apache Iceberg™
+          tables managed in a remote catalog that complies with the open source Apache
+          Iceberg™ REST OpenAPI specification. For more information, check catalog
+          integration documentation https://docs.snowflake.com/en/sql-reference/sql/create-catalog-integration-rest.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: CatalogIntegrationIcebergRestSpec defines the desired state
+              of CatalogIntegrationIcebergRest
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  bearerRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        bearerTokenSecretRef:
+                          description: The bearer token for the identity provider.
+                            External changes for this field won't be detected.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      type: object
+                    type: array
+                  catalogNamespace:
+                    description: |-
+                      (String) Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                      Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the catalog integration.
+                      (Default: “) Specifies a comment for the catalog integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether the catalog integration is available for use for Iceberg tables. true allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. false prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                      Specifies whether the catalog integration is available for use for Iceberg tables. `true` allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. `false` prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                    type: boolean
+                  oauthRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        oauthAllowedScopes:
+                          description: |-
+                            (List of String) Specifies one or more scopes for the OAuth token.
+                            Specifies one or more scopes for the OAuth token.
+                          items:
+                            type: string
+                          type: array
+                        oauthClientIdSecretRef:
+                          description: |-
+                            (String, Sensitive) Specifies the client ID of the OAuth2 credential.
+                            Specifies the client ID of the OAuth2 credential.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        oauthClientSecretSecretRef:
+                          description: Specifies the secret of the OAuth2 credential.
+                            External changes for this field won't be detected.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        oauthTokenUri:
+                          description: |-
+                            party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                            Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                          type: string
+                      type: object
+                    type: array
+                  refreshIntervalSeconds:
+                    description: |-
+                      based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                      Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                    type: number
+                  restConfig:
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)
+                      Specifies information about REST configuration.
+                    items:
+                      properties:
+                        accessDelegationMode:
+                          description: |-
+                            insensitive): VENDED_CREDENTIALS | EXTERNAL_VOLUME_CREDENTIALS.
+                            Specifies the access delegation mode for accessing Iceberg table files in your external cloud storage. Valid values are (case-insensitive): `VENDED_CREDENTIALS` | `EXTERNAL_VOLUME_CREDENTIALS`.
+                          type: string
+                        catalogApiType:
+                          description: |-
+                            insensitive): PUBLIC | PRIVATE | AWS_API_GATEWAY | AWS_PRIVATE_API_GATEWAY | AWS_GLUE | AWS_PRIVATE_GLUE.
+                            Specifies the connection type for the catalog API. Valid values are (case-insensitive): `PUBLIC` | `PRIVATE` | `AWS_API_GATEWAY` | `AWS_PRIVATE_API_GATEWAY` | `AWS_GLUE` | `AWS_PRIVATE_GLUE`.
+                          type: string
+                        catalogName:
+                          description: |-
+                            (String) Specifies the catalog or identifier to request from your remote catalog service.
+                            Specifies the catalog or identifier to request from your remote catalog service.
+                          type: string
+                        catalogUri:
+                          description: |-
+                            (String) Specifies the endpoint URL for the catalog REST API.
+                            Specifies the endpoint URL for the catalog REST API.
+                          type: string
+                        prefix:
+                          description: |-
+                            (String) Specifies an optional prefix appended to all API routes.
+                            Specifies an optional prefix appended to all API routes.
+                          type: string
+                      type: object
+                    type: array
+                  sigv4RestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        sigv4ExternalId:
+                          description: Specifies an external ID that Snowflake uses
+                            to establish a trust relationship with AWS. If you don’t
+                            specify this parameter, Snowflake automatically generates
+                            a unique external ID when you create a catalog integration.
+                            External changes for this field won't be detected.
+                          type: string
+                        sigv4IamRole:
+                          description: |-
+                            (String) Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                            Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                          type: string
+                        sigv4SigningRegion:
+                          description: |-
+                            (String) Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                            Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  bearerRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        bearerTokenSecretRef:
+                          description: The bearer token for the identity provider.
+                            External changes for this field won't be detected.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      required:
+                      - bearerTokenSecretRef
+                      type: object
+                    type: array
+                  catalogNamespace:
+                    description: |-
+                      (String) Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                      Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the catalog integration.
+                      (Default: “) Specifies a comment for the catalog integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether the catalog integration is available for use for Iceberg tables. true allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. false prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                      Specifies whether the catalog integration is available for use for Iceberg tables. `true` allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. `false` prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                    type: boolean
+                  oauthRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        oauthAllowedScopes:
+                          description: |-
+                            (List of String) Specifies one or more scopes for the OAuth token.
+                            Specifies one or more scopes for the OAuth token.
+                          items:
+                            type: string
+                          type: array
+                        oauthClientIdSecretRef:
+                          description: |-
+                            (String, Sensitive) Specifies the client ID of the OAuth2 credential.
+                            Specifies the client ID of the OAuth2 credential.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        oauthClientSecretSecretRef:
+                          description: Specifies the secret of the OAuth2 credential.
+                            External changes for this field won't be detected.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                        oauthTokenUri:
+                          description: |-
+                            party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                            Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                          type: string
+                      required:
+                      - oauthClientIdSecretRef
+                      - oauthClientSecretSecretRef
+                      type: object
+                    type: array
+                  refreshIntervalSeconds:
+                    description: |-
+                      based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                      Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                    type: number
+                  restConfig:
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)
+                      Specifies information about REST configuration.
+                    items:
+                      properties:
+                        accessDelegationMode:
+                          description: |-
+                            insensitive): VENDED_CREDENTIALS | EXTERNAL_VOLUME_CREDENTIALS.
+                            Specifies the access delegation mode for accessing Iceberg table files in your external cloud storage. Valid values are (case-insensitive): `VENDED_CREDENTIALS` | `EXTERNAL_VOLUME_CREDENTIALS`.
+                          type: string
+                        catalogApiType:
+                          description: |-
+                            insensitive): PUBLIC | PRIVATE | AWS_API_GATEWAY | AWS_PRIVATE_API_GATEWAY | AWS_GLUE | AWS_PRIVATE_GLUE.
+                            Specifies the connection type for the catalog API. Valid values are (case-insensitive): `PUBLIC` | `PRIVATE` | `AWS_API_GATEWAY` | `AWS_PRIVATE_API_GATEWAY` | `AWS_GLUE` | `AWS_PRIVATE_GLUE`.
+                          type: string
+                        catalogName:
+                          description: |-
+                            (String) Specifies the catalog or identifier to request from your remote catalog service.
+                            Specifies the catalog or identifier to request from your remote catalog service.
+                          type: string
+                        catalogUri:
+                          description: |-
+                            (String) Specifies the endpoint URL for the catalog REST API.
+                            Specifies the endpoint URL for the catalog REST API.
+                          type: string
+                        prefix:
+                          description: |-
+                            (String) Specifies an optional prefix appended to all API routes.
+                            Specifies an optional prefix appended to all API routes.
+                          type: string
+                      type: object
+                    type: array
+                  sigv4RestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        sigv4ExternalId:
+                          description: Specifies an external ID that Snowflake uses
+                            to establish a trust relationship with AWS. If you don’t
+                            specify this parameter, Snowflake automatically generates
+                            a unique external ID when you create a catalog integration.
+                            External changes for this field won't be detected.
+                          type: string
+                        sigv4IamRole:
+                          description: |-
+                            (String) Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                            Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                          type: string
+                        sigv4SigningRegion:
+                          description: |-
+                            (String) Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                            Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.enabled is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.enabled)
+                || (has(self.initProvider) && has(self.initProvider.enabled))'
+            - message: spec.forProvider.restConfig is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.restConfig)
+                || (has(self.initProvider) && has(self.initProvider.restConfig))'
+          status:
+            description: CatalogIntegrationIcebergRestStatus defines the observed
+              state of CatalogIntegrationIcebergRest.
+            properties:
+              atProvider:
+                properties:
+                  bearerRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies a bearer token as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        bearerTokenSecretRef:
+                          description: The bearer token for the identity provider.
+                            External changes for this field won't be detected.
+                          properties:
+                            key:
+                              description: The key to select.
+                              type: string
+                            name:
+                              description: Name of the secret.
+                              type: string
+                            namespace:
+                              description: Namespace of the secret.
+                              type: string
+                          required:
+                          - key
+                          - name
+                          - namespace
+                          type: object
+                      type: object
+                    type: array
+                  catalogNamespace:
+                    description: |-
+                      (String) Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                      Specifies the default namespace for all Iceberg tables that you associate with the catalog integration.
+                    type: string
+                  catalogSource:
+                    description: |-
+                      (String) Specifies the type of catalog source.
+                      Specifies the type of catalog source.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the catalog integration.
+                      (Default: “) Specifies a comment for the catalog integration.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE CATALOG INTEGRATION for the given catalog integration. (see below for nested schema)
+                      Outputs the result of `DESCRIBE CATALOG INTEGRATION` for the given catalog integration.
+                    items:
+                      properties:
+                        bearerRestAuthentication:
+                          description: '(Block List, Max: 1) Specifies a bearer token
+                            as the authentication type for Snowflake to use to connect
+                            to the Iceberg REST catalog. (see below for nested schema)'
+                          items:
+                            type: object
+                          type: array
+                        catalogNamespace:
+                          description: (String) Specifies the default namespace for
+                            all Iceberg tables that you associate with the catalog
+                            integration.
+                          type: string
+                        catalogSource:
+                          description: (String) Specifies the type of catalog source.
+                          type: string
+                        comment:
+                          description: '(String) (Default: “) Specifies a comment
+                            for the catalog integration.'
+                          type: string
+                        enabled:
+                          description: (Boolean) Specifies whether the catalog integration
+                            is available for use for Iceberg tables. true allows users
+                            to create new Iceberg tables that reference this integration.
+                            Existing Iceberg tables that reference this integration
+                            function normally. false prevents users from creating
+                            new Iceberg tables that reference this integration. Existing
+                            Iceberg tables that reference this integration cannot
+                            access the catalog in the table definition.
+                          type: boolean
+                        id:
+                          description: (String) The ID of this resource.
+                          type: string
+                        oauthRestAuthentication:
+                          description: '(Block List, Max: 1) Specifies OAuth as the
+                            authentication type for Snowflake to use to connect to
+                            the Iceberg REST catalog. (see below for nested schema)'
+                          items:
+                            properties:
+                              oauthAllowedScopes:
+                                description: (List of String) Specifies one or more
+                                  scopes for the OAuth token.
+                                items:
+                                  type: string
+                                type: array
+                              oauthClientId:
+                                description: (String, Sensitive) Specifies the client
+                                  ID of the OAuth2 credential.
+                                type: string
+                              oauthTokenUri:
+                                description: party identity provider. If not specified,
+                                  Snowflake assumes the remote catalog provider is
+                                  the identity provider.
+                                type: string
+                            type: object
+                          type: array
+                        refreshIntervalSeconds:
+                          description: based tables, specifies the number of seconds
+                            to wait between attempts to poll your external cloud storage
+                            for new metadata.
+                          type: number
+                        restConfig:
+                          description: '(Block List, Min: 1, Max: 1) Specifies information
+                            about REST configuration. (see below for nested schema)'
+                          items:
+                            properties:
+                              accessDelegationMode:
+                                description: 'insensitive): VENDED_CREDENTIALS | EXTERNAL_VOLUME_CREDENTIALS.'
+                                type: string
+                              catalogApiType:
+                                description: 'insensitive): PUBLIC | PRIVATE | AWS_API_GATEWAY
+                                  | AWS_PRIVATE_API_GATEWAY | AWS_GLUE | AWS_PRIVATE_GLUE.'
+                                type: string
+                              catalogName:
+                                description: (String) Specifies the catalog or identifier
+                                  to request from your remote catalog service.
+                                type: string
+                              catalogUri:
+                                description: (String) Specifies the endpoint URL for
+                                  the catalog REST API.
+                                type: string
+                              prefix:
+                                description: (String) Specifies an optional prefix
+                                  appended to all API routes.
+                                type: string
+                            type: object
+                          type: array
+                        sigv4RestAuthentication:
+                          description: '(Block List, Max: 1) Specifies Signature Version
+                            4 as the authentication type for Snowflake to use to connect
+                            to the Iceberg REST catalog. (see below for nested schema)'
+                          items:
+                            properties:
+                              sigv4IamRole:
+                                description: (String) Specifies the Amazon Resource
+                                  Name (ARN) for an IAM role that has permission to
+                                  access your REST API in API Gateway.
+                                type: string
+                              sigv4SigningRegion:
+                                description: (String) Specifies the AWS Region associated
+                                  with your API in API Gateway. If you don’t specify
+                                  this parameter, Snowflake uses the region in which
+                                  your Snowflake account is deployed.
+                                type: string
+                            type: object
+                          type: array
+                        tableFormat:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  enabled:
+                    description: |-
+                      (Boolean) Specifies whether the catalog integration is available for use for Iceberg tables. true allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. false prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                      Specifies whether the catalog integration is available for use for Iceberg tables. `true` allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. `false` prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
+                    type: boolean
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  oauthRestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies OAuth as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        oauthAllowedScopes:
+                          description: |-
+                            (List of String) Specifies one or more scopes for the OAuth token.
+                            Specifies one or more scopes for the OAuth token.
+                          items:
+                            type: string
+                          type: array
+                        oauthTokenUri:
+                          description: |-
+                            party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                            Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
+                          type: string
+                      type: object
+                    type: array
+                  refreshIntervalSeconds:
+                    description: |-
+                      based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                      Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
+                    type: number
+                  restConfig:
+                    description: |-
+                      (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)
+                      Specifies information about REST configuration.
+                    items:
+                      properties:
+                        accessDelegationMode:
+                          description: |-
+                            insensitive): VENDED_CREDENTIALS | EXTERNAL_VOLUME_CREDENTIALS.
+                            Specifies the access delegation mode for accessing Iceberg table files in your external cloud storage. Valid values are (case-insensitive): `VENDED_CREDENTIALS` | `EXTERNAL_VOLUME_CREDENTIALS`.
+                          type: string
+                        catalogApiType:
+                          description: |-
+                            insensitive): PUBLIC | PRIVATE | AWS_API_GATEWAY | AWS_PRIVATE_API_GATEWAY | AWS_GLUE | AWS_PRIVATE_GLUE.
+                            Specifies the connection type for the catalog API. Valid values are (case-insensitive): `PUBLIC` | `PRIVATE` | `AWS_API_GATEWAY` | `AWS_PRIVATE_API_GATEWAY` | `AWS_GLUE` | `AWS_PRIVATE_GLUE`.
+                          type: string
+                        catalogName:
+                          description: |-
+                            (String) Specifies the catalog or identifier to request from your remote catalog service.
+                            Specifies the catalog or identifier to request from your remote catalog service.
+                          type: string
+                        catalogUri:
+                          description: |-
+                            (String) Specifies the endpoint URL for the catalog REST API.
+                            Specifies the endpoint URL for the catalog REST API.
+                          type: string
+                        prefix:
+                          description: |-
+                            (String) Specifies an optional prefix appended to all API routes.
+                            Specifies an optional prefix appended to all API routes.
+                          type: string
+                      type: object
+                    type: array
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW CATALOG INTEGRATIONS for the given catalog integration. (see below for nested schema)
+                      Outputs the result of `SHOW CATALOG INTEGRATIONS` for the given catalog integration.
+                    items:
+                      properties:
+                        category:
+                          description: (String)
+                          type: string
+                        comment:
+                          description: '(String) (Default: “) Specifies a comment
+                            for the catalog integration.'
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        enabled:
+                          description: (Boolean) Specifies whether the catalog integration
+                            is available for use for Iceberg tables. true allows users
+                            to create new Iceberg tables that reference this integration.
+                            Existing Iceberg tables that reference this integration
+                            function normally. false prevents users from creating
+                            new Iceberg tables that reference this integration. Existing
+                            Iceberg tables that reference this integration cannot
+                            access the catalog in the table definition.
+                          type: boolean
+                        name:
+                          description: (String) Specifies the identifier (i.e. name)
+                            of the catalog integration; must be unique in your account.
+                          type: string
+                        type:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  sigv4RestAuthentication:
+                    description: |-
+                      (Block List, Max: 1) Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog. (see below for nested schema)
+                      Specifies Signature Version 4 as the authentication type for Snowflake to use to connect to the Iceberg REST catalog.
+                    items:
+                      properties:
+                        sigv4ExternalId:
+                          description: Specifies an external ID that Snowflake uses
+                            to establish a trust relationship with AWS. If you don’t
+                            specify this parameter, Snowflake automatically generates
+                            a unique external ID when you create a catalog integration.
+                            External changes for this field won't be detected.
+                          type: string
+                        sigv4IamRole:
+                          description: |-
+                            (String) Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                            Specifies the Amazon Resource Name (ARN) for an IAM role that has permission to access your REST API in API Gateway.
+                          type: string
+                        sigv4SigningRegion:
+                          description: |-
+                            (String) Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                            Specifies the AWS Region associated with your API in API Gateway. If you don’t specify this parameter, Snowflake uses the region in which your Snowflake account is deployed.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

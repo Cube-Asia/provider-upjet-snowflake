@@ -1,0 +1,1040 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: saml2integrations.stable.snowflake.crossplane.io
+spec:
+  group: stable.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Saml2Integration
+    listKind: Saml2IntegrationList
+    plural: saml2integrations
+    singular: saml2integration
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Saml2Integration is the Schema for the Saml2Integrations API.
+          Resource used to manage SAML2 security integration objects. For more information,
+          check security integrations documentation https://docs.snowflake.com/en/sql-reference/sql/create-security-integration-saml2.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: Saml2IntegrationSpec defines the desired state of Saml2Integration
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  allowedEmailPatterns:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of regular expressions that email addresses are matched against to authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowedUserDomains:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of email domains that can authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2EnableSpInitiated:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2ForceAuthn:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2Issuer:
+                    description: |-
+                      (String) The string containing the IdP EntityID / Issuer.
+                      The string containing the IdP EntityID / Issuer.
+                    type: string
+                  saml2PostLogoutRedirectUrl:
+                    description: |-
+                      (String) The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                      The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                    type: string
+                  saml2Provider:
+                    description: |-
+                      (String) The string describing the IdP. Valid options are: OKTA | ADFS | CUSTOM.
+                      The string describing the IdP. Valid options are: `OKTA` | `ADFS` | `CUSTOM`.
+                    type: string
+                  saml2RequestedNameidFormat:
+                    description: |-
+                      format:unspecified | urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress | urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName | urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName | urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos | urn:oasis:names:tc:SAML:2.0:nameid-format:persistent | urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      The SAML NameID format allows Snowflake to set an expectation of the identifying attribute of the user (i.e. SAML Subject) in the SAML assertion from the IdP to ensure a valid authentication to Snowflake. Valid options are: `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified` | `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress` | `urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName` | `urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName` | `urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos` | `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent` | `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  saml2SignRequest:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2SnowflakeAcsUrl:
+                    description: |-
+                      (String) The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SnowflakeIssuerUrl:
+                    description: |-
+                      (String) The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SpInitiatedLoginPageLabel:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      The string containing the label to display after the Log In With button on the login page. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    type: string
+                  saml2SsoUrl:
+                    description: |-
+                      (String) The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                      The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                    type: string
+                  saml2X509CertSecretRef:
+                    description: A SecretKeySelector is a reference to a secret key
+                      in an arbitrary namespace.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  allowedEmailPatterns:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of regular expressions that email addresses are matched against to authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowedUserDomains:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of email domains that can authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2EnableSpInitiated:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2ForceAuthn:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2Issuer:
+                    description: |-
+                      (String) The string containing the IdP EntityID / Issuer.
+                      The string containing the IdP EntityID / Issuer.
+                    type: string
+                  saml2PostLogoutRedirectUrl:
+                    description: |-
+                      (String) The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                      The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                    type: string
+                  saml2Provider:
+                    description: |-
+                      (String) The string describing the IdP. Valid options are: OKTA | ADFS | CUSTOM.
+                      The string describing the IdP. Valid options are: `OKTA` | `ADFS` | `CUSTOM`.
+                    type: string
+                  saml2RequestedNameidFormat:
+                    description: |-
+                      format:unspecified | urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress | urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName | urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName | urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos | urn:oasis:names:tc:SAML:2.0:nameid-format:persistent | urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      The SAML NameID format allows Snowflake to set an expectation of the identifying attribute of the user (i.e. SAML Subject) in the SAML assertion from the IdP to ensure a valid authentication to Snowflake. Valid options are: `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified` | `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress` | `urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName` | `urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName` | `urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos` | `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent` | `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  saml2SignRequest:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2SnowflakeAcsUrl:
+                    description: |-
+                      (String) The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SnowflakeIssuerUrl:
+                    description: |-
+                      (String) The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SpInitiatedLoginPageLabel:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      The string containing the label to display after the Log In With button on the login page. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    type: string
+                  saml2SsoUrl:
+                    description: |-
+                      (String) The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                      The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                    type: string
+                  saml2X509CertSecretRef:
+                    description: A SecretKeySelector is a reference to a secret key
+                      in an arbitrary namespace.
+                    properties:
+                      key:
+                        description: The key to select.
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                      namespace:
+                        description: Namespace of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    - namespace
+                    type: object
+                required:
+                - saml2X509CertSecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.saml2Issuer is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.saml2Issuer)
+                || (has(self.initProvider) && has(self.initProvider.saml2Issuer))'
+            - message: spec.forProvider.saml2Provider is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.saml2Provider)
+                || (has(self.initProvider) && has(self.initProvider.saml2Provider))'
+            - message: spec.forProvider.saml2SsoUrl is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.saml2SsoUrl)
+                || (has(self.initProvider) && has(self.initProvider.saml2SsoUrl))'
+            - message: spec.forProvider.saml2X509CertSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.saml2X509CertSecretRef)'
+          status:
+            description: Saml2IntegrationStatus defines the observed state of Saml2Integration.
+            properties:
+              atProvider:
+                properties:
+                  allowedEmailPatterns:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of regular expressions that email addresses are matched against to authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  allowedUserDomains:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      A list of email domains that can authenticate with a SAML2 security integration. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the integration.
+                      Specifies a comment for the integration.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE SECURITY INTEGRATION for the given integration. (see below for nested schema)
+                      Outputs the result of `DESCRIBE SECURITY INTEGRATION` for the given integration.
+                    items:
+                      properties:
+                        allowedEmailPatterns:
+                          description: empty to empty, the whole resource is recreated
+                            because of Snowflake limitations.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        allowedUserDomains:
+                          description: empty to empty, the whole resource is recreated
+                            because of Snowflake limitations.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        comment:
+                          description: (String) Specifies a comment for the integration.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2DigestMethodsUsed:
+                          description: (List of Object) (see below for nested schema)
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2EnableSpInitiated:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) The Boolean indicating
+                            if the Log In With button will be shown on the login page.
+                            TRUE: displays the Log in With button on the login page.
+                            FALSE: does not display the Log in With button on the
+                            login page. Available options are: "true" or "false".
+                            When the value is not set in the configuration the provider
+                            will put "default" there which means to use the Snowflake
+                            default for this value.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2ForceAuthn:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) The Boolean indicating
+                            whether users, during the initial authentication flow,
+                            are forced to authenticate again to access Snowflake.
+                            When set to TRUE, Snowflake sets the ForceAuthn SAML parameter
+                            to TRUE in the outgoing request from Snowflake to the
+                            identity provider. TRUE: forces users to authenticate
+                            again to access Snowflake, even if a valid session with
+                            the identity provider exists. FALSE: does not force users
+                            to authenticate again to access Snowflake. Available options
+                            are: "true" or "false". When the value is not set in the
+                            configuration the provider will put "default" there which
+                            means to use the Snowflake default for this value.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2Issuer:
+                          description: (String) The string containing the IdP EntityID
+                            / Issuer.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2PostLogoutRedirectUrl:
+                          description: (String) The endpoint to which Snowflake redirects
+                            users after clicking the Log Out button in the classic
+                            Snowflake web interface. Snowflake terminates the Snowflake
+                            session upon redirecting to the specified endpoint.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2Provider:
+                          description: '(String) The string describing the IdP. Valid
+                            options are: OKTA | ADFS | CUSTOM.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2RequestedNameidFormat:
+                          description: format:unspecified | urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+                            | urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName
+                            | urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName
+                            | urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos |
+                            urn:oasis:names:tc:SAML:2.0:nameid-format:persistent |
+                            urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SignRequest:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) The Boolean indicating
+                            whether SAML requests are signed. TRUE: allows SAML requests
+                            to be signed. FALSE: does not allow SAML requests to be
+                            signed. Available options are: "true" or "false". When
+                            the value is not set in the configuration the provider
+                            will put "default" there which means to use the Snowflake
+                            default for this value.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SignatureMethodsUsed:
+                          description: (List of Object) (see below for nested schema)
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SnowflakeAcsUrl:
+                          description: (String) The string containing the Snowflake
+                            Assertion Consumer Service URL to which the IdP will send
+                            its SAML authentication response back to Snowflake. This
+                            property will be set in the SAML authentication request
+                            generated by Snowflake when initiating a SAML SSO operation
+                            with the IdP. If an incorrect value is specified, Snowflake
+                            returns an error message indicating the acceptable values
+                            to use. Because Okta does not support underscores in URLs,
+                            the underscore in the account name must be converted to
+                            a hyphen. See docs.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SnowflakeIssuerUrl:
+                          description: (String) The string containing the EntityID
+                            / Issuer for the Snowflake service provider. If an incorrect
+                            value is specified, Snowflake returns an error message
+                            indicating the acceptable values to use. Because Okta
+                            does not support underscores in URLs, the underscore in
+                            the account name must be converted to a hyphen. See docs.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SnowflakeMetadata:
+                          description: (List of Object) (see below for nested schema)
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SpInitiatedLoginPageLabel:
+                          description: empty to empty, the whole resource is recreated
+                            because of Snowflake limitations.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        saml2SsoUrl:
+                          description: (String) The string containing the IdP SSO
+                            URL, where the user should be redirected by Snowflake
+                            (the Service Provider) with a SAML AuthnRequest message.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the SAML2
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  enabled:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this security integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  saml2EnableSpInitiated:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating if the Log In With button will be shown on the login page. TRUE: displays the Log in With button on the login page. FALSE: does not display the Log in With button on the login page. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2ForceAuthn:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether users, during the initial authentication flow, are forced to authenticate again to access Snowflake. When set to TRUE, Snowflake sets the ForceAuthn SAML parameter to TRUE in the outgoing request from Snowflake to the identity provider. TRUE: forces users to authenticate again to access Snowflake, even if a valid session with the identity provider exists. FALSE: does not force users to authenticate again to access Snowflake. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2Issuer:
+                    description: |-
+                      (String) The string containing the IdP EntityID / Issuer.
+                      The string containing the IdP EntityID / Issuer.
+                    type: string
+                  saml2PostLogoutRedirectUrl:
+                    description: |-
+                      (String) The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                      The endpoint to which Snowflake redirects users after clicking the Log Out button in the classic Snowflake web interface. Snowflake terminates the Snowflake session upon redirecting to the specified endpoint.
+                    type: string
+                  saml2Provider:
+                    description: |-
+                      (String) The string describing the IdP. Valid options are: OKTA | ADFS | CUSTOM.
+                      The string describing the IdP. Valid options are: `OKTA` | `ADFS` | `CUSTOM`.
+                    type: string
+                  saml2RequestedNameidFormat:
+                    description: |-
+                      format:unspecified | urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress | urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName | urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName | urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos | urn:oasis:names:tc:SAML:2.0:nameid-format:persistent | urn:oasis:names:tc:SAML:2.0:nameid-format:transient.
+                      The SAML NameID format allows Snowflake to set an expectation of the identifying attribute of the user (i.e. SAML Subject) in the SAML assertion from the IdP to ensure a valid authentication to Snowflake. Valid options are: `urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified` | `urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress` | `urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName` | `urn:oasis:names:tc:SAML:1.1:nameid-format:WindowsDomainQualifiedName` | `urn:oasis:names:tc:SAML:2.0:nameid-format:kerberos` | `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent` | `urn:oasis:names:tc:SAML:2.0:nameid-format:transient`.
+                    type: string
+                  saml2SignRequest:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) The Boolean indicating whether SAML requests are signed. TRUE: allows SAML requests to be signed. FALSE: does not allow SAML requests to be signed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  saml2SnowflakeAcsUrl:
+                    description: |-
+                      (String) The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the Snowflake Assertion Consumer Service URL to which the IdP will send its SAML authentication response back to Snowflake. This property will be set in the SAML authentication request generated by Snowflake when initiating a SAML SSO operation with the IdP. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SnowflakeIssuerUrl:
+                    description: |-
+                      (String) The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See docs.
+                      The string containing the EntityID / Issuer for the Snowflake service provider. If an incorrect value is specified, Snowflake returns an error message indicating the acceptable values to use. Because Okta does not support underscores in URLs, the underscore in the account name must be converted to a hyphen. See [docs](https://docs.snowflake.com/en/user-guide/organizations-connect#okta-urls).
+                    type: string
+                  saml2SpInitiatedLoginPageLabel:
+                    description: |-
+                      empty to empty, the whole resource is recreated because of Snowflake limitations.
+                      The string containing the label to display after the Log In With button on the login page. If this field changes value from non-empty to empty, the whole resource is recreated because of Snowflake limitations.
+                    type: string
+                  saml2SsoUrl:
+                    description: |-
+                      (String) The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                      The string containing the IdP SSO URL, where the user should be redirected by Snowflake (the Service Provider) with a SAML AuthnRequest message.
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW SECURITY INTEGRATION for the given integration. (see below for nested schema)
+                      Outputs the result of `SHOW SECURITY INTEGRATION` for the given integration.
+                    items:
+                      properties:
+                        category:
+                          description: (String)
+                          type: string
+                        comment:
+                          description: (String) Specifies a comment for the integration.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        enabled:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) Specifies whether this
+                            security integration is enabled or disabled. Available
+                            options are: "true" or "false". When the value is not
+                            set in the configuration the provider will put "default"
+                            there which means to use the Snowflake default for this
+                            value.'
+                          type: boolean
+                        integrationType:
+                          description: (String)
+                          type: string
+                        name:
+                          description: '(String) Specifies the name of the SAML2 integration.
+                            This name follows the rules for Object Identifiers. The
+                            name should be unique among security integrations in your
+                            account. Due to technical limitations (read more here),
+                            avoid using the following characters: |, ., ".'
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

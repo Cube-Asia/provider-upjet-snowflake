@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: StageExternalGcs
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/stageexternalgcs
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    database: my_database
+    schema: my_schema
+    storageIntegration: ${snowflake_storage_integration.gcs.name}
+    url: gcs://mybucket/mypath/

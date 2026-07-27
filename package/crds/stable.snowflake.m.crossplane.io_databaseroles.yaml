@@ -34,7 +34,9 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: DatabaseRole is the Schema for the DatabaseRoles API.
+        description: DatabaseRole is the Schema for the DatabaseRoles API. Resource
+          used to manage database roles. For more information, check database roles
+          documentation https://docs.snowflake.com/en/sql-reference/sql/create-database-role.
         properties:
           apiVersion:
             description: |-
@@ -58,21 +60,18 @@ spec:
             properties:
               forProvider:
                 properties:
-                  parentDatabaseRoleName:
+                  comment:
                     description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
+                      (String) Specifies a comment for the database role.
+                      Specifies a comment for the database role.
                     type: string
-                  parentRoleName:
+                  database:
                     description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
+                      (String) The database in which to create the database role. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the database role. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
                     type: string
-                  shareName:
-                    description: |-
-                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
-                    type: string
+                required:
+                - database
                 type: object
               initProvider:
                 description: |-
@@ -87,20 +86,10 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  parentDatabaseRoleName:
+                  comment:
                     description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
-                    type: string
-                  parentRoleName:
-                    description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
-                    type: string
-                  shareName:
-                    description: |-
-                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+                      (String) Specifies a comment for the database role.
+                      Specifies a comment for the database role.
                     type: string
                 type: object
               managementPolicies:
@@ -166,24 +155,71 @@ spec:
             properties:
               atProvider:
                 properties:
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the database role.
+                      Specifies a comment for the database role.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the database role. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the database role. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string
-                  parentDatabaseRoleName:
+                  showOutput:
                     description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
-                    type: string
-                  parentRoleName:
-                    description: |-
-                      child relationship between the roles. For more information about this resource, see docs.
-                      The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
-                    type: string
-                  shareName:
-                    description: |-
-                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
-                    type: string
+                      (List of Object) Outputs the result of SHOW DATABASE ROLES for the given database role. Note that this value will be only recomputed whenever comment field changes. (see below for nested schema)
+                      Outputs the result of `SHOW DATABASE ROLES` for the given database role. Note that this value will be only recomputed whenever comment field changes.
+                    items:
+                      properties:
+                        comment:
+                          description: (String) Specifies a comment for the database
+                            role.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        databaseName:
+                          description: (String)
+                          type: string
+                        grantedDatabaseRoles:
+                          description: (Number)
+                          type: number
+                        grantedToDatabaseRoles:
+                          description: (Number)
+                          type: number
+                        grantedToRoles:
+                          description: (Number)
+                          type: number
+                        isCurrent:
+                          description: (Boolean)
+                          type: boolean
+                        isDefault:
+                          description: (Boolean)
+                          type: boolean
+                        isInherited:
+                          description: (Boolean)
+                          type: boolean
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            database role. Due to technical limitations (read more
+                            here), avoid using the following characters: |, ., ".'
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -15,57 +15,211 @@ import (
 
 type NotificationIntegrationInitParameters struct {
 
-	// (Set of String) List of email addresses that should receive notifications.
-	// List of email addresses that should receive notifications.
-	// +listType=set
-	AllowedRecipients []*string `json:"allowedRecipients,omitempty" tf:"allowed_recipients,omitempty"`
+	// (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+	// AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+	AwsSnsRoleArn *string `json:"awsSnsRoleArn,omitempty" tf:"aws_sns_role_arn,omitempty"`
 
-	// (String) A comment for the email integration.
-	// A comment for the email integration.
+	// (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	// AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	AwsSnsTopicArn *string `json:"awsSnsTopicArn,omitempty" tf:"aws_sns_topic_arn,omitempty"`
+
+	// (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+	// AWS SQS queue ARN for notification integration to connect to
+	AwsSqsArn *string `json:"awsSqsArn,omitempty" tf:"aws_sqs_arn,omitempty"`
+
+	// (String, Deprecated) AWS IAM role ARN for notification integration to assume
+	// AWS IAM role ARN for notification integration to assume
+	AwsSqsRoleArn *string `json:"awsSqsRoleArn,omitempty" tf:"aws_sqs_role_arn,omitempty"`
+
+	// (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	// The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	AzureStorageQueuePrimaryURI *string `json:"azureStorageQueuePrimaryUri,omitempty" tf:"azure_storage_queue_primary_uri,omitempty"`
+
+	// (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	// The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) A comment for the integration
+	// A comment for the integration
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// (Boolean)
+	// (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+	// Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (Boolean) (Default: true)
+	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	// The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	GCPPubsubSubscriptionName *string `json:"gcpPubsubSubscriptionName,omitempty" tf:"gcp_pubsub_subscription_name,omitempty"`
+
+	// (String) The topic id that Snowflake will use to push notifications.
+	// The topic id that Snowflake will use to push notifications.
+	GCPPubsubTopicName *string `json:"gcpPubsubTopicName,omitempty" tf:"gcp_pubsub_topic_name,omitempty"`
+
+	// party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	// The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
+
+	// (String, Deprecated) (Default: QUEUE) A type of integration
+	// (Default: `QUEUE`) A type of integration
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type NotificationIntegrationObservation struct {
 
-	// (Set of String) List of email addresses that should receive notifications.
-	// List of email addresses that should receive notifications.
-	// +listType=set
-	AllowedRecipients []*string `json:"allowedRecipients,omitempty" tf:"allowed_recipients,omitempty"`
+	// (String) The external ID that Snowflake will use when assuming the AWS role
+	// The external ID that Snowflake will use when assuming the AWS role
+	AwsSnsExternalID *string `json:"awsSnsExternalId,omitempty" tf:"aws_sns_external_id,omitempty"`
 
-	// (String) A comment for the email integration.
-	// A comment for the email integration.
+	// (String) The Snowflake user that will attempt to assume the AWS role.
+	// The Snowflake user that will attempt to assume the AWS role.
+	AwsSnsIAMUserArn *string `json:"awsSnsIamUserArn,omitempty" tf:"aws_sns_iam_user_arn,omitempty"`
+
+	// (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+	// AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+	AwsSnsRoleArn *string `json:"awsSnsRoleArn,omitempty" tf:"aws_sns_role_arn,omitempty"`
+
+	// (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	// AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	AwsSnsTopicArn *string `json:"awsSnsTopicArn,omitempty" tf:"aws_sns_topic_arn,omitempty"`
+
+	// (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+	// AWS SQS queue ARN for notification integration to connect to
+	AwsSqsArn *string `json:"awsSqsArn,omitempty" tf:"aws_sqs_arn,omitempty"`
+
+	// (String, Deprecated) The external ID that Snowflake will use when assuming the AWS role
+	// The external ID that Snowflake will use when assuming the AWS role
+	AwsSqsExternalID *string `json:"awsSqsExternalId,omitempty" tf:"aws_sqs_external_id,omitempty"`
+
+	// (String, Deprecated) The Snowflake user that will attempt to assume the AWS role.
+	// The Snowflake user that will attempt to assume the AWS role.
+	AwsSqsIAMUserArn *string `json:"awsSqsIamUserArn,omitempty" tf:"aws_sqs_iam_user_arn,omitempty"`
+
+	// (String, Deprecated) AWS IAM role ARN for notification integration to assume
+	// AWS IAM role ARN for notification integration to assume
+	AwsSqsRoleArn *string `json:"awsSqsRoleArn,omitempty" tf:"aws_sqs_role_arn,omitempty"`
+
+	// (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	// The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	AzureStorageQueuePrimaryURI *string `json:"azureStorageQueuePrimaryUri,omitempty" tf:"azure_storage_queue_primary_uri,omitempty"`
+
+	// (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	// The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) A comment for the integration
+	// A comment for the integration
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// (Boolean)
+	// (String) Date and time when the notification integration was created.
+	// Date and time when the notification integration was created.
+	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
+
+	// (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+	// Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (Boolean) (Default: true)
+	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
 	// Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
 	FullyQualifiedName *string `json:"fullyQualifiedName,omitempty" tf:"fully_qualified_name,omitempty"`
 
+	// (String) The GCP service account identifier that Snowflake will use when assuming the GCP role
+	// The GCP service account identifier that Snowflake will use when assuming the GCP role
+	GCPPubsubServiceAccount *string `json:"gcpPubsubServiceAccount,omitempty" tf:"gcp_pubsub_service_account,omitempty"`
+
+	// (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	// The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	GCPPubsubSubscriptionName *string `json:"gcpPubsubSubscriptionName,omitempty" tf:"gcp_pubsub_subscription_name,omitempty"`
+
+	// (String) The topic id that Snowflake will use to push notifications.
+	// The topic id that Snowflake will use to push notifications.
+	GCPPubsubTopicName *string `json:"gcpPubsubTopicName,omitempty" tf:"gcp_pubsub_topic_name,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
+
+	// party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	// The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
+
+	// (String, Deprecated) (Default: QUEUE) A type of integration
+	// (Default: `QUEUE`) A type of integration
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 type NotificationIntegrationParameters struct {
 
-	// (Set of String) List of email addresses that should receive notifications.
-	// List of email addresses that should receive notifications.
+	// (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+	// AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
 	// +kubebuilder:validation:Optional
-	// +listType=set
-	AllowedRecipients []*string `json:"allowedRecipients,omitempty" tf:"allowed_recipients,omitempty"`
+	AwsSnsRoleArn *string `json:"awsSnsRoleArn,omitempty" tf:"aws_sns_role_arn,omitempty"`
 
-	// (String) A comment for the email integration.
-	// A comment for the email integration.
+	// (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	// AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+	// +kubebuilder:validation:Optional
+	AwsSnsTopicArn *string `json:"awsSnsTopicArn,omitempty" tf:"aws_sns_topic_arn,omitempty"`
+
+	// (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+	// AWS SQS queue ARN for notification integration to connect to
+	// +kubebuilder:validation:Optional
+	AwsSqsArn *string `json:"awsSqsArn,omitempty" tf:"aws_sqs_arn,omitempty"`
+
+	// (String, Deprecated) AWS IAM role ARN for notification integration to assume
+	// AWS IAM role ARN for notification integration to assume
+	// +kubebuilder:validation:Optional
+	AwsSqsRoleArn *string `json:"awsSqsRoleArn,omitempty" tf:"aws_sqs_role_arn,omitempty"`
+
+	// (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	// The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+	// +kubebuilder:validation:Optional
+	AzureStorageQueuePrimaryURI *string `json:"azureStorageQueuePrimaryUri,omitempty" tf:"azure_storage_queue_primary_uri,omitempty"`
+
+	// (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	// The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+	// +kubebuilder:validation:Optional
+	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
+
+	// (String) A comment for the integration
+	// A comment for the integration
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// (Boolean)
+	// (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+	// Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
+	// +kubebuilder:validation:Optional
+	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
+
+	// (Boolean) (Default: true)
+	// (Default: `true`)
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
+
+	// (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	// The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+	// +kubebuilder:validation:Optional
+	GCPPubsubSubscriptionName *string `json:"gcpPubsubSubscriptionName,omitempty" tf:"gcp_pubsub_subscription_name,omitempty"`
+
+	// (String) The topic id that Snowflake will use to push notifications.
+	// The topic id that Snowflake will use to push notifications.
+	// +kubebuilder:validation:Optional
+	GCPPubsubTopicName *string `json:"gcpPubsubTopicName,omitempty" tf:"gcp_pubsub_topic_name,omitempty"`
+
+	// party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	// The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+	// +kubebuilder:validation:Optional
+	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
+
+	// (String, Deprecated) (Default: QUEUE) A type of integration
+	// (Default: `QUEUE`) A type of integration
+	// +kubebuilder:validation:Optional
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
 // NotificationIntegrationSpec defines the desired state of NotificationIntegration
@@ -104,7 +258,7 @@ type NotificationIntegrationStatus struct {
 type NotificationIntegration struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.enabled) || (has(self.initProvider) && has(self.initProvider.enabled))",message="spec.forProvider.enabled is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.notificationProvider) || (has(self.initProvider) && has(self.initProvider.notificationProvider))",message="spec.forProvider.notificationProvider is a required parameter"
 	Spec   NotificationIntegrationSpec   `json:"spec"`
 	Status NotificationIntegrationStatus `json:"status,omitempty"`
 }

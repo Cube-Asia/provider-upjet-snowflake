@@ -1,0 +1,722 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: storageintegrations.preview.snowflake.m.crossplane.io
+spec:
+  group: preview.snowflake.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: StorageIntegration
+    listKind: StorageIntegrationList
+    plural: storageintegrations
+    singular: storageintegration
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: StorageIntegration is the Schema for the StorageIntegrations
+          API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: StorageIntegrationSpec defines the desired state of StorageIntegration
+            properties:
+              forProvider:
+                properties:
+                  azureTenantId:
+                    description: |-
+                      (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the storage integration.
+                      (Default: “) Specifies a comment for the storage integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
+                    type: boolean
+                  storageAllowedLocations:
+                    description: |-
+                      (List of String) Explicitly limits external stages that use the integration to reference one or more storage locations.
+                      Explicitly limits external stages that use the integration to reference one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageAwsExternalId:
+                    description: |-
+                      (String) Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                      Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                    type: string
+                  storageAwsObjectAcl:
+                    description: |-
+                      owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                      "bucket-owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                    type: string
+                  storageAwsRoleArn:
+                    description: |-
+                      (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                    type: string
+                  storageBlockedLocations:
+                    description: |-
+                      (List of String) Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                      Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageProvider:
+                    description: |-
+                      (String) Specifies the storage provider for the integration. Valid options are: S3 | S3GOV | S3CHINA | GCS | AZURE
+                      Specifies the storage provider for the integration. Valid options are: `S3` | `S3GOV` | `S3CHINA` | `GCS` | `AZURE`
+                    type: string
+                  type:
+                    description: |-
+                      (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
+                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                    type: string
+                  usePrivatelinkEndpoint:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  azureTenantId:
+                    description: |-
+                      (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the storage integration.
+                      (Default: “) Specifies a comment for the storage integration.
+                    type: string
+                  enabled:
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
+                    type: boolean
+                  storageAllowedLocations:
+                    description: |-
+                      (List of String) Explicitly limits external stages that use the integration to reference one or more storage locations.
+                      Explicitly limits external stages that use the integration to reference one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageAwsExternalId:
+                    description: |-
+                      (String) Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                      Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                    type: string
+                  storageAwsObjectAcl:
+                    description: |-
+                      owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                      "bucket-owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                    type: string
+                  storageAwsRoleArn:
+                    description: |-
+                      (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                    type: string
+                  storageBlockedLocations:
+                    description: |-
+                      (List of String) Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                      Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageProvider:
+                    description: |-
+                      (String) Specifies the storage provider for the integration. Valid options are: S3 | S3GOV | S3CHINA | GCS | AZURE
+                      Specifies the storage provider for the integration. Valid options are: `S3` | `S3GOV` | `S3CHINA` | `GCS` | `AZURE`
+                    type: string
+                  type:
+                    description: |-
+                      (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
+                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                    type: string
+                  usePrivatelinkEndpoint:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.storageAllowedLocations is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.storageAllowedLocations)
+                || (has(self.initProvider) && has(self.initProvider.storageAllowedLocations))'
+            - message: spec.forProvider.storageProvider is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.storageProvider)
+                || (has(self.initProvider) && has(self.initProvider.storageProvider))'
+          status:
+            description: StorageIntegrationStatus defines the observed state of StorageIntegration.
+            properties:
+              atProvider:
+                properties:
+                  azureMultiTenantAppName:
+                    description: |-
+                      (String) This is the name of the Snowflake client application created for your account.
+                      This is the name of the Snowflake client application created for your account.
+                    type: string
+                  azureTenantId:
+                    description: |-
+                      (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) (Default: “) Specifies a comment for the storage integration.
+                      (Default: “) Specifies a comment for the storage integration.
+                    type: string
+                  createdOn:
+                    description: |-
+                      (String) Date and time when the storage integration was created.
+                      Date and time when the storage integration was created.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE STORAGE INTEGRATION for the given storage integration. (see below for nested schema)
+                      Outputs the result of `DESCRIBE STORAGE INTEGRATION` for the given storage integration.
+                    items:
+                      properties:
+                        azureConsentUrl:
+                          description: (String, Sensitive) The consent URL that is
+                            used to create an Azure Snowflake service principle inside
+                            your tenant.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        azureMultiTenantAppName:
+                          description: (String) This is the name of the Snowflake
+                            client application created for your account.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        comment:
+                          description: '(String) (Default: “) Specifies a comment
+                            for the storage integration.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        enabled:
+                          description: '(Boolean) (Default: true)'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageAllowedLocations:
+                          description: (List of String) Explicitly limits external
+                            stages that use the integration to reference one or more
+                            storage locations.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageAwsExternalId:
+                          description: (String) Optionally specifies an external ID
+                            that Snowflake uses to establish a trust relationship
+                            with AWS.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageAwsIamUserArn:
+                          description: (String) The Snowflake user that will attempt
+                            to assume the AWS role.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageAwsObjectAcl:
+                          description: owner-full-control" Enables support for AWS
+                            access control lists (ACLs) to grant the bucket owner
+                            full control.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageAwsRoleArn:
+                          description: '(String) (Default: “) Specifies the Amazon
+                            Resource Name (ARN) of the AWS identity and access management
+                            (IAM) role that grants privileges on the S3 bucket containing
+                            your data files.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageBlockedLocations:
+                          description: (List of String) Explicitly prohibits external
+                            stages that use the integration from referencing one or
+                            more storage locations.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageGcpServiceAccount:
+                          description: (String) This is the name of the Snowflake
+                            Google Service Account created for your account.
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        storageProvider:
+                          description: '(String) Specifies the storage provider for
+                            the integration. Valid options are: S3 | S3GOV | S3CHINA
+                            | GCS | AZURE'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                        usePrivatelinkEndpoint:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) Specifies whether to
+                            use outbound private connectivity to harden the security
+                            posture. Supported for AWS S3 and Azure storage providers.
+                            Available options are: "true" or "false". When the value
+                            is not set in the configuration the provider will put
+                            "default" there which means to use the Snowflake default
+                            for this value.'
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: (String) String that specifies the identifier
+                                  (i.e. name) for the integration; must be unique
+                                  in your account.
+                                type: string
+                              type:
+                                description: '(String) (Default: EXTERNAL_STAGE) Specifies
+                                  the type of the storage integration.'
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  enabled:
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
+                    type: boolean
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  storageAllowedLocations:
+                    description: |-
+                      (List of String) Explicitly limits external stages that use the integration to reference one or more storage locations.
+                      Explicitly limits external stages that use the integration to reference one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageAwsExternalId:
+                    description: |-
+                      (String) Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                      Optionally specifies an external ID that Snowflake uses to establish a trust relationship with AWS.
+                    type: string
+                  storageAwsIamUserArn:
+                    description: |-
+                      (String) The Snowflake user that will attempt to assume the AWS role.
+                      The Snowflake user that will attempt to assume the AWS role.
+                    type: string
+                  storageAwsObjectAcl:
+                    description: |-
+                      owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                      "bucket-owner-full-control" Enables support for AWS access control lists (ACLs) to grant the bucket owner full control.
+                    type: string
+                  storageAwsRoleArn:
+                    description: |-
+                      (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                    type: string
+                  storageBlockedLocations:
+                    description: |-
+                      (List of String) Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                      Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
+                    items:
+                      type: string
+                    type: array
+                  storageGcpServiceAccount:
+                    description: |-
+                      (String) This is the name of the Snowflake Google Service Account created for your account.
+                      This is the name of the Snowflake Google Service Account created for your account.
+                    type: string
+                  storageProvider:
+                    description: |-
+                      (String) Specifies the storage provider for the integration. Valid options are: S3 | S3GOV | S3CHINA | GCS | AZURE
+                      Specifies the storage provider for the integration. Valid options are: `S3` | `S3GOV` | `S3CHINA` | `GCS` | `AZURE`
+                    type: string
+                  type:
+                    description: |-
+                      (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
+                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                    type: string
+                  usePrivatelinkEndpoint:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

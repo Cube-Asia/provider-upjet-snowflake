@@ -110,30 +110,6 @@ type EnableConsoleOutputObservation struct {
 type EnableConsoleOutputParameters struct {
 }
 
-type ExternalVolumeInitParameters struct {
-}
-
-type ExternalVolumeObservation struct {
-
-	// (String)
-	Default *string `json:"default,omitempty" tf:"default,omitempty"`
-
-	// (String)
-	Description *string `json:"description,omitempty" tf:"description,omitempty"`
-
-	// (String)
-	Key *string `json:"key,omitempty" tf:"key,omitempty"`
-
-	// (String)
-	Level *string `json:"level,omitempty" tf:"level,omitempty"`
-
-	// (String)
-	Value *string `json:"value,omitempty" tf:"value,omitempty"`
-}
-
-type ExternalVolumeParameters struct {
-}
-
 type MaxDataExtensionTimeInDaysInitParameters struct {
 }
 
@@ -156,6 +132,30 @@ type MaxDataExtensionTimeInDaysObservation struct {
 }
 
 type MaxDataExtensionTimeInDaysParameters struct {
+}
+
+type ParametersExternalVolumeInitParameters struct {
+}
+
+type ParametersExternalVolumeObservation struct {
+
+	// (String)
+	Default *string `json:"default,omitempty" tf:"default,omitempty"`
+
+	// (String)
+	Description *string `json:"description,omitempty" tf:"description,omitempty"`
+
+	// (String)
+	Key *string `json:"key,omitempty" tf:"key,omitempty"`
+
+	// (String)
+	Level *string `json:"level,omitempty" tf:"level,omitempty"`
+
+	// (String)
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type ParametersExternalVolumeParameters struct {
 }
 
 type ParametersLogEventLevelInitParameters struct {
@@ -648,7 +648,7 @@ type SchemaParametersObservation struct {
 	EnableConsoleOutput []EnableConsoleOutputObservation `json:"enableConsoleOutput,omitempty" tf:"enable_console_output,omitempty"`
 
 	// (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
-	ExternalVolume []ExternalVolumeObservation `json:"externalVolume,omitempty" tf:"external_volume,omitempty"`
+	ExternalVolume []ParametersExternalVolumeObservation `json:"externalVolume,omitempty" tf:"external_volume,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
 	LogEventLevel []ParametersLogEventLevelObservation `json:"logEventLevel,omitempty" tf:"log_event_level,omitempty"`

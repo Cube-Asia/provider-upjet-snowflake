@@ -10,31 +10,46 @@ package v1alpha1
 func (tr *Account) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *AccountParameter) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *AccountRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *AccountSessionPolicyAttachment) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *ApplicationRole) Hub() {}
+func (tr *ApiAuthenticationIntegrationWithAuthorizationCodeGrant) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Association) Hub() {}
+func (tr *ApiAuthenticationIntegrationWithClientCredentials) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *AuthenticationIntegrationWithAuthorizationCodeGrant) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *AuthenticationIntegrationWithClientCredentials) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *AuthenticationIntegrationWithJwtBearer) Hub() {}
+func (tr *ApiAuthenticationIntegrationWithJwtBearer) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *AuthenticationPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Connection) Hub() {}
+func (tr *CatalogIntegrationAwsGlue) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CatalogIntegrationIcebergRest) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CatalogIntegrationObjectStorage) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CatalogIntegrationOpenCatalog) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ComputePool) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CurrentAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *CurrentOrganizationAccount) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Database) Hub() {}
@@ -46,49 +61,37 @@ func (tr *DatabaseRole) Hub() {}
 func (tr *Execute) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *ExternalAzure) Hub() {}
+func (tr *ExternalOauthIntegration) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *ExternalGcs) Hub() {}
+func (tr *ExternalVolume) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *ExternalS3) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *ExternalS3Compatible) Hub() {}
+func (tr *GitRepository) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *GrantAccountRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Integration) Hub() {}
+func (tr *GrantApplicationRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationAws) Hub() {}
+func (tr *GrantDatabaseRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationAwsGlue) Hub() {}
+func (tr *GrantOwnership) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationAzure) Hub() {}
+func (tr *GrantPrivilegesToAccountRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationForCustomClients) Hub() {}
+func (tr *GrantPrivilegesToDatabaseRole) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationForPartnerApplications) Hub() {}
+func (tr *GrantPrivilegesToShare) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGcs) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *IntegrationIcebergRest) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *IntegrationObjectStorage) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *IntegrationOpenCatalog) Hub() {}
+func (tr *ImageRepository) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *LegacyServiceUser) Hub() {}
@@ -100,70 +103,55 @@ func (tr *Listing) Hub() {}
 func (tr *MaskingPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Monitor) Hub() {}
+func (tr *NetworkPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *OauthIntegration) Hub() {}
+func (tr *NetworkRule) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *OnDirectoryTable) Hub() {}
+func (tr *OauthIntegrationForCustomClients) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *OnExternalTable) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *OnTable) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *OnView) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *OrganizationAccount) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Ownership) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Parameter) Hub() {}
+func (tr *OauthIntegrationForPartnerApplications) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *PasswordPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Policy) Hub() {}
+func (tr *PrimaryConnection) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Pool) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *PrivilegesToAccountRole) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *PrivilegesToDatabaseRole) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *PrivilegesToShare) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *ProgrammaticAccessToken) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Repository) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Role) Hub() {}
+func (tr *ResourceMonitor) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *RowAccessPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Rule) Hub() {}
+func (tr *Saml2Integration) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Schema) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *ScimIntegration) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecondaryConnection) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *SecondaryDatabase) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecretWithAuthorizationCodeGrant) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecretWithBasicAuthentication) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecretWithClientCredentials) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SecretWithGenericString) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Service) Hub() {}
@@ -175,19 +163,52 @@ func (tr *ServiceUser) Hub() {}
 func (tr *SessionPolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *SessionPolicyAttachment) Hub() {}
+func (tr *SharedDatabase) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *SharedDatabase) Hub() {}
+func (tr *StageExternalAzure) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StageExternalGcs) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StageExternalS3) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StageExternalS3Compatible) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *StageInternal) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *StorageIntegrationAws) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StorageIntegrationAzure) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StorageIntegrationGcs) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Streamlit) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *StreamOnDirectoryTable) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StreamOnExternalTable) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StreamOnTable) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StreamOnView) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *Tag) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *TagAssociation) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Task) Hub() {}
@@ -196,22 +217,13 @@ func (tr *Task) Hub() {}
 func (tr *User) Hub() {}
 
 // Hub marks this type as a conversion hub.
+func (tr *UserProgrammaticAccessToken) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserSessionPolicyAttachment) Hub() {}
+
+// Hub marks this type as a conversion hub.
 func (tr *View) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Volume) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Warehouse) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *WithAuthorizationCodeGrant) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *WithBasicAuthentication) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *WithClientCredentials) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *WithGenericString) Hub() {}

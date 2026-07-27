@@ -1,0 +1,13 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: PostgresInstance
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/postgresinstance
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    authenticationAuthority: POSTGRES
+    computeFamily: STANDARD_M
+    storageSizeGb: 10

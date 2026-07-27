@@ -1,0 +1,18 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: StorageIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/storageintegration
+  labels:
+    testing.upbound.io/example-name: integration
+  name: integration
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: true
+    storageAllowedLocations:
+    - s3://mybucket1/path1/
+    - s3://mybucket2/path2/
+    storageAwsRoleArn: arn:aws:iam::001234567890:role/myrole
+    storageProvider: S3
+    type: EXTERNAL_STAGE

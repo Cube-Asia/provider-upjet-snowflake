@@ -1,0 +1,11 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: PrimaryConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/primaryconnection
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider: {}

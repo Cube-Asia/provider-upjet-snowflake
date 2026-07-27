@@ -16,12 +16,12 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this Account
 func (mg *Account) GetTerraformResourceType() string {
-	return "snowflake_current_account"
+	return "snowflake_account"
 }
 
 // GetConnectionDetailsMapping for this Account
 func (tr *Account) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"admin_name": "adminNameSecretRef", "admin_password": "adminPasswordSecretRef", "email": "emailSecretRef", "first_name": "firstNameSecretRef", "last_name": "lastNameSecretRef"}
 }
 
 // GetObservation of this Account
@@ -113,7 +113,7 @@ func (tr *Account) GetMergedParameters(shouldMergeInitProvider bool) (map[string
 // LateInitialize this Account using its observed tfState.
 // returns True if there are any spec changes for the resource.
 func (tr *Account) LateInitialize(attrs []byte) (bool, error) {
-	params := &AccountParameters_2{}
+	params := &AccountParameters{}
 	if err := json.TFParser.Unmarshal(attrs, params); err != nil {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
@@ -125,5 +125,5 @@ func (tr *Account) LateInitialize(attrs []byte) (bool, error) {
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *Account) GetTerraformSchemaVersion() int {
-	return 0
+	return 1
 }

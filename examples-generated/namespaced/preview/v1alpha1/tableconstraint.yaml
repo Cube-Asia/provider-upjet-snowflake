@@ -1,0 +1,94 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: TableConstraint
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/tableconstraint
+  labels:
+    testing.upbound.io/example-name: primary_key
+  name: primary-key
+  namespace: crossplane-system
+spec:
+  forProvider:
+    columns:
+    - col1
+    name: myconstraint
+    tableId: ${snowflake_table.t.fully_qualified_name}
+    type: PRIMARY KEY
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/tableconstraint
+  labels:
+    testing.upbound.io/example-name: d
+  name: d
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/tableconstraint
+  labels:
+    testing.upbound.io/example-name: s
+  name: s
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: some_db
+
+---
+
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/tableconstraint
+  labels:
+    testing.upbound.io/example-name: fk_t
+  name: fk-t
+  namespace: crossplane-system
+spec:
+  forProvider:
+    column:
+    - name: fk_col1
+      nullable: false
+      type: text
+    - name: fk_col2
+      nullable: false
+      type: text
+    database: some_db
+    schema: some_schema
+
+---
+
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/tableconstraint
+  labels:
+    testing.upbound.io/example-name: t
+  name: t
+  namespace: crossplane-system
+spec:
+  forProvider:
+    column:
+    - name: col1
+      nullable: false
+      type: text
+    - name: col2
+      nullable: false
+      type: text
+    - name: col3
+      nullable: false
+      type: text
+    database: some_db
+    schema: some_schema

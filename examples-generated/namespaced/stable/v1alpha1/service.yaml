@@ -19,7 +19,7 @@ spec:
 ---
 
 apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
-kind: Pool
+kind: ComputePool
 metadata:
   annotations:
     meta.upbound.io/example-id: stable/v1alpha1/service

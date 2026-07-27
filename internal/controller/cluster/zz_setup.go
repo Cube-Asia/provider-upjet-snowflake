@@ -9,260 +9,274 @@ import (
 
 	"github.com/crossplane/upjet/v2/pkg/controller"
 
-	account "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/account"
 	accountauthenticationpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/accountauthenticationpolicyattachment"
 	accountpasswordpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/accountpasswordpolicyattachment"
-	adaptive "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/adaptive"
-	agent "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/agent"
 	alert "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/alert"
-	authenticationpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/authenticationpolicyattachment"
-	columnmaskingpolicyapplication "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/columnmaskingpolicyapplication"
-	constraint "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/constraint"
-	format "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/format"
-	function "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/function"
-	group "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/group"
-	instance "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/instance"
-	integration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integration"
-	integrationamazonapigateway "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationamazonapigateway"
-	integrationazureapimanagement "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationazureapimanagement"
-	integrationexternalmcpdynamicclient "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationexternalmcpdynamicclient"
-	integrationexternalmcpoauth2 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationexternalmcpoauth2"
-	integrationgitrepositorygithubapp "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationgitrepositorygithubapp"
-	integrationgitrepositoryoauth2 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationgitrepositoryoauth2"
-	integrationgitrepositoryprivatelink "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationgitrepositoryprivatelink"
-	integrationgitrepositorytoken "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationgitrepositorytoken"
-	integrationgooglecloudapigateway "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/integrationgooglecloudapigateway"
-	java "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/java"
-	javascript "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/javascript"
-	lifecyclepolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/lifecyclepolicy"
+	apiintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegration"
+	apiintegrationamazonapigateway "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationamazonapigateway"
+	apiintegrationazureapimanagement "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationazureapimanagement"
+	apiintegrationexternalmcpdynamicclient "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationexternalmcpdynamicclient"
+	apiintegrationexternalmcpoauth2 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationexternalmcpoauth2"
+	apiintegrationgitrepositorygithubapp "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationgitrepositorygithubapp"
+	apiintegrationgitrepositoryoauth2 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationgitrepositoryoauth2"
+	apiintegrationgitrepositoryprivatelink "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationgitrepositoryprivatelink"
+	apiintegrationgitrepositorytoken "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationgitrepositorytoken"
+	apiintegrationgooglecloudapigateway "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/apiintegrationgooglecloudapigateway"
+	cortexagent "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/cortexagent"
+	cortexsearchservice "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/cortexsearchservice"
+	dynamictable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/dynamictable"
+	emailnotificationintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/emailnotificationintegration"
+	externalfunction "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/externalfunction"
+	externaltable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/externaltable"
+	failovergroup "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/failovergroup"
+	fileformat "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/fileformat"
+	functionjava "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/functionjava"
+	functionjavascript "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/functionjavascript"
+	functionpython "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/functionpython"
+	functionscala "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/functionscala"
+	functionsql "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/functionsql"
+	icebergtablefromdeltafiles "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/icebergtablefromdeltafiles"
+	icebergtablefromfiles "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/icebergtablefromfiles"
+	jobservice "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/jobservice"
+	managedaccount "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/managedaccount"
+	materializedview "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/materializedview"
+	networkpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/networkpolicyattachment"
 	notebook "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/notebook"
 	notificationintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/notificationintegration"
-	parameter "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/parameter"
-	passwordpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/passwordpolicyattachment"
+	objectparameter "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/objectparameter"
 	pipe "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/pipe"
-	policyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/policyattachment"
-	publickeys "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/publickeys"
-	python "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/python"
-	scala "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/scala"
-	searchservice "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/searchservice"
+	postgresinstance "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/postgresinstance"
+	procedurejava "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/procedurejava"
+	procedurejavascript "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/procedurejavascript"
+	procedurepython "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/procedurepython"
+	procedurescala "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/procedurescala"
+	proceduresql "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/proceduresql"
+	semanticview "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/semanticview"
 	sequence "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/sequence"
-	service "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/service"
 	share "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/share"
-	sql "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/sql"
 	stage "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/stage"
-	storagelifecyclepolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/storagelifecyclepolicyattachment"
+	storageintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/storageintegration"
+	storagelifecyclepolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/storagelifecyclepolicy"
 	table "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/table"
-	tablefromdeltafiles "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/tablefromdeltafiles"
-	tablefromfiles "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/tablefromfiles"
-	view "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/view"
+	tablecolumnmaskingpolicyapplication "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/tablecolumnmaskingpolicyapplication"
+	tableconstraint "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/tableconstraint"
+	tablestoragelifecyclepolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/tablestoragelifecyclepolicyattachment"
+	userauthenticationpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/userauthenticationpolicyattachment"
+	userpasswordpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/userpasswordpolicyattachment"
+	userpublickeys "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/userpublickeys"
+	warehouseadaptive "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/preview/warehouseadaptive"
 	providerconfig "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/providerconfig"
-	accountstable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/account"
+	account "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/account"
+	accountparameter "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/accountparameter"
 	accountrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/accountrole"
 	accountsessionpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/accountsessionpolicyattachment"
-	applicationrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/applicationrole"
-	association "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/association"
-	authenticationintegrationwithauthorizationcodegrant "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/authenticationintegrationwithauthorizationcodegrant"
-	authenticationintegrationwithclientcredentials "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/authenticationintegrationwithclientcredentials"
-	authenticationintegrationwithjwtbearer "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/authenticationintegrationwithjwtbearer"
+	apiauthenticationintegrationwithauthorizationcodegrant "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/apiauthenticationintegrationwithauthorizationcodegrant"
+	apiauthenticationintegrationwithclientcredentials "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/apiauthenticationintegrationwithclientcredentials"
+	apiauthenticationintegrationwithjwtbearer "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/apiauthenticationintegrationwithjwtbearer"
 	authenticationpolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/authenticationpolicy"
-	connection "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/connection"
+	catalogintegrationawsglue "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/catalogintegrationawsglue"
+	catalogintegrationicebergrest "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/catalogintegrationicebergrest"
+	catalogintegrationobjectstorage "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/catalogintegrationobjectstorage"
+	catalogintegrationopencatalog "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/catalogintegrationopencatalog"
+	computepool "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/computepool"
+	currentaccount "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/currentaccount"
+	currentorganizationaccount "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/currentorganizationaccount"
 	database "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/database"
 	databaserole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/databaserole"
 	execute "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/execute"
-	externalazure "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externalazure"
-	externalgcs "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externalgcs"
-	externals3 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externals3"
-	externals3compatible "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externals3compatible"
+	externaloauthintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externaloauthintegration"
+	externalvolume "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/externalvolume"
+	gitrepository "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/gitrepository"
 	grantaccountrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantaccountrole"
-	integrationstable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integration"
-	integrationaws "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationaws"
-	integrationawsglue "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationawsglue"
-	integrationazure "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationazure"
-	integrationforcustomclients "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationforcustomclients"
-	integrationforpartnerapplications "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationforpartnerapplications"
-	integrationgcs "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationgcs"
-	integrationicebergrest "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationicebergrest"
-	integrationobjectstorage "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationobjectstorage"
-	integrationopencatalog "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/integrationopencatalog"
+	grantapplicationrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantapplicationrole"
+	grantdatabaserole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantdatabaserole"
+	grantownership "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantownership"
+	grantprivilegestoaccountrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantprivilegestoaccountrole"
+	grantprivilegestodatabaserole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantprivilegestodatabaserole"
+	grantprivilegestoshare "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/grantprivilegestoshare"
+	imagerepository "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/imagerepository"
 	legacyserviceuser "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/legacyserviceuser"
 	listing "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/listing"
 	maskingpolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/maskingpolicy"
-	monitor "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/monitor"
-	oauthintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/oauthintegration"
-	ondirectorytable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/ondirectorytable"
-	onexternaltable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/onexternaltable"
-	ontable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/ontable"
-	onview "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/onview"
-	organizationaccount "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/organizationaccount"
-	ownership "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/ownership"
-	parameterstable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/parameter"
+	networkpolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/networkpolicy"
+	networkrule "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/networkrule"
+	oauthintegrationforcustomclients "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/oauthintegrationforcustomclients"
+	oauthintegrationforpartnerapplications "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/oauthintegrationforpartnerapplications"
 	passwordpolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/passwordpolicy"
-	policy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/policy"
-	pool "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/pool"
-	privilegestoaccountrole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/privilegestoaccountrole"
-	privilegestodatabaserole "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/privilegestodatabaserole"
-	privilegestoshare "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/privilegestoshare"
-	programmaticaccesstoken "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/programmaticaccesstoken"
-	repository "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/repository"
-	role "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/role"
+	primaryconnection "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/primaryconnection"
+	resourcemonitor "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/resourcemonitor"
 	rowaccesspolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/rowaccesspolicy"
-	rule "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/rule"
+	saml2integration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/saml2integration"
 	schema "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/schema"
+	scimintegration "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/scimintegration"
+	secondaryconnection "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secondaryconnection"
 	secondarydatabase "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secondarydatabase"
-	servicestable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/service"
+	secretwithauthorizationcodegrant "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secretwithauthorizationcodegrant"
+	secretwithbasicauthentication "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secretwithbasicauthentication"
+	secretwithclientcredentials "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secretwithclientcredentials"
+	secretwithgenericstring "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/secretwithgenericstring"
+	service "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/service"
 	serviceuser "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/serviceuser"
 	sessionpolicy "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/sessionpolicy"
-	sessionpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/sessionpolicyattachment"
 	shareddatabase "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/shareddatabase"
+	stageexternalazure "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/stageexternalazure"
+	stageexternalgcs "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/stageexternalgcs"
+	stageexternals3 "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/stageexternals3"
+	stageexternals3compatible "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/stageexternals3compatible"
 	stageinternal "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/stageinternal"
+	storageintegrationaws "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/storageintegrationaws"
+	storageintegrationazure "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/storageintegrationazure"
+	storageintegrationgcs "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/storageintegrationgcs"
 	streamlit "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/streamlit"
+	streamondirectorytable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/streamondirectorytable"
+	streamonexternaltable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/streamonexternaltable"
+	streamontable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/streamontable"
+	streamonview "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/streamonview"
 	tag "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/tag"
+	tagassociation "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/tagassociation"
 	task "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/task"
 	user "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/user"
-	viewstable "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/view"
-	volume "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/volume"
+	userprogrammaticaccesstoken "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/userprogrammaticaccesstoken"
+	usersessionpolicyattachment "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/usersessionpolicyattachment"
+	view "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/view"
 	warehouse "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/warehouse"
-	withauthorizationcodegrant "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/withauthorizationcodegrant"
-	withbasicauthentication "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/withbasicauthentication"
-	withclientcredentials "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/withclientcredentials"
-	withgenericstring "github.com/Cube-Asia/provider-upjet-snowflake/internal/controller/cluster/stable/withgenericstring"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		account.Setup,
 		accountauthenticationpolicyattachment.Setup,
 		accountpasswordpolicyattachment.Setup,
-		adaptive.Setup,
-		agent.Setup,
 		alert.Setup,
-		authenticationpolicyattachment.Setup,
-		columnmaskingpolicyapplication.Setup,
-		constraint.Setup,
-		format.Setup,
-		function.Setup,
-		group.Setup,
-		instance.Setup,
-		integration.Setup,
-		integration.Setup,
-		integration.Setup,
-		integrationamazonapigateway.Setup,
-		integrationazureapimanagement.Setup,
-		integrationexternalmcpdynamicclient.Setup,
-		integrationexternalmcpoauth2.Setup,
-		integrationgitrepositorygithubapp.Setup,
-		integrationgitrepositoryoauth2.Setup,
-		integrationgitrepositoryprivatelink.Setup,
-		integrationgitrepositorytoken.Setup,
-		integrationgooglecloudapigateway.Setup,
-		java.Setup,
-		java.Setup,
-		javascript.Setup,
-		javascript.Setup,
-		lifecyclepolicy.Setup,
+		apiintegration.Setup,
+		apiintegrationamazonapigateway.Setup,
+		apiintegrationazureapimanagement.Setup,
+		apiintegrationexternalmcpdynamicclient.Setup,
+		apiintegrationexternalmcpoauth2.Setup,
+		apiintegrationgitrepositorygithubapp.Setup,
+		apiintegrationgitrepositoryoauth2.Setup,
+		apiintegrationgitrepositoryprivatelink.Setup,
+		apiintegrationgitrepositorytoken.Setup,
+		apiintegrationgooglecloudapigateway.Setup,
+		cortexagent.Setup,
+		cortexsearchservice.Setup,
+		dynamictable.Setup,
+		emailnotificationintegration.Setup,
+		externalfunction.Setup,
+		externaltable.Setup,
+		failovergroup.Setup,
+		fileformat.Setup,
+		functionjava.Setup,
+		functionjavascript.Setup,
+		functionpython.Setup,
+		functionscala.Setup,
+		functionsql.Setup,
+		icebergtablefromdeltafiles.Setup,
+		icebergtablefromfiles.Setup,
+		jobservice.Setup,
+		managedaccount.Setup,
+		materializedview.Setup,
+		networkpolicyattachment.Setup,
 		notebook.Setup,
 		notificationintegration.Setup,
-		parameter.Setup,
-		passwordpolicyattachment.Setup,
+		objectparameter.Setup,
 		pipe.Setup,
-		policyattachment.Setup,
-		publickeys.Setup,
-		python.Setup,
-		python.Setup,
-		scala.Setup,
-		scala.Setup,
-		searchservice.Setup,
+		postgresinstance.Setup,
+		procedurejava.Setup,
+		procedurejavascript.Setup,
+		procedurepython.Setup,
+		procedurescala.Setup,
+		proceduresql.Setup,
+		semanticview.Setup,
 		sequence.Setup,
-		service.Setup,
 		share.Setup,
-		sql.Setup,
-		sql.Setup,
 		stage.Setup,
-		storagelifecyclepolicyattachment.Setup,
+		storageintegration.Setup,
+		storagelifecyclepolicy.Setup,
 		table.Setup,
-		table.Setup,
-		table.Setup,
-		tablefromdeltafiles.Setup,
-		tablefromfiles.Setup,
-		view.Setup,
-		view.Setup,
+		tablecolumnmaskingpolicyapplication.Setup,
+		tableconstraint.Setup,
+		tablestoragelifecyclepolicyattachment.Setup,
+		userauthenticationpolicyattachment.Setup,
+		userpasswordpolicyattachment.Setup,
+		userpublickeys.Setup,
+		warehouseadaptive.Setup,
 		providerconfig.Setup,
-		accountstable.Setup,
-		accountstable.Setup,
+		account.Setup,
+		accountparameter.Setup,
 		accountrole.Setup,
 		accountsessionpolicyattachment.Setup,
-		applicationrole.Setup,
-		association.Setup,
-		authenticationintegrationwithauthorizationcodegrant.Setup,
-		authenticationintegrationwithclientcredentials.Setup,
-		authenticationintegrationwithjwtbearer.Setup,
+		apiauthenticationintegrationwithauthorizationcodegrant.Setup,
+		apiauthenticationintegrationwithclientcredentials.Setup,
+		apiauthenticationintegrationwithjwtbearer.Setup,
 		authenticationpolicy.Setup,
-		connection.Setup,
-		connection.Setup,
+		catalogintegrationawsglue.Setup,
+		catalogintegrationicebergrest.Setup,
+		catalogintegrationobjectstorage.Setup,
+		catalogintegrationopencatalog.Setup,
+		computepool.Setup,
+		currentaccount.Setup,
+		currentorganizationaccount.Setup,
 		database.Setup,
 		databaserole.Setup,
 		execute.Setup,
-		externalazure.Setup,
-		externalgcs.Setup,
-		externals3.Setup,
-		externals3compatible.Setup,
+		externaloauthintegration.Setup,
+		externalvolume.Setup,
+		gitrepository.Setup,
 		grantaccountrole.Setup,
-		integrationstable.Setup,
-		integrationstable.Setup,
-		integrationaws.Setup,
-		integrationawsglue.Setup,
-		integrationazure.Setup,
-		integrationforcustomclients.Setup,
-		integrationforpartnerapplications.Setup,
-		integrationgcs.Setup,
-		integrationicebergrest.Setup,
-		integrationobjectstorage.Setup,
-		integrationopencatalog.Setup,
+		grantapplicationrole.Setup,
+		grantdatabaserole.Setup,
+		grantownership.Setup,
+		grantprivilegestoaccountrole.Setup,
+		grantprivilegestodatabaserole.Setup,
+		grantprivilegestoshare.Setup,
+		imagerepository.Setup,
 		legacyserviceuser.Setup,
 		listing.Setup,
 		maskingpolicy.Setup,
-		monitor.Setup,
-		oauthintegration.Setup,
-		ondirectorytable.Setup,
-		onexternaltable.Setup,
-		ontable.Setup,
-		onview.Setup,
-		organizationaccount.Setup,
-		ownership.Setup,
-		parameterstable.Setup,
+		networkpolicy.Setup,
+		networkrule.Setup,
+		oauthintegrationforcustomclients.Setup,
+		oauthintegrationforpartnerapplications.Setup,
 		passwordpolicy.Setup,
-		policy.Setup,
-		pool.Setup,
-		privilegestoaccountrole.Setup,
-		privilegestodatabaserole.Setup,
-		privilegestoshare.Setup,
-		programmaticaccesstoken.Setup,
-		repository.Setup,
-		repository.Setup,
-		role.Setup,
+		primaryconnection.Setup,
+		resourcemonitor.Setup,
 		rowaccesspolicy.Setup,
-		rule.Setup,
+		saml2integration.Setup,
 		schema.Setup,
+		scimintegration.Setup,
+		secondaryconnection.Setup,
 		secondarydatabase.Setup,
-		servicestable.Setup,
+		secretwithauthorizationcodegrant.Setup,
+		secretwithbasicauthentication.Setup,
+		secretwithclientcredentials.Setup,
+		secretwithgenericstring.Setup,
+		service.Setup,
 		serviceuser.Setup,
 		sessionpolicy.Setup,
-		sessionpolicyattachment.Setup,
 		shareddatabase.Setup,
+		stageexternalazure.Setup,
+		stageexternalgcs.Setup,
+		stageexternals3.Setup,
+		stageexternals3compatible.Setup,
 		stageinternal.Setup,
+		storageintegrationaws.Setup,
+		storageintegrationazure.Setup,
+		storageintegrationgcs.Setup,
 		streamlit.Setup,
+		streamondirectorytable.Setup,
+		streamonexternaltable.Setup,
+		streamontable.Setup,
+		streamonview.Setup,
 		tag.Setup,
+		tagassociation.Setup,
 		task.Setup,
 		user.Setup,
-		viewstable.Setup,
-		volume.Setup,
+		userprogrammaticaccesstoken.Setup,
+		usersessionpolicyattachment.Setup,
+		view.Setup,
 		warehouse.Setup,
-		withauthorizationcodegrant.Setup,
-		withbasicauthentication.Setup,
-		withclientcredentials.Setup,
-		withgenericstring.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err
@@ -275,137 +289,137 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 // the supplied manager gated.
 func SetupGated(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		account.SetupGated,
 		accountauthenticationpolicyattachment.SetupGated,
 		accountpasswordpolicyattachment.SetupGated,
-		adaptive.SetupGated,
-		agent.SetupGated,
 		alert.SetupGated,
-		authenticationpolicyattachment.SetupGated,
-		columnmaskingpolicyapplication.SetupGated,
-		constraint.SetupGated,
-		format.SetupGated,
-		function.SetupGated,
-		group.SetupGated,
-		instance.SetupGated,
-		integration.SetupGated,
-		integration.SetupGated,
-		integration.SetupGated,
-		integrationamazonapigateway.SetupGated,
-		integrationazureapimanagement.SetupGated,
-		integrationexternalmcpdynamicclient.SetupGated,
-		integrationexternalmcpoauth2.SetupGated,
-		integrationgitrepositorygithubapp.SetupGated,
-		integrationgitrepositoryoauth2.SetupGated,
-		integrationgitrepositoryprivatelink.SetupGated,
-		integrationgitrepositorytoken.SetupGated,
-		integrationgooglecloudapigateway.SetupGated,
-		java.SetupGated,
-		java.SetupGated,
-		javascript.SetupGated,
-		javascript.SetupGated,
-		lifecyclepolicy.SetupGated,
+		apiintegration.SetupGated,
+		apiintegrationamazonapigateway.SetupGated,
+		apiintegrationazureapimanagement.SetupGated,
+		apiintegrationexternalmcpdynamicclient.SetupGated,
+		apiintegrationexternalmcpoauth2.SetupGated,
+		apiintegrationgitrepositorygithubapp.SetupGated,
+		apiintegrationgitrepositoryoauth2.SetupGated,
+		apiintegrationgitrepositoryprivatelink.SetupGated,
+		apiintegrationgitrepositorytoken.SetupGated,
+		apiintegrationgooglecloudapigateway.SetupGated,
+		cortexagent.SetupGated,
+		cortexsearchservice.SetupGated,
+		dynamictable.SetupGated,
+		emailnotificationintegration.SetupGated,
+		externalfunction.SetupGated,
+		externaltable.SetupGated,
+		failovergroup.SetupGated,
+		fileformat.SetupGated,
+		functionjava.SetupGated,
+		functionjavascript.SetupGated,
+		functionpython.SetupGated,
+		functionscala.SetupGated,
+		functionsql.SetupGated,
+		icebergtablefromdeltafiles.SetupGated,
+		icebergtablefromfiles.SetupGated,
+		jobservice.SetupGated,
+		managedaccount.SetupGated,
+		materializedview.SetupGated,
+		networkpolicyattachment.SetupGated,
 		notebook.SetupGated,
 		notificationintegration.SetupGated,
-		parameter.SetupGated,
-		passwordpolicyattachment.SetupGated,
+		objectparameter.SetupGated,
 		pipe.SetupGated,
-		policyattachment.SetupGated,
-		publickeys.SetupGated,
-		python.SetupGated,
-		python.SetupGated,
-		scala.SetupGated,
-		scala.SetupGated,
-		searchservice.SetupGated,
+		postgresinstance.SetupGated,
+		procedurejava.SetupGated,
+		procedurejavascript.SetupGated,
+		procedurepython.SetupGated,
+		procedurescala.SetupGated,
+		proceduresql.SetupGated,
+		semanticview.SetupGated,
 		sequence.SetupGated,
-		service.SetupGated,
 		share.SetupGated,
-		sql.SetupGated,
-		sql.SetupGated,
 		stage.SetupGated,
-		storagelifecyclepolicyattachment.SetupGated,
+		storageintegration.SetupGated,
+		storagelifecyclepolicy.SetupGated,
 		table.SetupGated,
-		table.SetupGated,
-		table.SetupGated,
-		tablefromdeltafiles.SetupGated,
-		tablefromfiles.SetupGated,
-		view.SetupGated,
-		view.SetupGated,
+		tablecolumnmaskingpolicyapplication.SetupGated,
+		tableconstraint.SetupGated,
+		tablestoragelifecyclepolicyattachment.SetupGated,
+		userauthenticationpolicyattachment.SetupGated,
+		userpasswordpolicyattachment.SetupGated,
+		userpublickeys.SetupGated,
+		warehouseadaptive.SetupGated,
 		providerconfig.SetupGated,
-		accountstable.SetupGated,
-		accountstable.SetupGated,
+		account.SetupGated,
+		accountparameter.SetupGated,
 		accountrole.SetupGated,
 		accountsessionpolicyattachment.SetupGated,
-		applicationrole.SetupGated,
-		association.SetupGated,
-		authenticationintegrationwithauthorizationcodegrant.SetupGated,
-		authenticationintegrationwithclientcredentials.SetupGated,
-		authenticationintegrationwithjwtbearer.SetupGated,
+		apiauthenticationintegrationwithauthorizationcodegrant.SetupGated,
+		apiauthenticationintegrationwithclientcredentials.SetupGated,
+		apiauthenticationintegrationwithjwtbearer.SetupGated,
 		authenticationpolicy.SetupGated,
-		connection.SetupGated,
-		connection.SetupGated,
+		catalogintegrationawsglue.SetupGated,
+		catalogintegrationicebergrest.SetupGated,
+		catalogintegrationobjectstorage.SetupGated,
+		catalogintegrationopencatalog.SetupGated,
+		computepool.SetupGated,
+		currentaccount.SetupGated,
+		currentorganizationaccount.SetupGated,
 		database.SetupGated,
 		databaserole.SetupGated,
 		execute.SetupGated,
-		externalazure.SetupGated,
-		externalgcs.SetupGated,
-		externals3.SetupGated,
-		externals3compatible.SetupGated,
+		externaloauthintegration.SetupGated,
+		externalvolume.SetupGated,
+		gitrepository.SetupGated,
 		grantaccountrole.SetupGated,
-		integrationstable.SetupGated,
-		integrationstable.SetupGated,
-		integrationaws.SetupGated,
-		integrationawsglue.SetupGated,
-		integrationazure.SetupGated,
-		integrationforcustomclients.SetupGated,
-		integrationforpartnerapplications.SetupGated,
-		integrationgcs.SetupGated,
-		integrationicebergrest.SetupGated,
-		integrationobjectstorage.SetupGated,
-		integrationopencatalog.SetupGated,
+		grantapplicationrole.SetupGated,
+		grantdatabaserole.SetupGated,
+		grantownership.SetupGated,
+		grantprivilegestoaccountrole.SetupGated,
+		grantprivilegestodatabaserole.SetupGated,
+		grantprivilegestoshare.SetupGated,
+		imagerepository.SetupGated,
 		legacyserviceuser.SetupGated,
 		listing.SetupGated,
 		maskingpolicy.SetupGated,
-		monitor.SetupGated,
-		oauthintegration.SetupGated,
-		ondirectorytable.SetupGated,
-		onexternaltable.SetupGated,
-		ontable.SetupGated,
-		onview.SetupGated,
-		organizationaccount.SetupGated,
-		ownership.SetupGated,
-		parameterstable.SetupGated,
+		networkpolicy.SetupGated,
+		networkrule.SetupGated,
+		oauthintegrationforcustomclients.SetupGated,
+		oauthintegrationforpartnerapplications.SetupGated,
 		passwordpolicy.SetupGated,
-		policy.SetupGated,
-		pool.SetupGated,
-		privilegestoaccountrole.SetupGated,
-		privilegestodatabaserole.SetupGated,
-		privilegestoshare.SetupGated,
-		programmaticaccesstoken.SetupGated,
-		repository.SetupGated,
-		repository.SetupGated,
-		role.SetupGated,
+		primaryconnection.SetupGated,
+		resourcemonitor.SetupGated,
 		rowaccesspolicy.SetupGated,
-		rule.SetupGated,
+		saml2integration.SetupGated,
 		schema.SetupGated,
+		scimintegration.SetupGated,
+		secondaryconnection.SetupGated,
 		secondarydatabase.SetupGated,
-		servicestable.SetupGated,
+		secretwithauthorizationcodegrant.SetupGated,
+		secretwithbasicauthentication.SetupGated,
+		secretwithclientcredentials.SetupGated,
+		secretwithgenericstring.SetupGated,
+		service.SetupGated,
 		serviceuser.SetupGated,
 		sessionpolicy.SetupGated,
-		sessionpolicyattachment.SetupGated,
 		shareddatabase.SetupGated,
+		stageexternalazure.SetupGated,
+		stageexternalgcs.SetupGated,
+		stageexternals3.SetupGated,
+		stageexternals3compatible.SetupGated,
 		stageinternal.SetupGated,
+		storageintegrationaws.SetupGated,
+		storageintegrationazure.SetupGated,
+		storageintegrationgcs.SetupGated,
 		streamlit.SetupGated,
+		streamondirectorytable.SetupGated,
+		streamonexternaltable.SetupGated,
+		streamontable.SetupGated,
+		streamonview.SetupGated,
 		tag.SetupGated,
+		tagassociation.SetupGated,
 		task.SetupGated,
 		user.SetupGated,
-		viewstable.SetupGated,
-		volume.SetupGated,
+		userprogrammaticaccesstoken.SetupGated,
+		usersessionpolicyattachment.SetupGated,
+		view.SetupGated,
 		warehouse.SetupGated,
-		withauthorizationcodegrant.SetupGated,
-		withbasicauthentication.SetupGated,
-		withclientcredentials.SetupGated,
-		withgenericstring.SetupGated,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

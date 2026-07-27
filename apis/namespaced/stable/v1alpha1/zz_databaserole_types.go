@@ -16,53 +16,89 @@ import (
 
 type DatabaseRoleInitParameters struct {
 
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
-	ParentDatabaseRoleName *string `json:"parentDatabaseRoleName,omitempty" tf:"parent_database_role_name,omitempty"`
-
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
-	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
-
-	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
-	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
+	// (String) Specifies a comment for the database role.
+	// Specifies a comment for the database role.
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 }
 
 type DatabaseRoleObservation struct {
 
+	// (String) Specifies a comment for the database role.
+	// Specifies a comment for the database role.
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// (String) The database in which to create the database role. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+	// The database in which to create the database role. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+	Database *string `json:"database,omitempty" tf:"database,omitempty"`
+
+	// (String) Fully qualified name of the resource. For more information, see object name resolution.
+	// Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+	FullyQualifiedName *string `json:"fullyQualifiedName,omitempty" tf:"fully_qualified_name,omitempty"`
+
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
-	ParentDatabaseRoleName *string `json:"parentDatabaseRoleName,omitempty" tf:"parent_database_role_name,omitempty"`
-
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
-	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
-
-	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
-	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
+	// (List of Object) Outputs the result of SHOW DATABASE ROLES for the given database role. Note that this value will be only recomputed whenever comment field changes. (see below for nested schema)
+	// Outputs the result of `SHOW DATABASE ROLES` for the given database role. Note that this value will be only recomputed whenever comment field changes.
+	ShowOutput []DatabaseRoleShowOutputObservation `json:"showOutput,omitempty" tf:"show_output,omitempty"`
 }
 
 type DatabaseRoleParameters struct {
 
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
+	// (String) Specifies a comment for the database role.
+	// Specifies a comment for the database role.
 	// +kubebuilder:validation:Optional
-	ParentDatabaseRoleName *string `json:"parentDatabaseRoleName,omitempty" tf:"parent_database_role_name,omitempty"`
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
-	// child relationship between the roles. For more information about this resource, see docs.
-	// The fully qualified name of the parent account role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
-	// +kubebuilder:validation:Optional
-	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
+	// (String) The database in which to create the database role. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+	// The database in which to create the database role. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+	// +kubebuilder:validation:Required
+	Database *string `json:"database" tf:"database,omitempty"`
+}
 
-	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
-	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
-	// +kubebuilder:validation:Optional
-	ShareName *string `json:"shareName,omitempty" tf:"share_name,omitempty"`
+type DatabaseRoleShowOutputInitParameters struct {
+}
+
+type DatabaseRoleShowOutputObservation struct {
+
+	// (String) Specifies a comment for the database role.
+	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
+
+	// (String)
+	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
+
+	// (String)
+	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+
+	// (Number)
+	GrantedDatabaseRoles *float64 `json:"grantedDatabaseRoles,omitempty" tf:"granted_database_roles,omitempty"`
+
+	// (Number)
+	GrantedToDatabaseRoles *float64 `json:"grantedToDatabaseRoles,omitempty" tf:"granted_to_database_roles,omitempty"`
+
+	// (Number)
+	GrantedToRoles *float64 `json:"grantedToRoles,omitempty" tf:"granted_to_roles,omitempty"`
+
+	// (Boolean)
+	IsCurrent *bool `json:"isCurrent,omitempty" tf:"is_current,omitempty"`
+
+	// (Boolean)
+	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
+
+	// (Boolean)
+	IsInherited *bool `json:"isInherited,omitempty" tf:"is_inherited,omitempty"`
+
+	// (String) Specifies the identifier for the database role. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String)
+	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
+
+	// (String)
+	OwnerRoleType *string `json:"ownerRoleType,omitempty" tf:"owner_role_type,omitempty"`
+}
+
+type DatabaseRoleShowOutputParameters struct {
 }
 
 // DatabaseRoleSpec defines the desired state of DatabaseRole
@@ -92,7 +128,7 @@ type DatabaseRoleStatus struct {
 // +kubebuilder:subresource:status
 // +kubebuilder:storageversion
 
-// DatabaseRole is the Schema for the DatabaseRoles API.
+// DatabaseRole is the Schema for the DatabaseRoles API. Resource used to manage database roles. For more information, check database roles documentation https://docs.snowflake.com/en/sql-reference/sql/create-database-role.
 // +kubebuilder:printcolumn:name="SYNCED",type="string",JSONPath=".status.conditions[?(@.type=='Synced')].status"
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
 // +kubebuilder:printcolumn:name="EXTERNAL-NAME",type="string",JSONPath=".metadata.annotations.crossplane\\.io/external-name"

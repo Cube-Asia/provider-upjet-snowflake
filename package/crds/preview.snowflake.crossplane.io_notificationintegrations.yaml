@@ -74,22 +74,71 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  allowedRecipients:
+                  awsSnsRoleArn:
                     description: |-
-                      (Set of String) List of email addresses that should receive notifications.
-                      List of email addresses that should receive notifications.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
+                      (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                      AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                    type: string
+                  awsSnsTopicArn:
+                    description: |-
+                      (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                      AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                    type: string
+                  awsSqsArn:
+                    description: |-
+                      (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+                      AWS SQS queue ARN for notification integration to connect to
+                    type: string
+                  awsSqsRoleArn:
+                    description: |-
+                      (String, Deprecated) AWS IAM role ARN for notification integration to assume
+                      AWS IAM role ARN for notification integration to assume
+                    type: string
+                  azureStorageQueuePrimaryUri:
+                    description: |-
+                      (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                      The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
+                  azureTenantId:
+                    description: |-
+                      (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                      The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
                   comment:
                     description: |-
-                      (String) A comment for the email integration.
-                      A comment for the email integration.
+                      (String) A comment for the integration
+                      A comment for the integration
+                    type: string
+                  direction:
+                    description: |-
+                      (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+                      Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
                     type: boolean
+                  gcpPubsubSubscriptionName:
+                    description: |-
+                      (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                      The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                    type: string
+                  gcpPubsubTopicName:
+                    description: |-
+                      (String) The topic id that Snowflake will use to push notifications.
+                      The topic id that Snowflake will use to push notifications.
+                    type: string
+                  notificationProvider:
+                    description: |-
+                      party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                      The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                    type: string
+                  type:
+                    description: |-
+                      (String, Deprecated) (Default: QUEUE) A type of integration
+                      (Default: `QUEUE`) A type of integration
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -104,22 +153,71 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
-                  allowedRecipients:
+                  awsSnsRoleArn:
                     description: |-
-                      (Set of String) List of email addresses that should receive notifications.
-                      List of email addresses that should receive notifications.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
+                      (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                      AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                    type: string
+                  awsSnsTopicArn:
+                    description: |-
+                      (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                      AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                    type: string
+                  awsSqsArn:
+                    description: |-
+                      (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+                      AWS SQS queue ARN for notification integration to connect to
+                    type: string
+                  awsSqsRoleArn:
+                    description: |-
+                      (String, Deprecated) AWS IAM role ARN for notification integration to assume
+                      AWS IAM role ARN for notification integration to assume
+                    type: string
+                  azureStorageQueuePrimaryUri:
+                    description: |-
+                      (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                      The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
+                  azureTenantId:
+                    description: |-
+                      (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                      The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
                   comment:
                     description: |-
-                      (String) A comment for the email integration.
-                      A comment for the email integration.
+                      (String) A comment for the integration
+                      A comment for the integration
+                    type: string
+                  direction:
+                    description: |-
+                      (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+                      Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
                     type: boolean
+                  gcpPubsubSubscriptionName:
+                    description: |-
+                      (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                      The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                    type: string
+                  gcpPubsubTopicName:
+                    description: |-
+                      (String) The topic id that Snowflake will use to push notifications.
+                      The topic id that Snowflake will use to push notifications.
+                    type: string
+                  notificationProvider:
+                    description: |-
+                      party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                      The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                    type: string
+                  type:
+                    description: |-
+                      (String, Deprecated) (Default: QUEUE) A type of integration
+                      (Default: `QUEUE`) A type of integration
+                    type: string
                 type: object
               managementPolicies:
                 default:
@@ -208,39 +306,118 @@ spec:
             - forProvider
             type: object
             x-kubernetes-validations:
-            - message: spec.forProvider.enabled is a required parameter
+            - message: spec.forProvider.notificationProvider is a required parameter
               rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
-                || ''Update'' in self.managementPolicies) || has(self.forProvider.enabled)
-                || (has(self.initProvider) && has(self.initProvider.enabled))'
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.notificationProvider)
+                || (has(self.initProvider) && has(self.initProvider.notificationProvider))'
           status:
             description: NotificationIntegrationStatus defines the observed state
               of NotificationIntegration.
             properties:
               atProvider:
                 properties:
-                  allowedRecipients:
+                  awsSnsExternalId:
                     description: |-
-                      (Set of String) List of email addresses that should receive notifications.
-                      List of email addresses that should receive notifications.
-                    items:
-                      type: string
-                    type: array
-                    x-kubernetes-list-type: set
+                      (String) The external ID that Snowflake will use when assuming the AWS role
+                      The external ID that Snowflake will use when assuming the AWS role
+                    type: string
+                  awsSnsIamUserArn:
+                    description: |-
+                      (String) The Snowflake user that will attempt to assume the AWS role.
+                      The Snowflake user that will attempt to assume the AWS role.
+                    type: string
+                  awsSnsRoleArn:
+                    description: |-
+                      (String) AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                      AWS IAM role ARN for notification integration to assume. Required for AWS_SNS provider
+                    type: string
+                  awsSnsTopicArn:
+                    description: |-
+                      (String) AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                      AWS SNS Topic ARN for notification integration to connect to. Required for AWS_SNS provider.
+                    type: string
+                  awsSqsArn:
+                    description: |-
+                      (String, Deprecated) AWS SQS queue ARN for notification integration to connect to
+                      AWS SQS queue ARN for notification integration to connect to
+                    type: string
+                  awsSqsExternalId:
+                    description: |-
+                      (String, Deprecated) The external ID that Snowflake will use when assuming the AWS role
+                      The external ID that Snowflake will use when assuming the AWS role
+                    type: string
+                  awsSqsIamUserArn:
+                    description: |-
+                      (String, Deprecated) The Snowflake user that will attempt to assume the AWS role.
+                      The Snowflake user that will attempt to assume the AWS role.
+                    type: string
+                  awsSqsRoleArn:
+                    description: |-
+                      (String, Deprecated) AWS IAM role ARN for notification integration to assume
+                      AWS IAM role ARN for notification integration to assume
+                    type: string
+                  azureStorageQueuePrimaryUri:
+                    description: |-
+                      (String) The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                      The queue ID for the Azure Queue Storage queue created for Event Grid notifications. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
+                  azureTenantId:
+                    description: |-
+                      (String) The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                      The ID of the Azure Active Directory tenant used for identity management. Required for AZURE_STORAGE_QUEUE provider
+                    type: string
                   comment:
                     description: |-
-                      (String) A comment for the email integration.
-                      A comment for the email integration.
+                      (String) A comment for the integration
+                      A comment for the integration
+                    type: string
+                  createdOn:
+                    description: |-
+                      (String) Date and time when the notification integration was created.
+                      Date and time when the notification integration was created.
+                    type: string
+                  direction:
+                    description: |-
+                      (String, Deprecated) Direction of the cloud messaging with respect to Snowflake
+                      Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: (Boolean)
+                    description: |-
+                      (Boolean) (Default: true)
+                      (Default: `true`)
                     type: boolean
                   fullyQualifiedName:
                     description: |-
                       (String) Fully qualified name of the resource. For more information, see object name resolution.
                       Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
                     type: string
+                  gcpPubsubServiceAccount:
+                    description: |-
+                      (String) The GCP service account identifier that Snowflake will use when assuming the GCP role
+                      The GCP service account identifier that Snowflake will use when assuming the GCP role
+                    type: string
+                  gcpPubsubSubscriptionName:
+                    description: |-
+                      (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                      The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
+                    type: string
+                  gcpPubsubTopicName:
+                    description: |-
+                      (String) The topic id that Snowflake will use to push notifications.
+                      The topic id that Snowflake will use to push notifications.
+                    type: string
                   id:
                     description: (String) The ID of this resource.
+                    type: string
+                  notificationProvider:
+                    description: |-
+                      party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                      The third-party cloud message queuing service (supported values: AZURE_STORAGE_QUEUE, AWS_SNS, GCP_PUBSUB; AWS_SQS is deprecated and will be removed in the future provider versions)
+                    type: string
+                  type:
+                    description: |-
+                      (String, Deprecated) (Default: QUEUE) A type of integration
+                      (Default: `QUEUE`) A type of integration
                     type: string
                 type: object
               conditions:

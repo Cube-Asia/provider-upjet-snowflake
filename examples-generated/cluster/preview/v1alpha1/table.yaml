@@ -4,14 +4,65 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/table
   labels:
-    testing.upbound.io/example-name: dt
-  name: dt
+    testing.upbound.io/example-name: table
+  name: table
 spec:
   forProvider:
-    comment: example comment
-    database: mydb
-    query: SELECT product_id, product_name FROM "mydb"."myschema"."staging_table"
-    schema: myschema
-    targetLag:
-    - maximumDuration: 20 minutes
-    warehouse: mywh
+    changeTracking: false
+    clusterBy:
+    - to_date(DATE)
+    column:
+    - default:
+      - sequence: ${snowflake_sequence.sequence.fully_qualified_name}
+      name: id
+      nullable: true
+      type: int
+    - identity:
+      - startNum: 1
+        stepNum: 3
+      name: identity
+      nullable: true
+      type: NUMBER(38,0)
+    - collate: en-ci
+      name: data
+      nullable: false
+      type: text
+    - name: DATE
+      type: TIMESTAMP_NTZ(9)
+    - comment: extra data
+      name: extra
+      type: VARIANT
+    comment: A table.
+    dataRetentionTimeInDays: ${snowflake_schema.schema.data_retention_time_in_days}
+    database: database_name
+    schema: ${snowflake_schema.schema.name}
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/table
+  labels:
+    testing.upbound.io/example-name: schema
+  name: schema
+spec:
+  forProvider:
+    data_retention_days: 1
+    database: database
+
+---
+
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Sequence
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/table
+  labels:
+    testing.upbound.io/example-name: sequence
+  name: sequence
+spec:
+  forProvider:
+    database: database
+    schema: schema

@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this DatabaseRole
 func (mg *DatabaseRole) GetTerraformResourceType() string {
-	return "snowflake_grant_database_role"
+	return "snowflake_database_role"
 }
 
 // GetConnectionDetailsMapping for this DatabaseRole
@@ -125,5 +125,5 @@ func (tr *DatabaseRole) LateInitialize(attrs []byte) (bool, error) {
 
 // GetTerraformSchemaVersion returns the associated Terraform schema version
 func (tr *DatabaseRole) GetTerraformSchemaVersion() int {
-	return 0
+	return 1
 }

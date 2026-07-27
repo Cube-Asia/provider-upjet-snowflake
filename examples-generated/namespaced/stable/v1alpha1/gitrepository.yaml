@@ -1,0 +1,15 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GitRepository
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/gitrepository
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiIntegration: API_INTEGRATION
+    database: DATABASE
+    origin: https://github.com/user/repo
+    schema: SCHEMA

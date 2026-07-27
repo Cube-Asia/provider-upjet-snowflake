@@ -7,82 +7,100 @@
 package v1alpha1
 
 // Hub marks this type as a conversion hub.
-func (tr *Account) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *AccountAuthenticationPolicyAttachment) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *AccountPasswordPolicyAttachment) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Adaptive) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *Agent) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Alert) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *AuthenticationPolicyAttachment) Hub() {}
+func (tr *ApiIntegration) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *ColumnMaskingPolicyApplication) Hub() {}
+func (tr *ApiIntegrationAmazonApiGateway) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Constraint) Hub() {}
+func (tr *ApiIntegrationAzureApiManagement) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Format) Hub() {}
+func (tr *ApiIntegrationExternalMcpDynamicClient) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Function) Hub() {}
+func (tr *ApiIntegrationExternalMcpOauth2) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Group) Hub() {}
+func (tr *ApiIntegrationGitRepositoryGithubApp) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Instance) Hub() {}
+func (tr *ApiIntegrationGitRepositoryOauth2) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Integration) Hub() {}
+func (tr *ApiIntegrationGitRepositoryPrivateLink) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationAmazonAPIGateway) Hub() {}
+func (tr *ApiIntegrationGitRepositoryToken) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationAzureAPIManagement) Hub() {}
+func (tr *ApiIntegrationGoogleCloudApiGateway) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationExternalMcpDynamicClient) Hub() {}
+func (tr *CortexAgent) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationExternalMcpOauth2) Hub() {}
+func (tr *CortexSearchService) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGitRepositoryGithubApp) Hub() {}
+func (tr *DynamicTable) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGitRepositoryOauth2) Hub() {}
+func (tr *EmailNotificationIntegration) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGitRepositoryPrivateLink) Hub() {}
+func (tr *ExternalFunction) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGitRepositoryToken) Hub() {}
+func (tr *ExternalTable) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *IntegrationGoogleCloudAPIGateway) Hub() {}
+func (tr *FailoverGroup) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Java) Hub() {}
+func (tr *FileFormat) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Javascript) Hub() {}
+func (tr *FunctionJava) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *LifecyclePolicy) Hub() {}
+func (tr *FunctionJavascript) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FunctionPython) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FunctionScala) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *FunctionSql) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *IcebergTableFromDeltaFiles) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *IcebergTableFromFiles) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *JobService) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ManagedAccount) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *MaterializedView) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *NetworkPolicyAttachment) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Notebook) Hub() {}
@@ -91,55 +109,67 @@ func (tr *Notebook) Hub() {}
 func (tr *NotificationIntegration) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Parameter) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *PasswordPolicyAttachment) Hub() {}
+func (tr *ObjectParameter) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Pipe) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *PolicyAttachment) Hub() {}
+func (tr *PostgresInstance) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *PublicKeys) Hub() {}
+func (tr *ProcedureJava) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Python) Hub() {}
+func (tr *ProcedureJavascript) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Scala) Hub() {}
+func (tr *ProcedurePython) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *SearchService) Hub() {}
+func (tr *ProcedureScala) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *ProcedureSql) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *SemanticView) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Sequence) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *Service) Hub() {}
-
-// Hub marks this type as a conversion hub.
 func (tr *Share) Hub() {}
-
-// Hub marks this type as a conversion hub.
-func (tr *SQL) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Stage) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *StorageLifecyclePolicyAttachment) Hub() {}
+func (tr *StorageIntegration) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *StorageLifecyclePolicy) Hub() {}
 
 // Hub marks this type as a conversion hub.
 func (tr *Table) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *TableFromDeltaFiles) Hub() {}
+func (tr *TableColumnMaskingPolicyApplication) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *TableFromFiles) Hub() {}
+func (tr *TableConstraint) Hub() {}
 
 // Hub marks this type as a conversion hub.
-func (tr *View) Hub() {}
+func (tr *TableStorageLifecyclePolicyAttachment) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserAuthenticationPolicyAttachment) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserPasswordPolicyAttachment) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *UserPublicKeys) Hub() {}
+
+// Hub marks this type as a conversion hub.
+func (tr *WarehouseAdaptive) Hub() {}

@@ -16,7 +16,7 @@ import (
 
 // GetTerraformResourceType returns Terraform resource type for this NotificationIntegration
 func (mg *NotificationIntegration) GetTerraformResourceType() string {
-	return "snowflake_email_notification_integration"
+	return "snowflake_notification_integration"
 }
 
 // GetConnectionDetailsMapping for this NotificationIntegration

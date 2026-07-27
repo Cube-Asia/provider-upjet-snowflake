@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: StageExternalAzure
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/stageexternalazure
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    database: my_database
+    schema: my_schema
+    storageIntegration: ${snowflake_storage_integration.azure.name}
+    url: azure://myaccount.blob.core.windows.net/mycontainer

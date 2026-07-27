@@ -28,7 +28,7 @@ spec:
 ---
 
 apiVersion: stable.snowflake.crossplane.io/v1alpha1
-kind: PrivilegesToShare
+kind: GrantPrivilegesToShare
 metadata:
   annotations:
     meta.upbound.io/example-id: stable/v1alpha1/shareddatabase

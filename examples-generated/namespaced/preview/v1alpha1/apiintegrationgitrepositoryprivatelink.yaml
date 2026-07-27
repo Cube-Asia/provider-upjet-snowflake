@@ -1,0 +1,16 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ApiIntegrationGitRepositoryPrivateLink
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/apiintegrationgitrepositoryprivatelink
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://github.example.internal/my-org/
+    enabled: true
+    noAllowedAuthenticationSecrets: true
+    usePrivatelinkEndpoint: true
