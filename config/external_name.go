@@ -4,619 +4,467 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
-// ExternalNameConfigs contains all external name configurations for this
-// provider.
-var ExternalNameConfigs = map[string]config.ExternalName{
-	// =============================================================================
-	// Stable resources (ShortGroup: stable)
-	// =============================================================================
+// ---------------------------------------------------------------------------
+// External name pattern helpers
+//
+// Snowflake's Terraform provider uses two ID encoding functions:
+//
+//   EncodeResourceIdentifier  — newer, used by stable resources.
+//     AccountObjectIdentifier → Name() (bare, no quotes)
+//     DatabaseObjectIdentifier → FullyQualifiedName() → "db"."name"
+//     SchemaObjectIdentifier → FullyQualifiedName() → "db"."schema"."name"
+//     Multiple parts join with |.
+//
+//   EncodeSnowflakeID  — legacy, still used by preview resources.
+//     AccountObjectIdentifier → Name() (bare, no quotes)
+//     DatabaseObjectIdentifier → db|name (unquoted, pipe-separated parts)
+//     SchemaObjectIdentifier → db|schema|name (unquoted, pipe-separated parts)
+//
+// The helpers below encode the corresponding template for each pattern.
+// See .work/snowflakedb/snowflake/pkg/helpers/ for the canonical implementation.
+// ---------------------------------------------------------------------------
 
-	// snowflake_account: import with '"<org>"."<account>"' — compound, but name field is just the
-	// account name. Org comes from provider config; external name is the bare account name.
+// SchemaObjectIdentifier returns external name config for Snowflake's
+// 3-part SchemaObjectIdentifier fully-qualified-name format:
+//
+//	"db"."schema"."name"
+//
+// The name is omitted from spec.forProvider (set via metadata.name →
+// crossplane.io/external-name annotation).
+//
+// Used by stable-family resources that use EncodeResourceIdentifier
+// with a SchemaObjectIdentifier argument — the ID is produced by
+// FullyQualifiedName() which quotes each segment.
+func SchemaObjectIdentifier() config.ExternalName {
+	return config.TemplatedStringAsIdentifier("name",
+		`"{{ .parameters.database }}"."{{ .parameters.schema }}"."{{ .external_name }}"`)
+}
+
+// PipeSeparatedIdentifier returns external name config for Snowflake's
+// pipe-separated 3-part ID format:
+//
+//	db|schema|name
+//
+// Used by preview-family resources that use EncodeSnowflakeID
+// with a SchemaObjectIdentifier argument — the ID is produced by
+// joining databaseName, schemaName, and Name() with |.
+func PipeSeparatedIdentifier() config.ExternalName {
+	return config.TemplatedStringAsIdentifier("name",
+		`{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}`)
+}
+
+// DatabaseSchemaIdentifier returns external name config for Snowflake's
+// 2-part quoted ID format:
+//
+//	"db"."name"
+//
+// Used by resources whose ID is a DatabaseObjectIdentifier
+// (e.g. schema, database_role).
+func DatabaseSchemaIdentifier() config.ExternalName {
+	return config.TemplatedStringAsIdentifier("name",
+		`"{{ .parameters.database }}"."{{ .external_name }}"`)
+}
+
+// ---------------------------------------------------------------------------
+// External name configurations
+// ---------------------------------------------------------------------------
+
+var ExternalNameConfigs = map[string]config.ExternalName{
+	// =========================================================================
+	// Stable resources (ShortGroup: stable)
+	// =========================================================================
+
+	// snowflake_account: import with '"<org>"."<account>"' — compound, but
+	// the external name is just the bare account name. Org comes from the
+	// provider config. AccountObjectIdentifier via EncodeResourceIdentifier.
 	"snowflake_account": config.NameAsIdentifier,
 
-	// snowflake_account_parameter: import with '<parameter_name>' — ID is the parameter key.
-	// ponytail: no 'name' field; uses 'key' as identifier via ParameterAsIdentifier.
+	// snowflake_account_parameter: import with '<key>' — ID is the parameter
+	// key. No 'name' field; uses 'key' via ParameterAsIdentifier.
 	"snowflake_account_parameter": config.ParameterAsIdentifier("key"),
 
-	// snowflake_account_role: import with '"<account_role_name>"' — ID is the role name.
+	// snowflake_account_role: import with '"<account_role_name>"' — bare name.
 	"snowflake_account_role": config.NameAsIdentifier,
 
-	// snowflake_account_session_policy_attachment: import with '"<db>"."<schema>"."<policy>"' —
-	// ID is the fully qualified session policy name.
+	// snowflake_account_session_policy_attachment: import format is the
+	// fully qualified session policy name (FQN). The FQN is stored in the
+	// session_policy_name field which doubles as the identifier.
 	"snowflake_account_session_policy_attachment": config.ParameterAsIdentifier("session_policy_name"),
 
-	// snowflake_api_authentication_integration_with_authorization_code_grant: import with '"<name>"' — ID is the integration name.
+	// snowflake_api_authentication_integration_*: integration names.
 	"snowflake_api_authentication_integration_with_authorization_code_grant": config.NameAsIdentifier,
+	"snowflake_api_authentication_integration_with_client_credentials":       config.NameAsIdentifier,
+	"snowflake_api_authentication_integration_with_jwt_bearer":               config.NameAsIdentifier,
 
-	// snowflake_api_authentication_integration_with_client_credentials: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_authentication_integration_with_client_credentials": config.NameAsIdentifier,
+	// snowflake_authentication_policy: SchemaObjectIdentifier.
+	"snowflake_authentication_policy": SchemaObjectIdentifier(),
 
-	// snowflake_api_authentication_integration_with_jwt_bearer: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_authentication_integration_with_jwt_bearer": config.NameAsIdentifier,
-
-	// snowflake_authentication_policy: import with '"<db>"."<schema>"."<name>"' —
-	// 3-part SchemaObjectIdentifier. Policy name is external name; db/schema from forProvider.
-	"snowflake_authentication_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_catalog_integration_aws_glue: import with '"<name>"' — ID is the integration name.
-	"snowflake_catalog_integration_aws_glue": config.NameAsIdentifier,
-
-	// snowflake_catalog_integration_iceberg_rest: import with '"<name>"' — ID is the integration name.
-	"snowflake_catalog_integration_iceberg_rest": config.NameAsIdentifier,
-
-	// snowflake_catalog_integration_object_storage: import with '"<name>"' — ID is the integration name.
+	// snowflake_catalog_integration_*: integration names.
+	"snowflake_catalog_integration_aws_glue":       config.NameAsIdentifier,
+	"snowflake_catalog_integration_iceberg_rest":   config.NameAsIdentifier,
 	"snowflake_catalog_integration_object_storage": config.NameAsIdentifier,
+	"snowflake_catalog_integration_open_catalog":   config.NameAsIdentifier,
 
-	// snowflake_catalog_integration_open_catalog: import with '"<name>"' — ID is the integration name.
-	"snowflake_catalog_integration_open_catalog": config.NameAsIdentifier,
-
-	// snowflake_compute_pool: import with '"<compute_pool_name>"' — ID is the pool name.
+	// snowflake_compute_pool: bare name.
 	"snowflake_compute_pool": config.NameAsIdentifier,
 
-	// snowflake_current_account: ID is the literal 'current_account' string — singleton resource.
+	// snowflake_current_account: singleton — the literal string "current_account".
 	"snowflake_current_account": config.IdentifierFromProvider,
 
-	// snowflake_current_organization_account: import with '"<name>"' — ID is the account name.
+	// snowflake_current_organization_account: import with '"<name>"' — bare name.
 	"snowflake_current_organization_account": config.NameAsIdentifier,
 
-	// snowflake_database: import with '"<database_name>"' — ID is the database name.
+	// snowflake_database: bare name (AccountObjectIdentifier).
 	"snowflake_database": config.NameAsIdentifier,
 
-	// snowflake_database_role: import with '"<db>"."<role>"' — compound of database + role name.
-	// ponytail: role name is external name; database comes from spec.forProvider.database.
-	"snowflake_database_role": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_database_role: DatabaseObjectIdentifier — "db"."role".
+	"snowflake_database_role": DatabaseSchemaIdentifier(),
 
-	// snowflake_execute: ID is a random UUID generated by the TF provider.
+	// snowflake_execute: random UUID generated by the TF provider.
 	"snowflake_execute": config.IdentifierFromProvider,
 
-	// snowflake_external_oauth_integration: import with '"<name>"' — ID is the integration name.
+	// snowflake_external_oauth_integration: bare name.
 	"snowflake_external_oauth_integration": config.NameAsIdentifier,
 
-	// snowflake_external_volume: import with '"<name>"' — ID is the volume name.
+	// snowflake_external_volume: bare name.
 	"snowflake_external_volume": config.NameAsIdentifier,
 
-	// snowflake_git_repository: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_git_repository": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_git_repository: SchemaObjectIdentifier.
+	"snowflake_git_repository": SchemaObjectIdentifier(),
 
-	// snowflake_grant_account_role: import format is '<role_name>|ROLE|<parent_role_name>'
-	// or '<role_name>|USER|<user_name>'. The role_name is the external name; the grantee type
-	// and name come from forProvider.
-	// ponytail: conditional template handles ROLE/USER grantee types.
+	// snowflake_grant_account_role: compound with conditional grantee type.
+	// ID: '<role_name>|ROLE|<parent_role_name>' or
+	//     '<role_name>|USER|<user_name>'.
 	"snowflake_grant_account_role": config.TemplatedStringAsIdentifier(
 		"role_name",
 		"\"{{ .external_name }}\"|{{ if .parameters.parent_role_name }}ROLE|\"{{ .parameters.parent_role_name }}\"{{ else }}USER|\"{{ .parameters.user_name }}\"{{ end }}",
 	),
 
-	// snowflake_grant_application_role: import format is
-	// '<application_role_name>|ACCOUNT_ROLE|<parent_account_role_name>' or
-	// '<application_role_name>|APPLICATION|<application_name>'. The application_role_name
-	// (FQN) is the external name; grantee type and name from forProvider.
+	// snowflake_grant_application_role: compound with conditional grantee type.
+	// ID: '<app_role_fqn>|ACCOUNT_ROLE|<parent_account_role>' or
+	//     '<app_role_fqn>|APPLICATION|<application>'.
 	"snowflake_grant_application_role": config.TemplatedStringAsIdentifier(
 		"application_role_name",
 		"{{ .external_name }}|{{ if .parameters.parent_account_role_name }}ACCOUNT_ROLE|\"{{ .parameters.parent_account_role_name }}\"{{ else }}APPLICATION|\"{{ .parameters.application_name }}\"{{ end }}",
 	),
 
-	// snowflake_grant_database_role: import format is
-	// '<database_role_name>|ROLE|<parent_role_name>' or
-	// '<database_role_name>|DATABASE_ROLE|<parent_database_role_name>' or
-	// '<database_role_name>|SHARE|<share_name>'. The database_role_name (FQN) is the
-	// external name; grantee type and name from forProvider.
+	// snowflake_grant_database_role: compound with conditional grantee type.
+	// ID: '<db_role_fqn>|ROLE|<parent_role>' or
+	//     '<db_role_fqn>|DATABASE_ROLE|<parent_db_role>' or
+	//     '<db_role_fqn>|SHARE|<share>'.
 	"snowflake_grant_database_role": config.TemplatedStringAsIdentifier(
 		"database_role_name",
 		"{{ .external_name }}|{{ if .parameters.parent_role_name }}ROLE|\"{{ .parameters.parent_role_name }}\"{{ else if .parameters.parent_database_role_name }}DATABASE_ROLE|\"{{ .parameters.parent_database_role_name }}\"{{ else }}SHARE|\"{{ .parameters.share_name }}\"{{ end }}",
 	),
 
-	// snowflake_grant_ownership: ID format encodes grantee role, outbound privileges,
-	// and the on-block (object/all/future) with many variants. Using IdentifierFromProvider
-	// — TF provider constructs the compound ID during Create; all fields are set explicitly
-	// in forProvider.
-	// ponytail: compound ID too complex for TemplatedStringAsIdentifier.
+	// snowflake_grant_ownership: compound ID with 5-7+ variable parts
+	// (<target_role>|<fqn>|<outbound>|<kind>|<object_data>).
+	// ponytail: IdentifierFromProvider — revisit when upjet supports
+	// dynamic-length template IDs.
 	"snowflake_grant_ownership": config.IdentifierFromProvider,
 
-	// snowflake_grant_privileges_to_account_role: ID format encodes account_role_name,
-	// with_grant_option, always_apply, privileges, grant_type, and grant_data with many
-	// variant formats. Using IdentifierFromProvider.
-	// ponytail: compound ID too complex for TemplatedStringAsIdentifier.
+	// snowflake_grant_privileges_to_account_role: compound ID with 5-9
+	// variable parts (<role>|<with_grant>|<always>|<privileges>|<kind>|<data>).
+	// ponytail: IdentifierFromProvider — revisit when upjet supports
+	// dynamic-length template IDs.
 	"snowflake_grant_privileges_to_account_role": config.IdentifierFromProvider,
 
-	// snowflake_grant_privileges_to_database_role: ID format encodes database_role_name,
-	// with_grant_option, always_apply, privileges, grant_type, and grant_data with many
-	// variant formats. Using IdentifierFromProvider.
-	// ponytail: compound ID too complex for TemplatedStringAsIdentifier.
+	// snowflake_grant_privileges_to_database_role: compound ID with 6-9
+	// variable parts (<db_role>|<with_grant>|<always>|<privileges>|<kind>|<data>).
+	// ponytail: IdentifierFromProvider — revisit when upjet supports
+	// dynamic-length template IDs.
 	"snowflake_grant_privileges_to_database_role": config.IdentifierFromProvider,
 
-	// snowflake_grant_privileges_to_share: ID format is
-	// '<share_name>|<privileges>|OnDatabase|<database_name>' or
-	// '<share_name>|<privileges>|OnSchema|<schema_name>' etc. The to_share is the
-	// external name; privileges and target from forProvider.
-	// ponytail: conditional template handles OnDatabase/OnSchema/OnTable/OnAllTablesInSchema/OnTag/OnView.
+	// snowflake_grant_privileges_to_share: compound ID with conditional target.
+	// ID: '<share>|<privileges>|OnDatabase|<db>' or OnSchema/OnTable/etc.
 	"snowflake_grant_privileges_to_share": config.TemplatedStringAsIdentifier(
 		"to_share",
 		"\"{{ .external_name }}\"|{{ .parameters.privileges }}|{{ if .parameters.on_database }}OnDatabase|\"{{ .parameters.on_database }}\"{{ else if .parameters.on_schema }}OnSchema|\"{{ .parameters.on_schema }}\"{{ else if .parameters.on_table }}OnTable|\"{{ .parameters.on_table }}\"{{ else if .parameters.on_all_tables_in_schema }}OnAllTablesInSchema|\"{{ .parameters.on_all_tables_in_schema }}\"{{ else if .parameters.on_tag }}OnTag|\"{{ .parameters.on_tag }}\"{{ else if .parameters.on_view }}OnView|\"{{ .parameters.on_view }}\"{{ end }}",
 	),
 
-	// snowflake_image_repository: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_image_repository": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_image_repository: SchemaObjectIdentifier.
+	"snowflake_image_repository": SchemaObjectIdentifier(),
 
-	// snowflake_legacy_service_user: same pattern as snowflake_user.
+	// snowflake_legacy_service_user: same as user — bare name.
 	"snowflake_legacy_service_user": config.NameAsIdentifier,
 
-	// snowflake_listing: import with '"<name>"' — ID is the listing name.
+	// snowflake_listing: bare name.
 	"snowflake_listing": config.NameAsIdentifier,
 
-	// snowflake_masking_policy: same SchemaObjectIdentifier pattern.
-	// ponytail: masking policy has extra required fields (body, return_data_type).
-	"snowflake_masking_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_masking_policy: SchemaObjectIdentifier.
+	"snowflake_masking_policy": SchemaObjectIdentifier(),
 
-	// snowflake_network_policy: import with '"<network_policy_name>"' — ID is the policy name.
+	// snowflake_network_policy: bare name.
 	"snowflake_network_policy": config.NameAsIdentifier,
 
-	// snowflake_network_rule: import with '"<database_name>"."<schema_name>"."<network_rule_name>"' —
-	// 3-part SchemaObjectIdentifier. Rule name is external name; db/schema from forProvider.
-	"snowflake_network_rule": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_network_rule: SchemaObjectIdentifier.
+	"snowflake_network_rule": SchemaObjectIdentifier(),
 
-	// snowflake_oauth_integration_for_custom_clients: import with '"<name>"' — ID is the integration name.
-	"snowflake_oauth_integration_for_custom_clients": config.NameAsIdentifier,
-
-	// snowflake_oauth_integration_for_partner_applications: import with '"<name>"' — ID is the integration name.
+	// snowflake_oauth_integration_*: integration names.
+	"snowflake_oauth_integration_for_custom_clients":       config.NameAsIdentifier,
 	"snowflake_oauth_integration_for_partner_applications": config.NameAsIdentifier,
 
-	// snowflake_password_policy: same SchemaObjectIdentifier pattern.
-	"snowflake_password_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_password_policy: SchemaObjectIdentifier.
+	"snowflake_password_policy": SchemaObjectIdentifier(),
 
-	// snowflake_primary_connection: import with '"<name>"' — ID is the connection name.
+	// snowflake_primary_connection: bare name.
 	"snowflake_primary_connection": config.NameAsIdentifier,
 
-	// snowflake_resource_monitor: import with '"<name>"' — ID is the monitor name.
+	// snowflake_resource_monitor: bare name.
 	"snowflake_resource_monitor": config.NameAsIdentifier,
 
-	// snowflake_row_access_policy: same SchemaObjectIdentifier pattern.
-	// ponytail: row access policy has extra required fields (body, signature).
-	"snowflake_row_access_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_row_access_policy: SchemaObjectIdentifier.
+	"snowflake_row_access_policy": SchemaObjectIdentifier(),
 
-	// snowflake_saml2_integration: import with '"<name>"' — ID is the integration name.
+	// snowflake_saml2_integration: bare name.
 	"snowflake_saml2_integration": config.NameAsIdentifier,
 
-	// snowflake_schema: import with '"<db>"."<schema>"' — compound of database + schema name.
-	// ponytail: schema name is external name; database comes from spec.forProvider.database.
-	"snowflake_schema": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_schema: DatabaseObjectIdentifier — "db"."schema".
+	"snowflake_schema": DatabaseSchemaIdentifier(),
 
-	// snowflake_scim_integration: import with '"<name>"' — ID is the integration name.
+	// snowflake_scim_integration: bare name.
 	"snowflake_scim_integration": config.NameAsIdentifier,
 
-	// snowflake_secondary_connection: import with '"<name>"' — ID is the connection name.
+	// snowflake_secondary_connection: bare name.
 	"snowflake_secondary_connection": config.NameAsIdentifier,
 
-	// snowflake_secondary_database: import with '"<name>"' — ID is the db name.
+	// snowflake_secondary_database: bare name.
 	"snowflake_secondary_database": config.NameAsIdentifier,
 
-	// snowflake_secret_with_authorization_code_grant: import with '"<db>"."<schema>"."<secret_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_secret_with_authorization_code_grant": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_secret_with_*: SchemaObjectIdentifier (all variants).
+	"snowflake_secret_with_authorization_code_grant": SchemaObjectIdentifier(),
+	"snowflake_secret_with_basic_authentication":     SchemaObjectIdentifier(),
+	"snowflake_secret_with_client_credentials":       SchemaObjectIdentifier(),
+	"snowflake_secret_with_generic_string":           SchemaObjectIdentifier(),
 
-	// snowflake_secret_with_basic_authentication: import with '"<db>"."<schema>"."<secret_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_secret_with_basic_authentication": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_service: SchemaObjectIdentifier.
+	"snowflake_service": SchemaObjectIdentifier(),
 
-	// snowflake_secret_with_client_credentials: import with '"<db>"."<schema>"."<secret_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_secret_with_client_credentials": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_secret_with_generic_string: import with '"<db>"."<schema>"."<secret_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_secret_with_generic_string": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_service: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_service": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_service_user: same pattern as snowflake_user.
+	// snowflake_service_user: same as user — bare name.
 	"snowflake_service_user": config.NameAsIdentifier,
 
-	// snowflake_session_policy: same SchemaObjectIdentifier pattern.
-	"snowflake_session_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_session_policy: SchemaObjectIdentifier.
+	"snowflake_session_policy": SchemaObjectIdentifier(),
 
-	// snowflake_shared_database: import with '"<name>"' — ID is the db name.
+	// snowflake_shared_database: bare name.
 	"snowflake_shared_database": config.NameAsIdentifier,
 
-	// snowflake_stage_external_azure: import with '"<db>"."<schema>"."<stage_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stage_external_azure": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_stage_external_*: SchemaObjectIdentifier (all variants).
+	"snowflake_stage_external_azure":         SchemaObjectIdentifier(),
+	"snowflake_stage_external_gcs":           SchemaObjectIdentifier(),
+	"snowflake_stage_external_s3":            SchemaObjectIdentifier(),
+	"snowflake_stage_external_s3_compatible": SchemaObjectIdentifier(),
 
-	// snowflake_stage_external_gcs: import with '"<db>"."<schema>"."<stage_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stage_external_gcs": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_stage_internal: SchemaObjectIdentifier.
+	"snowflake_stage_internal": SchemaObjectIdentifier(),
 
-	// snowflake_stage_external_s3: import with '"<db>"."<schema>"."<stage_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stage_external_s3": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_stage_external_s3_compatible: import with '"<db>"."<schema>"."<stage_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stage_external_s3_compatible": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_stage_internal: import with '"<db>"."<schema>"."<stage_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stage_internal": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_storage_integration_aws: import with '"<name>"' — ID is the integration name.
-	"snowflake_storage_integration_aws": config.NameAsIdentifier,
-
-	// snowflake_storage_integration_azure: import with '"<name>"' — ID is the integration name.
+	// snowflake_storage_integration_*: integration names (provider-specific).
+	"snowflake_storage_integration_aws":   config.NameAsIdentifier,
 	"snowflake_storage_integration_azure": config.NameAsIdentifier,
+	"snowflake_storage_integration_gcs":   config.NameAsIdentifier,
 
-	// snowflake_storage_integration_gcs: import with '"<name>"' — ID is the integration name.
-	"snowflake_storage_integration_gcs": config.NameAsIdentifier,
+	// snowflake_stream_on_*: SchemaObjectIdentifier (all variants).
+	"snowflake_stream_on_directory_table": SchemaObjectIdentifier(),
+	"snowflake_stream_on_external_table":  SchemaObjectIdentifier(),
+	"snowflake_stream_on_table":           SchemaObjectIdentifier(),
+	"snowflake_stream_on_view":            SchemaObjectIdentifier(),
 
-	// snowflake_stream_on_directory_table: import with '"<db>"."<schema>"."<stream_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stream_on_directory_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_streamlit: SchemaObjectIdentifier.
+	"snowflake_streamlit": SchemaObjectIdentifier(),
 
-	// snowflake_stream_on_external_table: import with '"<db>"."<schema>"."<stream_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stream_on_external_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_tag: SchemaObjectIdentifier.
+	"snowflake_tag": SchemaObjectIdentifier(),
 
-	// snowflake_stream_on_table: import with '"<db>"."<schema>"."<stream_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stream_on_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_stream_on_view: import with '"<db>"."<schema>"."<stream_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_stream_on_view": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_streamlit: import with '"<db>"."<schema>"."<streamlit_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_streamlit": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_tag: import with '"<db>"."<schema>"."<tag_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_tag": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_tag_association: ID format is 'TAG_DB.TAG_SCHEMA.TAG_NAME|TAG_VALUE|OBJECT_TYPE' with
-	// complex pipe-separated compound of FQN, tag value, and object type. Using IdentifierFromProvider.
+	// snowflake_tag_association: compound ID
+	// (TAG_DB.TAG_SCHEMA.TAG_NAME|TAG_VALUE|OBJECT_TYPE).
+	// ponytail: IdentifierFromProvider — varies by object_type.
+	// Revisit when upjet supports dynamic-length template IDs.
 	"snowflake_tag_association": config.IdentifierFromProvider,
 
-	// snowflake_task: import with '"<db>"."<schema>"."<task_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_task": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_task: SchemaObjectIdentifier.
+	"snowflake_task": SchemaObjectIdentifier(),
 
-	// snowflake_user: import with '"<user_name>"' — ID is the user name.
-	// ponytail: uses name field as identifier, omitted from CRD spec (set via external-name annotation).
+	// snowflake_user: bare name.
 	"snowflake_user": config.NameAsIdentifier,
 
-	// snowflake_user_programmatic_access_token: ID format is
-	// '"<user>"|"<name>"' — compound of user-supplied parameters (user + name).
-	// The token 'name' is the external name; 'user' comes from spec.forProvider.
+	// snowflake_user_programmatic_access_token: ID is '"<user>"|"<name>"' —
+	// compound of user-supplied parameters (user + token name).
 	"snowflake_user_programmatic_access_token": config.TemplatedStringAsIdentifier(
 		"name",
 		"\"{{ .parameters.user }}\"|\"{{ .external_name }}\"",
 	),
 
-	// snowflake_user_session_policy_attachment: ID format is
-	// '"<user_name>"|"<db>"."<schema>"."<session_policy>"' — compound of
-	// user-supplied parameters (user + session_policy).  The template
-	// reconstructs the exact ID from the user's external-name annotation
-	// and the session_policy_name field in spec.forProvider.
+	// snowflake_user_session_policy_attachment: ID is
+	// '"<user>"|"<db>"."<schema>"."<session_policy>"' —
+	// compound of user (external name) and session_policy_name field.
 	"snowflake_user_session_policy_attachment": config.TemplatedStringAsIdentifier(
 		"user_name",
 		"\"{{ .external_name }}\"|{{ .parameters.session_policy_name }}",
 	),
 
-	// snowflake_view: import with '"<db>"."<schema>"."<view_name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_view": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_view: SchemaObjectIdentifier.
+	"snowflake_view": SchemaObjectIdentifier(),
 
-	// snowflake_warehouse: import with '"<warehouse_name>"' — ID is the warehouse name.
+	// snowflake_warehouse: bare name.
 	"snowflake_warehouse": config.NameAsIdentifier,
 
-	// =============================================================================
+	// =========================================================================
 	// Preview resources (ShortGroup: preview)
-	// =============================================================================
+	// =========================================================================
 
-	// snowflake_account_authentication_policy_attachment: ID is the fully qualified
-	// authentication policy name (same as the authentication_policy field).
+	// snowflake_account_authentication_policy_attachment: FQN stored in
+	// authentication_policy field doubles as the identifier.
 	"snowflake_account_authentication_policy_attachment": config.ParameterAsIdentifier("authentication_policy"),
 
-	// snowflake_account_password_policy_attachment: ID is the fully qualified
-	// password policy name (same as the password_policy field).
+	// snowflake_account_password_policy_attachment: FQN stored in
+	// password_policy field doubles as the identifier.
 	"snowflake_account_password_policy_attachment": config.ParameterAsIdentifier("password_policy"),
 
-	// snowflake_alert: import with 'dbName|schemaName|alertName' — pipe-separated 3-part ID.
-	"snowflake_alert": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_alert: pipe-separated SchemaObjectIdentifier (EncodeSnowflakeID).
+	"snowflake_alert": PipeSeparatedIdentifier(),
 
-	// snowflake_api_integration: import with '"name"' — ID is the integration name.
+	// snowflake_api_integration: bare name.
 	"snowflake_api_integration": config.NameAsIdentifier,
 
-	// snowflake_api_integration_amazon_api_gateway: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_amazon_api_gateway": config.NameAsIdentifier,
-
-	// snowflake_api_integration_azure_api_management: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_azure_api_management": config.NameAsIdentifier,
-
-	// snowflake_api_integration_external_mcp_dynamic_client: import with '"<name>"' — ID is the integration name.
+	// snowflake_api_integration_*: integration names (all variants).
+	"snowflake_api_integration_amazon_api_gateway":          config.NameAsIdentifier,
+	"snowflake_api_integration_azure_api_management":        config.NameAsIdentifier,
 	"snowflake_api_integration_external_mcp_dynamic_client": config.NameAsIdentifier,
-
-	// snowflake_api_integration_external_mcp_oauth2: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_external_mcp_oauth2": config.NameAsIdentifier,
-
-	// snowflake_api_integration_git_repository_github_app: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_git_repository_github_app": config.NameAsIdentifier,
-
-	// snowflake_api_integration_git_repository_oauth2: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_git_repository_oauth2": config.NameAsIdentifier,
-
-	// snowflake_api_integration_git_repository_private_link: import with '"<name>"' — ID is the integration name.
+	"snowflake_api_integration_external_mcp_oauth2":         config.NameAsIdentifier,
+	"snowflake_api_integration_git_repository_github_app":   config.NameAsIdentifier,
+	"snowflake_api_integration_git_repository_oauth2":       config.NameAsIdentifier,
 	"snowflake_api_integration_git_repository_private_link": config.NameAsIdentifier,
+	"snowflake_api_integration_git_repository_token":        config.NameAsIdentifier,
+	"snowflake_api_integration_google_cloud_api_gateway":    config.NameAsIdentifier,
 
-	// snowflake_api_integration_git_repository_token: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_git_repository_token": config.NameAsIdentifier,
+	// snowflake_cortex_agent: SchemaObjectIdentifier (stable-style format).
+	"snowflake_cortex_agent": SchemaObjectIdentifier(),
 
-	// snowflake_api_integration_google_cloud_api_gateway: import with '"<name>"' — ID is the integration name.
-	"snowflake_api_integration_google_cloud_api_gateway": config.NameAsIdentifier,
+	// snowflake_cortex_search_service: pipe-separated SchemaObjectIdentifier.
+	"snowflake_cortex_search_service": PipeSeparatedIdentifier(),
 
-	// snowflake_cortex_agent: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier (stable-style format).
-	"snowflake_cortex_agent": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_dynamic_table: pipe-separated SchemaObjectIdentifier.
+	"snowflake_dynamic_table": PipeSeparatedIdentifier(),
 
-	// snowflake_cortex_search_service: import with 'dbName|schemaName|resourceName' — pipe-separated 3-part ID.
-	"snowflake_cortex_search_service": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
-
-	// snowflake_dynamic_table: import with 'dbName|schemaName|tableName' — pipe-separated 3-part ID.
-	"snowflake_dynamic_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
-
-	// snowflake_email_notification_integration: import with 'name' — ID is the integration name.
+	// snowflake_email_notification_integration: bare name.
 	"snowflake_email_notification_integration": config.NameAsIdentifier,
 
-	// snowflake_external_function: ID includes the function name and argument signature
-	// (e.g. "db"."schema"."func"(varchar, varchar)). Using IdentifierFromProvider.
+	// snowflake_external_function: ID includes argument signature
+	// ("db"."schema"."func"(varchar,...)) — too complex for template.
 	"snowflake_external_function": config.IdentifierFromProvider,
 
-	// snowflake_external_table: import with 'dbName|schemaName|tableName' — pipe-separated 3-part ID.
-	"snowflake_external_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_external_table: pipe-separated SchemaObjectIdentifier.
+	"snowflake_external_table": PipeSeparatedIdentifier(),
 
-	// snowflake_failover_group: import with 'name' — ID is the group name.
+	// snowflake_failover_group: bare name.
 	"snowflake_failover_group": config.NameAsIdentifier,
 
-	// snowflake_file_format: import with 'dbName|schemaName|formatName' — pipe-separated 3-part ID.
-	"snowflake_file_format": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_file_format: pipe-separated SchemaObjectIdentifier.
+	"snowflake_file_format": PipeSeparatedIdentifier(),
 
-	// snowflake_function_java: ID includes the function name and argument types (e.g.
-	// "db"."schema"."func"(varchar)). Using IdentifierFromProvider — signature
-	// from the arguments block makes the ID too complex for template-based construction.
-	"snowflake_function_java": config.IdentifierFromProvider,
-
-	// snowflake_function_javascript: same pattern as snowflake_function_java.
+	// snowflake_function_*: ID includes name and argument types
+	// ("db"."schema"."func"(varchar)) — signature from args block
+	// makes template-based construction impractical.
+	"snowflake_function_java":       config.IdentifierFromProvider,
 	"snowflake_function_javascript": config.IdentifierFromProvider,
+	"snowflake_function_python":     config.IdentifierFromProvider,
+	"snowflake_function_scala":      config.IdentifierFromProvider,
+	"snowflake_function_sql":        config.IdentifierFromProvider,
 
-	// snowflake_function_python: same pattern as snowflake_function_java.
-	"snowflake_function_python": config.IdentifierFromProvider,
+	// snowflake_iceberg_table_*: SchemaObjectIdentifier (stable-style format).
+	"snowflake_iceberg_table_from_delta_files": SchemaObjectIdentifier(),
+	"snowflake_iceberg_table_from_files":       SchemaObjectIdentifier(),
 
-	// snowflake_function_scala: same pattern as snowflake_function_java.
-	"snowflake_function_scala": config.IdentifierFromProvider,
+	// snowflake_job_service: SchemaObjectIdentifier (stable-style format).
+	"snowflake_job_service": SchemaObjectIdentifier(),
 
-	// snowflake_function_sql: same pattern as snowflake_function_java.
-	"snowflake_function_sql": config.IdentifierFromProvider,
-
-	// snowflake_iceberg_table_from_delta_files: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_iceberg_table_from_delta_files": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_iceberg_table_from_files: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_iceberg_table_from_files": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_job_service: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_job_service": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_managed_account: import with 'name' — ID is the account name.
+	// snowflake_managed_account: bare name.
 	"snowflake_managed_account": config.NameAsIdentifier,
 
-	// snowflake_materialized_view: import with 'dbName|schemaName|viewName' — pipe-separated 3-part ID.
-	"snowflake_materialized_view": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_materialized_view: pipe-separated SchemaObjectIdentifier.
+	"snowflake_materialized_view": PipeSeparatedIdentifier(),
 
-	// snowflake_network_policy_attachment: ID is the network policy name with '_attachment' suffix.
+	// snowflake_network_policy_attachment: ID is the network policy name
+	// with '_attachment' suffix semantics — stored in network_policy_name.
 	"snowflake_network_policy_attachment": config.ParameterAsIdentifier("network_policy_name"),
 
-	// snowflake_notebook: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_notebook": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_notebook: SchemaObjectIdentifier (stable-style format).
+	"snowflake_notebook": SchemaObjectIdentifier(),
 
-	// snowflake_notification_integration: import with 'name' — ID is the integration name.
+	// snowflake_notification_integration: bare name.
 	"snowflake_notification_integration": config.NameAsIdentifier,
 
-	// snowflake_object_parameter: ID format is '<key>|<object_type>|<object_identifier>' — complex
-	// pipe-separated compound with configurable object identifier format. Using IdentifierFromProvider.
+	// snowflake_object_parameter: complex pipe-separated compound:
+	// <key>|<object_type>|<object_identifier>.
 	"snowflake_object_parameter": config.IdentifierFromProvider,
 
-	// snowflake_pipe: import with 'dbName|schemaName|pipeName' — pipe-separated 3-part ID.
-	"snowflake_pipe": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_pipe: pipe-separated SchemaObjectIdentifier.
+	"snowflake_pipe": PipeSeparatedIdentifier(),
 
-	// snowflake_postgres_instance: import with '"<name>"' — ID is the instance name.
+	// snowflake_postgres_instance: bare name.
 	"snowflake_postgres_instance": config.NameAsIdentifier,
 
-	// snowflake_procedure_java: ID includes the function name and argument types (e.g.
-	// "db"."schema"."func"(varchar)). Using IdentifierFromProvider.
-	"snowflake_procedure_java": config.IdentifierFromProvider,
-
-	// snowflake_procedure_javascript: same pattern as snowflake_procedure_java.
+	// snowflake_procedure_*: ID includes name and argument types
+	// ("db"."schema"."func"(varchar)) — same as function_* pattern.
+	"snowflake_procedure_java":       config.IdentifierFromProvider,
 	"snowflake_procedure_javascript": config.IdentifierFromProvider,
+	"snowflake_procedure_python":     config.IdentifierFromProvider,
+	"snowflake_procedure_scala":      config.IdentifierFromProvider,
+	"snowflake_procedure_sql":        config.IdentifierFromProvider,
 
-	// snowflake_procedure_python: same pattern as snowflake_procedure_java.
-	"snowflake_procedure_python": config.IdentifierFromProvider,
+	// snowflake_semantic_view: SchemaObjectIdentifier (stable-style format).
+	"snowflake_semantic_view": SchemaObjectIdentifier(),
 
-	// snowflake_procedure_scala: same pattern as snowflake_procedure_java.
-	"snowflake_procedure_scala": config.IdentifierFromProvider,
+	// snowflake_sequence: pipe-separated SchemaObjectIdentifier.
+	"snowflake_sequence": PipeSeparatedIdentifier(),
 
-	// snowflake_procedure_sql: same pattern as snowflake_procedure_java.
-	"snowflake_procedure_sql": config.IdentifierFromProvider,
-
-	// snowflake_semantic_view: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_semantic_view": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
-
-	// snowflake_sequence: import with 'dbName|schemaName|sequenceName' — pipe-separated 3-part ID.
-	"snowflake_sequence": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
-
-	// snowflake_share: import with 'name' — ID is the share name.
+	// snowflake_share: bare name.
 	"snowflake_share": config.NameAsIdentifier,
 
-	// snowflake_stage: import with 'dbName|schemaName|stageName' — pipe-separated 3-part ID.
-	"snowflake_stage": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_stage: pipe-separated SchemaObjectIdentifier.
+	"snowflake_stage": PipeSeparatedIdentifier(),
 
-	// snowflake_storage_integration: import with 'name' — ID is the integration name.
+	// snowflake_storage_integration: bare name.
 	"snowflake_storage_integration": config.NameAsIdentifier,
 
-	// snowflake_storage_lifecycle_policy: import with '"<db>"."<schema>"."<name>"' — 3-part SchemaObjectIdentifier.
-	"snowflake_storage_lifecycle_policy": config.TemplatedStringAsIdentifier(
-		"name",
-		"\"{{ .parameters.database }}\".\"{{ .parameters.schema }}\".\"{{ .external_name }}\"",
-	),
+	// snowflake_storage_lifecycle_policy: SchemaObjectIdentifier.
+	"snowflake_storage_lifecycle_policy": SchemaObjectIdentifier(),
 
-	// snowflake_table: import with 'dbName|schemaName|tableName' — pipe-separated 3-part ID.
-	"snowflake_table": config.TemplatedStringAsIdentifier(
-		"name",
-		"{{ .parameters.database }}|{{ .parameters.schema }}|{{ .external_name }}",
-	),
+	// snowflake_table: pipe-separated SchemaObjectIdentifier.
+	"snowflake_table": PipeSeparatedIdentifier(),
 
-	// snowflake_table_column_masking_policy_application: no import — ID is a complex compound of
-	// table FQN, column name, and masking policy FQN. Using IdentifierFromProvider.
+	// snowflake_table_column_masking_policy_application: complex compound of
+	// table FQN, column name, and masking policy FQN.
 	"snowflake_table_column_masking_policy_application": config.IdentifierFromProvider,
 
-	// snowflake_table_constraint: ID format uses '❄️' (snowflake) delimiter and encodes constraint
-	// type, columns, and table. Using IdentifierFromProvider.
+	// snowflake_table_constraint: uses '❄️' (snowflake) delimiter —
+	// encodes constraint type, columns, and table.
 	"snowflake_table_constraint": config.IdentifierFromProvider,
 
-	// snowflake_table_storage_lifecycle_policy_attachment: ID is two FQNs joined by pipe
-	// — table FQN and storage lifecycle policy FQN. Using IdentifierFromProvider.
+	// snowflake_table_storage_lifecycle_policy_attachment: two FQNs joined
+	// by pipe — table FQN and storage lifecycle policy FQN.
 	"snowflake_table_storage_lifecycle_policy_attachment": config.IdentifierFromProvider,
 
-	// snowflake_user_authentication_policy_attachment: ID format is
-	// '"<user>"|"<db>"."<schema>"."<authentication_policy>"' — compound of
-	// user-supplied parameters (user + authentication_policy).
+	// snowflake_user_authentication_policy_attachment: ID is
+	// '"<user>"|"<db>"."<schema>"."<authentication_policy>"' —
+	// compound of user (external name) and authentication_policy_name field.
 	"snowflake_user_authentication_policy_attachment": config.TemplatedStringAsIdentifier(
 		"user_name",
 		"\"{{ .external_name }}\"|{{ .parameters.authentication_policy_name }}",
 	),
 
-	// snowflake_user_password_policy_attachment: ID format is
-	// '"<user>"|"<db>"."<schema>"."<password_policy>"' — compound of
-	// user-supplied parameters (user + password_policy).
+	// snowflake_user_password_policy_attachment: ID is
+	// '"<user>"|"<db>"."<schema>"."<password_policy>"' —
+	// compound of user (external name) and password_policy_name field.
 	"snowflake_user_password_policy_attachment": config.TemplatedStringAsIdentifier(
 		"user_name",
 		"\"{{ .external_name }}\"|{{ .parameters.password_policy_name }}",
 	),
 
-	// snowflake_user_public_keys: uses name field (user name) as identifier.
+	// snowflake_user_public_keys: bare name (user name).
 	"snowflake_user_public_keys": config.NameAsIdentifier,
 
-	// snowflake_warehouse_adaptive: import with '"<warehouse_name>"' — ID is the warehouse name.
+	// snowflake_warehouse_adaptive: bare name.
 	"snowflake_warehouse_adaptive": config.NameAsIdentifier,
 }
 

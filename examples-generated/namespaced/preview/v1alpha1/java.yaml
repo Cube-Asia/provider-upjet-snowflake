@@ -4,8 +4,8 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/java
   labels:
-    testing.upbound.io/example-name: basic
-  name: basic
+    testing.upbound.io/example-name: w
+  name: w
   namespace: crossplane-system
 spec:
   forProvider:
@@ -13,16 +13,13 @@ spec:
     - argDataType: VARCHAR(100)
       argName: x
     database: Database
-    handler: TestFunc.echoVarchar
-    name: ProcedureName
-    procedureDefinition: |2
-        import com.snowflake.snowpark_java.*;
+    functionDefinition: |2
         class TestFunc {
-          public static String echoVarchar(Session session, String x) {
+          public static String echoVarchar(String x) {
             return x;
           }
         }
+    handler: TestFunc.echoVarchar
+    name: Name
     returnType: VARCHAR(100)
-    runtimeVersion: "11"
     schema: Schema
-    snowparkPackage: 1.14.0

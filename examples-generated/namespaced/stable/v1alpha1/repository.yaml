@@ -9,7 +9,5 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
-    apiIntegration: API_INTEGRATION
     database: DATABASE
-    origin: https://github.com/user/repo
     schema: SCHEMA

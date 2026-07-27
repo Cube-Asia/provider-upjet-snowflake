@@ -4,14 +4,11 @@ metadata:
   annotations:
     meta.upbound.io/example-id: stable/v1alpha1/integration
   labels:
-    testing.upbound.io/example-name: saml_integration
-  name: saml-integration
+    testing.upbound.io/example-name: test
+  name: test
 spec:
   forProvider:
-    saml2Issuer: test_issuer
-    saml2Provider: CUSTOM
-    saml2SsoUrl: https://example.com
-    saml2X509CertSecretRef:
-      key: attribute.cert.pem
-      name: example-secret
-      namespace: upbound-system
+    enabled: true
+    runAsRole: GENERIC_SCIM_PROVISIONER
+    scimClient: GENERIC
+    syncPassword: true

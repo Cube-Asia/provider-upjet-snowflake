@@ -4,14 +4,11 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/integration
   labels:
-    testing.upbound.io/example-name: integration
-  name: integration
+    testing.upbound.io/example-name: azure
+  name: azure
 spec:
   forProvider:
+    azureStorageQueuePrimaryUri: https://myaccount.queue.core.windows.net/myqueue
+    azureTenantId: a123b4c5-1234-123a-a12b-1a23b45678c9
     enabled: true
-    storageAllowedLocations:
-    - s3://mybucket1/path1/
-    - s3://mybucket2/path2/
-    storageAwsRoleArn: arn:aws:iam::001234567890:role/myrole
-    storageProvider: S3
-    type: EXTERNAL_STAGE
+    notificationProvider: AZURE_STORAGE_QUEUE

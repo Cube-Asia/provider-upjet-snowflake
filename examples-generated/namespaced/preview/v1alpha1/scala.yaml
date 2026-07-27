@@ -4,25 +4,23 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/scala
   labels:
-    testing.upbound.io/example-name: w
-  name: w
+    testing.upbound.io/example-name: minimal
+  name: minimal
   namespace: crossplane-system
 spec:
   forProvider:
     arguments:
     - argDataType: VARCHAR(100)
       argName: x
-    database: Database
-    handler: TestFunc.echoVarchar
-    name: Name
-    procedureDefinition: |2
-        import com.snowflake.snowpark_java.Session
+    database: ${snowflake_database.test.name}
+    functionDefinition: |2
         class TestFunc {
-          def echoVarchar(session : Session, x : String): String = {
+          def echoVarchar(x : String): String = {
             return x
           }
         }
+    handler: TestFunc.echoVarchar
+    name: my_scala_function
     returnType: VARCHAR(100)
     runtimeVersion: "2.12"
-    schema: Schema
-    snowparkPackage: 1.14.0
+    schema: ${snowflake_schema.test.name}

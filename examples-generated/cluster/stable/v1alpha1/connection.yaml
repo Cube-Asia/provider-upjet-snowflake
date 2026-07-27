@@ -7,5 +7,4 @@ metadata:
     testing.upbound.io/example-name: basic
   name: basic
 spec:
-  forProvider:
-    asReplicaOf: '"<organization_name>"."<account_name>"."<connection_name>"'
+  forProvider: {}

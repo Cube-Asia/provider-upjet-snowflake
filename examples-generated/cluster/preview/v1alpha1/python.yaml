@@ -4,22 +4,23 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/python
   labels:
-    testing.upbound.io/example-name: minimal
-  name: minimal
+    testing.upbound.io/example-name: w
+  name: w
 spec:
   forProvider:
     arguments:
-    - argDataType: NUMBER(36, 2)
+    - argDataType: VARCHAR(100)
       argName: x
-    database: ${snowflake_database.test.name}
-    functionDefinition: |
-      def some_function(x):
+    database: Database
+    handler: echoVarchar
+    name: Name
+    procedureDefinition: |2
+        def echoVarchar(x):
         result = ''
         for a in range(5):
           result += x
         return result
-    handler: some_function
-    name: my_function_function
-    returnType: NUMBER(36, 2)
+    returnType: VARCHAR(100)
     runtimeVersion: "3.9"
-    schema: ${snowflake_schema.test.name}
+    schema: Schema
+    snowparkPackage: 1.14.0

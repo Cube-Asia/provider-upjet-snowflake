@@ -8,5 +8,4 @@ metadata:
   name: basic
   namespace: crossplane-system
 spec:
-  forProvider:
-    asReplicaOf: '"<organization_name>"."<account_name>"."<connection_name>"'
+  forProvider: {}

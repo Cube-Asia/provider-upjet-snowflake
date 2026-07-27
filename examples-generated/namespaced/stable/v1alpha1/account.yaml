@@ -8,15 +8,4 @@ metadata:
   name: minimal
   namespace: crossplane-system
 spec:
-  forProvider:
-    adminNameSecretRef:
-      key: example-key
-      name: example-secret
-    adminPasswordSecretRef:
-      key: example-key
-      name: example-secret
-    edition: STANDARD
-    emailSecretRef:
-      key: example-key
-      name: example-secret
-    gracePeriodInDays: 3
+  forProvider: {}

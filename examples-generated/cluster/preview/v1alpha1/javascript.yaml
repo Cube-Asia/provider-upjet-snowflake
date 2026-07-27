@@ -4,20 +4,20 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/javascript
   labels:
-    testing.upbound.io/example-name: basic
-  name: basic
+    testing.upbound.io/example-name: minimal
+  name: minimal
 spec:
   forProvider:
     arguments:
-    - argDataType: VARCHAR(100)
+    - argDataType: VARIANT
       argName: x
-    database: Database
-    name: Name
-    procedureDefinition: |2
+    database: ${snowflake_database.test.name}
+    functionDefinition: |2
         if (x == 0) {
           return 1;
         } else {
           return 2;
         }
-    returnType: VARCHAR(100)
-    schema: Schema
+    name: my_javascript_function
+    returnType: VARIANT
+    schema: ${snowflake_schema.test.name}
