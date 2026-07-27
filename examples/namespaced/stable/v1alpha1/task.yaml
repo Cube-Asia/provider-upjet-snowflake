@@ -1,0 +1,18 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Task
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/task
+  labels:
+    testing.upbound.io/example-name: task
+  name: task
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+    schedule:
+    - minutes: 5
+    schema: schema
+    sqlStatement: select 1
+    started: true
+    warehouse: warehouse

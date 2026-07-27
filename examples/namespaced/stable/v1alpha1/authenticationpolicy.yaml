@@ -1,0 +1,13 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AuthenticationPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/authenticationpolicy
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database_name
+    schema: schema_name

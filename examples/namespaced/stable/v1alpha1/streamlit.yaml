@@ -1,0 +1,15 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Streamlit
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/streamlit
+  labels:
+    testing.upbound.io/example-name: streamlit
+  name: streamlit
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+    mainFile: /streamlit_main.py
+    schema: schema
+    stage: ${snowflake_stage.example.fully_qualified_name}

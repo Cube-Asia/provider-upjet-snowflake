@@ -1,0 +1,28 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Java
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/java
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    handler: TestFunc.echoVarchar
+    name: ProcedureName
+    procedureDefinition: |2
+        import com.snowflake.snowpark_java.*;
+        class TestFunc {
+          public static String echoVarchar(Session session, String x) {
+            return x;
+          }
+        }
+    returnType: VARCHAR(100)
+    runtimeVersion: "11"
+    schema: Schema
+    snowparkPackage: 1.14.0

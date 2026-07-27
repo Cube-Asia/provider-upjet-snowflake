@@ -6,10 +6,10 @@ import (
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-	userCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/user"
-	userpreviewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/userpreview"
-	userNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/user"
-	userpreviewNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/userpreview"
+	previewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/preview"
+	stableCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/stable"
+	previewNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/preview"
+	stableNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/stable"
 )
 
 const (
@@ -35,8 +35,8 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		userCluster.Configure,
-		userpreviewCluster.Configure,
+		stableCluster.Configure,
+		previewCluster.Configure,
 	} {
 		configure(pc)
 	}
@@ -60,8 +60,8 @@ func GetProviderNamespaced() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		userNamespaced.Configure,
-		userpreviewNamespaced.Configure,
+		stableNamespaced.Configure,
+		previewNamespaced.Configure,
 	} {
 		configure(pc)
 	}

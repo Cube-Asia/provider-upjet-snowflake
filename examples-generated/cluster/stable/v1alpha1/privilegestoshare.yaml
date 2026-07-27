@@ -1,0 +1,39 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: PrivilegesToShare
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/privilegestoshare
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    onDatabase: ${snowflake_database.example.name}
+    privileges:
+    - USAGE
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/privilegestoshare
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Share
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/privilegestoshare
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider: {}

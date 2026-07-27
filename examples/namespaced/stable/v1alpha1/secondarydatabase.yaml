@@ -1,0 +1,62 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: SecondaryDatabase
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/secondarydatabase
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    asReplicaOf: <primary_account_organization_name>.<primary_account_name>.${snowflake_database.primary.name}
+    provider: ${secondary_account}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/secondarydatabase
+  labels:
+    testing.upbound.io/example-name: primary
+  name: primary
+  namespace: crossplane-system
+spec:
+  forProvider:
+    provider: ${primary_account}
+    replication:
+    - enableToAccount:
+      - accountIdentifier: <secondary_account_organization_name>.<secondary_account_name>
+        withFailover: true
+      ignoreEditionCheck: true
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/secondarydatabase
+  labels:
+    testing.upbound.io/example-name: tasks
+  name: tasks
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/secondarydatabase
+  labels:
+    testing.upbound.io/example-name: tasks
+  name: tasks
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database_for_tasks

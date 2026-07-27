@@ -1,0 +1,23 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: IntegrationIcebergRest
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/integrationicebergrest
+  labels:
+    testing.upbound.io/example-name: oauth_basic
+  name: oauth-basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: false
+    oauthRestAuthentication:
+    - oauthAllowedScopes:
+      - PRINCIPAL_ROLE:ALL
+      oauthClientIdSecretRef:
+        key: example-key
+        name: example-secret
+      oauthClientSecretSecretRef:
+        key: example-key
+        name: example-secret
+    restConfig:
+    - catalogUri: https://your-iceberg-rest.example.com

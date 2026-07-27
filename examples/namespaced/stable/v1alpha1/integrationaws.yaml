@@ -1,0 +1,16 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: IntegrationAws
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/integrationaws
+  labels:
+    testing.upbound.io/example-name: minimal
+  name: minimal
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: true
+    storageAllowedLocations:
+    - s3://mybucket1/path1/
+    storageAwsRoleArn: arn:aws:iam::001234567890:role/myrole
+    storageProvider: S3

@@ -1,0 +1,22 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: SQL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/sql
+  labels:
+    testing.upbound.io/example-name: w
+  name: w
+  namespace: crossplane-system
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    name: Name
+    procedureDefinition: |
+      BEGIN
+        RETURN message;
+      END;
+    returnType: VARCHAR(100)
+    schema: Schema

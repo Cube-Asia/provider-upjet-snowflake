@@ -1,0 +1,19 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/table
+  labels:
+    testing.upbound.io/example-name: external_table
+  name: external-table
+spec:
+  forProvider:
+    column:
+    - name: id
+      type: int
+    - name: data
+      type: text
+    comment: External table
+    database: db
+    fileFormat: TYPE = CSV FIELD_DELIMITER = '|'
+    schema: schema

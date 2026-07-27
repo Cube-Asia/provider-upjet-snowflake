@@ -1,0 +1,15 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: IntegrationExternalMcpDynamicClient
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/integrationexternalmcpdynamicclient
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://mcp-server.example.com/
+    enabled: true
+    oauthResourceUrl: https://mcp-server.example.com

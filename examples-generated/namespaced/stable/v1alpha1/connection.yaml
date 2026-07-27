@@ -1,0 +1,12 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Connection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/connection
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    asReplicaOf: '"<organization_name>"."<account_name>"."<connection_name>"'

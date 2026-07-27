@@ -1,0 +1,17 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Stage
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/stage
+  labels:
+    testing.upbound.io/example-name: example_stage
+  name: example-stage
+  namespace: crossplane-system
+spec:
+  forProvider:
+    credentialsSecretRef:
+      key: attribute.example_aws_secret_key
+      name: example-
+    database: EXAMPLE_DB
+    schema: EXAMPLE_SCHEMA
+    url: s3://com.example.bucket/prefix

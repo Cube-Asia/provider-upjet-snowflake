@@ -1,0 +1,28 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: SharedDatabase
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/shareddatabase
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    fromShare: <primary_account_organization_name>.<primary_account_name>.${snowflake_share.test.name}
+    provider: ${secondary_account}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/shareddatabase
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    provider: ${primary_account}

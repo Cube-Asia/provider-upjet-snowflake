@@ -1,0 +1,16 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: OauthIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/oauthintegration
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enabled: true
+    externalOauthIssuer: issuer
+    externalOauthSnowflakeUserMappingAttribute: LOGIN_NAME
+    externalOauthTokenUserMappingClaim:
+    - upn
+    externalOauthType: CUSTOM

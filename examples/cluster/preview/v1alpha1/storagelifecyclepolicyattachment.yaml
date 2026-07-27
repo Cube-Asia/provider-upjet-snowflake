@@ -1,0 +1,71 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: StorageLifecyclePolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/storagelifecyclepolicyattachment
+  labels:
+    testing.upbound.io/example-name: table_attachment
+  name: table-attachment
+spec:
+  forProvider:
+    "on":
+    - VAL
+    storageLifecyclePolicyName: ${snowflake_storage_lifecycle_policy.slp.fully_qualified_name}
+    tableName: ${snowflake_table.table.fully_qualified_name}
+    tableType: TABLE
+
+---
+
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/storagelifecyclepolicyattachment
+  labels:
+    testing.upbound.io/example-name: dynamic_table
+  name: dynamic-table
+spec:
+  forProvider:
+    database: prod
+    query: SELECT VAL FROM "prod"."security"."my_table"
+    schema: security
+    targetLag:
+    - maximumDuration: 20 minutes
+    warehouse: my_warehouse
+
+---
+
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: LifecyclePolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/storagelifecyclepolicyattachment
+  labels:
+    testing.upbound.io/example-name: slp
+  name: slp
+spec:
+  forProvider:
+    argument:
+    - name: VAL
+      type: VARCHAR
+    body: LENGTH(VAL) > 0
+    database: prod
+    schema: security
+
+---
+
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/storagelifecyclepolicyattachment
+  labels:
+    testing.upbound.io/example-name: table
+  name: table
+spec:
+  forProvider:
+    column:
+    - name: VAL
+      type: VARCHAR
+    database: prod
+    schema: security

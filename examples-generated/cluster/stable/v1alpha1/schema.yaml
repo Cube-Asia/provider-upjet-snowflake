@@ -1,0 +1,11 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/schema
+  labels:
+    testing.upbound.io/example-name: schema
+  name: schema
+spec:
+  forProvider:
+    database: database_name

@@ -1,0 +1,15 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: IntegrationAzureAPIManagement
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/integrationazureapimanagement
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://apim-hello-world.azure-api.net/
+    azureAdApplicationId: 11111111-1111-1111-1111-111111111111
+    azureTenantId: 00000000-0000-0000-0000-000000000000
+    enabled: true

@@ -1,0 +1,55 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ColumnMaskingPolicyApplication
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/columnmaskingpolicyapplication
+  labels:
+    testing.upbound.io/example-name: application
+  name: application
+  namespace: crossplane-system
+spec:
+  forProvider:
+    column: secret
+    maskingPolicy: ${snowflake_masking_policy.policy.fully_qualified_name}
+    provider: ${snowflake.masking}
+    table: ${snowflake_table.table.fully_qualified_name}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: MaskingPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/columnmaskingpolicyapplication
+  labels:
+    testing.upbound.io/example-name: policy
+  name: policy
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: EXAMPLE_DB
+    masking_expression: case when current_role() in ('ANALYST') then val else sha2(val,
+      512) end
+    provider: ${snowflake.masking}
+    returnDataType: VARCHAR
+    schema: EXAMPLE_SCHEMA
+    value_data_type: VARCHAR
+
+---
+
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Table
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/columnmaskingpolicyapplication
+  labels:
+    testing.upbound.io/example-name: table
+  name: table
+  namespace: crossplane-system
+spec:
+  forProvider:
+    column:
+    - name: secret
+      type: VARCHAR(16777216)
+    database: EXAMPLE_DB
+    schema: EXAMPLE_SCHEMA

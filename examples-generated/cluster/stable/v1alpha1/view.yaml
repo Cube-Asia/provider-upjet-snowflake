@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: View
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/view
+  labels:
+    testing.upbound.io/example-name: view
+  name: view
+spec:
+  forProvider:
+    database: database
+    schema: schema
+    statement: |
+      select * from foo;

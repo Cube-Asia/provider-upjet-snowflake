@@ -1,0 +1,15 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: ExternalGcs
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/externalgcs
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: my_database
+    schema: my_schema
+    storageIntegration: ${snowflake_storage_integration.gcs.name}
+    url: gcs://mybucket/mypath/

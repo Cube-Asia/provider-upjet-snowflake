@@ -1,0 +1,19 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Rule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/rule
+  labels:
+    testing.upbound.io/example-name: rule
+  name: rule
+  namespace: crossplane-system
+spec:
+  forProvider:
+    comment: A rule.
+    database: EXAMPLE_DB
+    mode: INGRESS
+    schema: EXAMPLE_SCHEMA
+    type: IPV4
+    valueList:
+    - 192.168.0.100/24
+    - 29.254.123.20

@@ -1,0 +1,47 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Service
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/service
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: ${snowflake_database.test.name}
+    fromSpecification:
+    - file: spec.yaml
+      stage: ${snowflake_stage.basic.fully_qualified_name}
+    in_compute_pool: ${snowflake_compute_pool.test.name}
+    schema: ${snowflake_schema.test.name}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Pool
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/service
+  labels:
+    testing.upbound.io/example-name: complete
+  name: complete
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoResume: true
+    autoSuspendSecs: 1200
+    comment: A service.
+    database: ${snowflake_database.test.name}
+    external_access_integrations:
+    - INTEGRATION
+    from_specification:
+    - file: spec.yaml
+      path: path/to/spec
+      stage: ${snowflake_stage.complete.fully_qualified_name}
+    in_compute_pool: ${snowflake_compute_pool.test.name}
+    max_instances: 2
+    min_instances: 1
+    min_ready_instances: 1
+    query_warehouse: ${snowflake_warehouse.test.name}
+    schema: ${snowflake_schema.test.name}

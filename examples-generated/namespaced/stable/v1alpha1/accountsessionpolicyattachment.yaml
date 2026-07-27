@@ -1,0 +1,27 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountSessionPolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/accountsessionpolicyattachment
+  labels:
+    testing.upbound.io/example-name: attachment
+  name: attachment
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: SessionPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/accountsessionpolicyattachment
+  labels:
+    testing.upbound.io/example-name: sp
+  name: sp
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: prod
+    schema: security

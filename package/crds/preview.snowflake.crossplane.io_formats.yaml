@@ -1,0 +1,779 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: formats.preview.snowflake.crossplane.io
+spec:
+  group: preview.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Format
+    listKind: FormatList
+    plural: formats
+    singular: format
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Format is the Schema for the Formats API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: FormatSpec defines the desired state of Format
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  allowDuplicate:
+                    description: |-
+                      (Boolean) Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                      Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                    type: boolean
+                  binaryAsText:
+                    description: |-
+                      8 text.
+                      Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text.
+                    type: boolean
+                  binaryFormat:
+                    description: |-
+                      (String) Defines the encoding format for binary input or output.
+                      Defines the encoding format for binary input or output.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the file format.
+                      Specifies a comment for the file format.
+                    type: string
+                  compression:
+                    description: |-
+                      (String) Specifies the current compression algorithm for the data file.
+                      Specifies the current compression algorithm for the data file.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the file format.
+                      The database in which to create the file format.
+                    type: string
+                  dateFormat:
+                    description: |-
+                      (String) Defines the format of date values in the data files (data loading) or table (data unloading).
+                      Defines the format of date values in the data files (data loading) or table (data unloading).
+                    type: string
+                  disableAutoConvert:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                      Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                    type: boolean
+                  disableSnowflakeData:
+                    description: |-
+                      structured data tags.
+                      Boolean that specifies whether the XML parser disables recognition of Snowflake semi-structured data tags.
+                    type: boolean
+                  emptyFieldAsNull:
+                    description: |-
+                      (Boolean) Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                      Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                    type: boolean
+                  enableOctal:
+                    description: |-
+                      (Boolean) Boolean that enables parsing of octal numbers.
+                      Boolean that enables parsing of octal numbers.
+                    type: boolean
+                  encoding:
+                    description: |-
+                      (String) String (constant) that specifies the character set of the source data when loading data into a table.
+                      String (constant) that specifies the character set of the source data when loading data into a table.
+                    type: string
+                  errorOnColumnCountMismatch:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                      Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                    type: boolean
+                  escape:
+                    description: |-
+                      (String) Single character string used as the escape character for field values.
+                      Single character string used as the escape character for field values.
+                    type: string
+                  escapeUnenclosedField:
+                    description: |-
+                      (String) Single character string used as the escape character for unenclosed field values only.
+                      Single character string used as the escape character for unenclosed field values only.
+                    type: string
+                  fieldDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  fieldOptionallyEnclosedBy:
+                    description: |-
+                      (String) Character used to enclose strings.
+                      Character used to enclose strings.
+                    type: string
+                  fileExtension:
+                    description: |-
+                      (String) Specifies the extension for files unloaded to a stage.
+                      Specifies the extension for files unloaded to a stage.
+                    type: string
+                  formatType:
+                    description: |-
+                      (String) Specifies the format of the input files (for data loading) or output files (for data unloading).
+                      Specifies the format of the input files (for data loading) or output files (for data unloading).
+                    type: string
+                  ignoreUtf8Errors:
+                    description: |-
+                      8 encoding errors produce error conditions.
+                      Boolean that specifies whether UTF-8 encoding errors produce error conditions.
+                    type: boolean
+                  nullIf:
+                    description: |-
+                      (List of String) String used to convert to and from SQL NULL.
+                      String used to convert to and from SQL NULL.
+                    items:
+                      type: string
+                    type: array
+                  parseHeader:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                      Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                    type: boolean
+                  preserveSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                      Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                    type: boolean
+                  recordDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�).
+                      Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�).
+                    type: boolean
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the file format.
+                      The schema in which to create the file format.
+                    type: string
+                  skipBlankLines:
+                    description: |-
+                      (Boolean) Boolean that specifies to skip any blank lines encountered in the data files.
+                      Boolean that specifies to skip any blank lines encountered in the data files.
+                    type: boolean
+                  skipByteOrderMark:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                      Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                    type: boolean
+                  skipHeader:
+                    description: |-
+                      (Number) Number of lines at the start of the file to skip.
+                      Number of lines at the start of the file to skip.
+                    type: number
+                  stripNullValues:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                      Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                    type: boolean
+                  stripOuterArray:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove outer brackets.
+                      Boolean that instructs the JSON parser to remove outer brackets.
+                    type: boolean
+                  stripOuterElement:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                      Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                    type: boolean
+                  timeFormat:
+                    description: |-
+                      (String) Defines the format of time values in the data files (data loading) or table (data unloading).
+                      Defines the format of time values in the data files (data loading) or table (data unloading).
+                    type: string
+                  timestampFormat:
+                    description: |-
+                      (String) Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                      Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                    type: string
+                  trimSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to remove white space from fields.
+                      Boolean that specifies whether to remove white space from fields.
+                    type: boolean
+                required:
+                - database
+                - schema
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  allowDuplicate:
+                    description: |-
+                      (Boolean) Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                      Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                    type: boolean
+                  binaryAsText:
+                    description: |-
+                      8 text.
+                      Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text.
+                    type: boolean
+                  binaryFormat:
+                    description: |-
+                      (String) Defines the encoding format for binary input or output.
+                      Defines the encoding format for binary input or output.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the file format.
+                      Specifies a comment for the file format.
+                    type: string
+                  compression:
+                    description: |-
+                      (String) Specifies the current compression algorithm for the data file.
+                      Specifies the current compression algorithm for the data file.
+                    type: string
+                  dateFormat:
+                    description: |-
+                      (String) Defines the format of date values in the data files (data loading) or table (data unloading).
+                      Defines the format of date values in the data files (data loading) or table (data unloading).
+                    type: string
+                  disableAutoConvert:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                      Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                    type: boolean
+                  disableSnowflakeData:
+                    description: |-
+                      structured data tags.
+                      Boolean that specifies whether the XML parser disables recognition of Snowflake semi-structured data tags.
+                    type: boolean
+                  emptyFieldAsNull:
+                    description: |-
+                      (Boolean) Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                      Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                    type: boolean
+                  enableOctal:
+                    description: |-
+                      (Boolean) Boolean that enables parsing of octal numbers.
+                      Boolean that enables parsing of octal numbers.
+                    type: boolean
+                  encoding:
+                    description: |-
+                      (String) String (constant) that specifies the character set of the source data when loading data into a table.
+                      String (constant) that specifies the character set of the source data when loading data into a table.
+                    type: string
+                  errorOnColumnCountMismatch:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                      Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                    type: boolean
+                  escape:
+                    description: |-
+                      (String) Single character string used as the escape character for field values.
+                      Single character string used as the escape character for field values.
+                    type: string
+                  escapeUnenclosedField:
+                    description: |-
+                      (String) Single character string used as the escape character for unenclosed field values only.
+                      Single character string used as the escape character for unenclosed field values only.
+                    type: string
+                  fieldDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  fieldOptionallyEnclosedBy:
+                    description: |-
+                      (String) Character used to enclose strings.
+                      Character used to enclose strings.
+                    type: string
+                  fileExtension:
+                    description: |-
+                      (String) Specifies the extension for files unloaded to a stage.
+                      Specifies the extension for files unloaded to a stage.
+                    type: string
+                  formatType:
+                    description: |-
+                      (String) Specifies the format of the input files (for data loading) or output files (for data unloading).
+                      Specifies the format of the input files (for data loading) or output files (for data unloading).
+                    type: string
+                  ignoreUtf8Errors:
+                    description: |-
+                      8 encoding errors produce error conditions.
+                      Boolean that specifies whether UTF-8 encoding errors produce error conditions.
+                    type: boolean
+                  nullIf:
+                    description: |-
+                      (List of String) String used to convert to and from SQL NULL.
+                      String used to convert to and from SQL NULL.
+                    items:
+                      type: string
+                    type: array
+                  parseHeader:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                      Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                    type: boolean
+                  preserveSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                      Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                    type: boolean
+                  recordDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�).
+                      Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�).
+                    type: boolean
+                  skipBlankLines:
+                    description: |-
+                      (Boolean) Boolean that specifies to skip any blank lines encountered in the data files.
+                      Boolean that specifies to skip any blank lines encountered in the data files.
+                    type: boolean
+                  skipByteOrderMark:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                      Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                    type: boolean
+                  skipHeader:
+                    description: |-
+                      (Number) Number of lines at the start of the file to skip.
+                      Number of lines at the start of the file to skip.
+                    type: number
+                  stripNullValues:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                      Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                    type: boolean
+                  stripOuterArray:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove outer brackets.
+                      Boolean that instructs the JSON parser to remove outer brackets.
+                    type: boolean
+                  stripOuterElement:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                      Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                    type: boolean
+                  timeFormat:
+                    description: |-
+                      (String) Defines the format of time values in the data files (data loading) or table (data unloading).
+                      Defines the format of time values in the data files (data loading) or table (data unloading).
+                    type: string
+                  timestampFormat:
+                    description: |-
+                      (String) Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                      Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                    type: string
+                  trimSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to remove white space from fields.
+                      Boolean that specifies whether to remove white space from fields.
+                    type: boolean
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.formatType is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.formatType)
+                || (has(self.initProvider) && has(self.initProvider.formatType))'
+          status:
+            description: FormatStatus defines the observed state of Format.
+            properties:
+              atProvider:
+                properties:
+                  allowDuplicate:
+                    description: |-
+                      (Boolean) Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                      Boolean that specifies to allow duplicate object field names (only the last one will be preserved).
+                    type: boolean
+                  binaryAsText:
+                    description: |-
+                      8 text.
+                      Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text.
+                    type: boolean
+                  binaryFormat:
+                    description: |-
+                      (String) Defines the encoding format for binary input or output.
+                      Defines the encoding format for binary input or output.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the file format.
+                      Specifies a comment for the file format.
+                    type: string
+                  compression:
+                    description: |-
+                      (String) Specifies the current compression algorithm for the data file.
+                      Specifies the current compression algorithm for the data file.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the file format.
+                      The database in which to create the file format.
+                    type: string
+                  dateFormat:
+                    description: |-
+                      (String) Defines the format of date values in the data files (data loading) or table (data unloading).
+                      Defines the format of date values in the data files (data loading) or table (data unloading).
+                    type: string
+                  disableAutoConvert:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                      Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation.
+                    type: boolean
+                  disableSnowflakeData:
+                    description: |-
+                      structured data tags.
+                      Boolean that specifies whether the XML parser disables recognition of Snowflake semi-structured data tags.
+                    type: boolean
+                  emptyFieldAsNull:
+                    description: |-
+                      (Boolean) Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                      Specifies whether to insert SQL NULL for empty fields in an input file, which are represented by two successive delimiters.
+                    type: boolean
+                  enableOctal:
+                    description: |-
+                      (Boolean) Boolean that enables parsing of octal numbers.
+                      Boolean that enables parsing of octal numbers.
+                    type: boolean
+                  encoding:
+                    description: |-
+                      (String) String (constant) that specifies the character set of the source data when loading data into a table.
+                      String (constant) that specifies the character set of the source data when loading data into a table.
+                    type: string
+                  errorOnColumnCountMismatch:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                      Boolean that specifies whether to generate a parsing error if the number of delimited columns (i.e. fields) in an input file does not match the number of columns in the corresponding table.
+                    type: boolean
+                  escape:
+                    description: |-
+                      (String) Single character string used as the escape character for field values.
+                      Single character string used as the escape character for field values.
+                    type: string
+                  escapeUnenclosedField:
+                    description: |-
+                      (String) Single character string used as the escape character for unenclosed field values only.
+                      Single character string used as the escape character for unenclosed field values only.
+                    type: string
+                  fieldDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate fields in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  fieldOptionallyEnclosedBy:
+                    description: |-
+                      (String) Character used to enclose strings.
+                      Character used to enclose strings.
+                    type: string
+                  fileExtension:
+                    description: |-
+                      (String) Specifies the extension for files unloaded to a stage.
+                      Specifies the extension for files unloaded to a stage.
+                    type: string
+                  formatType:
+                    description: |-
+                      (String) Specifies the format of the input files (for data loading) or output files (for data unloading).
+                      Specifies the format of the input files (for data loading) or output files (for data unloading).
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  ignoreUtf8Errors:
+                    description: |-
+                      8 encoding errors produce error conditions.
+                      Boolean that specifies whether UTF-8 encoding errors produce error conditions.
+                    type: boolean
+                  nullIf:
+                    description: |-
+                      (List of String) String used to convert to and from SQL NULL.
+                      String used to convert to and from SQL NULL.
+                    items:
+                      type: string
+                    type: array
+                  parseHeader:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                      Boolean that specifies whether to use the first row headers in the data files to determine column names.
+                    type: boolean
+                  preserveSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                      Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content.
+                    type: boolean
+                  recordDelimiter:
+                    description: |-
+                      (String) Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                      Specifies one or more singlebyte or multibyte characters that separate records in an input file (data loading) or unloaded file (data unloading).
+                    type: string
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�).
+                      Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�).
+                    type: boolean
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the file format.
+                      The schema in which to create the file format.
+                    type: string
+                  skipBlankLines:
+                    description: |-
+                      (Boolean) Boolean that specifies to skip any blank lines encountered in the data files.
+                      Boolean that specifies to skip any blank lines encountered in the data files.
+                    type: boolean
+                  skipByteOrderMark:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                      Boolean that specifies whether to skip the BOM (byte order mark), if present in a data file.
+                    type: boolean
+                  skipHeader:
+                    description: |-
+                      (Number) Number of lines at the start of the file to skip.
+                      Number of lines at the start of the file to skip.
+                    type: number
+                  stripNullValues:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                      Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
+                    type: boolean
+                  stripOuterArray:
+                    description: |-
+                      (Boolean) Boolean that instructs the JSON parser to remove outer brackets.
+                      Boolean that instructs the JSON parser to remove outer brackets.
+                    type: boolean
+                  stripOuterElement:
+                    description: |-
+                      (Boolean) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                      Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents.
+                    type: boolean
+                  timeFormat:
+                    description: |-
+                      (String) Defines the format of time values in the data files (data loading) or table (data unloading).
+                      Defines the format of time values in the data files (data loading) or table (data unloading).
+                    type: string
+                  timestampFormat:
+                    description: |-
+                      (String) Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                      Defines the format of timestamp values in the data files (data loading) or table (data unloading).
+                    type: string
+                  trimSpace:
+                    description: |-
+                      (Boolean) Boolean that specifies whether to remove white space from fields.
+                      Boolean that specifies whether to remove white space from fields.
+                    type: boolean
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

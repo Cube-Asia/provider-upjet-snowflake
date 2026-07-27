@@ -1,0 +1,22 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: RowAccessPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/rowaccesspolicy
+  labels:
+    testing.upbound.io/example-name: example_row_access_policy
+  name: example-row-access-policy
+  namespace: crossplane-system
+spec:
+  forProvider:
+    argument:
+    - name: ARG1
+      type: VARCHAR
+    - name: ARG2
+      type: NUMBER
+    - name: ARG3
+      type: TIMESTAMP_NTZ
+    body: case when current_role() in ('ANALYST') then true else false end
+    comment: comment
+    database: EXAMPLE_DB
+    schema: EXAMPLE_SCHEMA

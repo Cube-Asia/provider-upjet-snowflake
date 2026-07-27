@@ -1,0 +1,516 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: secondarydatabases.stable.snowflake.m.crossplane.io
+spec:
+  group: stable.snowflake.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: SecondaryDatabase
+    listKind: SecondaryDatabaseList
+    plural: secondarydatabases
+    singular: secondarydatabase
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: SecondaryDatabase is the Schema for the SecondaryDatabases API.
+          A secondary database creates a replica of an existing primary database (i.e.
+          a secondary database). For more information about database replication,
+          see Introduction to database replication across multiple accounts https://docs.snowflake.com/en/user-guide/db-replication-intro.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SecondaryDatabaseSpec defines the desired state of SecondaryDatabase
+            properties:
+              forProvider:
+                properties:
+                  asReplicaOf:
+                    description: |-
+                      (String) A fully qualified path to a database to create a replica from. A fully qualified path follows the format of "<organization_name>"."<account_name>"."<database_name>". For more information about this resource, see docs.
+                      A fully qualified path to a database to create a replica from. A fully qualified path follows the format of `"<organization_name>"."<account_name>"."<database_name>"`. For more information about this resource, see [docs](./database).
+                    type: string
+                  catalog:
+                    description: |-
+                      (String) The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see CATALOG.
+                      The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see [CATALOG](https://docs.snowflake.com/en/sql-reference/parameters#catalog).
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the database.
+                      Specifies a comment for the database.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
+                      Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
+                    type: number
+                  defaultDdlCollation:
+                    description: |-
+                      (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+                      Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
+                    type: string
+                  enableConsoleOutput:
+                    description: |-
+                      (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                      If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                    type: boolean
+                  externalVolume:
+                    description: |-
+                      (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
+                      The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see [EXTERNAL_VOLUME](https://docs.snowflake.com/en/sql-reference/parameters#external-volume).
+                    type: string
+                  isTransient:
+                    description: |-
+                      safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                      Specifies the database as transient. Transient databases do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                    type: boolean
+                  logEventLevel:
+                    description: |-
+                      insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
+                      Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`.
+                    type: string
+                  logLevel:
+                    description: |-
+                      (String) Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see LOG_LEVEL.
+                      Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see [LOG_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-log-level).
+                    type: string
+                  maxDataExtensionTimeInDays:
+                    description: |-
+                      (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
+                      Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
+                    type: number
+                  quotedIdentifiersIgnoreCase:
+                    description: |-
+                      (Boolean) If true, the case of quoted identifiers is ignored. For more information, see QUOTED_IDENTIFIERS_IGNORE_CASE.
+                      If true, the case of quoted identifiers is ignored. For more information, see [QUOTED_IDENTIFIERS_IGNORE_CASE](https://docs.snowflake.com/en/sql-reference/parameters#quoted-identifiers-ignore-case).
+                    type: boolean
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see REPLACE_INVALID_CHARACTERS.
+                      Specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see [REPLACE_INVALID_CHARACTERS](https://docs.snowflake.com/en/sql-reference/parameters#replace-invalid-characters).
+                    type: boolean
+                  storageSerializationPolicy:
+                    description: |-
+                      party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see STORAGE_SERIALIZATION_POLICY.
+                      The storage serialization policy for Iceberg tables that use Snowflake as the catalog. Valid options are: [COMPATIBLE OPTIMIZED]. COMPATIBLE: Snowflake performs encoding and compression of data files that ensures interoperability with third-party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see [STORAGE_SERIALIZATION_POLICY](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
+                    type: string
+                  suspendTaskAfterNumFailures:
+                    description: |-
+                      suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
+                      How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
+                    type: number
+                  taskAutoRetryAttempts:
+                    description: |-
+                      (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
+                      Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
+                    type: number
+                  traceLevel:
+                    description: |-
+                      (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
+                      Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
+                    type: string
+                  userTaskManagedInitialWarehouseSize:
+                    description: |-
+                      (String) The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE.
+                      The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see [USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE](https://docs.snowflake.com/en/sql-reference/parameters#user-task-managed-initial-warehouse-size).
+                    type: string
+                  userTaskMinimumTriggerIntervalInSeconds:
+                    description: |-
+                      (Number) Minimum amount of time between Triggered Task executions in seconds.
+                      Minimum amount of time between Triggered Task executions in seconds.
+                    type: number
+                  userTaskTimeoutMs:
+                    description: |-
+                      (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
+                      User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
+                    type: number
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  asReplicaOf:
+                    description: |-
+                      (String) A fully qualified path to a database to create a replica from. A fully qualified path follows the format of "<organization_name>"."<account_name>"."<database_name>". For more information about this resource, see docs.
+                      A fully qualified path to a database to create a replica from. A fully qualified path follows the format of `"<organization_name>"."<account_name>"."<database_name>"`. For more information about this resource, see [docs](./database).
+                    type: string
+                  catalog:
+                    description: |-
+                      (String) The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see CATALOG.
+                      The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see [CATALOG](https://docs.snowflake.com/en/sql-reference/parameters#catalog).
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the database.
+                      Specifies a comment for the database.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
+                      Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
+                    type: number
+                  defaultDdlCollation:
+                    description: |-
+                      (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+                      Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
+                    type: string
+                  enableConsoleOutput:
+                    description: |-
+                      (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                      If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                    type: boolean
+                  externalVolume:
+                    description: |-
+                      (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
+                      The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see [EXTERNAL_VOLUME](https://docs.snowflake.com/en/sql-reference/parameters#external-volume).
+                    type: string
+                  isTransient:
+                    description: |-
+                      safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                      Specifies the database as transient. Transient databases do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                    type: boolean
+                  logEventLevel:
+                    description: |-
+                      insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
+                      Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`.
+                    type: string
+                  logLevel:
+                    description: |-
+                      (String) Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see LOG_LEVEL.
+                      Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see [LOG_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-log-level).
+                    type: string
+                  maxDataExtensionTimeInDays:
+                    description: |-
+                      (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
+                      Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
+                    type: number
+                  quotedIdentifiersIgnoreCase:
+                    description: |-
+                      (Boolean) If true, the case of quoted identifiers is ignored. For more information, see QUOTED_IDENTIFIERS_IGNORE_CASE.
+                      If true, the case of quoted identifiers is ignored. For more information, see [QUOTED_IDENTIFIERS_IGNORE_CASE](https://docs.snowflake.com/en/sql-reference/parameters#quoted-identifiers-ignore-case).
+                    type: boolean
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see REPLACE_INVALID_CHARACTERS.
+                      Specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see [REPLACE_INVALID_CHARACTERS](https://docs.snowflake.com/en/sql-reference/parameters#replace-invalid-characters).
+                    type: boolean
+                  storageSerializationPolicy:
+                    description: |-
+                      party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see STORAGE_SERIALIZATION_POLICY.
+                      The storage serialization policy for Iceberg tables that use Snowflake as the catalog. Valid options are: [COMPATIBLE OPTIMIZED]. COMPATIBLE: Snowflake performs encoding and compression of data files that ensures interoperability with third-party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see [STORAGE_SERIALIZATION_POLICY](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
+                    type: string
+                  suspendTaskAfterNumFailures:
+                    description: |-
+                      suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
+                      How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
+                    type: number
+                  taskAutoRetryAttempts:
+                    description: |-
+                      (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
+                      Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
+                    type: number
+                  traceLevel:
+                    description: |-
+                      (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
+                      Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
+                    type: string
+                  userTaskManagedInitialWarehouseSize:
+                    description: |-
+                      (String) The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE.
+                      The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see [USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE](https://docs.snowflake.com/en/sql-reference/parameters#user-task-managed-initial-warehouse-size).
+                    type: string
+                  userTaskMinimumTriggerIntervalInSeconds:
+                    description: |-
+                      (Number) Minimum amount of time between Triggered Task executions in seconds.
+                      Minimum amount of time between Triggered Task executions in seconds.
+                    type: number
+                  userTaskTimeoutMs:
+                    description: |-
+                      (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
+                      User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
+                    type: number
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.asReplicaOf is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.asReplicaOf)
+                || (has(self.initProvider) && has(self.initProvider.asReplicaOf))'
+          status:
+            description: SecondaryDatabaseStatus defines the observed state of SecondaryDatabase.
+            properties:
+              atProvider:
+                properties:
+                  asReplicaOf:
+                    description: |-
+                      (String) A fully qualified path to a database to create a replica from. A fully qualified path follows the format of "<organization_name>"."<account_name>"."<database_name>". For more information about this resource, see docs.
+                      A fully qualified path to a database to create a replica from. A fully qualified path follows the format of `"<organization_name>"."<account_name>"."<database_name>"`. For more information about this resource, see [docs](./database).
+                    type: string
+                  catalog:
+                    description: |-
+                      (String) The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see CATALOG.
+                      The database parameter that specifies the default catalog to use for Iceberg tables. For more information, see [CATALOG](https://docs.snowflake.com/en/sql-reference/parameters#catalog).
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the database.
+                      Specifies a comment for the database.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
+                      Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
+                    type: number
+                  defaultDdlCollation:
+                    description: |-
+                      (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+                      Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
+                    type: string
+                  enableConsoleOutput:
+                    description: |-
+                      (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                      If true, enables stdout/stderr fast path logging for anonymous stored procedures.
+                    type: boolean
+                  externalVolume:
+                    description: |-
+                      (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
+                      The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see [EXTERNAL_VOLUME](https://docs.snowflake.com/en/sql-reference/parameters#external-volume).
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  isTransient:
+                    description: |-
+                      safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                      Specifies the database as transient. Transient databases do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss.
+                    type: boolean
+                  logEventLevel:
+                    description: |-
+                      insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
+                      Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`.
+                    type: string
+                  logLevel:
+                    description: |-
+                      (String) Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see LOG_LEVEL.
+                      Specifies the severity level of messages that should be ingested and made available in the active event table. Valid options are: [TRACE DEBUG INFO WARN ERROR FATAL OFF]. Messages at the specified level (and at more severe levels) are ingested. For more information, see [LOG_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-log-level).
+                    type: string
+                  maxDataExtensionTimeInDays:
+                    description: |-
+                      (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
+                      Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
+                    type: number
+                  quotedIdentifiersIgnoreCase:
+                    description: |-
+                      (Boolean) If true, the case of quoted identifiers is ignored. For more information, see QUOTED_IDENTIFIERS_IGNORE_CASE.
+                      If true, the case of quoted identifiers is ignored. For more information, see [QUOTED_IDENTIFIERS_IGNORE_CASE](https://docs.snowflake.com/en/sql-reference/parameters#quoted-identifiers-ignore-case).
+                    type: boolean
+                  replaceInvalidCharacters:
+                    description: |-
+                      8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see REPLACE_INVALID_CHARACTERS.
+                      Specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�) in query results for an Iceberg table. You can only set this parameter for tables that use an external Iceberg catalog. For more information, see [REPLACE_INVALID_CHARACTERS](https://docs.snowflake.com/en/sql-reference/parameters#replace-invalid-characters).
+                    type: boolean
+                  storageSerializationPolicy:
+                    description: |-
+                      party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see STORAGE_SERIALIZATION_POLICY.
+                      The storage serialization policy for Iceberg tables that use Snowflake as the catalog. Valid options are: [COMPATIBLE OPTIMIZED]. COMPATIBLE: Snowflake performs encoding and compression of data files that ensures interoperability with third-party compute engines. OPTIMIZED: Snowflake performs encoding and compression of data files that ensures the best table performance within Snowflake. For more information, see [STORAGE_SERIALIZATION_POLICY](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
+                    type: string
+                  suspendTaskAfterNumFailures:
+                    description: |-
+                      suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
+                      How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
+                    type: number
+                  taskAutoRetryAttempts:
+                    description: |-
+                      (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
+                      Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
+                    type: number
+                  traceLevel:
+                    description: |-
+                      (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
+                      Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
+                    type: string
+                  userTaskManagedInitialWarehouseSize:
+                    description: |-
+                      (String) The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE.
+                      The initial size of warehouse to use for managed warehouses in the absence of history. For more information, see [USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE](https://docs.snowflake.com/en/sql-reference/parameters#user-task-managed-initial-warehouse-size).
+                    type: string
+                  userTaskMinimumTriggerIntervalInSeconds:
+                    description: |-
+                      (Number) Minimum amount of time between Triggered Task executions in seconds.
+                      Minimum amount of time between Triggered Task executions in seconds.
+                    type: number
+                  userTaskTimeoutMs:
+                    description: |-
+                      (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
+                      User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
+                    type: number
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

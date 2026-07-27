@@ -1,0 +1,11 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Warehouse
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/warehouse
+  labels:
+    testing.upbound.io/example-name: warehouse
+  name: warehouse
+  namespace: crossplane-system
+spec:
+  forProvider: {}

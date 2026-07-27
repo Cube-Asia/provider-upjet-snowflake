@@ -1,0 +1,14 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: IntegrationGoogleCloudAPIGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/integrationgooglecloudapigateway
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://gateway-id-123456.uc.gateway.dev/
+    enabled: true
+    googleAudience: api-gateway-id-123456.apigateway.gcp-project.cloud.goog

@@ -1,0 +1,29 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: MaskingPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/maskingpolicy
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    argument:
+    - name: ARG1
+      type: VARCHAR
+    - name: ARG2
+      type: NUMBER
+    - name: ARG3
+      type: TIMESTAMP_NTZ
+    body: |
+      case
+        when current_role() in ('ROLE_A') then
+          ARG1
+        when is_role_in_session( 'ROLE_B' ) then
+          'ABC123'
+        else
+          '******'
+      end
+    database: EXAMPLE_DB
+    returnDataType: VARCHAR
+    schema: EXAMPLE_SCHEMA

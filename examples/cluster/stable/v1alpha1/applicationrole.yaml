@@ -1,0 +1,24 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: ApplicationRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/applicationrole
+  labels:
+    testing.upbound.io/example-name: g
+  name: g
+spec:
+  forProvider:
+    parentAccountRoleName: ${snowflake_account_role.role.name}
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/applicationrole
+  labels:
+    testing.upbound.io/example-name: role
+  name: role
+spec:
+  forProvider: {}

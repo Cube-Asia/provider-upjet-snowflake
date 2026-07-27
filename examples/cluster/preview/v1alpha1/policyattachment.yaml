@@ -1,0 +1,14 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: PolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/policyattachment
+  labels:
+    testing.upbound.io/example-name: attach
+  name: attach
+spec:
+  forProvider:
+    setForAccount: false
+    users:
+    - user1
+    - user2

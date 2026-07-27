@@ -1,0 +1,14 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: NotificationIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/notificationintegration
+  labels:
+    testing.upbound.io/example-name: email_int
+  name: email-int
+spec:
+  forProvider:
+    allowedRecipients:
+    - john.doe@gmail.com
+    comment: A notification integration.
+    enabled: true

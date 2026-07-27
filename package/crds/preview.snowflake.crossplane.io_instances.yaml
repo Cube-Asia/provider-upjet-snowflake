@@ -1,0 +1,587 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: instances.preview.snowflake.crossplane.io
+spec:
+  group: preview.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Instance
+    listKind: InstanceList
+    plural: instances
+    singular: instance
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Instance is the Schema for the Instances API. Resource used to
+          manage Postgres instance objects. For more information, check Postgres instance
+          documentation https://docs.snowflake.com/en/sql-reference/sql/create-postgres-instance.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: InstanceSpec defines the desired state of Instance
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  authenticationAuthority:
+                    description: |-
+                      insensitive): POSTGRES | POSTGRES_OR_SNOWFLAKE.
+                      Specifies the authentication authority for the Postgres instance. Valid values are (case-insensitive): `POSTGRES` | `POSTGRES_OR_SNOWFLAKE`.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the Postgres instance.
+                      Specifies a comment for the Postgres instance.
+                    type: string
+                  computeFamily:
+                    description: |-
+                      insensitive): STANDARD_M | STANDARD_L | STANDARD_XL | STANDARD_2XL | STANDARD_4XL | STANDARD_8XL | STANDARD_12XL | STANDARD_24XL | HIGHMEM_L | HIGHMEM_XL | HIGHMEM_2XL | HIGHMEM_4XL | HIGHMEM_8XL | HIGHMEM_12XL | HIGHMEM_16XL | HIGHMEM_24XL | HIGHMEM_32XL | HIGHMEM_48XL | BURST_XS | BURST_S | BURST_M.
+                      Specifies the compute family for the Postgres instance. Valid values are (case-insensitive): `STANDARD_M` | `STANDARD_L` | `STANDARD_XL` | `STANDARD_2XL` | `STANDARD_4XL` | `STANDARD_8XL` | `STANDARD_12XL` | `STANDARD_24XL` | `HIGHMEM_L` | `HIGHMEM_XL` | `HIGHMEM_2XL` | `HIGHMEM_4XL` | `HIGHMEM_8XL` | `HIGHMEM_12XL` | `HIGHMEM_16XL` | `HIGHMEM_24XL` | `HIGHMEM_32XL` | `HIGHMEM_48XL` | `BURST_XS` | `BURST_S` | `BURST_M`.
+                    type: string
+                  highAvailability:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  maintenanceWindowStart:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    type: number
+                  networkPolicy:
+                    description: |-
+                      (String) Specifies the network policy to associate with the Postgres instance.
+                      Specifies the network policy to associate with the Postgres instance.
+                    type: string
+                  postgresSettings:
+                    description: |-
+                      (String) Specifies custom Postgres settings as a JSON string.
+                      Specifies custom Postgres settings as a JSON string.
+                    type: string
+                  postgresVersion:
+                    description: |-
+                      (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                      Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                    type: number
+                  storageIntegration:
+                    description: |-
+                      (String) Specifies the storage integration for the Postgres instance.
+                      Specifies the storage integration for the Postgres instance.
+                    type: string
+                  storageSizeGb:
+                    description: |-
+                      (Number) Specifies the storage size in GB for the Postgres instance.
+                      Specifies the storage size in GB for the Postgres instance.
+                    type: number
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  authenticationAuthority:
+                    description: |-
+                      insensitive): POSTGRES | POSTGRES_OR_SNOWFLAKE.
+                      Specifies the authentication authority for the Postgres instance. Valid values are (case-insensitive): `POSTGRES` | `POSTGRES_OR_SNOWFLAKE`.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the Postgres instance.
+                      Specifies a comment for the Postgres instance.
+                    type: string
+                  computeFamily:
+                    description: |-
+                      insensitive): STANDARD_M | STANDARD_L | STANDARD_XL | STANDARD_2XL | STANDARD_4XL | STANDARD_8XL | STANDARD_12XL | STANDARD_24XL | HIGHMEM_L | HIGHMEM_XL | HIGHMEM_2XL | HIGHMEM_4XL | HIGHMEM_8XL | HIGHMEM_12XL | HIGHMEM_16XL | HIGHMEM_24XL | HIGHMEM_32XL | HIGHMEM_48XL | BURST_XS | BURST_S | BURST_M.
+                      Specifies the compute family for the Postgres instance. Valid values are (case-insensitive): `STANDARD_M` | `STANDARD_L` | `STANDARD_XL` | `STANDARD_2XL` | `STANDARD_4XL` | `STANDARD_8XL` | `STANDARD_12XL` | `STANDARD_24XL` | `HIGHMEM_L` | `HIGHMEM_XL` | `HIGHMEM_2XL` | `HIGHMEM_4XL` | `HIGHMEM_8XL` | `HIGHMEM_12XL` | `HIGHMEM_16XL` | `HIGHMEM_24XL` | `HIGHMEM_32XL` | `HIGHMEM_48XL` | `BURST_XS` | `BURST_S` | `BURST_M`.
+                    type: string
+                  highAvailability:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  maintenanceWindowStart:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    type: number
+                  networkPolicy:
+                    description: |-
+                      (String) Specifies the network policy to associate with the Postgres instance.
+                      Specifies the network policy to associate with the Postgres instance.
+                    type: string
+                  postgresSettings:
+                    description: |-
+                      (String) Specifies custom Postgres settings as a JSON string.
+                      Specifies custom Postgres settings as a JSON string.
+                    type: string
+                  postgresVersion:
+                    description: |-
+                      (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                      Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                    type: number
+                  storageIntegration:
+                    description: |-
+                      (String) Specifies the storage integration for the Postgres instance.
+                      Specifies the storage integration for the Postgres instance.
+                    type: string
+                  storageSizeGb:
+                    description: |-
+                      (Number) Specifies the storage size in GB for the Postgres instance.
+                      Specifies the storage size in GB for the Postgres instance.
+                    type: number
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.authenticationAuthority is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.authenticationAuthority)
+                || (has(self.initProvider) && has(self.initProvider.authenticationAuthority))'
+            - message: spec.forProvider.computeFamily is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.computeFamily)
+                || (has(self.initProvider) && has(self.initProvider.computeFamily))'
+            - message: spec.forProvider.postgresVersion is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.postgresVersion)
+                || (has(self.initProvider) && has(self.initProvider.postgresVersion))'
+            - message: spec.forProvider.storageSizeGb is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.storageSizeGb)
+                || (has(self.initProvider) && has(self.initProvider.storageSizeGb))'
+          status:
+            description: InstanceStatus defines the observed state of Instance.
+            properties:
+              atProvider:
+                properties:
+                  authenticationAuthority:
+                    description: |-
+                      insensitive): POSTGRES | POSTGRES_OR_SNOWFLAKE.
+                      Specifies the authentication authority for the Postgres instance. Valid values are (case-insensitive): `POSTGRES` | `POSTGRES_OR_SNOWFLAKE`.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the Postgres instance.
+                      Specifies a comment for the Postgres instance.
+                    type: string
+                  computeFamily:
+                    description: |-
+                      insensitive): STANDARD_M | STANDARD_L | STANDARD_XL | STANDARD_2XL | STANDARD_4XL | STANDARD_8XL | STANDARD_12XL | STANDARD_24XL | HIGHMEM_L | HIGHMEM_XL | HIGHMEM_2XL | HIGHMEM_4XL | HIGHMEM_8XL | HIGHMEM_12XL | HIGHMEM_16XL | HIGHMEM_24XL | HIGHMEM_32XL | HIGHMEM_48XL | BURST_XS | BURST_S | BURST_M.
+                      Specifies the compute family for the Postgres instance. Valid values are (case-insensitive): `STANDARD_M` | `STANDARD_L` | `STANDARD_XL` | `STANDARD_2XL` | `STANDARD_4XL` | `STANDARD_8XL` | `STANDARD_12XL` | `STANDARD_24XL` | `HIGHMEM_L` | `HIGHMEM_XL` | `HIGHMEM_2XL` | `HIGHMEM_4XL` | `HIGHMEM_8XL` | `HIGHMEM_12XL` | `HIGHMEM_16XL` | `HIGHMEM_24XL` | `HIGHMEM_32XL` | `HIGHMEM_48XL` | `BURST_XS` | `BURST_S` | `BURST_M`.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE POSTGRES INSTANCE for the given Postgres instance. (see below for nested schema)
+                      Outputs the result of `DESCRIBE POSTGRES INSTANCE` for the given Postgres instance.
+                    items:
+                      properties:
+                        authenticationAuthority:
+                          description: 'insensitive): POSTGRES | POSTGRES_OR_SNOWFLAKE.'
+                          type: string
+                        comment:
+                          description: (String) Specifies a comment for the Postgres
+                            instance.
+                          type: string
+                        computeFamily:
+                          description: 'insensitive): STANDARD_M | STANDARD_L | STANDARD_XL
+                            | STANDARD_2XL | STANDARD_4XL | STANDARD_8XL | STANDARD_12XL
+                            | STANDARD_24XL | HIGHMEM_L | HIGHMEM_XL | HIGHMEM_2XL
+                            | HIGHMEM_4XL | HIGHMEM_8XL | HIGHMEM_12XL | HIGHMEM_16XL
+                            | HIGHMEM_24XL | HIGHMEM_32XL | HIGHMEM_48XL | BURST_XS
+                            | BURST_S | BURST_M.'
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        highAvailability:
+                          description: 'uses special value that cannot be set in the
+                            configuration manually (default)) Specifies whether the
+                            Postgres instance should be configured for high availability.
+                            Available options are: "true" or "false". When the value
+                            is not set in the configuration the provider will put
+                            "default" there which means to use the Snowflake default
+                            for this value.'
+                          type: boolean
+                        host:
+                          description: (String)
+                          type: string
+                        maintenanceWindowStart:
+                          description: uses special value that cannot be set in the
+                            configuration manually (-1)) Specifies the hour (0-23
+                            UTC) at which the maintenance window starts.
+                          type: number
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            Postgres instance; must be unique for your account. Due
+                            to technical limitations (read more here), avoid using
+                            the following characters: |, ., ".'
+                          type: string
+                        networkPolicy:
+                          description: (String) Specifies the network policy to associate
+                            with the Postgres instance.
+                          type: string
+                        origin:
+                          description: (String)
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                        postgresSettings:
+                          description: (String) Specifies custom Postgres settings
+                            as a JSON string.
+                          type: string
+                        postgresVersion:
+                          description: (Number) Specifies the Postgres version for
+                            the instance. Note that Snowflake does not allow downgrading;
+                            the version can only be upgraded.
+                          type: number
+                        privatelinkServiceIdentifier:
+                          description: (String)
+                          type: string
+                        retentionTime:
+                          description: (Number)
+                          type: number
+                        state:
+                          description: (String)
+                          type: string
+                        storageIntegration:
+                          description: (String) Specifies the storage integration
+                            for the Postgres instance.
+                          type: string
+                        storageSizeGb:
+                          description: (Number) Specifies the storage size in GB for
+                            the Postgres instance.
+                          type: number
+                        type:
+                          description: (String)
+                          type: string
+                        updatedOn:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  highAvailability:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  maintenanceWindowStart:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    type: number
+                  networkPolicy:
+                    description: |-
+                      (String) Specifies the network policy to associate with the Postgres instance.
+                      Specifies the network policy to associate with the Postgres instance.
+                    type: string
+                  postgresSettings:
+                    description: |-
+                      (String) Specifies custom Postgres settings as a JSON string.
+                      Specifies custom Postgres settings as a JSON string.
+                    type: string
+                  postgresVersion:
+                    description: |-
+                      (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                      Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
+                    type: number
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW POSTGRES INSTANCES for the given Postgres instance. (see below for nested schema)
+                      Outputs the result of `SHOW POSTGRES INSTANCES` for the given Postgres instance.
+                    items:
+                      properties:
+                        authenticationAuthority:
+                          description: 'insensitive): POSTGRES | POSTGRES_OR_SNOWFLAKE.'
+                          type: string
+                        comment:
+                          description: (String) Specifies a comment for the Postgres
+                            instance.
+                          type: string
+                        computeFamily:
+                          description: 'insensitive): STANDARD_M | STANDARD_L | STANDARD_XL
+                            | STANDARD_2XL | STANDARD_4XL | STANDARD_8XL | STANDARD_12XL
+                            | STANDARD_24XL | HIGHMEM_L | HIGHMEM_XL | HIGHMEM_2XL
+                            | HIGHMEM_4XL | HIGHMEM_8XL | HIGHMEM_12XL | HIGHMEM_16XL
+                            | HIGHMEM_24XL | HIGHMEM_32XL | HIGHMEM_48XL | BURST_XS
+                            | BURST_S | BURST_M.'
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        host:
+                          description: (String)
+                          type: string
+                        isHa:
+                          description: (Boolean)
+                          type: boolean
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            Postgres instance; must be unique for your account. Due
+                            to technical limitations (read more here), avoid using
+                            the following characters: |, ., ".'
+                          type: string
+                        origin:
+                          description: (String)
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                        postgresSettings:
+                          description: (String) Specifies custom Postgres settings
+                            as a JSON string.
+                          type: string
+                        postgresVersion:
+                          description: (Number) Specifies the Postgres version for
+                            the instance. Note that Snowflake does not allow downgrading;
+                            the version can only be upgraded.
+                          type: string
+                        privatelinkServiceIdentifier:
+                          description: (String)
+                          type: string
+                        retentionTime:
+                          description: (Number)
+                          type: number
+                        state:
+                          description: (String)
+                          type: string
+                        storageSize:
+                          description: (Number)
+                          type: number
+                        type:
+                          description: (String)
+                          type: string
+                        updatedOn:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  storageIntegration:
+                    description: |-
+                      (String) Specifies the storage integration for the Postgres instance.
+                      Specifies the storage integration for the Postgres instance.
+                    type: string
+                  storageSizeGb:
+                    description: |-
+                      (Number) Specifies the storage size in GB for the Postgres instance.
+                      Specifies the storage size in GB for the Postgres instance.
+                    type: number
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

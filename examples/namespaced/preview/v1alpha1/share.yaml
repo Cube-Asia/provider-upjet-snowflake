@@ -1,0 +1,28 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Share
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/share
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    accounts:
+    - organizationName.accountName
+    comment: cool comment
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/share
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+  namespace: crossplane-system
+spec:
+  forProvider: {}
