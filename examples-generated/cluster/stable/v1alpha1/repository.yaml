@@ -8,5 +8,7 @@ metadata:
   name: basic
 spec:
   forProvider:
+    apiIntegration: API_INTEGRATION
     database: DATABASE
+    origin: https://github.com/user/repo
     schema: SCHEMA

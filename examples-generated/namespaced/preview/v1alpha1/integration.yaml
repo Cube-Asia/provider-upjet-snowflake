@@ -4,12 +4,13 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/integration
   labels:
-    testing.upbound.io/example-name: azure
-  name: azure
+    testing.upbound.io/example-name: aws
+  name: aws
   namespace: crossplane-system
 spec:
   forProvider:
-    azureStorageQueuePrimaryUri: https://myaccount.queue.core.windows.net/myqueue
-    azureTenantId: a123b4c5-1234-123a-a12b-1a23b45678c9
+    apiAllowedPrefixes:
+    - https://123456.execute-api.us-west-2.amazonaws.com/prod/
+    apiAwsRoleArn: arn:aws:iam::000000000001:/role/test
+    apiProvider: aws_api_gateway
     enabled: true
-    notificationProvider: AZURE_STORAGE_QUEUE

@@ -1,6 +1,11 @@
 package config
 
 import (
+	"fmt"
+	"maps"
+	"slices"
+	"strings"
+
 	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
@@ -63,6 +68,50 @@ func PipeSeparatedIdentifier() config.ExternalName {
 func DatabaseSchemaIdentifier() config.ExternalName {
 	return config.TemplatedStringAsIdentifier("name",
 		`"{{ .parameters.database }}"."{{ .external_name }}"`)
+}
+
+// OneOfIdentifier returns a TemplatedStringAsIdentifier for resources whose
+// ID is composed of the external name followed by a conditional chain of
+// one-of-many mutually-exclusive parameter-prefix pairs.
+//
+// prefix is a Go template string that precedes the conditional chain
+// (e.g. "{{ .external_name }}|" or '"{{ .external_name }}"|').
+// params maps each TF parameter name to its ID prefix label.
+//
+// The generated template iterates over sorted keys for deterministic output.
+// All params use else-if (no bare else fallback), safe because these
+// parameters are ExactlyOneOf in the TF schema.
+//
+// Example:
+//
+//	OneOfIdentifier("database_role_name",
+//	    `{{ .external_name }}|`,
+//	    map[string]string{
+//	        "parent_database_role_name": "DATABASE_ROLE",
+//	        "parent_role_name":          "ROLE",
+//	        "share_name":                "SHARE",
+//	    },
+//	)
+//
+// produces (sorted alpha by key):
+//
+//	{{ .external_name }}|{{ if .parameters.parent_database_role_name }}DATABASE_ROLE|"{{ .parameters.parent_database_role_name }}"{{ else if .parameters.parent_role_name }}ROLE|"{{ .parameters.parent_role_name }}"{{ else if .parameters.share_name }}SHARE|"{{ .parameters.share_name }}"{{ end }}
+func OneOfIdentifier(nameField, prefix string, params map[string]string) config.ExternalName {
+	keys := slices.Sorted(maps.Keys(params))
+
+	var tmpl strings.Builder
+	tmpl.WriteString(prefix)
+
+	for i, k := range keys {
+		if i == 0 {
+			fmt.Fprintf(&tmpl, `{{ if .parameters.%s }}%s|"{{ .parameters.%s }}"`, k, params[k], k)
+		} else {
+			fmt.Fprintf(&tmpl, `{{ else if .parameters.%s }}%s|"{{ .parameters.%s }}"`, k, params[k], k)
+		}
+	}
+	tmpl.WriteString(`{{ end }}`)
+
+	return config.TemplatedStringAsIdentifier(nameField, tmpl.String())
 }
 
 // ---------------------------------------------------------------------------
@@ -135,26 +184,36 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// snowflake_grant_account_role: compound with conditional grantee type.
 	// ID: '<role_name>|ROLE|<parent_role_name>' or
 	//     '<role_name>|USER|<user_name>'.
-	"snowflake_grant_account_role": config.TemplatedStringAsIdentifier(
-		"role_name",
-		"\"{{ .external_name }}\"|{{ if .parameters.parent_role_name }}ROLE|\"{{ .parameters.parent_role_name }}\"{{ else }}USER|\"{{ .parameters.user_name }}\"{{ end }}",
+	"snowflake_grant_account_role": OneOfIdentifier("role_name",
+		`"{{ .external_name }}"|`,
+		map[string]string{
+			"parent_role_name": "ROLE",
+			"user_name":        "USER",
+		},
 	),
 
 	// snowflake_grant_application_role: compound with conditional grantee type.
 	// ID: '<app_role_fqn>|ACCOUNT_ROLE|<parent_account_role>' or
 	//     '<app_role_fqn>|APPLICATION|<application>'.
-	"snowflake_grant_application_role": config.TemplatedStringAsIdentifier(
-		"application_role_name",
-		"{{ .external_name }}|{{ if .parameters.parent_account_role_name }}ACCOUNT_ROLE|\"{{ .parameters.parent_account_role_name }}\"{{ else }}APPLICATION|\"{{ .parameters.application_name }}\"{{ end }}",
+	"snowflake_grant_application_role": OneOfIdentifier("application_role_name",
+		`{{ .external_name }}|`,
+		map[string]string{
+			"parent_account_role_name": "ACCOUNT_ROLE",
+			"application_name":         "APPLICATION",
+		},
 	),
 
 	// snowflake_grant_database_role: compound with conditional grantee type.
 	// ID: '<db_role_fqn>|ROLE|<parent_role>' or
 	//     '<db_role_fqn>|DATABASE_ROLE|<parent_db_role>' or
 	//     '<db_role_fqn>|SHARE|<share>'.
-	"snowflake_grant_database_role": config.TemplatedStringAsIdentifier(
-		"database_role_name",
-		"{{ .external_name }}|{{ if .parameters.parent_role_name }}ROLE|\"{{ .parameters.parent_role_name }}\"{{ else if .parameters.parent_database_role_name }}DATABASE_ROLE|\"{{ .parameters.parent_database_role_name }}\"{{ else }}SHARE|\"{{ .parameters.share_name }}\"{{ end }}",
+	"snowflake_grant_database_role": OneOfIdentifier("database_role_name",
+		`{{ .external_name }}|`,
+		map[string]string{
+			"parent_role_name":          "ROLE",
+			"parent_database_role_name": "DATABASE_ROLE",
+			"share_name":                "SHARE",
+		},
 	),
 
 	// snowflake_grant_ownership: compound ID with 5-7+ variable parts
@@ -177,9 +236,16 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 
 	// snowflake_grant_privileges_to_share: compound ID with conditional target.
 	// ID: '<share>|<privileges>|OnDatabase|<db>' or OnSchema/OnTable/etc.
-	"snowflake_grant_privileges_to_share": config.TemplatedStringAsIdentifier(
-		"to_share",
-		"\"{{ .external_name }}\"|{{ .parameters.privileges }}|{{ if .parameters.on_database }}OnDatabase|\"{{ .parameters.on_database }}\"{{ else if .parameters.on_schema }}OnSchema|\"{{ .parameters.on_schema }}\"{{ else if .parameters.on_table }}OnTable|\"{{ .parameters.on_table }}\"{{ else if .parameters.on_all_tables_in_schema }}OnAllTablesInSchema|\"{{ .parameters.on_all_tables_in_schema }}\"{{ else if .parameters.on_tag }}OnTag|\"{{ .parameters.on_tag }}\"{{ else if .parameters.on_view }}OnView|\"{{ .parameters.on_view }}\"{{ end }}",
+	"snowflake_grant_privileges_to_share": OneOfIdentifier("to_share",
+		`"{{ .external_name }}"|{{ .parameters.privileges }}|`,
+		map[string]string{
+			"on_database":              "OnDatabase",
+			"on_schema":                "OnSchema",
+			"on_table":                 "OnTable",
+			"on_all_tables_in_schema":  "OnAllTablesInSchema",
+			"on_tag":                   "OnTag",
+			"on_view":                  "OnView",
+		},
 	),
 
 	// snowflake_image_repository: SchemaObjectIdentifier.

@@ -4,16 +4,14 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/table
   labels:
-    testing.upbound.io/example-name: external_table
-  name: external-table
+    testing.upbound.io/example-name: dt
+  name: dt
 spec:
   forProvider:
-    column:
-    - name: id
-      type: int
-    - name: data
-      type: text
-    comment: External table
-    database: db
-    fileFormat: TYPE = CSV FIELD_DELIMITER = '|'
-    schema: schema
+    comment: example comment
+    database: mydb
+    query: SELECT product_id, product_name FROM "mydb"."myschema"."staging_table"
+    schema: myschema
+    targetLag:
+    - maximumDuration: 20 minutes
+    warehouse: mywh

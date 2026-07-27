@@ -4,16 +4,17 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/view
   labels:
-    testing.upbound.io/example-name: view
-  name: view
+    testing.upbound.io/example-name: basic
+  name: basic
   namespace: crossplane-system
 spec:
   forProvider:
-    comment: comment
-    database: db
-    isSecure: false
-    orReplace: false
-    schema: schema
-    statement: |
-      select * from foo;
-    warehouse: warehouse
+    database: DATABASE
+    metrics:
+    - semanticExpression:
+      - qualifiedExpressionName: '"lt1"."m1"'
+        sqlExpression: SUM("lt1"."a1")
+    schema: SCHEMA
+    tables:
+    - tableAlias: lt1
+      tableName: ${snowflake_table.test.fully_qualified_name}

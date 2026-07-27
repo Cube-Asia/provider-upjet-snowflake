@@ -4,16 +4,18 @@ metadata:
   annotations:
     meta.upbound.io/example-id: preview/v1alpha1/sql
   labels:
-    testing.upbound.io/example-name: minimal
-  name: minimal
+    testing.upbound.io/example-name: w
+  name: w
 spec:
   forProvider:
     arguments:
-    - argDataType: FLOAT
-      argName: arg_name
-    database: ${snowflake_database.test.name}
-    functionDefinition: |
-      arg_name
-    name: my_sql_function
-    returnType: FLOAT
-    schema: ${snowflake_schema.test.name}
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    name: Name
+    procedureDefinition: |
+      BEGIN
+        RETURN message;
+      END;
+    returnType: VARCHAR(100)
+    schema: Schema
