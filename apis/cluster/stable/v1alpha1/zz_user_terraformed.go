@@ -118,6 +118,12 @@ func (tr *User) LateInitialize(attrs []byte) (bool, error) {
 		return false, errors.Wrap(err, "failed to unmarshal Terraform state parameters for late-initialization")
 	}
 	opts := []resource.GenericLateInitializerOption{resource.WithZeroValueJSONOmitEmptyFilter(resource.CNameWildcard)}
+	opts = append(opts, resource.WithNameFilter("DisableMfa"))
+	opts = append(opts, resource.WithNameFilter("Disabled"))
+	opts = append(opts, resource.WithNameFilter("MinsToBypassMfa"))
+	opts = append(opts, resource.WithNameFilter("MinsToUnlock"))
+	opts = append(opts, resource.WithNameFilter("MustChangePassword"))
+	opts = append(opts, resource.WithNameFilter("UnsupportedDdlAction"))
 
 	li := resource.NewGenericLateInitializer(opts...)
 	return li.LateInitialize(&tr.Spec.ForProvider, params)
