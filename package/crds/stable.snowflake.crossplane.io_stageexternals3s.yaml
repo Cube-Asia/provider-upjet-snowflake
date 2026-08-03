@@ -171,11 +171,9 @@ spec:
                             Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
                           type: string
                         awsSnsTopic:
-                          description: Specifies the AWS SNS topic ARN used for directory
-                            table auto-refresh notifications. Changing this field
-                            causes resource recreation (ForceNew). External change
-                            detection for this field is not yet supported and will
-                            be addressed in a future update.
+                          description: |-
+                            refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+                            Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
                           type: string
                         enable:
                           description: |-
@@ -747,11 +745,9 @@ spec:
                             Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
                           type: string
                         awsSnsTopic:
-                          description: Specifies the AWS SNS topic ARN used for directory
-                            table auto-refresh notifications. Changing this field
-                            causes resource recreation (ForceNew). External change
-                            detection for this field is not yet supported and will
-                            be addressed in a future update.
+                          description: |-
+                            refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+                            Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
                           type: string
                         enable:
                           description: |-
@@ -1964,11 +1960,9 @@ spec:
                             Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
                           type: string
                         awsSnsTopic:
-                          description: Specifies the AWS SNS topic ARN used for directory
-                            table auto-refresh notifications. Changing this field
-                            causes resource recreation (ForceNew). External change
-                            detection for this field is not yet supported and will
-                            be addressed in a future update.
+                          description: |-
+                            refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+                            Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
                           type: string
                         enable:
                           description: |-

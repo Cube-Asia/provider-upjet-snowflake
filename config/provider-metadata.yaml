@@ -135,14 +135,15 @@ resources:
                       "schema": "security"
                     }
         argumentDocs:
-            authentication_policy: (String) Qualified name ("db"."schema"."policy_name") of the authentication policy to apply to the current account.
+            authentication_policy: (String) Fully qualified name of the authentication policy to apply to the current account.
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
-        importStatements: []
+        importStatements:
+            - terraform import snowflake_account_authentication_policy_attachment.example '"<database_name>"."<schema_name>"."<authentication_policy_name>"'
     snowflake_account_parameter:
         subCategory: Stable
         description: Resource used to manage current account parameters. For more information, check parameters documentation https://docs.snowflake.com/en/sql-reference/parameters.
@@ -165,7 +166,7 @@ resources:
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
-            key: '(String) Name of account parameter. Valid values are (case-insensitive): ALLOW_CLIENT_MFA_CACHING | ALLOW_ID_TOKEN | CLIENT_ENCRYPTION_KEY_SIZE | CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_ENABLED_CROSS_REGION | CORTEX_MODELS_ALLOWLIST | DISABLE_USER_PRIVILEGE_GRANTS | ENABLE_IDENTIFIER_FIRST_LOGIN | ENABLE_INTERNAL_STAGES_PRIVATELINK | ENABLE_PER_ACCOUNT_APP_SERVICE_PRIVATELINK_URL | ENABLE_TRI_SECRET_AND_REKEY_OPT_OUT_FOR_IMAGE_REPOSITORY | ENABLE_TRI_SECRET_AND_REKEY_OPT_OUT_FOR_SPCS_BLOCK_STORAGE | ENABLE_UNHANDLED_EXCEPTIONS_REPORTING | ENFORCE_NETWORK_RULES_FOR_INTERNAL_STAGES | EVENT_TABLE | EXTERNAL_OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST | INITIAL_REPLICATION_SIZE_LIMIT_IN_TB | MIN_DATA_RETENTION_TIME_IN_DAYS | NETWORK_POLICY | OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST | PERIODIC_DATA_REKEYING | PREVENT_LOAD_FROM_INLINE_URL | PREVENT_UNLOAD_TO_INLINE_URL | REQUIRE_STORAGE_INTEGRATION_FOR_STAGE_CREATION | REQUIRE_STORAGE_INTEGRATION_FOR_STAGE_OPERATION | SSO_LOGIN_PAGE | ABORT_DETACHED_QUERY | ACTIVE_PYTHON_PROFILER | AUTOCOMMIT | BINARY_INPUT_FORMAT | BINARY_OUTPUT_FORMAT | CLIENT_ENABLE_LOG_INFO_STATEMENT_PARAMETERS | CLIENT_MEMORY_LIMIT | CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX | CLIENT_METADATA_USE_SESSION_DATABASE | CLIENT_PREFETCH_THREADS | CLIENT_RESULT_CHUNK_SIZE | CLIENT_SESSION_KEEP_ALIVE | CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY | CLIENT_TIMESTAMP_TYPE_MAPPING | ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION | CLIENT_RESULT_COLUMN_CASE_INSENSITIVE | CSV_TIMESTAMP_FORMAT | DATE_INPUT_FORMAT | DATE_OUTPUT_FORMAT | ERROR_ON_NONDETERMINISTIC_MERGE | ERROR_ON_NONDETERMINISTIC_UPDATE | GEOGRAPHY_OUTPUT_FORMAT | GEOMETRY_OUTPUT_FORMAT | HYBRID_TABLE_LOCK_TIMEOUT | JDBC_TREAT_DECIMAL_AS_INT | JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC | JDBC_USE_SESSION_TIMEZONE | JSON_INDENT | JS_TREAT_INTEGER_AS_BIGINT | LOCK_TIMEOUT | MULTI_STATEMENT_COUNT | NOORDER_SEQUENCE_AS_DEFAULT | ODBC_TREAT_DECIMAL_AS_INT | PYTHON_PROFILER_MODULES | PYTHON_PROFILER_TARGET_STAGE | QUERY_TAG | QUOTED_IDENTIFIERS_IGNORE_CASE | ROWS_PER_RESULTSET | S3_STAGE_VPCE_DNS_NAME | SEARCH_PATH | SIMULATED_DATA_SHARING_CONSUMER | STATEMENT_TIMEOUT_IN_SECONDS | STRICT_JSON_OUTPUT | TIME_INPUT_FORMAT | TIME_OUTPUT_FORMAT | TIMESTAMP_DAY_IS_ALWAYS_24H | TIMESTAMP_INPUT_FORMAT | TIMESTAMP_LTZ_OUTPUT_FORMAT | TIMESTAMP_NTZ_OUTPUT_FORMAT | TIMESTAMP_OUTPUT_FORMAT | TIMESTAMP_TYPE_MAPPING | TIMESTAMP_TZ_OUTPUT_FORMAT | TIMEZONE | TRANSACTION_ABORT_ON_ERROR | TRANSACTION_DEFAULT_ISOLATION_LEVEL | TWO_DIGIT_CENTURY_START | UNSUPPORTED_DDL_ACTION | USE_CACHED_RESULT | WEEK_OF_YEAR_POLICY | WEEK_START | CATALOG | DATA_RETENTION_TIME_IN_DAYS | DEFAULT_DDL_COLLATION | EXTERNAL_VOLUME | LOG_LEVEL | LOG_EVENT_LEVEL | MAX_CONCURRENCY_LEVEL | MAX_DATA_EXTENSION_TIME_IN_DAYS | PIPE_EXECUTION_PAUSED | PREVENT_UNLOAD_TO_INTERNAL_STAGES | REPLACE_INVALID_CHARACTERS | STATEMENT_QUEUED_TIMEOUT_IN_SECONDS | STORAGE_SERIALIZATION_POLICY | SHARE_RESTRICTIONS | SUSPEND_TASK_AFTER_NUM_FAILURES | TRACE_LEVEL | USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE | USER_TASK_TIMEOUT_MS | TASK_AUTO_RETRY_ATTEMPTS | USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS | METRIC_LEVEL | ENABLE_CONSOLE_OUTPUT | ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR | ENABLE_PERSONAL_DATABASE | ALLOW_BIND_VALUES_ACCESS | ALLOWED_SPCS_WORKLOAD_TYPES | DATA_METRIC_SCHEDULE | DEFAULT_DBT_VERSION | DISALLOWED_SPCS_WORKLOAD_TYPES | ENABLE_BUDGET_EVENT_LOGGING | ENABLE_CORTEX_ANALYST | ENABLE_DATA_COMPACTION | ENABLE_GET_DDL_USE_DATA_TYPE_ALIAS | ENABLE_ICEBERG_MERGE_ON_READ | ENABLE_NOTEBOOK_CREATION_IN_PERSONAL_DB | ENABLE_SPCS_BLOCK_STORAGE_SNOWFLAKE_FULL_ENCRYPTION_ENFORCEMENT | ENABLE_TAG_PROPAGATION_EVENT_LOGGING | ICEBERG_VERSION_DEFAULT | READ_CONSISTENCY_MODE | ROW_TIMESTAMP_DEFAULT | SQL_TRACE_QUERY_TEXT | USE_WORKSPACES_FOR_SQL. Deprecated parameters are not supported in the provider.'
+            key: '(String) Name of account parameter. Valid values are (case-insensitive): ALLOW_CLIENT_MFA_CACHING | ALLOW_ID_TOKEN | CLIENT_ENCRYPTION_KEY_SIZE | CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER | CORTEX_ENABLED_CROSS_REGION | CORTEX_MODELS_ALLOWLIST | DEFAULT_STREAMLIT_COMPUTE_POOL | DISABLE_USER_PRIVILEGE_GRANTS | ENABLE_IDENTIFIER_FIRST_LOGIN | ENABLE_INTERNAL_STAGES_PRIVATELINK | ENABLE_PER_ACCOUNT_APP_SERVICE_PRIVATELINK_URL | ENABLE_TRI_SECRET_AND_REKEY_OPT_OUT_FOR_IMAGE_REPOSITORY | ENABLE_TRI_SECRET_AND_REKEY_OPT_OUT_FOR_SPCS_BLOCK_STORAGE | ENABLE_UNHANDLED_EXCEPTIONS_REPORTING | ENFORCE_NETWORK_RULES_FOR_INTERNAL_STAGES | EVENT_TABLE | EXTERNAL_OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST | INITIAL_REPLICATION_SIZE_LIMIT_IN_TB | MIN_DATA_RETENTION_TIME_IN_DAYS | NETWORK_POLICY | OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST | PERIODIC_DATA_REKEYING | PREVENT_LOAD_FROM_INLINE_URL | PREVENT_UNLOAD_TO_INLINE_URL | REQUIRE_STORAGE_INTEGRATION_FOR_STAGE_CREATION | REQUIRE_STORAGE_INTEGRATION_FOR_STAGE_OPERATION | SSO_LOGIN_PAGE | ABORT_DETACHED_QUERY | ACTIVE_PYTHON_PROFILER | AUTOCOMMIT | BINARY_INPUT_FORMAT | BINARY_OUTPUT_FORMAT | CLIENT_ENABLE_LOG_INFO_STATEMENT_PARAMETERS | CLIENT_MEMORY_LIMIT | CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX | CLIENT_METADATA_USE_SESSION_DATABASE | CLIENT_PREFETCH_THREADS | CLIENT_RESULT_CHUNK_SIZE | CLIENT_SESSION_KEEP_ALIVE | CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY | CLIENT_TIMESTAMP_TYPE_MAPPING | ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION | CLIENT_RESULT_COLUMN_CASE_INSENSITIVE | CSV_TIMESTAMP_FORMAT | DATE_INPUT_FORMAT | DATE_OUTPUT_FORMAT | ERROR_ON_NONDETERMINISTIC_MERGE | ERROR_ON_NONDETERMINISTIC_UPDATE | GEOGRAPHY_OUTPUT_FORMAT | GEOMETRY_OUTPUT_FORMAT | HYBRID_TABLE_LOCK_TIMEOUT | JDBC_TREAT_DECIMAL_AS_INT | JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC | JDBC_USE_SESSION_TIMEZONE | JSON_INDENT | JS_TREAT_INTEGER_AS_BIGINT | LOCK_TIMEOUT | MULTI_STATEMENT_COUNT | NOORDER_SEQUENCE_AS_DEFAULT | ODBC_TREAT_DECIMAL_AS_INT | PYTHON_PROFILER_MODULES | PYTHON_PROFILER_TARGET_STAGE | QUERY_TAG | QUOTED_IDENTIFIERS_IGNORE_CASE | ROWS_PER_RESULTSET | S3_STAGE_VPCE_DNS_NAME | SEARCH_PATH | SIMULATED_DATA_SHARING_CONSUMER | STATEMENT_TIMEOUT_IN_SECONDS | STRICT_JSON_OUTPUT | TIME_INPUT_FORMAT | TIME_OUTPUT_FORMAT | TIMESTAMP_DAY_IS_ALWAYS_24H | TIMESTAMP_INPUT_FORMAT | TIMESTAMP_LTZ_OUTPUT_FORMAT | TIMESTAMP_NTZ_OUTPUT_FORMAT | TIMESTAMP_OUTPUT_FORMAT | TIMESTAMP_TYPE_MAPPING | TIMESTAMP_TZ_OUTPUT_FORMAT | TIMEZONE | TRANSACTION_ABORT_ON_ERROR | TRANSACTION_DEFAULT_ISOLATION_LEVEL | TWO_DIGIT_CENTURY_START | UNSUPPORTED_DDL_ACTION | USE_CACHED_RESULT | WEEK_OF_YEAR_POLICY | WEEK_START | CATALOG | DATA_RETENTION_TIME_IN_DAYS | DEFAULT_DDL_COLLATION | DEFAULT_NOTEBOOK_COMPUTE_POOL_CPU | DEFAULT_NOTEBOOK_COMPUTE_POOL_GPU | EXTERNAL_VOLUME | LOG_LEVEL | LOG_EVENT_LEVEL | MAX_CONCURRENCY_LEVEL | MAX_DATA_EXTENSION_TIME_IN_DAYS | PIPE_EXECUTION_PAUSED | PREVENT_UNLOAD_TO_INTERNAL_STAGES | REPLACE_INVALID_CHARACTERS | STATEMENT_QUEUED_TIMEOUT_IN_SECONDS | STORAGE_SERIALIZATION_POLICY | SHARE_RESTRICTIONS | SUSPEND_TASK_AFTER_NUM_FAILURES | TRACE_LEVEL | USER_TASK_MANAGED_INITIAL_WAREHOUSE_SIZE | USER_TASK_TIMEOUT_MS | TASK_AUTO_RETRY_ATTEMPTS | USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS | METRIC_LEVEL | ENABLE_CONSOLE_OUTPUT | ENABLE_UNREDACTED_QUERY_SYNTAX_ERROR | ENABLE_PERSONAL_DATABASE | ALLOW_BIND_VALUES_ACCESS | ALLOWED_SPCS_WORKLOAD_TYPES | DATA_METRIC_SCHEDULE | DEFAULT_DBT_VERSION | DISALLOWED_SPCS_WORKLOAD_TYPES | ENABLE_BUDGET_EVENT_LOGGING | ENABLE_CORTEX_ANALYST | ENABLE_DATA_COMPACTION | ENABLE_GET_DDL_USE_DATA_TYPE_ALIAS | ENABLE_ICEBERG_MERGE_ON_READ | ENABLE_NOTEBOOK_CREATION_IN_PERSONAL_DB | ENABLE_SPCS_BLOCK_STORAGE_SNOWFLAKE_FULL_ENCRYPTION_ENFORCEMENT | ENABLE_TAG_PROPAGATION_EVENT_LOGGING | ICEBERG_VERSION_DEFAULT | READ_CONSISTENCY_MODE | ROW_TIMESTAMP_DEFAULT | SQL_TRACE_QUERY_TEXT | USE_WORKSPACES_FOR_SQL. Deprecated parameters are not supported in the provider.'
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
@@ -1954,6 +1955,7 @@ resources:
             default_notebook_compute_pool_cpu: '(String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_NOTEBOOK_COMPUTE_POOL_CPU docs.'
             default_notebook_compute_pool_gpu: '(String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_NOTEBOOK_COMPUTE_POOL_GPU docs.'
             default_null_ordering: '(String) Specifies the default ordering of NULL values in a result set (more details). Valid values are (case-insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.'
+            default_streamlit_compute_pool: '(String) Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_COMPUTE_POOL docs.'
             default_streamlit_notebook_warehouse: '(String) Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs.'
             delete: (String)
             disable_ui_download_button: (Boolean) Controls whether users in an account see a button to download data in Snowsight or the Classic Console, such as a table returned from running a query in a worksheet. If the button to download is hidden in Snowsight or the Classic Console, users can still download or export data using third-party software. For more information, check DISABLE_UI_DOWNLOAD_BUTTON docs.
@@ -2232,6 +2234,7 @@ resources:
             default_notebook_compute_pool_cpu: '(String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_NOTEBOOK_COMPUTE_POOL_CPU docs.'
             default_notebook_compute_pool_gpu: '(String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_NOTEBOOK_COMPUTE_POOL_GPU docs.'
             default_null_ordering: '(String) Specifies the default ordering of NULL values in a result set (more details). Valid values are (case-insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.'
+            default_streamlit_compute_pool: '(String) Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_COMPUTE_POOL docs.'
             default_streamlit_notebook_warehouse: '(String) Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs.'
             delete: (String)
             disable_ui_download_button: (Boolean) Controls whether users in an account see a button to download data in Snowsight or the Classic Console, such as a table returned from running a query in a worksheet. If the button to download is hidden in Snowsight or the Classic Console, users can still download or export data using third-party software. For more information, check DISABLE_UI_DOWNLOAD_BUTTON docs.
@@ -2425,6 +2428,8 @@ resources:
             create: (String)
             data_retention_time_in_days: (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
             default_ddl_collation: (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+            default_notebook_compute_pool_cpu: (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+            default_notebook_compute_pool_gpu: (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
             delete: (String)
             drop_public_schema_on_creation: (Boolean) Specifies whether to drop public schema on creation or not. Modifying the parameter after database is already created won't have any effect.
             enable_console_output: (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -3213,6 +3218,402 @@ resources:
             - |-
               # format is database name | schema name | file format name
               terraform import snowflake_file_format.example 'dbName|schemaName|fileFormatName'
+    snowflake_file_format_avro:
+        subCategory: Preview
+        description: Resource used to manage AVRO file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_avro
+        title: snowflake_file_format_avro
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "comment": "My AVRO file format",
+                  "compression": "GZIP",
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "null_if": [
+                    "NULL",
+                    ""
+                  ],
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "trim_space": "true"
+                }
+        argumentDocs:
+            comment: (String) Specifies a comment for the file format.
+            compression: '(String) Specifies the compression format. Valid values: AUTO | GZIP | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.'
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            null_if: (List of String) String used to convert to and from SQL NULL.
+            owner: (String)
+            owner_role_type: (String)
+            read: (String)
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            timeouts: (Block, Optional) (see below for nested schema)
+            trim_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+        importStatements:
+            - terraform import snowflake_file_format_avro.example '"<database_name>"."<schema_name>"."<file_format_name>"'
+    snowflake_file_format_csv:
+        subCategory: Preview
+        description: Resource used to manage CSV file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_csv
+        title: snowflake_file_format_csv
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "binary_format": "BASE64",
+                  "comment": "My CSV file format",
+                  "compression": "GZIP",
+                  "database": "database_name",
+                  "date_format": "YYYY-MM-DD",
+                  "empty_field_as_null": "true",
+                  "encoding": "UTF8",
+                  "error_on_column_count_mismatch": "false",
+                  "escape": "NONE",
+                  "escape_unenclosed_field": "NONE",
+                  "field_delimiter": "|",
+                  "field_optionally_enclosed_by": "\"",
+                  "file_extension": ".csv",
+                  "multi_line": "true",
+                  "name": "file_format_name",
+                  "null_if": [
+                    "NULL",
+                    ""
+                  ],
+                  "record_delimiter": ";",
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "skip_blank_lines": "true",
+                  "skip_byte_order_mark": "true",
+                  "skip_header": 1,
+                  "time_format": "HH24:MI:SS",
+                  "timestamp_format": "YYYY-MM-DD HH24:MI:SS.FF3",
+                  "trim_space": "true"
+                }
+        argumentDocs:
+            binary_format: '(String) Defines the encoding format for binary input or output. Valid values: HEX | BASE64 | UTF8.'
+            comment: (String) Specifies a comment for the file format.
+            compression: '(String) Specifies the compression format. Valid values: AUTO | GZIP | BZ2 | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.'
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            date_format: (String) Defines the format of date values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            empty_field_as_null: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            encoding: '(String) Specifies the character set of the source data when loading data into a table. Valid values: BIG5 | EUCJP | EUCKR | GB18030 | IBM420 | IBM424 | ISO2022CN | ISO2022JP | ISO2022KR | ISO88591 | ISO88592 | ISO88595 | ISO88596 | ISO88597 | ISO88598 | ISO88599 | ISO885915 | KOI8R | SHIFTJIS | UTF8 | UTF16 | UTF16BE | UTF16LE | UTF32 | UTF32BE | UTF32LE | WINDOWS1250 | WINDOWS1251 | WINDOWS1252 | WINDOWS1253 | WINDOWS1254 | WINDOWS1255 | WINDOWS1256.'
+            error_on_column_count_mismatch: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            escape: '(String) Single character string used as the escape character for field values. Use NONE to specify no escape character. NOTE: This value may be not imported properly from Snowflake. Snowflake returns escaped values.'
+            escape_unenclosed_field: '(String) Single character string used as the escape character for unenclosed field values only. Use NONE to specify no escape character. NOTE: This value may be not imported properly from Snowflake. Snowflake returns escaped values.'
+            field_delimiter: (String) One or more singlebyte or multibyte characters that separate fields in an input file. Use NONE to specify no delimiter.
+            field_optionally_enclosed_by: (String) Character used to enclose strings. Use NONE to specify no enclosure character.
+            file_extension: (String) Specifies the extension for files unloaded to a stage.
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            multi_line: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            null_if: (List of String) String used to convert to and from SQL NULL.
+            owner: (String)
+            owner_role_type: (String)
+            parse_header: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            read: (String)
+            record_delimiter: (String) One or more singlebyte or multibyte characters that separate records in an input file. Use NONE to specify no delimiter.
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            skip_blank_lines: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            skip_byte_order_mark: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            skip_header: '(Number) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (-1)) Number of lines at the start of the file to skip.'
+            time_format: (String) Defines the format of time values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            timeouts: (Block, Optional) (see below for nested schema)
+            timestamp_format: (String) Defines the format of timestamp values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            trim_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+            validate_utf8: (Boolean)
+        importStatements:
+            - terraform import snowflake_file_format_csv.example '"<database_name>"."<schema_name>"."<file_format_name>"'
+    snowflake_file_format_json:
+        subCategory: Preview
+        description: Resource used to manage JSON file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_json
+        title: snowflake_file_format_json
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "allow_duplicate": "false",
+                  "binary_format": "BASE64",
+                  "comment": "My JSON file format",
+                  "compression": "GZIP",
+                  "database": "database_name",
+                  "date_format": "YYYY-MM-DD",
+                  "enable_octal": "false",
+                  "file_extension": ".json",
+                  "ignore_utf8_errors": "false",
+                  "multi_line": "true",
+                  "name": "file_format_name",
+                  "null_if": [
+                    "NULL",
+                    ""
+                  ],
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "skip_byte_order_mark": "true",
+                  "strip_null_values": "false",
+                  "strip_outer_array": "true",
+                  "time_format": "HH24:MI:SS",
+                  "timestamp_format": "YYYY-MM-DD HH24:MI:SS.FF3",
+                  "trim_space": "true"
+                }
+        argumentDocs:
+            allow_duplicate: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            binary_format: '(String) Defines the encoding format for binary input or output. Valid values: HEX | BASE64 | UTF8.'
+            comment: (String) Specifies a comment for the file format.
+            compression: '(String) Specifies the compression format. Valid values: AUTO | GZIP | BZ2 | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.'
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            date_format: (String) Defines the format of date values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            enable_octal: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            file_extension: (String) Specifies the extension for files unloaded to a stage.
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            ignore_utf8_errors: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            multi_line: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            null_if: (List of String) String used to convert to and from SQL NULL.
+            owner: (String)
+            owner_role_type: (String)
+            read: (String)
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            skip_byte_order_mark: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            strip_null_values: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            strip_outer_array: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            time_format: (String) Defines the format of time values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            timeouts: (Block, Optional) (see below for nested schema)
+            timestamp_format: (String) Defines the format of timestamp values in the data files. Use AUTO to have Snowflake auto-detect the format.
+            trim_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+        importStatements:
+            - terraform import snowflake_file_format_json.example '"<database_name>"."<schema_name>"."<file_format_name>"'
+    snowflake_file_format_orc:
+        subCategory: Preview
+        description: Resource used to manage ORC file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_orc
+        title: snowflake_file_format_orc
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "comment": "My ORC file format",
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "null_if": [
+                    "NULL",
+                    ""
+                  ],
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "trim_space": "true"
+                }
+        argumentDocs:
+            comment: (String) Specifies a comment for the file format.
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            null_if: (List of String) String used to convert to and from SQL NULL.
+            owner: (String)
+            owner_role_type: (String)
+            read: (String)
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            timeouts: (Block, Optional) (see below for nested schema)
+            trim_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+        importStatements:
+            - terraform import snowflake_file_format_orc.example '"<database_name>"."<schema_name>"."<file_format_name>"'
+    snowflake_file_format_parquet:
+        subCategory: Preview
+        description: Resource used to manage Parquet file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_parquet
+        title: snowflake_file_format_parquet
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "binary_as_text": "false",
+                  "comment": "My Parquet file format",
+                  "compression": "LZO",
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "null_if": [
+                    "NULL",
+                    ""
+                  ],
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "trim_space": "true",
+                  "use_logical_type": "true",
+                  "use_vectorized_scanner": "true"
+                }
+        argumentDocs:
+            binary_as_text: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            comment: (String) Specifies a comment for the file format.
+            compression: '(String) Specifies the compression format. Valid values: AUTO | LZO | SNAPPY | NONE.'
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            null_if: (List of String) String used to convert to and from SQL NULL.
+            owner: (String)
+            owner_role_type: (String)
+            read: (String)
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            timeouts: (Block, Optional) (see below for nested schema)
+            trim_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+            use_logical_type: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            use_vectorized_scanner: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+        importStatements:
+            - terraform import snowflake_file_format_parquet.example '"<database_name>"."<schema_name>"."<file_format_name>"'
+    snowflake_file_format_xml:
+        subCategory: Preview
+        description: Resource used to manage XML file formats. For more information, check file format documentation https://docs.snowflake.com/en/sql-reference/sql/create-file-format.
+        name: snowflake_file_format_xml
+        title: snowflake_file_format_xml
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "file_format_name",
+                  "schema": "schema_name"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "comment": "My XML file format",
+                  "compression": "GZIP",
+                  "database": "database_name",
+                  "disable_auto_convert": "false",
+                  "name": "file_format_name",
+                  "preserve_space": "true",
+                  "replace_invalid_characters": "false",
+                  "schema": "schema_name",
+                  "skip_byte_order_mark": "true",
+                  "strip_outer_element": "true"
+                }
+        argumentDocs:
+            comment: (String) Specifies a comment for the file format.
+            compression: '(String) Specifies the compression format. Valid values: AUTO | GZIP | BZ2 | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.'
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE FILE FORMAT for this file format. (see below for nested schema)
+            disable_auto_convert: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            format_options: (String)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            ignore_utf8_errors: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            name: '(String) Specifies the identifier for the file format; must be unique for the database and schema in which the file format is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            owner: (String)
+            owner_role_type: (String)
+            preserve_space: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            read: (String)
+            replace_invalid_characters: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            schema: '(String) The schema in which to create the file format. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW FILE FORMATS for this file format. (see below for nested schema)
+            skip_byte_order_mark: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            strip_outer_element: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: (String) Specifies the type of the file format. This field is used to detect when the file format type was changed outside of Terraform and to recreate the resource when that happens.
+            update: (String)
+        importStatements:
+            - terraform import snowflake_file_format_xml.example '"<database_name>"."<schema_name>"."<file_format_name>"'
     snowflake_function_java:
         subCategory: Preview
         description: Resource used to manage java function objects. For more information, check function documentation https://docs.snowflake.com/en/sql-reference/sql/create-function.
@@ -4286,8 +4687,8 @@ resources:
             in_database: (String) The fully qualified name of the database. For more information about this resource, see docs.
             in_schema: (String) The fully qualified name of the schema. For more information about this resource, see docs.
             object_name: (String) Specifies the identifier for the object on which you are transferring ownership.
-            object_type: '(String) Specifies the type of object on which you are transferring ownership. Available values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | COMPUTE POOL | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATABASE | DATABASE ROLE | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXTERNAL TABLE | EXTERNAL VOLUME | FAILOVER GROUP | FILE FORMAT | FUNCTION | GIT REPOSITORY | HYBRID TABLE | ICEBERG TABLE | IMAGE REPOSITORY | INTEGRATION | MATERIALIZED VIEW | NETWORK POLICY | NETWORK RULE | PACKAGES POLICY | PIPE | PROCEDURE | MASKING POLICY | PASSWORD POLICY | PROJECTION POLICY | REPLICATION GROUP | RESOURCE MONITOR | ROLE | ROW ACCESS POLICY | SCHEMA | SESSION POLICY | SECRET | SEMANTIC VIEW | SEQUENCE | STAGE | STREAM | TABLE | TAG | TASK | USER | VIEW | WAREHOUSE'
-            object_type_plural: '(String) Specifies the type of object in plural form on which you are transferring ownership. Available values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | COMPUTE POOLS | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATABASES | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | EXTERNAL VOLUMES | FAILOVER GROUPS | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | ICEBERG TABLES | IMAGE REPOSITORIES | INTEGRATIONS | MATERIALIZED VIEWS | NETWORK POLICIES | NETWORK RULES | PACKAGES POLICIES | PIPES | PROCEDURES | MASKING POLICIES | PASSWORD POLICIES | PROJECTION POLICIES | REPLICATION GROUPS | RESOURCE MONITORS | ROLES | ROW ACCESS POLICIES | SCHEMAS | SESSION POLICIES | SECRETS | SEMANTIC VIEWS | SEQUENCES | STAGES | STREAMS | TABLES | TAGS | TASKS | USERS | VIEWS | WAREHOUSES. For more information head over to Snowflake documentation.'
+            object_type: '(String) Specifies the type of object on which you are transferring ownership. Available values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | COMPUTE POOL | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATABASE | DATABASE ROLE | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXTERNAL TABLE | EXTERNAL VOLUME | FAILOVER GROUP | FILE FORMAT | FUNCTION | GIT REPOSITORY | HYBRID TABLE | ICEBERG TABLE | IMAGE REPOSITORY | INTEGRATION | INTERACTIVE TABLE | MATERIALIZED VIEW | NETWORK POLICY | NETWORK RULE | PACKAGES POLICY | PIPE | PROCEDURE | MASKING POLICY | PASSWORD POLICY | PROJECTION POLICY | REPLICATION GROUP | RESOURCE MONITOR | ROLE | ROW ACCESS POLICY | SCHEMA | SESSION POLICY | SECRET | SEMANTIC VIEW | SEQUENCE | SNOWFLAKE INTELLIGENCE | STAGE | STREAM | TABLE | TAG | TASK | USER | VIEW | WAREHOUSE'
+            object_type_plural: '(String) Specifies the type of object in plural form on which you are transferring ownership. Available values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | COMPUTE POOLS | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATABASES | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | EXTERNAL VOLUMES | FAILOVER GROUPS | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | ICEBERG TABLES | IMAGE REPOSITORIES | INTEGRATIONS | INTERACTIVE TABLES | MATERIALIZED VIEWS | NETWORK POLICIES | NETWORK RULES | PACKAGES POLICIES | PIPES | PROCEDURES | MASKING POLICIES | PASSWORD POLICIES | PROJECTION POLICIES | REPLICATION GROUPS | RESOURCE MONITORS | ROLES | ROW ACCESS POLICIES | SCHEMAS | SESSION POLICIES | SECRETS | SEMANTIC VIEWS | SEQUENCES | STAGES | STREAMS | TABLES | TAGS | TASKS | USERS | VIEWS | WAREHOUSES | WORKSPACES. For more information head over to Snowflake documentation.'
             "on": '(Block List, Min: 1, Max: 1) Configures which object(s) should transfer their ownership to the specified role. (see below for nested schema)'
             outbound_privileges: field is set to COPY.
             outbound_privileges = "COPY": |-
@@ -4832,6 +5233,108 @@ resources:
               manifest: |-
                 {
                   "account_role_name": "${snowflake_account_role.db_role.name}",
+                  "on_account_object": [
+                    {
+                      "inherited": [
+                        {
+                          "object_type_plural": "WAREHOUSES"
+                        }
+                      ]
+                    }
+                  ],
+                  "privileges": [
+                    "USAGE"
+                  ]
+                }
+              references:
+                account_role_name: snowflake_account_role.db_role.name
+              dependencies:
+                snowflake_account_role.db_role: |-
+                    {
+                      "name": "role_name"
+                    }
+                snowflake_database.db: |-
+                    {
+                      "name": "database"
+                    }
+                snowflake_schema.my_schema: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "my_schema"
+                    }
+            - name: example
+              manifest: |-
+                {
+                  "account_role_name": "${snowflake_account_role.db_role.name}",
+                  "on_schema": [
+                    {
+                      "inherited": [
+                        {
+                          "in_database": "${snowflake_database.db.name}"
+                        }
+                      ]
+                    }
+                  ],
+                  "privileges": [
+                    "USAGE"
+                  ]
+                }
+              references:
+                account_role_name: snowflake_account_role.db_role.name
+                on_schema.inherited.in_database: snowflake_database.db.name
+              dependencies:
+                snowflake_account_role.db_role: |-
+                    {
+                      "name": "role_name"
+                    }
+                snowflake_database.db: |-
+                    {
+                      "name": "database"
+                    }
+                snowflake_schema.my_schema: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "my_schema"
+                    }
+            - name: example
+              manifest: |-
+                {
+                  "account_role_name": "${snowflake_account_role.db_role.name}",
+                  "on_schema_object": [
+                    {
+                      "inherited": [
+                        {
+                          "in_database": "${snowflake_database.db.name}",
+                          "object_type_plural": "TABLES"
+                        }
+                      ]
+                    }
+                  ],
+                  "privileges": [
+                    "SELECT"
+                  ]
+                }
+              references:
+                account_role_name: snowflake_account_role.db_role.name
+                on_schema_object.inherited.in_database: snowflake_database.db.name
+              dependencies:
+                snowflake_account_role.db_role: |-
+                    {
+                      "name": "role_name"
+                    }
+                snowflake_database.db: |-
+                    {
+                      "name": "database"
+                    }
+                snowflake_schema.my_schema: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "my_schema"
+                    }
+            - name: example
+              manifest: |-
+                {
+                  "account_role_name": "${snowflake_account_role.db_role.name}",
                   "on_schema_object": [
                     {
                       "object_name": "${snowflake_view.my_view.fully_qualified_name}",
@@ -4911,11 +5414,13 @@ resources:
             future: '(Block List, Max: 1) Configures the privilege to be granted on future objects in either a database or schema. (see below for nested schema)'
             future_schemas_in_database: (String) The fully qualified name of the database.
             id: (String) The ID of this resource.
-            in_database: (String)
+            in_account: (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
+            in_database: (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
             in_schema: (String)
+            inherited: '(Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)'
             object_name: (String) The fully qualified name of the object on which privileges will be granted.
-            object_type: '(String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME'
-            object_type_plural: '(String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.'
+            object_type: '(String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE'
+            object_type_plural: '(String) The plural object type of the account object on which an inherited privilege will be granted. Valid values are (case-insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.'
             on_account: '(Boolean) (Default: false) If true, the privileges will be granted on the account.'
             on_account_object: '(Block List, Max: 1) Specifies the account object on which privileges will be granted (see below for nested schema)'
             on_schema: '(Block List, Max: 1) Specifies the schema on which privileges will be granted. (see below for nested schema)'
@@ -5352,6 +5857,73 @@ resources:
                       "database": "${snowflake_database.db.name}",
                       "name": "my_schema"
                     }
+            - name: example
+              manifest: |-
+                {
+                  "database_role_name": "${snowflake_database_role.db_role.fully_qualified_name}",
+                  "on_schema": [
+                    {
+                      "inherited": "${snowflake_database_role.db_role.database}"
+                    }
+                  ],
+                  "privileges": [
+                    "USAGE"
+                  ]
+                }
+              references:
+                database_role_name: snowflake_database_role.db_role.fully_qualified_name
+                on_schema.inherited: snowflake_database_role.db_role.database
+              dependencies:
+                snowflake_database.db: |-
+                    {
+                      "name": "database"
+                    }
+                snowflake_database_role.db_role: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "db_role_name"
+                    }
+                snowflake_schema.my_schema: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "my_schema"
+                    }
+            - name: example
+              manifest: |-
+                {
+                  "database_role_name": "${snowflake_database_role.db_role.fully_qualified_name}",
+                  "on_schema_object": [
+                    {
+                      "inherited": [
+                        {
+                          "in_database": "${snowflake_database_role.db_role.database}",
+                          "object_type_plural": "TABLES"
+                        }
+                      ]
+                    }
+                  ],
+                  "privileges": [
+                    "SELECT"
+                  ]
+                }
+              references:
+                database_role_name: snowflake_database_role.db_role.fully_qualified_name
+                on_schema_object.inherited.in_database: snowflake_database_role.db_role.database
+              dependencies:
+                snowflake_database.db: |-
+                    {
+                      "name": "database"
+                    }
+                snowflake_database_role.db_role: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "db_role_name"
+                    }
+                snowflake_schema.my_schema: |-
+                    {
+                      "database": "${snowflake_database.db.name}",
+                      "name": "my_schema"
+                    }
         argumentDocs:
             all: '(Block List, Max: 1) Configures the privilege to be granted on all objects in either a database or schema. (see below for nested schema)'
             all_privileges: '(Boolean) (Default: false) Grant all privileges on the database role.'
@@ -5366,9 +5938,10 @@ resources:
             id: (String) The ID of this resource.
             in_database: (String) The fully qualified name of the database.
             in_schema: (String) The fully qualified name of the schema.
+            inherited: (String) Configures an inherited privilege to be granted on all current and future schemas in a database. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field.
             object_name: (String) The fully qualified name of the object on which privileges will be granted.
-            object_type: '(String) The object type of the schema object on which privileges will be granted. Valid values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATASET | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXPERIMENT | EXTERNAL TABLE | FILE FORMAT | FUNCTION | GATEWAY | GIT REPOSITORY | HYBRID TABLE | IMAGE REPOSITORY | ICEBERG TABLE | JOIN POLICY | MASKING POLICY | MATERIALIZED VIEW | MCP SERVER | MODEL | MODEL MONITOR | NETWORK RULE | NOTEBOOK | NOTEBOOK PROJECT | ONLINE FEATURE TABLE | PACKAGES POLICY | PASSWORD POLICY | PIPE | PRIVACY POLICY | PROCEDURE | PROJECTION POLICY | ROW ACCESS POLICY | SECRET | SEMANTIC VIEW | SERVICE | SESSION POLICY | SEQUENCE | SNAPSHOT | SNAPSHOT POLICY | SNAPSHOT SET | STAGE | STORAGE LIFECYCLE POLICY | STREAM | STREAMLIT | TABLE | TAG | TASK | VIEW | WORKSPACE'
-            object_type_plural: '(String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.'
+            object_type: '(String) The object type of the schema object on which privileges will be granted. Valid values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATASET | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXPERIMENT | EXTERNAL TABLE | FILE FORMAT | FUNCTION | GATEWAY | GIT REPOSITORY | HYBRID TABLE | IMAGE REPOSITORY | ICEBERG TABLE | INTERACTIVE TABLE | JOIN POLICY | MASKING POLICY | MATERIALIZED VIEW | MCP SERVER | MODEL | MODEL MONITOR | NETWORK RULE | NOTEBOOK | NOTEBOOK PROJECT | ONLINE FEATURE TABLE | PACKAGES POLICY | PASSWORD POLICY | PIPE | PRIVACY POLICY | PROCEDURE | PROJECTION POLICY | ROW ACCESS POLICY | SECRET | SEMANTIC VIEW | SERVICE | SESSION POLICY | SEQUENCE | SNAPSHOT | SNAPSHOT POLICY | SNAPSHOT SET | STAGE | STORAGE LIFECYCLE POLICY | STREAM | STREAMLIT | TABLE | TAG | TASK | VIEW | WORKSPACE'
+            object_type_plural: '(String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS | WORKSPACES.'
             on_database: (String) The fully qualified name of the database on which privileges will be granted. For more information about this resource, see docs.
             on_schema: '(Block List, Max: 1) Specifies the schema on which privileges will be granted. (see below for nested schema)'
             on_schema_object: '(Block List, Max: 1) Specifies the schema object on which privileges will be granted. (see below for nested schema)'
@@ -5541,6 +6114,447 @@ resources:
             to_share: (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
             update: (String)
         importStatements: []
+    snowflake_iceberg_table:
+        subCategory: Preview
+        description: Resource used to manage a Snowflake-managed Iceberg table. For more information, check the official documentation https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table-snowflake.
+        name: snowflake_iceberg_table
+        title: snowflake_iceberg_table
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "column": [
+                    {
+                      "name": "ID",
+                      "type": "NUMBER(38,0)"
+                    },
+                    {
+                      "name": "NAME",
+                      "type": "VARCHAR(16777216)"
+                    }
+                  ],
+                  "database": "DATABASE",
+                  "name": "TABLE",
+                  "schema": "SCHEMA"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "aggregation_policy": [
+                    {
+                      "entity_key": [
+                        "ID"
+                      ],
+                      "policy_name": "AGGREGATION_POLICY"
+                    }
+                  ],
+                  "base_location": "iceberg_table",
+                  "catalog": "SNOWFLAKE",
+                  "catalog_sync": "CATALOG_INTEGRATION",
+                  "change_tracking": "true",
+                  "check_constraint": [
+                    {
+                      "expression": "ID \u003e 0",
+                      "name": "CHK",
+                      "validate": "true"
+                    }
+                  ],
+                  "column": [
+                    {
+                      "comment": "Primary identifier",
+                      "name": "ID",
+                      "not_null": "true",
+                      "type": "NUMBER(38,0)"
+                    },
+                    {
+                      "comment": "Name of the entity",
+                      "masking_policy": [
+                        {
+                          "policy_name": "MASKING_POLICY",
+                          "using": [
+                            "NAME"
+                          ]
+                        }
+                      ],
+                      "name": "NAME",
+                      "type": "VARCHAR(16777216)"
+                    },
+                    {
+                      "name": "REGION",
+                      "projection_policy": [
+                        {
+                          "policy_name": "PROJECTION_POLICY"
+                        }
+                      ],
+                      "type": "VARCHAR(16777216)"
+                    },
+                    {
+                      "name": "STATUS",
+                      "type": "VARCHAR(16777216)"
+                    },
+                    {
+                      "masking_policy": [
+                        {
+                          "policy_name": "CONDITIONAL_MASKING_POLICY",
+                          "using": [
+                            "CATEGORY",
+                            "STATUS"
+                          ]
+                        }
+                      ],
+                      "name": "CATEGORY",
+                      "type": "VARCHAR(16777216)"
+                    },
+                    {
+                      "default": [
+                        {
+                          "expression": "CURRENT_TIMESTAMP()"
+                        }
+                      ],
+                      "name": "CREATED_AT",
+                      "type": "TIMESTAMP_NTZ(9)"
+                    },
+                    {
+                      "default": [
+                        {
+                          "expression": "2"
+                        }
+                      ],
+                      "name": "REF_ID",
+                      "type": "NUMBER(38,0)"
+                    }
+                  ],
+                  "comment": "COMMENT",
+                  "data_retention_time_in_days": 5,
+                  "database": "DATABASE",
+                  "enable_data_compaction": true,
+                  "enable_iceberg_merge_on_read": true,
+                  "error_logging": "true",
+                  "external_volume": "EXTERNAL_VOLUME",
+                  "foreign_key_constraint": [
+                    {
+                      "column": [
+                        "REF_ID"
+                      ],
+                      "comment": "Foreign key constraint",
+                      "deferrable": "true",
+                      "enable": "true",
+                      "enforced": "false",
+                      "initially_deferred": "true",
+                      "match": "SIMPLE",
+                      "name": "FK",
+                      "on_delete": "SET NULL",
+                      "on_update": "CASCADE",
+                      "ref_column": [
+                        "ID"
+                      ],
+                      "rely": "true",
+                      "table_name": "OTHER_DATABASE.OTHER_SCHEMA.OTHER_TABLE",
+                      "validate": "true"
+                    }
+                  ],
+                  "iceberg_version": 2,
+                  "max_data_extension_time_in_days": 10,
+                  "name": "TABLE",
+                  "partition_by": [
+                    {
+                      "identity": "REGION"
+                    },
+                    {
+                      "bucket": [
+                        {
+                          "column": "ID",
+                          "num_buckets": 4
+                        }
+                      ]
+                    },
+                    {
+                      "truncate": [
+                        {
+                          "column": "NAME",
+                          "width": 10
+                        }
+                      ]
+                    },
+                    {
+                      "year": "CREATED_AT"
+                    },
+                    {
+                      "month": "CREATED_AT"
+                    },
+                    {
+                      "day": "CREATED_AT"
+                    },
+                    {
+                      "hour": "CREATED_AT"
+                    }
+                  ],
+                  "path_layout": "FLAT",
+                  "primary_key_constraint": [
+                    {
+                      "column": [
+                        "ID"
+                      ],
+                      "comment": "Primary key constraint",
+                      "deferrable": "true",
+                      "enable": "true",
+                      "enforced": "false",
+                      "initially_deferred": "true",
+                      "name": "PK",
+                      "rely": "true",
+                      "validate": "true"
+                    }
+                  ],
+                  "row_access_policy": [
+                    {
+                      "on": [
+                        "ID"
+                      ],
+                      "policy_name": "ROW_ACCESS_POLICY"
+                    }
+                  ],
+                  "schema": "SCHEMA",
+                  "storage_serialization_policy": "OPTIMIZED",
+                  "target_file_size": "64MB",
+                  "unique_constraint": [
+                    {
+                      "column": [
+                        "NAME"
+                      ],
+                      "comment": "Unique constraint on name",
+                      "deferrable": "true",
+                      "enable": "true",
+                      "enforced": "false",
+                      "initially_deferred": "true",
+                      "name": "NAME_UQ",
+                      "rely": "true",
+                      "validate": "true"
+                    }
+                  ]
+                }
+            - name: complete_with_cluster_by
+              manifest: |-
+                {
+                  "cluster_by": [
+                    "ID",
+                    "NAME"
+                  ],
+                  "column": [
+                    {
+                      "name": "ID",
+                      "type": "NUMBER(38,0)"
+                    },
+                    {
+                      "name": "NAME",
+                      "type": "VARCHAR(16777216)"
+                    }
+                  ],
+                  "database": "DATABASE",
+                  "name": "TABLE",
+                  "schema": "SCHEMA"
+                }
+        argumentDocs:
+            aggregation_policy: '(Block List, Max: 1) Specifies the aggregation policy to set on a Iceberg table. (see below for nested schema)'
+            auto_refresh_status: (List of Object) (see below for nested schema)
+            base_location: (String) The path to a directory where Snowflake can write data and metadata files for the Iceberg table. Specify a relative path from the table's EXTERNAL_VOLUME location.
+            bucket: '(Block List, Max: 1) Partitions the table by hashing the column into a fixed number of buckets. (see below for nested schema)'
+            can_write_metadata: (Boolean)
+            catalog: (String) Specifies the identifier for the catalog integration to use for the Iceberg table. If not specified, the account-level default is used.
+            catalog_name: (String)
+            catalog_namespace: (String)
+            catalog_sync: (String) Specifies the name of the catalog integration that Snowflake uses to automatically synchronize the Iceberg table with an external catalog. For more information, check CATALOG_SYNC docs.
+            catalog_sync_name: (String)
+            catalog_table_name: (String)
+            change_tracking: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable change tracking on the Iceberg table. Cannot be changed after creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won''t be detected. In case you want to apply external changes, you can re-create the resource manually using "terraform taint".'
+            check: (String)
+            check_constraint: (Block List) Defines a table-level CHECK constraint. (see below for nested schema)
+            cluster_by: (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table. External changes for this field won't be detected. In case you want to apply external changes, you can re-create the resource manually using "terraform taint".
+            column: '(Block List, Min: 1) Definitions of the columns to create in the table. Minimum one required. (see below for nested schema)'
+            comment: (String) Specifies a comment for the Iceberg table.
+            create: (String)
+            created_on: (String)
+            current_partition_spec_id: (Number)
+            current_snapshot_id: (Number)
+            data_retention_time_in_days: (Number) Specifies the retention period for the Iceberg table so that Time Travel actions can be performed on historical data. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
+            database: '(String) The database in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            day: (String) Partitions the table by the day component of the column.
+            default: '(Block List, Max: 1) Defines the column default value. (see below for nested schema)'
+            deferrable: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether the constraint is deferrable (true) or not deferrable (false). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            description: (String)
+            enable: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether the constraint is enabled (true) or disabled (false). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            enable_data_compaction: (Boolean) Specifies whether automatic background data compaction is enabled for the Iceberg table. For more information, check ENABLE_DATA_COMPACTION docs.
+            enable_iceberg_merge_on_read: (Boolean) Specifies whether merge-on-read is enabled for the Iceberg table. For more information, check ENABLE_ICEBERG_MERGE_ON_READ docs.
+            enforced: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether the constraint is enforced (true) or not enforced (false). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            entity_key: (Set of String) Defines which columns uniquely identify an entity within the Iceberg table.
+            error_logging: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Specifies whether error logging is enabled for the Iceberg table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won''t be detected. In case you want to apply external changes, you can re-create the resource manually using "terraform taint".'
+            execution_state: (String)
+            expression: (String) The default expression value for the column.
+            external_volume: (String) Specifies the identifier for the external volume where the Iceberg table stores its metadata files and data in Parquet format. If not specified, the account-level default is used.
+            external_volume_name: (String)
+            field_id: (Number)
+            fields: (List of Object) (see below for nested schema)
+            foreign_key_constraint: (Block List) Defines a table-level FOREIGN KEY constraint. (see below for nested schema)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            hour: (String) Partitions the table by the hour component of the column.
+            iceberg_table_format_version: (Number)
+            iceberg_table_type: (String)
+            iceberg_version: (Number) Specifies the Iceberg table format version.
+            id: (String) The ID of this resource.
+            identity: (String) Name of the column to use as-is for partitioning.
+            initially_deferred: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether the constraint is initially deferred (true) or initially immediate (false). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            is_nullable: (Boolean)
+            key: (String)
+            kind: (String)
+            last_snapshot_time: (String)
+            last_updated_time: (String)
+            level: (String)
+            masking_policy: '(Block List, Max: 1) Specifies the masking policy to set on a column. For more information about this resource, see docs. (see below for nested schema)'
+            match: '(String) The match type for the foreign key. Valid values are: [FULL SIMPLE PARTIAL].'
+            max_data_extension_time_in_days: (Number) Specifies the maximum number of days for which Snowflake can extend the data retention period for the Iceberg table to prevent streams on the table from becoming stale. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
+            month: (String) Partitions the table by the month component of the column.
+            name: '(String) Specifies the identifier for the Iceberg table; must be unique for the schema in which the Iceberg table is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            name_mapping: (String)
+            not_null: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether to restrict the column to NOT NULL values.'
+            num_buckets: (Number) Number of buckets to hash the column values into.
+            "on": (Set of String) Defines which columns are affected by the policy.
+            on_delete: '(String) Specifies the action to perform when the referenced primary/unique key is deleted. Valid values are: [CASCADE SET NULL SET DEFAULT RESTRICT NO ACTION].'
+            on_update: '(String) Specifies the action to perform when the referenced primary/unique key is updated. Valid values are: [CASCADE SET NULL SET DEFAULT RESTRICT NO ACTION].'
+            owner: (String)
+            owner_role_type: (String)
+            parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            partition_by: (Block List) Defines the partitioning for the Iceberg table. Cannot be changed after creation. Exactly one of identity, bucket, truncate, year, month, day, or hour must be set for each entry. Cannot be used together with cluster_by. (see below for nested schema)
+            partition_specs: (List of Object) (see below for nested schema)
+            path_layout: '(String) Specifies the storage layout for the Iceberg table''s Parquet files. Valid values are: [FLAT HIERARCHICAL]. Cannot be changed after creation. External changes for this field won''t be detected. In case you want to apply external changes, you can re-create the resource manually using "terraform taint".'
+            pending_snapshot_count: (Number)
+            policy_name: (String) Masking policy name. For more information about this resource, see docs.
+            primary_key: (Boolean)
+            primary_key_constraint: '(Block List, Max: 1) Defines a table-level PRIMARY KEY constraint. (see below for nested schema)'
+            privacy_domain: (String)
+            projection_policy: '(Block List, Max: 1) Specifies the projection policy to set on a column. (see below for nested schema)'
+            read: (String)
+            ref_column: (List of String) The column(s) in the referenced table that the foreign key references.
+            rely: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether a constraint in NOVALIDATE mode is taken into account (true) or not (false) during query rewrite. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            row_access_policy: '(Block List, Max: 1) Specifies the row access policy to set on a Iceberg table. (see below for nested schema)'
+            schema: '(String) The schema in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW ICEBERG TABLES for the given Iceberg table. Note that this value will be only recomputed whenever values of fields affecting the output change. (see below for nested schema)
+            source_iceberg_type: (String)
+            source_id: (Number)
+            spec_id: (Number)
+            storage_serialization_policy: '(String) Specifies the storage serialization policy for the Iceberg table. Valid values are: [COMPATIBLE OPTIMIZED]. Cannot be changed after creation. For more information, check STORAGE_SERIALIZATION_POLICY docs.'
+            table_name: (String) The table that the foreign key references.
+            target_file_size: '(String) Specifies the target file size (in bytes) used when writing the Iceberg table''s Parquet files. Valid values are: [AUTO 16MB 32MB 64MB 128MB]. For more information, check TARGET_FILE_SIZE docs.'
+            timeouts: (Block, Optional) (see below for nested schema)
+            transform: (String)
+            truncate: '(Block List, Max: 1) Partitions the table by truncating the column value to a fixed width. (see below for nested schema)'
+            type: (String) Column type, e.g. VARIANT. For a full list of column types, see Summary of Data Types.
+            unique_constraint: (Block List) Defines a table-level UNIQUE constraint. (see below for nested schema)
+            unique_key: (Boolean)
+            update: (String)
+            using: (List of String) Specifies the arguments to pass into the conditional masking policy SQL expression, in order. The first column in the list specifies the column for the policy conditions to mask or tokenize the data and must match the column to which the masking policy is set. The additional columns specify the columns to evaluate to determine whether to mask or tokenize the data in each row of the query result when a query is made on the first column. If the USING clause is omitted, Snowflake treats the conditional masking policy as a normal masking policy.
+            validate: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Whether existing data is validated against the constraint (true, ENABLE VALIDATE) or not (false, ENABLE NOVALIDATE). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            value: (String)
+            width: (Number) Width to truncate the column value to.
+            write_default: (String)
+            year: (String) Partitions the table by the year component of the column.
+        importStatements:
+            - terraform import snowflake_iceberg_table.example '"<database_name>"."<schema_name>"."<table_name>"'
+    snowflake_iceberg_table_from_aws_glue:
+        subCategory: Preview
+        description: Resource used to manage an Iceberg table whose metadata is managed by an AWS Glue catalog. For more information, check the official documentation https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table-aws-glue.
+        name: snowflake_iceberg_table_from_aws_glue
+        title: snowflake_iceberg_table_from_aws_glue
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "catalog_table_name": "my_catalog_table",
+                  "database": "DATABASE",
+                  "name": "TABLE",
+                  "schema": "SCHEMA"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "auto_refresh": "true",
+                  "catalog": "CATALOG",
+                  "catalog_namespace": "my_namespace",
+                  "catalog_table_name": "my_catalog_table",
+                  "comment": "COMMENT",
+                  "database": "DATABASE",
+                  "external_volume": "EXTERNAL_VOLUME",
+                  "name": "TABLE",
+                  "replace_invalid_characters": true,
+                  "schema": "SCHEMA"
+                }
+        argumentDocs:
+            auto_refresh: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should periodically refresh the Iceberg table metadata from the AWS Glue catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            auto_refresh_status: (List of Object) (see below for nested schema)
+            base_location: (String)
+            can_write_metadata: (Boolean)
+            catalog: (String) Specifies the identifier for the catalog integration to use for the Iceberg table. If not specified, the account-level default is used.
+            catalog_name: (String)
+            catalog_namespace: (String) Specifies the namespace (or database) in the AWS Glue catalog that the table belongs to. If not specified, the catalog integration's default namespace is used.
+            catalog_sync_name: (String)
+            catalog_table_name: (String) Specifies the name of the table as it appears in the AWS Glue catalog.
+            check: (String)
+            comment: (String) Specifies a comment for the Iceberg table.
+            create: (String)
+            created_on: (String)
+            current_partition_spec_id: (Number)
+            current_snapshot_id: (Number)
+            database: '(String) The database in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            default: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            description: (String)
+            execution_state: (String)
+            expression: (String)
+            external_volume: (String) Specifies the identifier for the external volume where the Iceberg table stores its metadata files and data in Parquet format. If not specified, the account-level default is used.
+            external_volume_name: (String)
+            field_id: (Number)
+            fields: (List of Object) (see below for nested schema)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            iceberg_table_format_version: (Number)
+            iceberg_table_type: (String)
+            id: (String) The ID of this resource.
+            is_nullable: (Boolean)
+            key: (String)
+            kind: (String)
+            last_snapshot_time: (String)
+            last_updated_time: (String)
+            level: (String)
+            name: '(String) Specifies the identifier for the Iceberg table; must be unique for the schema in which the Iceberg table is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            name_mapping: (String)
+            owner: (String)
+            owner_role_type: (String)
+            parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            partition_specs: (List of Object) (see below for nested schema)
+            pending_snapshot_count: (Number)
+            policy_name: (String)
+            primary_key: (Boolean)
+            privacy_domain: (String)
+            read: (String)
+            replace_invalid_characters: (Boolean) Specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�) in query results for an Iceberg table. For more information, check REPLACE_INVALID_CHARACTERS docs.
+            schema: '(String) The schema in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW ICEBERG TABLES for the given Iceberg table. Note that this value will be only recomputed whenever values of fields affecting the output change. (see below for nested schema)
+            source_iceberg_type: (String)
+            source_id: (Number)
+            spec_id: (Number)
+            timeouts: (Block, Optional) (see below for nested schema)
+            transform: (String)
+            type: (String)
+            unique_key: (Boolean)
+            update: (String)
+            value: (String)
+            write_default: (String)
+        importStatements:
+            - terraform import snowflake_iceberg_table_from_aws_glue.example '"<database_name>"."<schema_name>"."<table_name>"'
     snowflake_iceberg_table_from_delta_files:
         subCategory: Preview
         description: Resource used to manage an Iceberg table whose metadata is created from Delta table files in an external volume. For more information, check the official documentation https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table-delta.
@@ -5594,6 +6608,8 @@ resources:
             expression: (String)
             external_volume: (String) Specifies the identifier for the external volume where the Iceberg table stores its metadata files and data in Parquet format. If not specified, the account-level default is used.
             external_volume_name: (String)
+            field_id: (Number)
+            fields: (List of Object) (see below for nested schema)
             fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
             iceberg_table_format_version: (Number)
             iceberg_table_type: (String)
@@ -5609,7 +6625,7 @@ resources:
             owner: (String)
             owner_role_type: (String)
             parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
-            partition_specs: (String)
+            partition_specs: (List of Object) (see below for nested schema)
             pending_snapshot_count: (Number)
             policy_name: (String)
             primary_key: (Boolean)
@@ -5620,7 +6636,10 @@ resources:
             schema_name: (String)
             show_output: (List of Object) Outputs the result of SHOW ICEBERG TABLES for the given Iceberg table. Note that this value will be only recomputed whenever values of fields affecting the output change. (see below for nested schema)
             source_iceberg_type: (String)
+            source_id: (Number)
+            spec_id: (Number)
             timeouts: (Block, Optional) (see below for nested schema)
+            transform: (String)
             type: (String)
             unique_key: (Boolean)
             update: (String)
@@ -5680,6 +6699,8 @@ resources:
             expression: (String)
             external_volume: (String) Specifies the identifier for the external volume where the Iceberg table stores its metadata files and data in Parquet format. If not specified, the account-level default is used.
             external_volume_name: (String)
+            field_id: (Number)
+            fields: (List of Object) (see below for nested schema)
             fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
             iceberg_table_format_version: (Number)
             iceberg_table_type: (String)
@@ -5696,7 +6717,7 @@ resources:
             owner: (String)
             owner_role_type: (String)
             parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
-            partition_specs: (String)
+            partition_specs: (List of Object) (see below for nested schema)
             pending_snapshot_count: (Number)
             policy_name: (String)
             primary_key: (Boolean)
@@ -5707,7 +6728,10 @@ resources:
             schema_name: (String)
             show_output: (List of Object) Outputs the result of SHOW ICEBERG TABLES for the given Iceberg table. Note that this value will be only recomputed whenever values of fields affecting the output change. (see below for nested schema)
             source_iceberg_type: (String)
+            source_id: (Number)
+            spec_id: (Number)
             timeouts: (Block, Optional) (see below for nested schema)
+            transform: (String)
             type: (String)
             unique_key: (Boolean)
             update: (String)
@@ -5715,6 +6739,109 @@ resources:
             write_default: (String)
         importStatements:
             - terraform import snowflake_iceberg_table_from_files.example '"<database_name>"."<schema_name>"."<table_name>"'
+    snowflake_iceberg_table_from_rest:
+        subCategory: Preview
+        description: Resource used to manage an Iceberg table whose metadata is managed by an external Iceberg REST catalog. For more information, check the official documentation https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table-rest.
+        name: snowflake_iceberg_table_from_rest
+        title: snowflake_iceberg_table_from_rest
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "catalog_table_name": "my_catalog_table",
+                  "database": "DATABASE",
+                  "name": "TABLE",
+                  "schema": "SCHEMA"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "auto_refresh": "true",
+                  "catalog": "CATALOG",
+                  "catalog_namespace": "my_namespace",
+                  "catalog_table_name": "my_catalog_table",
+                  "comment": "COMMENT",
+                  "database": "DATABASE",
+                  "enable_iceberg_merge_on_read": true,
+                  "external_volume": "EXTERNAL_VOLUME",
+                  "iceberg_merge_on_read_behavior": "ENABLED",
+                  "name": "TABLE",
+                  "path_layout": "HIERARCHICAL",
+                  "replace_invalid_characters": true,
+                  "schema": "SCHEMA",
+                  "storage_serialization_policy": "OPTIMIZED",
+                  "target_file_size": "128MB"
+                }
+        argumentDocs:
+            auto_refresh: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should periodically refresh the Iceberg table metadata from the external catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            auto_refresh_status: (List of Object) (see below for nested schema)
+            base_location: (String)
+            can_write_metadata: (Boolean)
+            catalog: (String) Specifies the identifier for the catalog integration to use for the Iceberg table. If not specified, the account-level default is used.
+            catalog_name: (String)
+            catalog_namespace: (String) Specifies the namespace (or database) in the external catalog that the table belongs to. If not specified, the catalog integration's default namespace is used.
+            catalog_sync_name: (String)
+            catalog_table_name: (String) Specifies the name of the table as it appears in the external catalog.
+            check: (String)
+            comment: (String) Specifies a comment for the Iceberg table.
+            create: (String)
+            created_on: (String)
+            current_partition_spec_id: (Number)
+            current_snapshot_id: (Number)
+            database: '(String) The database in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            default: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            description: (String)
+            enable_iceberg_merge_on_read: (Boolean) Specifies whether merge-on-read is enabled for the Iceberg table. For more information, check ENABLE_ICEBERG_MERGE_ON_READ docs.
+            execution_state: (String)
+            expression: (String)
+            external_volume: (String) Specifies the identifier for the external volume where the Iceberg table stores its metadata files and data in Parquet format. If not specified, the account-level default is used.
+            external_volume_name: (String)
+            field_id: (Number)
+            fields: (List of Object) (see below for nested schema)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            iceberg_merge_on_read_behavior: '(String) Specifies the merge-on-read behavior for the Iceberg table. Valid values are: [AUTO ENABLED DISABLED]. Cannot be changed after creation. For more information, check ICEBERG_MERGE_ON_READ_BEHAVIOR docs.'
+            iceberg_table_format_version: (Number)
+            iceberg_table_type: (String)
+            id: (String) The ID of this resource.
+            is_nullable: (Boolean)
+            key: (String)
+            kind: (String)
+            last_snapshot_time: (String)
+            last_updated_time: (String)
+            level: (String)
+            name: '(String) Specifies the identifier for the Iceberg table; must be unique for the schema in which the Iceberg table is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            name_mapping: (String)
+            owner: (String)
+            owner_role_type: (String)
+            parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN ICEBERG TABLE for the given Iceberg table. (see below for nested schema)
+            partition_specs: (List of Object) (see below for nested schema)
+            path_layout: '(String) Specifies the storage layout for the Iceberg table''s Parquet files. Valid values are: [FLAT HIERARCHICAL]. Cannot be changed after creation. External changes for this field won''t be detected. In case you want to apply external changes, you can re-create the resource manually using "terraform taint".'
+            pending_snapshot_count: (Number)
+            policy_name: (String)
+            primary_key: (Boolean)
+            privacy_domain: (String)
+            read: (String)
+            replace_invalid_characters: (Boolean) Specifies whether to replace invalid UTF-8 characters with the Unicode replacement character (�) in query results for an Iceberg table. For more information, check REPLACE_INVALID_CHARACTERS docs.
+            schema: '(String) The schema in which to create the Iceberg table. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            show_output: (List of Object) Outputs the result of SHOW ICEBERG TABLES for the given Iceberg table. Note that this value will be only recomputed whenever values of fields affecting the output change. (see below for nested schema)
+            source_iceberg_type: (String)
+            source_id: (Number)
+            spec_id: (Number)
+            storage_serialization_policy: '(String) Specifies the storage serialization policy for the Iceberg table. Valid values are: [COMPATIBLE OPTIMIZED]. Cannot be changed after creation. For more information, check STORAGE_SERIALIZATION_POLICY docs.'
+            target_file_size: '(String) Specifies the target file size (in bytes) used when writing the Iceberg table''s Parquet files. Valid values are: [AUTO 16MB 32MB 64MB 128MB]. For more information, check TARGET_FILE_SIZE docs.'
+            timeouts: (Block, Optional) (see below for nested schema)
+            transform: (String)
+            type: (String)
+            unique_key: (Boolean)
+            update: (String)
+            value: (String)
+            write_default: (String)
+        importStatements:
+            - terraform import snowflake_iceberg_table_from_rest.example '"<database_name>"."<schema_name>"."<table_name>"'
     snowflake_image_repository:
         subCategory: Stable
         description: Resource used to manage image repositories. For more information, check image repositories documentation https://docs.snowflake.com/en/sql-reference/sql/create-image-repository. Snowpark Container Services provides an OCIv2-compliant image registry service and a storage unit call repository to store images. See Working with an image registry and repository https://docs.snowflake.com/en/developer-guide/snowpark-container-services/working-with-registry-repository developer guide for more details.
@@ -6042,6 +7169,21 @@ resources:
                   ],
                   "name": "legacy_service_user_aws"
                 }
+            - name: with_aws_jwt_wif
+              manifest: |-
+                {
+                  "default_workload_identity": [
+                    {
+                      "aws": [
+                        {
+                          "arn": "arn:aws:iam::123456789012:role/snowflake-service-role",
+                          "issuer": "https://sts.amazonaws.com"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "legacy_service_user_aws_jwt"
+                }
             - name: with_gcp_wif
               manifest: |-
                 {
@@ -6138,7 +7280,7 @@ resources:
             has_rsa_public_key: (Boolean)
             has_workload_identity: (Boolean)
             id: (String) The ID of this resource.
-            issuer: (String) The Azure issuer URL.
+            issuer: (String) The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
             jdbc_treat_decimal_as_int: (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
             jdbc_treat_timestamp_ntz_as_utc: (Boolean) Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs.
             jdbc_use_session_timezone: (Boolean) Specifies whether the JDBC Driver uses the time zone of the JVM or the time zone of the session (specified by the TIMEZONE parameter) for the getDate(), getTime(), and getTimestamp() methods of the ResultSet class. For more information, check JDBC_USE_SESSION_TIMEZONE docs.
@@ -6476,6 +7618,51 @@ resources:
             - |-
               # format is database name | schema name | view name
               terraform import snowflake_materialized_view.example 'dbName|schemaName|viewName'
+    snowflake_mcp_server:
+        subCategory: Preview
+        description: Resource used to manage MCP server objects. For more information, check MCP server documentation https://docs.snowflake.com/en/sql-reference/sql/create-mcp-server.
+        name: snowflake_mcp_server
+        title: snowflake_mcp_server
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "database": "database_name",
+                  "name": "mcp_server_name",
+                  "schema": "schema_name",
+                  "specification": "tools:\n  - title: \"SQL Execution Tool\"\n    name: \"sql_exec_tool\"\n    type: \"SYSTEM_EXECUTE_SQL\"\n    description: \"Executes SQL queries.\"\n"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "comment": "My MCP server",
+                  "database": "database_name",
+                  "name": "mcp_server_name",
+                  "schema": "schema_name",
+                  "specification": "${yamlencode({\n    tools = [\n      {\n        title       = \"SQL Execution Tool\"\n        name        = \"sql_exec_tool\"\n        type        = \"SYSTEM_EXECUTE_SQL\"\n        description = \"Executes SQL queries.\"\n      }\n    ]\n  })}"
+                }
+        argumentDocs:
+            comment: (String) Specifies a comment for the MCP server.
+            create: (String)
+            created_on: (String)
+            database: '(String) The database in which to create the MCP server. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            database_name: (String)
+            delete: (String)
+            describe_output: (List of Object) Outputs the result of DESCRIBE MCP SERVER for this MCP server. (see below for nested schema)
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            name: '(String) Specifies the identifier for the MCP server. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            owner: (String)
+            read: (String)
+            schema: '(String) The schema in which to create the MCP server. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            schema_name: (String)
+            server_spec: (String)
+            show_output: (List of Object) Outputs the result of SHOW MCP SERVERS for this MCP server. (see below for nested schema)
+            specification: (String) Specifies a YAML object containing the MCP server tool definitions. The provider wraps it in $$ by default, so be aware of that while referencing the argument in the spec definition. Using $$ in this field is disallowed.
+            timeouts: (Block, Optional) (see below for nested schema)
+            update: (String)
+        importStatements:
+            - terraform import snowflake_mcp_server.example '"<database_name>"."<schema_name>"."<mcp_server_name>"'
     snowflake_network_policy:
         subCategory: Stable
         description: Resource used to control network traffic. For more information, check an official guide https://docs.snowflake.com/en/user-guide/network-policies on controlling network traffic with network policies.
@@ -6783,10 +7970,12 @@ resources:
             - name: complete
               manifest: |-
                 {
+                  "allowed_roles_list": [
+                    "${snowflake_role.three.fully_qualified_name}"
+                  ],
                   "blocked_roles_list": [
                     "ACCOUNTADMIN",
                     "SECURITYADMIN",
-                    "${snowflake_role.three.fully_qualified_name}",
                     "${snowflake_role.four.fully_qualified_name}"
                   ],
                   "comment": "my oauth integration",
@@ -6808,9 +7997,11 @@ resources:
                   ]
                 }
               references:
+                allowed_roles_list: snowflake_role.three.fully_qualified_name
                 network_policy: snowflake_network_policy.example.fully_qualified_name
                 pre_authorized_roles_list: snowflake_role.one.fully_qualified_name
         argumentDocs:
+            allowed_roles_list: (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
             blocked_roles_list: (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
             category: (String)
             comment: (String) Specifies a comment for the OAuth integration.
@@ -6870,10 +8061,12 @@ resources:
             - name: test
               manifest: |-
                 {
+                  "allowed_roles_list": [
+                    "${snowflake_role.one.fully_qualified_name}"
+                  ],
                   "blocked_roles_list": [
                     "ACCOUNTADMIN",
                     "SECURITYADMIN",
-                    "${snowflake_role.one.fully_qualified_name}",
                     "${snowflake_role.two.fully_qualified_name}"
                   ],
                   "comment": "example oauth integration for partner applications",
@@ -6883,9 +8076,12 @@ resources:
                   "oauth_issue_refresh_tokens": "true",
                   "oauth_redirect_uri": "http://example.com",
                   "oauth_refresh_token_validity": 3600,
-                  "oauth_use_secondary_roles": "IMPLICIT"
+                  "oauth_use_secondary_roles": "NONE"
                 }
+              references:
+                allowed_roles_list: snowflake_role.one.fully_qualified_name
         argumentDocs:
+            allowed_roles_list: (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
             blocked_roles_list: (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
             category: (String)
             comment: (String) Specifies a comment for the OAuth integration.
@@ -7994,7 +9190,6 @@ resources:
                   "saml2_sign_request": true,
                   "saml2_snowflake_acs_url": "example.snowflakecomputing.com/fed/login",
                   "saml2_snowflake_issuer_url": "example.snowflakecomputing.com/fed/login",
-                  "saml2_snowflake_x509_cert": "${file(\"snowflake_cert.pem\")}",
                   "saml2_sp_initiated_login_page_label": "foo",
                   "saml2_sso_url": "https://example.com",
                   "saml2_x509_cert": "${file(\"cert.pem\")}"
@@ -8085,6 +9280,8 @@ resources:
             database_name: (String)
             default: (String)
             default_ddl_collation: (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+            default_notebook_compute_pool_cpu: (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+            default_notebook_compute_pool_gpu: (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
             delete: (String)
             describe_output: (List of Object) Outputs the result of DESCRIBE SCHEMA for the given object. In order to handle this output, one must grant sufficient privileges, e.g. grant_ownership on all objects in the schema. (see below for nested schema)
             description: (String)
@@ -8341,6 +9538,8 @@ resources:
             create: (String)
             data_retention_time_in_days: (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
             default_ddl_collation: (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+            default_notebook_compute_pool_cpu: (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+            default_notebook_compute_pool_gpu: (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
             delete: (String)
             enable_console_output: (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
             external_volume: (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
@@ -9207,6 +10406,21 @@ resources:
                   ],
                   "name": "service_user_aws"
                 }
+            - name: with_aws_jwt_wif
+              manifest: |-
+                {
+                  "default_workload_identity": [
+                    {
+                      "aws": [
+                        {
+                          "arn": "arn:aws:iam::123456789012:role/snowflake-service-role",
+                          "issuer": "https://sts.amazonaws.com"
+                        }
+                      ]
+                    }
+                  ],
+                  "name": "service_user_aws_jwt"
+                }
             - name: with_gcp_wif
               manifest: |-
                 {
@@ -9303,7 +10517,7 @@ resources:
             has_rsa_public_key: (Boolean)
             has_workload_identity: (Boolean)
             id: (String) The ID of this resource.
-            issuer: (String) The Azure issuer URL.
+            issuer: (String) The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
             jdbc_treat_decimal_as_int: (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
             jdbc_treat_timestamp_ntz_as_utc: (Boolean) Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs.
             jdbc_use_session_timezone: (Boolean) Specifies whether the JDBC Driver uses the time zone of the JVM or the time zone of the session (specified by the TIMEZONE parameter) for the getDate(), getTime(), and getTimestamp() methods of the ResultSet class. For more information, check JDBC_USE_SESSION_TIMEZONE docs.
@@ -9589,6 +10803,8 @@ resources:
             comment: (String) Specifies a comment for the database.
             create: (String)
             default_ddl_collation: (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
+            default_notebook_compute_pool_cpu: (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+            default_notebook_compute_pool_gpu: (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
             delete: (String)
             enable_console_output: (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
             external_volume: (String) The database parameter that specifies the default external volume to use for Iceberg tables. For more information, see EXTERNAL_VOLUME.
@@ -10422,6 +11638,7 @@ resources:
                   "directory": [
                     {
                       "auto_refresh": false,
+                      "aws_sns_topic": "arn:aws:sns:us-west-2:123456789012:s3-stage-directory-topic",
                       "enable": true,
                       "refresh_on_create": true
                     }
@@ -10725,6 +11942,7 @@ resources:
             aws_key_id: (String, Sensitive) Specifies the AWS access key ID.
             aws_role: (String) Specifies the AWS IAM role ARN to use for accessing the bucket.
             aws_secret_key: (String, Sensitive) Specifies the AWS secret access key.
+            aws_sns_topic: (String) Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
             aws_sse_kms: '(Block List, Max: 1) AWS server-side encryption using KMS-managed keys. (see below for nested schema)'
             aws_sse_s3: '(Block List, Max: 1) AWS server-side encryption using S3-managed keys. (see below for nested schema)'
             aws_token: (String, Sensitive) Specifies the AWS session token for temporary credentials.
@@ -12701,7 +13919,7 @@ resources:
             name: '(String) Specifies the identifier for the tag; must be unique for the database in which the tag is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
             no_allowed_values: (Boolean) When set to true, the tag explicitly disallows any value from being assigned. This is different from omitting allowed_values, which means any value is accepted. Available only when the TAGS_ALLOW_EMPTY_ALLOWED_VALUES experiment is enabled. Conflicts with allowed_values and ordered_allowed_values.
             on_conflict: '(Block List, Max: 1) Specifies what happens when there is a conflict between the values of propagated tags. (see below for nested schema)'
-            ordered_allowed_values: (List of String) Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when on_conflict.allowed_values_sequence is used — the first matching value in the sequence wins. Use this instead of allowed_values when order matters. Conflicts with allowed_values and no_allowed_values.
+            ordered_allowed_values: '(List of String) Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when on_conflict.allowed_values_sequence is used — the first matching value in the sequence wins. Use this instead of allowed_values when order matters. Conflicts with allowed_values and no_allowed_values. Note: transitioning from allowed_values to ordered_allowed_values always plans an update-in-place for this field, even when the configured order already matches the order stored in Snowflake.'
             owner: (String)
             owner_role_type: (String)
             propagate: '(String) Specifies that the tag will be automatically propagated from source objects to target objects. See more about tag propagation in the official documentation. Valid options are: NONE | ON_DEPENDENCY | ON_DATA_MOVEMENT | ON_DEPENDENCY_AND_DATA_MOVEMENT'
@@ -12922,7 +14140,7 @@ resources:
             delete: (String)
             id: (String) The ID of this resource.
             object_identifiers: (Set of String) Specifies the object identifiers for the tag association.
-            object_type: '(String) Specifies the type of object to add a tag. Allowed object types: ACCOUNT | APPLICATION | APPLICATION PACKAGE | COMPUTE POOL | DATABASE | FAILOVER GROUP | INTEGRATION | NETWORK POLICY | REPLICATION GROUP | ROLE | SHARE | USER | WAREHOUSE | DATABASE ROLE | SCHEMA | ALERT | SNOWFLAKE.CORE.BUDGET | SNOWFLAKE.ML.CLASSIFICATION | EXTERNAL FUNCTION | EXTERNAL TABLE | FUNCTION | IMAGE REPOSITORY | GIT REPOSITORY | ICEBERG TABLE | MATERIALIZED VIEW | PIPE | MASKING POLICY | PASSWORD POLICY | ROW ACCESS POLICY | SESSION POLICY | STORAGE LIFECYCLE POLICY | PRIVACY POLICY | PROCEDURE | SERVICE | STAGE | STREAM | TABLE | TASK | VIEW | COLUMN | EVENT TABLE | ICEBERG TABLE COLUMN.'
+            object_type: '(String) Specifies the type of object to add a tag. Allowed object types: ACCOUNT | APPLICATION | APPLICATION PACKAGE | COMPUTE POOL | DATABASE | FAILOVER GROUP | INTEGRATION | NETWORK POLICY | REPLICATION GROUP | ROLE | SHARE | USER | WAREHOUSE | DATABASE ROLE | SCHEMA | ALERT | SNOWFLAKE.CORE.BUDGET | SNOWFLAKE.ML.CLASSIFICATION | EXTERNAL FUNCTION | EXTERNAL TABLE | FUNCTION | IMAGE REPOSITORY | GIT REPOSITORY | ICEBERG TABLE | INTERACTIVE TABLE | MATERIALIZED VIEW | PIPE | MASKING POLICY | PASSWORD POLICY | ROW ACCESS POLICY | SESSION POLICY | STORAGE LIFECYCLE POLICY | PRIVACY POLICY | PROCEDURE | SERVICE | STAGE | STREAM | TABLE | TASK | VIEW | COLUMN | EVENT TABLE | ICEBERG TABLE COLUMN.'
             read: (String)
             skip_validation: '(Boolean) (Default: true) If true, skips validation of the tag association.'
             tag_id: (String) Specifies the identifier for the tag.
@@ -13504,15 +14722,16 @@ resources:
                       "name": "USER_NAME"
                     }
         argumentDocs:
-            authentication_policy_name: (String) Fully qualified name of the authentication policy
+            authentication_policy_name: (String) Fully qualified name of the authentication policy.
             create: (String)
             delete: (String)
             id: (String) The ID of this resource.
             read: (String)
             timeouts: (Block, Optional) (see below for nested schema)
             update: (String)
-            user_name: (String) User name of the user you want to attach the authentication policy to
-        importStatements: []
+            user_name: (String) User name of the user you want to attach the authentication policy to.
+        importStatements:
+            - terraform import snowflake_user_authentication_policy_attachment.example '"<user_name>"|"<database_name>"."<schema_name>"."<authentication_policy_name>"'
     snowflake_user_password_policy_attachment:
         subCategory: Preview
         description: Specifies the password policy to use for a certain user.
@@ -14004,6 +15223,7 @@ resources:
                   "max_query_performance_level": "MEDIUM",
                   "name": "my_adaptive_warehouse_complete",
                   "query_throughput_multiplier": 1,
+                  "resource_monitor": "my_resource_monitor",
                   "statement_queued_timeout_in_seconds": 30,
                   "statement_timeout_in_seconds": 3600
                 }
@@ -14033,7 +15253,7 @@ resources:
             queued: (Number)
             quiescing: (Number)
             read: (String)
-            resource_monitor: (String)
+            resource_monitor: (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
             resumed_on: (String)
             running: (Number)
             show_output: (List of Object) Outputs the result of SHOW WAREHOUSES for the given adaptive warehouse. (see below for nested schema)
@@ -14048,3 +15268,89 @@ resources:
             warehouse_type: (String) Specifies the type for the adaptive warehouse. This field is used for checking external changes and recreating the resource if needed.
         importStatements:
             - terraform import snowflake_warehouse_adaptive.example '"<warehouse_name>"'
+    snowflake_warehouse_interactive:
+        subCategory: Preview
+        description: Resource used to manage interactive warehouse objects. Interactive warehouses are optimized for low-latency, high-concurrency queries against a defined set of tables. For more information, check interactive warehouse documentation https://docs.snowflake.com/en/user-guide/warehouses-interactive.
+        name: snowflake_warehouse_interactive
+        title: snowflake_warehouse_interactive
+        examples:
+            - name: basic
+              manifest: |-
+                {
+                  "name": "my_interactive_warehouse"
+                }
+            - name: complete
+              manifest: |-
+                {
+                  "auto_resume": "true",
+                  "auto_suspend": 86400,
+                  "comment": "My interactive warehouse with all options set",
+                  "fallback_warehouse": "${snowflake_warehouse.fallback.fully_qualified_name}",
+                  "initially_suspended": true,
+                  "max_cluster_count": 2,
+                  "max_concurrency_level": 8,
+                  "min_cluster_count": 1,
+                  "name": "my_interactive_warehouse_complete",
+                  "resource_monitor": "${snowflake_resource_monitor.monitor.fully_qualified_name}",
+                  "statement_queued_timeout_in_seconds": 30,
+                  "statement_timeout_in_seconds": 5,
+                  "tables": [
+                    "\"MY_DB\".\"MY_SCHEMA\".\"MY_TABLE_1\"",
+                    "\"MY_DB\".\"MY_SCHEMA\".\"MY_TABLE_2\""
+                  ],
+                  "warehouse_size": "XSMALL"
+                }
+              references:
+                fallback_warehouse: snowflake_warehouse.fallback.fully_qualified_name
+                resource_monitor: snowflake_resource_monitor.monitor.fully_qualified_name
+        argumentDocs:
+            INTERACTIVE: with ALTER. If the underlying warehouse type changes externally, the only way to reconcile is to recreate the resource.
+            auto_resume: '(String) (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume an interactive warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.'
+            auto_suspend: has a Snowflake-enforced minimum for interactive warehouses (currently 86400 seconds). The provider does not validate this on the client side (the limit is server-side and may change), so Snowflake will reject values below the current minimum at apply time.
+            available: (Number)
+            comment: (String) Specifies a comment for the interactive warehouse.
+            create: (String)
+            created_on: (String)
+            default: (String)
+            delete: (String)
+            description: (String)
+            fallback_warehouse: is specific to interactive warehouses; it is not available on standard warehouses (snowflake_warehouse).
+            fully_qualified_name: (String) Fully qualified name of the resource. For more information, see object name resolution.
+            id: (String) The ID of this resource.
+            initially_suspended: (Boolean) Specifies whether the interactive warehouse is created initially in the ‘Suspended’ state.
+            is_current: (Boolean)
+            is_default: (Boolean)
+            key: (String)
+            level: (String)
+            max_cluster_count: (Number) Specifies the maximum number of server clusters for the interactive warehouse.
+            max_concurrency_level: (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by an interactive warehouse.
+            min_cluster_count: (Number) Specifies the minimum number of server clusters for the interactive warehouse (only applies to multi-cluster warehouses).
+            name: '(String) Identifier for the interactive warehouse; must be unique for your account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".'
+            other: (Number)
+            owner: (String)
+            owner_role_type: (String)
+            parameters: (List of Object) Outputs the result of SHOW PARAMETERS IN WAREHOUSE for the given interactive warehouse. (see below for nested schema)
+            provisioning: (Number)
+            queued: (Number)
+            quiescing: (Number)
+            read: (String)
+            resource_monitor: (String) Specifies the name of a resource monitor that is explicitly assigned to the interactive warehouse. For more information about this resource, see docs.
+            resumed_on: (String)
+            running: (Number)
+            scaling_policy: ', enable_query_acceleration, query_acceleration_max_scale_factor, resource_constraint, generation) are intentionally omitted from the schema; configuring them yields a plan-time "unsupported argument" error.'
+            show_output: (List of Object) Outputs the result of SHOW WAREHOUSES for the given interactive warehouse. (see below for nested schema)
+            size: (String)
+            started_clusters: (Number)
+            state: (String)
+            statement_queued_timeout_in_seconds: (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on an interactive warehouse before it is canceled by the system.
+            statement_timeout_in_seconds: (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
+            tables: associations are applied incrementally with ADD TABLES / DROP TABLES (only the changed entries), rather than by re-associating the full set on every change.
+            timeouts: (Block, Optional) (see below for nested schema)
+            type: (String)
+            update: (String)
+            updated_on: (String)
+            value: (String)
+            warehouse_size: cannot be changed with ALTER while the warehouse is running, so a resize briefly suspends the warehouse, applies the new size, and resumes it. Removing warehouse_size from the config recreates the resource, because Snowflake has no UNSET WAREHOUSE_SIZE to fall back to the account default.
+            warehouse_type: (String) Specifies the type for the interactive warehouse. This field is used for checking external changes and recreating the resource if needed.
+        importStatements:
+            - terraform import snowflake_warehouse_interactive.example '"<warehouse_name>"'

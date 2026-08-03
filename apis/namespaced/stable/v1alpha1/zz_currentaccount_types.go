@@ -156,6 +156,7 @@ type CurrentAccountInitParameters struct {
 	// Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
 
+	// runtime Streamlit apps. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_COMPUTE_POOL docs.
 	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
 	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`
 
@@ -669,6 +670,7 @@ type CurrentAccountObservation struct {
 	// Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
 
+	// runtime Streamlit apps. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_COMPUTE_POOL docs.
 	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
 	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`
 
@@ -1220,6 +1222,7 @@ type CurrentAccountParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
 
+	// runtime Streamlit apps. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_COMPUTE_POOL docs.
 	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
 	// +kubebuilder:validation:Optional
 	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`

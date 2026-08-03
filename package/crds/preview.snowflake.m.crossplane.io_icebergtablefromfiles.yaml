@@ -470,14 +470,16 @@ spec:
                           description: (String)
                           type: string
                         partitionSpecs:
-                          description: (String)
+                          description: (List of Object) (see below for nested schema)
                           items:
                             properties:
                               fields:
+                                description: (List of Object) (see below for nested
+                                  schema)
                                 items:
                                   properties:
                                     fieldId:
-                                      description: (String) The ID of this resource.
+                                      description: (Number)
                                       format: int64
                                       type: integer
                                     name:
@@ -489,15 +491,16 @@ spec:
                                         ".'
                                       type: string
                                     sourceId:
-                                      description: (String) The ID of this resource.
+                                      description: (Number)
                                       format: int64
                                       type: integer
                                     transform:
+                                      description: (String)
                                       type: string
                                   type: object
                                 type: array
                               specId:
-                                description: (String) The ID of this resource.
+                                description: (Number)
                                 format: int64
                                 type: integer
                             type: object

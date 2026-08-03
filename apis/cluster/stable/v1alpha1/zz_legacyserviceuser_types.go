@@ -67,7 +67,7 @@ type AwsInitParameters struct {
 	// The ARN of the AWS IAM role to use for workload identity federation.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 }
@@ -78,7 +78,7 @@ type AwsObservation struct {
 	// The ARN of the AWS IAM role to use for workload identity federation.
 	Arn *string `json:"arn,omitempty" tf:"arn,omitempty"`
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 }
@@ -90,7 +90,7 @@ type AwsParameters struct {
 	// +kubebuilder:validation:Optional
 	Arn *string `json:"arn" tf:"arn,omitempty"`
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
 	// +kubebuilder:validation:Optional
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
@@ -98,7 +98,7 @@ type AwsParameters struct {
 
 type AzureInitParameters struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The Azure issuer URL.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
@@ -109,7 +109,7 @@ type AzureInitParameters struct {
 
 type AzureObservation struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The Azure issuer URL.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
@@ -120,7 +120,7 @@ type AzureObservation struct {
 
 type AzureParameters struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The Azure issuer URL.
 	// +kubebuilder:validation:Optional
 	Issuer *string `json:"issuer" tf:"issuer,omitempty"`
@@ -1993,7 +1993,7 @@ type OdbcTreatDecimalAsIntParameters struct {
 
 type OidcInitParameters struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The OIDC issuer URL.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
@@ -2008,7 +2008,7 @@ type OidcInitParameters struct {
 
 type OidcObservation struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The OIDC issuer URL.
 	Issuer *string `json:"issuer,omitempty" tf:"issuer,omitempty"`
 
@@ -2023,7 +2023,7 @@ type OidcObservation struct {
 
 type OidcParameters struct {
 
-	// (String) The Azure issuer URL.
+	// based (GetWebIdentityToken) workload identity federation.
 	// The OIDC issuer URL.
 	// +kubebuilder:validation:Optional
 	Issuer *string `json:"issuer" tf:"issuer,omitempty"`

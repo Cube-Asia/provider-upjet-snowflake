@@ -77,10 +77,9 @@ spec:
               forProvider:
                 properties:
                   allowedRolesList:
-                    description: A set of Snowflake roles that a user can explicitly
-                      consent to using after authenticating. Can only be set when
-                      oauth_use_secondary_roles is set to NONE. For more information
-                      about this resource, see [docs](./account_role).
+                    description: |-
+                      (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
+                      A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
                     items:
                       type: string
                     type: array
@@ -158,10 +157,9 @@ spec:
                   autoscaler.
                 properties:
                   allowedRolesList:
-                    description: A set of Snowflake roles that a user can explicitly
-                      consent to using after authenticating. Can only be set when
-                      oauth_use_secondary_roles is set to NONE. For more information
-                      about this resource, see [docs](./account_role).
+                    description: |-
+                      (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
+                      A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
                     items:
                       type: string
                     type: array
@@ -323,10 +321,9 @@ spec:
               atProvider:
                 properties:
                   allowedRolesList:
-                    description: A set of Snowflake roles that a user can explicitly
-                      consent to using after authenticating. Can only be set when
-                      oauth_use_secondary_roles is set to NONE. For more information
-                      about this resource, see [docs](./account_role).
+                    description: |-
+                      (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
+                      A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
                     items:
                       type: string
                     type: array
@@ -351,6 +348,11 @@ spec:
                     items:
                       properties:
                         allowedRolesList:
+                          description: (Set of String) A set of Snowflake roles that
+                            a user can explicitly consent to using after authenticating.
+                            Can only be set when oauth_use_secondary_roles is set
+                            to NONE. For more information about this resource, see
+                            docs.
                           items:
                             properties:
                               default:

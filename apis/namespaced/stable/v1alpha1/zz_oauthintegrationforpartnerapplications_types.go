@@ -396,6 +396,8 @@ type OauthIntegrationForPartnerApplicationsDescribeOutputOauthTokenEndpointParam
 }
 
 type OauthIntegrationForPartnerApplicationsDescribeOutputObservation struct {
+
+	// (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
 	AllowedRolesList []DescribeOutputAllowedRolesListObservation `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
 
 	// (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
@@ -455,6 +457,7 @@ type OauthIntegrationForPartnerApplicationsDescribeOutputParameters struct {
 
 type OauthIntegrationForPartnerApplicationsInitParameters struct {
 
+	// (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
 	// +listType=set
 	AllowedRolesList []*string `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
@@ -495,6 +498,7 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 
 type OauthIntegrationForPartnerApplicationsObservation struct {
 
+	// (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
 	// +listType=set
 	AllowedRolesList []*string `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
@@ -550,6 +554,7 @@ type OauthIntegrationForPartnerApplicationsObservation struct {
 
 type OauthIntegrationForPartnerApplicationsParameters struct {
 
+	// (Set of String) A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
 	// +kubebuilder:validation:Optional
 	// +listType=set

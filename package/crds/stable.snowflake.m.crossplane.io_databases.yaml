@@ -82,12 +82,14 @@ spec:
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
                   defaultNotebookComputePoolCpu:
-                    description: Sets the preferred CPU compute pool used for Notebooks
-                      on CPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+                      Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
                     type: string
                   defaultNotebookComputePoolGpu:
-                    description: Sets the preferred GPU compute pool used for Notebooks
-                      on GPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+                      Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
                     type: string
                   dropPublicSchemaOnCreation:
                     description: |-
@@ -241,12 +243,14 @@ spec:
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
                   defaultNotebookComputePoolCpu:
-                    description: Sets the preferred CPU compute pool used for Notebooks
-                      on CPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+                      Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
                     type: string
                   defaultNotebookComputePoolGpu:
-                    description: Sets the preferred GPU compute pool used for Notebooks
-                      on GPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+                      Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
                     type: string
                   dropPublicSchemaOnCreation:
                     description: |-
@@ -450,12 +454,14 @@ spec:
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
                   defaultNotebookComputePoolCpu:
-                    description: Sets the preferred CPU compute pool used for Notebooks
-                      on CPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+                      Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
                     type: string
                   defaultNotebookComputePoolGpu:
-                    description: Sets the preferred GPU compute pool used for Notebooks
-                      on GPU Container Runtime.
+                    description: |-
+                      (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+                      Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
                     type: string
                   dropPublicSchemaOnCreation:
                     description: |-

@@ -174,21 +174,21 @@ type GrantPrivilegesToAccountRoleParameters struct {
 
 type InheritedInitParameters struct {
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the account object on which an inherited privilege will be granted. Valid values are (case-insensitive): `USERS` | `RESOURCE MONITORS` | `WAREHOUSES` | `COMPUTE POOLS` | `DATABASES` | `INTEGRATIONS` | `CONNECTIONS` | `FAILOVER GROUPS` | `REPLICATION GROUPS` | `EXTERNAL VOLUMES`.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type InheritedObservation struct {
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the account object on which an inherited privilege will be granted. Valid values are (case-insensitive): `USERS` | `RESOURCE MONITORS` | `WAREHOUSES` | `COMPUTE POOLS` | `DATABASES` | `INTEGRATIONS` | `CONNECTIONS` | `FAILOVER GROUPS` | `REPLICATION GROUPS` | `EXTERNAL VOLUMES`.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type InheritedParameters struct {
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the account object on which an inherited privilege will be granted. Valid values are (case-insensitive): `USERS` | `RESOURCE MONITORS` | `WAREHOUSES` | `COMPUTE POOLS` | `DATABASES` | `INTEGRATIONS` | `CONNECTIONS` | `FAILOVER GROUPS` | `REPLICATION GROUPS` | `EXTERNAL VOLUMES`.
 	// +kubebuilder:validation:Optional
 	ObjectTypePlural *string `json:"objectTypePlural" tf:"object_type_plural,omitempty"`
@@ -196,6 +196,7 @@ type InheritedParameters struct {
 
 type OnAccountObjectInitParameters struct {
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []InheritedInitParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -203,13 +204,14 @@ type OnAccountObjectInitParameters struct {
 	// The fully qualified name of the object on which privileges will be granted.
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the account object on which privileges will be granted. Valid values are: `USER` | `RESOURCE MONITOR` | `WAREHOUSE` | `COMPUTE POOL` | `DATABASE` | `INTEGRATION` | `CONNECTION` | `FAILOVER GROUP` | `REPLICATION GROUP` | `EXTERNAL VOLUME` | `SNOWFLAKE INTELLIGENCE`
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 }
 
 type OnAccountObjectObservation struct {
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []InheritedObservation `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -217,13 +219,14 @@ type OnAccountObjectObservation struct {
 	// The fully qualified name of the object on which privileges will be granted.
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the account object on which privileges will be granted. Valid values are: `USER` | `RESOURCE MONITOR` | `WAREHOUSE` | `COMPUTE POOL` | `DATABASE` | `INTEGRATION` | `CONNECTION` | `FAILOVER GROUP` | `REPLICATION GROUP` | `EXTERNAL VOLUME` | `SNOWFLAKE INTELLIGENCE`
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 }
 
 type OnAccountObjectParameters struct {
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	// +kubebuilder:validation:Optional
 	Inherited []InheritedParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`
@@ -233,7 +236,7 @@ type OnAccountObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the account object on which privileges will be granted. Valid values are: `USER` | `RESOURCE MONITOR` | `WAREHOUSE` | `COMPUTE POOL` | `DATABASE` | `INTEGRATION` | `CONNECTION` | `FAILOVER GROUP` | `REPLICATION GROUP` | `EXTERNAL VOLUME` | `SNOWFLAKE INTELLIGENCE`
 	// +kubebuilder:validation:Optional
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
@@ -241,31 +244,34 @@ type OnAccountObjectParameters struct {
 
 type OnSchemaInheritedInitParameters struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all schemas in the account.
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 }
 
 type OnSchemaInheritedObservation struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all schemas in the account.
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 }
 
 type OnSchemaInheritedParameters struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all schemas in the account.
 	// +kubebuilder:validation:Optional
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// +kubebuilder:validation:Optional
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
@@ -281,6 +287,7 @@ type OnSchemaInitParameters struct {
 	// The fully qualified name of the database.
 	FutureSchemasInDatabase *string `json:"futureSchemasInDatabase,omitempty" tf:"future_schemas_in_database,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future schemas in either the account or a database. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []OnSchemaInheritedInitParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -291,33 +298,33 @@ type OnSchemaInitParameters struct {
 
 type OnSchemaObjectAllInitParameters struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
 	// (String)
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS | WORKSPACES.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectAllObservation struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
 	// (String)
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS | WORKSPACES.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectAllParameters struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// +kubebuilder:validation:Optional
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
@@ -325,7 +332,7 @@ type OnSchemaObjectAllParameters struct {
 	// +kubebuilder:validation:Optional
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS | WORKSPACES.
 	// +kubebuilder:validation:Optional
 	ObjectTypePlural *string `json:"objectTypePlural" tf:"object_type_plural,omitempty"`
@@ -333,33 +340,33 @@ type OnSchemaObjectAllParameters struct {
 
 type OnSchemaObjectFutureInitParameters struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
 	// (String)
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | SECRETS | SEMANTIC VIEWS | SERVICES | SEQUENCES | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TASKS | VIEWS | WORKSPACES.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectFutureObservation struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
 	// (String)
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | SECRETS | SEMANTIC VIEWS | SERVICES | SEQUENCES | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TASKS | VIEWS | WORKSPACES.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectFutureParameters struct {
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// +kubebuilder:validation:Optional
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
@@ -367,7 +374,7 @@ type OnSchemaObjectFutureParameters struct {
 	// +kubebuilder:validation:Optional
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | INTERACTIVE TABLES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | SECRETS | SEMANTIC VIEWS | SERVICES | SEQUENCES | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TASKS | VIEWS | WORKSPACES.
 	// +kubebuilder:validation:Optional
 	ObjectTypePlural *string `json:"objectTypePlural" tf:"object_type_plural,omitempty"`
@@ -375,10 +382,11 @@ type OnSchemaObjectFutureParameters struct {
 
 type OnSchemaObjectInheritedInitParameters struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all objects of the given type in the account.
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all objects of the given type.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
@@ -386,17 +394,18 @@ type OnSchemaObjectInheritedInitParameters struct {
 	// The fully qualified name of the schema in which the inherited privilege will be granted on all objects of the given type.
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which an inherited privilege will be granted. Valid values are (case-insensitive): `AGENTS` | `AGGREGATION POLICIES` | `ALERTS` | `AUTHENTICATION POLICIES` | `CORTEX SEARCH SERVICES` | `DATA METRIC FUNCTIONS` | `DATASETS` | `DBT PROJECTS` | `DYNAMIC TABLES` | `EVENT TABLES` | `EXTERNAL TABLES` | `FILE FORMATS` | `FUNCTIONS` | `GIT REPOSITORIES` | `HYBRID TABLES` | `IMAGE REPOSITORIES` | `ICEBERG TABLES` | `INTERACTIVE TABLES` | `MASKING POLICIES` | `MATERIALIZED VIEWS` | `MCP SERVERS` | `MODELS` | `MODEL MONITORS` | `NETWORK RULES` | `NOTEBOOKS` | `ONLINE FEATURE TABLES` | `PACKAGES POLICIES` | `PASSWORD POLICIES` | `PIPES` | `PRIVACY POLICIES` | `PROCEDURES` | `PROJECTION POLICIES` | `ROW ACCESS POLICIES` | `SECRETS` | `SEMANTIC VIEWS` | `SERVICES` | `SESSION POLICIES` | `SEQUENCES` | `SNAPSHOTS` | `SNAPSHOT POLICIES` | `SNAPSHOT SETS` | `STAGES` | `STREAMS` | `STREAMLITS` | `TABLES` | `TAGS` | `TASKS` | `VIEWS` | `WORKSPACES`.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectInheritedObservation struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all objects of the given type in the account.
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all objects of the given type.
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
 
@@ -404,18 +413,19 @@ type OnSchemaObjectInheritedObservation struct {
 	// The fully qualified name of the schema in which the inherited privilege will be granted on all objects of the given type.
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which an inherited privilege will be granted. Valid values are (case-insensitive): `AGENTS` | `AGGREGATION POLICIES` | `ALERTS` | `AUTHENTICATION POLICIES` | `CORTEX SEARCH SERVICES` | `DATA METRIC FUNCTIONS` | `DATASETS` | `DBT PROJECTS` | `DYNAMIC TABLES` | `EVENT TABLES` | `EXTERNAL TABLES` | `FILE FORMATS` | `FUNCTIONS` | `GIT REPOSITORIES` | `HYBRID TABLES` | `IMAGE REPOSITORIES` | `ICEBERG TABLES` | `INTERACTIVE TABLES` | `MASKING POLICIES` | `MATERIALIZED VIEWS` | `MCP SERVERS` | `MODELS` | `MODEL MONITORS` | `NETWORK RULES` | `NOTEBOOKS` | `ONLINE FEATURE TABLES` | `PACKAGES POLICIES` | `PASSWORD POLICIES` | `PIPES` | `PRIVACY POLICIES` | `PROCEDURES` | `PROJECTION POLICIES` | `ROW ACCESS POLICIES` | `SECRETS` | `SEMANTIC VIEWS` | `SERVICES` | `SESSION POLICIES` | `SEQUENCES` | `SNAPSHOTS` | `SNAPSHOT POLICIES` | `SNAPSHOT SETS` | `STAGES` | `STREAMS` | `STREAMLITS` | `TABLES` | `TAGS` | `TASKS` | `VIEWS` | `WORKSPACES`.
 	ObjectTypePlural *string `json:"objectTypePlural,omitempty" tf:"object_type_plural,omitempty"`
 }
 
 type OnSchemaObjectInheritedParameters struct {
 
+	// (Boolean) If true, the inherited privilege will be granted on all schemas in the account.
 	// If true, the inherited privilege will be granted on all objects of the given type in the account.
 	// +kubebuilder:validation:Optional
 	InAccount *bool `json:"inAccount,omitempty" tf:"in_account,omitempty"`
 
-	// (String)
+	// (String) The fully qualified name of the database in which the inherited privilege will be granted on all schemas.
 	// The fully qualified name of the database in which the inherited privilege will be granted on all objects of the given type.
 	// +kubebuilder:validation:Optional
 	InDatabase *string `json:"inDatabase,omitempty" tf:"in_database,omitempty"`
@@ -425,7 +435,7 @@ type OnSchemaObjectInheritedParameters struct {
 	// +kubebuilder:validation:Optional
 	InSchema *string `json:"inSchema,omitempty" tf:"in_schema,omitempty"`
 
-	// (String) The plural object type of the schema object on which privileges will be granted. Valid values are: AGENTS | AGGREGATION POLICIES | ALERTS | AUTHENTICATION POLICIES | CORTEX SEARCH SERVICES | DATA METRIC FUNCTIONS | DATASETS | DBT PROJECTS | DYNAMIC TABLES | EVENT TABLES | EXTERNAL TABLES | FILE FORMATS | FUNCTIONS | GIT REPOSITORIES | HYBRID TABLES | IMAGE REPOSITORIES | ICEBERG TABLES | MASKING POLICIES | MATERIALIZED VIEWS | MCP SERVERS | MODELS | MODEL MONITORS | NETWORK RULES | NOTEBOOKS | ONLINE FEATURE TABLES | PACKAGES POLICIES | PASSWORD POLICIES | PIPES | PRIVACY POLICIES | PROCEDURES | PROJECTION POLICIES | ROW ACCESS POLICIES | SECRETS | SEMANTIC VIEWS | SERVICES | SESSION POLICIES | SEQUENCES | SNAPSHOTS | SNAPSHOT POLICIES | SNAPSHOT SETS | STAGES | STREAMS | STREAMLITS | TABLES | TAGS | TASKS | VIEWS.
+	// insensitive): USERS | RESOURCE MONITORS | WAREHOUSES | COMPUTE POOLS | DATABASES | INTEGRATIONS | CONNECTIONS | FAILOVER GROUPS | REPLICATION GROUPS | EXTERNAL VOLUMES.
 	// The plural object type of the schema object on which an inherited privilege will be granted. Valid values are (case-insensitive): `AGENTS` | `AGGREGATION POLICIES` | `ALERTS` | `AUTHENTICATION POLICIES` | `CORTEX SEARCH SERVICES` | `DATA METRIC FUNCTIONS` | `DATASETS` | `DBT PROJECTS` | `DYNAMIC TABLES` | `EVENT TABLES` | `EXTERNAL TABLES` | `FILE FORMATS` | `FUNCTIONS` | `GIT REPOSITORIES` | `HYBRID TABLES` | `IMAGE REPOSITORIES` | `ICEBERG TABLES` | `INTERACTIVE TABLES` | `MASKING POLICIES` | `MATERIALIZED VIEWS` | `MCP SERVERS` | `MODELS` | `MODEL MONITORS` | `NETWORK RULES` | `NOTEBOOKS` | `ONLINE FEATURE TABLES` | `PACKAGES POLICIES` | `PASSWORD POLICIES` | `PIPES` | `PRIVACY POLICIES` | `PROCEDURES` | `PROJECTION POLICIES` | `ROW ACCESS POLICIES` | `SECRETS` | `SEMANTIC VIEWS` | `SERVICES` | `SESSION POLICIES` | `SEQUENCES` | `SNAPSHOTS` | `SNAPSHOT POLICIES` | `SNAPSHOT SETS` | `STAGES` | `STREAMS` | `STREAMLITS` | `TABLES` | `TAGS` | `TASKS` | `VIEWS` | `WORKSPACES`.
 	// +kubebuilder:validation:Optional
 	ObjectTypePlural *string `json:"objectTypePlural" tf:"object_type_plural,omitempty"`
@@ -441,6 +451,7 @@ type OnSchemaObjectInitParameters struct {
 	// Configures the privilege to be granted on future objects in either a database or schema.
 	Future []OnSchemaObjectFutureInitParameters `json:"future,omitempty" tf:"future,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future objects of a given type in the account, a database, or a schema. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []OnSchemaObjectInheritedInitParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -448,7 +459,7 @@ type OnSchemaObjectInitParameters struct {
 	// The fully qualified name of the object on which privileges will be granted.
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the schema object on which privileges will be granted. Valid values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATASET | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXPERIMENT | EXTERNAL TABLE | FILE FORMAT | FUNCTION | GATEWAY | GIT REPOSITORY | HYBRID TABLE | IMAGE REPOSITORY | ICEBERG TABLE | INTERACTIVE TABLE | JOIN POLICY | MASKING POLICY | MATERIALIZED VIEW | MCP SERVER | MODEL | MODEL MONITOR | NETWORK RULE | NOTEBOOK | NOTEBOOK PROJECT | ONLINE FEATURE TABLE | PACKAGES POLICY | PASSWORD POLICY | PIPE | PRIVACY POLICY | PROCEDURE | PROJECTION POLICY | ROW ACCESS POLICY | SECRET | SEMANTIC VIEW | SERVICE | SESSION POLICY | SEQUENCE | SNAPSHOT | SNAPSHOT POLICY | SNAPSHOT SET | STAGE | STORAGE LIFECYCLE POLICY | STREAM | STREAMLIT | TABLE | TAG | TASK | VIEW | WORKSPACE
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 }
@@ -463,6 +474,7 @@ type OnSchemaObjectObservation struct {
 	// Configures the privilege to be granted on future objects in either a database or schema.
 	Future []OnSchemaObjectFutureObservation `json:"future,omitempty" tf:"future,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future objects of a given type in the account, a database, or a schema. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []OnSchemaObjectInheritedObservation `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -470,7 +482,7 @@ type OnSchemaObjectObservation struct {
 	// The fully qualified name of the object on which privileges will be granted.
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the schema object on which privileges will be granted. Valid values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATASET | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXPERIMENT | EXTERNAL TABLE | FILE FORMAT | FUNCTION | GATEWAY | GIT REPOSITORY | HYBRID TABLE | IMAGE REPOSITORY | ICEBERG TABLE | INTERACTIVE TABLE | JOIN POLICY | MASKING POLICY | MATERIALIZED VIEW | MCP SERVER | MODEL | MODEL MONITOR | NETWORK RULE | NOTEBOOK | NOTEBOOK PROJECT | ONLINE FEATURE TABLE | PACKAGES POLICY | PASSWORD POLICY | PIPE | PRIVACY POLICY | PROCEDURE | PROJECTION POLICY | ROW ACCESS POLICY | SECRET | SEMANTIC VIEW | SERVICE | SESSION POLICY | SEQUENCE | SNAPSHOT | SNAPSHOT POLICY | SNAPSHOT SET | STAGE | STORAGE LIFECYCLE POLICY | STREAM | STREAMLIT | TABLE | TAG | TASK | VIEW | WORKSPACE
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 }
@@ -487,6 +499,7 @@ type OnSchemaObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	Future []OnSchemaObjectFutureParameters `json:"future,omitempty" tf:"future,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future objects of a given type in the account, a database, or a schema. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	// +kubebuilder:validation:Optional
 	Inherited []OnSchemaObjectInheritedParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`
@@ -496,7 +509,7 @@ type OnSchemaObjectParameters struct {
 	// +kubebuilder:validation:Optional
 	ObjectName *string `json:"objectName,omitempty" tf:"object_name,omitempty"`
 
-	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME
+	// (String) The object type of the account object on which privileges will be granted. Valid values are: USER | RESOURCE MONITOR | WAREHOUSE | COMPUTE POOL | DATABASE | INTEGRATION | CONNECTION | FAILOVER GROUP | REPLICATION GROUP | EXTERNAL VOLUME | SNOWFLAKE INTELLIGENCE
 	// The object type of the schema object on which privileges will be granted. Valid values are: AGENT | AGGREGATION POLICY | ALERT | AUTHENTICATION POLICY | CORTEX SEARCH SERVICE | DATA METRIC FUNCTION | DATASET | DBT PROJECT | DYNAMIC TABLE | EVENT TABLE | EXPERIMENT | EXTERNAL TABLE | FILE FORMAT | FUNCTION | GATEWAY | GIT REPOSITORY | HYBRID TABLE | IMAGE REPOSITORY | ICEBERG TABLE | INTERACTIVE TABLE | JOIN POLICY | MASKING POLICY | MATERIALIZED VIEW | MCP SERVER | MODEL | MODEL MONITOR | NETWORK RULE | NOTEBOOK | NOTEBOOK PROJECT | ONLINE FEATURE TABLE | PACKAGES POLICY | PASSWORD POLICY | PIPE | PRIVACY POLICY | PROCEDURE | PROJECTION POLICY | ROW ACCESS POLICY | SECRET | SEMANTIC VIEW | SERVICE | SESSION POLICY | SEQUENCE | SNAPSHOT | SNAPSHOT POLICY | SNAPSHOT SET | STAGE | STORAGE LIFECYCLE POLICY | STREAM | STREAMLIT | TABLE | TAG | TASK | VIEW | WORKSPACE
 	// +kubebuilder:validation:Optional
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
@@ -512,6 +525,7 @@ type OnSchemaObservation struct {
 	// The fully qualified name of the database.
 	FutureSchemasInDatabase *string `json:"futureSchemasInDatabase,omitempty" tf:"future_schemas_in_database,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future schemas in either the account or a database. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	Inherited []OnSchemaInheritedObservation `json:"inherited,omitempty" tf:"inherited,omitempty"`
 
@@ -532,6 +546,7 @@ type OnSchemaParameters struct {
 	// +kubebuilder:validation:Optional
 	FutureSchemasInDatabase *string `json:"futureSchemasInDatabase,omitempty" tf:"future_schemas_in_database,omitempty"`
 
+	// (Block List, Max: 1) Configures an inherited privilege to be granted on all current and future account objects of a given type in the account. See Inherited grants for more details. This field can be only used when INHERITED_GRANTS option is specified in provider block in the experimental_features_enabled field. (see below for nested schema)
 	// Configures an inherited privilege to be granted on all current and future schemas in either the account or a database. See [Inherited grants](https://docs.snowflake.com/en/user-guide/inherited-grants-using) for more details. This field can be only used when `INHERITED_GRANTS` option is specified in provider block in the [`experimental_features_enabled`](../#experimental_features_enabled-1) field.
 	// +kubebuilder:validation:Optional
 	Inherited []OnSchemaInheritedParameters `json:"inherited,omitempty" tf:"inherited,omitempty"`

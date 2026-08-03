@@ -204,7 +204,7 @@ spec:
                                 type: string
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
                                 type: string
                             type: object
@@ -217,7 +217,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The Azure issuer URL.
                                 type: string
                               subject:
@@ -248,7 +248,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The OIDC issuer URL.
                                 type: string
                               oidcAudienceList:
@@ -732,7 +732,7 @@ spec:
                                 type: string
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
                                 type: string
                             type: object
@@ -745,7 +745,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The Azure issuer URL.
                                 type: string
                               subject:
@@ -776,7 +776,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The OIDC issuer URL.
                                 type: string
                               oidcAudienceList:
@@ -1338,7 +1338,7 @@ spec:
                                 type: string
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The AWS issuer URL. Required for JWT-based (GetWebIdentityToken) workload identity federation.
                                 type: string
                             type: object
@@ -1351,7 +1351,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The Azure issuer URL.
                                 type: string
                               subject:
@@ -1382,7 +1382,7 @@ spec:
                             properties:
                               issuer:
                                 description: |-
-                                  (String) The Azure issuer URL.
+                                  based (GetWebIdentityToken) workload identity federation.
                                   The OIDC issuer URL.
                                 type: string
                               oidcAudienceList:

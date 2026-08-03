@@ -466,6 +466,7 @@ type StageExternalS3DirectoryInitParameters struct {
 	// Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
+	// refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`
 
@@ -484,6 +485,7 @@ type StageExternalS3DirectoryObservation struct {
 	// Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
+	// refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`
 
@@ -503,6 +505,7 @@ type StageExternalS3DirectoryParameters struct {
 	// +kubebuilder:validation:Optional
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
+	// refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
 	// +kubebuilder:validation:Optional
 	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`

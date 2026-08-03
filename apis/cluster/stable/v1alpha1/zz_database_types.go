@@ -31,9 +31,11 @@ type DatabaseInitParameters struct {
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
 
+	// (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
 
+	// (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
@@ -124,9 +126,11 @@ type DatabaseObservation struct {
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
 
+	// (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
 
+	// (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
@@ -228,10 +232,12 @@ type DatabaseParameters struct {
 	// +kubebuilder:validation:Optional
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
 
+	// (String) Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
 	// +kubebuilder:validation:Optional
 	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
 
+	// (String) Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
 	// +kubebuilder:validation:Optional
 	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`

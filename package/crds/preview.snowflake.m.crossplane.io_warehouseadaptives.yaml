@@ -82,7 +82,7 @@ spec:
                     type: integer
                   resourceMonitor:
                     description: |-
-                      (String)
+                      (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
                       Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
                     type: string
                   statementQueuedTimeoutInSeconds:
@@ -129,7 +129,7 @@ spec:
                     type: integer
                   resourceMonitor:
                     description: |-
-                      (String)
+                      (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
                       Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
                     type: string
                   statementQueuedTimeoutInSeconds:
@@ -289,7 +289,7 @@ spec:
                     type: integer
                   resourceMonitor:
                     description: |-
-                      (String)
+                      (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
                       Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
                     type: string
                   showOutput:
@@ -353,7 +353,9 @@ spec:
                           description: (Number)
                           type: number
                         resourceMonitor:
-                          description: (String)
+                          description: (String) Specifies the name of a resource monitor
+                            that is explicitly assigned to the adaptive warehouse.
+                            For more information about this resource, see docs.
                           type: string
                         resumedOn:
                           description: (String)

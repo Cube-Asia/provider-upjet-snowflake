@@ -73,7 +73,7 @@ type TagInitParameters struct {
 	// Specifies what happens when there is a conflict between the values of [propagated tags](https://docs.snowflake.com/en/user-guide/object-tagging/propagation).
 	OnConflict []OnConflictInitParameters `json:"onConflict,omitempty" tf:"on_conflict,omitempty"`
 
-	// (List of String) Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when on_conflict.allowed_values_sequence is used — the first matching value in the sequence wins. Use this instead of allowed_values when order matters. Conflicts with allowed_values and no_allowed_values.
+	// in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	// Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when `on_conflict.allowed_values_sequence` is used — the first matching value in the sequence wins. Use this instead of `allowed_values` when order matters. Conflicts with `allowed_values` and `no_allowed_values`. Note: transitioning from `allowed_values` to `ordered_allowed_values` always plans an update-in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	OrderedAllowedValues []*string `json:"orderedAllowedValues,omitempty" tf:"ordered_allowed_values,omitempty"`
 
@@ -117,7 +117,7 @@ type TagObservation struct {
 	// Specifies what happens when there is a conflict between the values of [propagated tags](https://docs.snowflake.com/en/user-guide/object-tagging/propagation).
 	OnConflict []OnConflictObservation `json:"onConflict,omitempty" tf:"on_conflict,omitempty"`
 
-	// (List of String) Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when on_conflict.allowed_values_sequence is used — the first matching value in the sequence wins. Use this instead of allowed_values when order matters. Conflicts with allowed_values and no_allowed_values.
+	// in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	// Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when `on_conflict.allowed_values_sequence` is used — the first matching value in the sequence wins. Use this instead of `allowed_values` when order matters. Conflicts with `allowed_values` and `no_allowed_values`. Note: transitioning from `allowed_values` to `ordered_allowed_values` always plans an update-in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	OrderedAllowedValues []*string `json:"orderedAllowedValues,omitempty" tf:"ordered_allowed_values,omitempty"`
 
@@ -168,7 +168,7 @@ type TagParameters struct {
 	// +kubebuilder:validation:Optional
 	OnConflict []OnConflictParameters `json:"onConflict,omitempty" tf:"on_conflict,omitempty"`
 
-	// (List of String) Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when on_conflict.allowed_values_sequence is used — the first matching value in the sequence wins. Use this instead of allowed_values when order matters. Conflicts with allowed_values and no_allowed_values.
+	// in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	// Ordered list of allowed values for the tag. The order is preserved in Snowflake and is significant when `on_conflict.allowed_values_sequence` is used — the first matching value in the sequence wins. Use this instead of `allowed_values` when order matters. Conflicts with `allowed_values` and `no_allowed_values`. Note: transitioning from `allowed_values` to `ordered_allowed_values` always plans an update-in-place for this field, even when the configured order already matches the order stored in Snowflake.
 	// +kubebuilder:validation:Optional
 	OrderedAllowedValues []*string `json:"orderedAllowedValues,omitempty" tf:"ordered_allowed_values,omitempty"`

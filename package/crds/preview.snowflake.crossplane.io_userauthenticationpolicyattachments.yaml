@@ -76,7 +76,7 @@ spec:
                 properties:
                   authenticationPolicyName:
                     description: |-
-                      (String) Fully qualified name of the authentication policy
+                      (String) Fully qualified name of the authentication policy.
                       Fully qualified name of the authentication policy.
                     type: string
                 required:
@@ -189,7 +189,7 @@ spec:
                 properties:
                   authenticationPolicyName:
                     description: |-
-                      (String) Fully qualified name of the authentication policy
+                      (String) Fully qualified name of the authentication policy.
                       Fully qualified name of the authentication policy.
                     type: string
                   id:

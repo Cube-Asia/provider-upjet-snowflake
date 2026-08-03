@@ -75,7 +75,7 @@ type WarehouseAdaptiveInitParameters struct {
 	// Specifies the query throughput multiplier for the adaptive warehouse.
 	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
 
-	// (String)
+	// (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
 	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
 	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
@@ -113,7 +113,7 @@ type WarehouseAdaptiveObservation struct {
 	// Specifies the query throughput multiplier for the adaptive warehouse.
 	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
 
-	// (String)
+	// (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
 	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
 	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
@@ -151,7 +151,7 @@ type WarehouseAdaptiveParameters struct {
 	// +kubebuilder:validation:Optional
 	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
 
-	// (String)
+	// (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
 	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
 	// +kubebuilder:validation:Optional
 	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
@@ -232,7 +232,7 @@ type WarehouseAdaptiveShowOutputObservation struct {
 	// (Number)
 	Quiescing *float64 `json:"quiescing,omitempty" tf:"quiescing,omitempty"`
 
-	// (String)
+	// (String) Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see docs.
 	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
 	// (String)

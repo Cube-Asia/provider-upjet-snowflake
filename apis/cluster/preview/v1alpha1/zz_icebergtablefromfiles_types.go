@@ -252,7 +252,7 @@ type IcebergTableFromFilesShowOutputObservation struct {
 	// (String)
 	OwnerRoleType *string `json:"ownerRoleType,omitempty" tf:"owner_role_type,omitempty"`
 
-	// (String)
+	// (List of Object) (see below for nested schema)
 	PartitionSpecs []ShowOutputPartitionSpecsObservation `json:"partitionSpecs,omitempty" tf:"partition_specs,omitempty"`
 
 	// (String)
@@ -339,15 +339,16 @@ type PartitionSpecsFieldsInitParameters struct {
 
 type PartitionSpecsFieldsObservation struct {
 
-	// (String) The ID of this resource.
+	// (Number)
 	FieldID *int64 `json:"fieldId,omitempty" tf:"field_id,omitempty"`
 
 	// (String) Specifies the identifier for the Iceberg table; must be unique for the schema in which the Iceberg table is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
-	// (String) The ID of this resource.
+	// (Number)
 	SourceID *int64 `json:"sourceId,omitempty" tf:"source_id,omitempty"`
 
+	// (String)
 	Transform *string `json:"transform,omitempty" tf:"transform,omitempty"`
 }
 
@@ -382,9 +383,11 @@ type ShowOutputPartitionSpecsInitParameters struct {
 }
 
 type ShowOutputPartitionSpecsObservation struct {
+
+	// (List of Object) (see below for nested schema)
 	Fields []PartitionSpecsFieldsObservation `json:"fields,omitempty" tf:"fields,omitempty"`
 
-	// (String) The ID of this resource.
+	// (Number)
 	SpecID *int64 `json:"specId,omitempty" tf:"spec_id,omitempty"`
 }
 
