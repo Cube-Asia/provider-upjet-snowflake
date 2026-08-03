@@ -36,6 +36,7 @@ func GetProvider() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
+			GrantPrivilegesReadGapWorkaround(),
 		))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
@@ -60,6 +61,7 @@ func GetProviderNamespaced() *ujconfig.Provider {
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
+			GrantPrivilegesReadGapWorkaround(),
 		),
 		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
 			ManagedResourceNamespace: "crossplane-system",
