@@ -65,17 +65,17 @@ CROSSPLANE_VERSION = 2.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/crossplane-contrib
+REGISTRY_ORGS ?= ghcr.io/Cube-Asia
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS ?= ghcr.io/Cube-Asia
 # NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/Cube-Asia
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
@@ -234,7 +234,12 @@ schema-version-diff:
 	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
 	@$(OK) Checking for native state schema version changes
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+resource-support:
+	@$(INFO) Regenerating resource support tables in README.md
+	@./hack/resource_support.sh
+	@$(OK) Regenerating resource support tables in README.md
+
+.PHONY: cobertura submodules fallthrough run crds.clean resource-support
 
 # ====================================================================================
 # Special Targets
@@ -244,6 +249,7 @@ Crossplane Targets:
     cobertura             Generate a coverage report for cobertura applying exclusions on generated files.
     submodules            Update the submodules, such as the common build scripts.
     run                   Run crossplane locally, out-of-cluster. Useful for development.
+    resource-support      Regenerate the Resource Support tables in README.md.
 
 endef
 # The reason CROSSPLANE_MAKE_HELP is used instead of CROSSPLANE_HELP is because the crossplane

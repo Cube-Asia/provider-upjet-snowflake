@@ -1,0 +1,10 @@
+# One Terraform resource name per line (e.g. snowflake_database).
+# Add a resource here once it has been walked through the manual test
+# procedure. Then re-run:
+#   hack/resource_support.sh
+# Blank lines and lines starting with # are ignored.
+
+snowflake_account_role
+snowflake_user
+snowflake_grant_ownership
+snowflake_grant_account_role
