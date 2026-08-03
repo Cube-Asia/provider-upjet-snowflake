@@ -42,6 +42,15 @@ type GrantPrivilegesToShareInitParameters struct {
 	// (String) The fully qualified name of the view on which privileges will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the view on which privileges will be granted. For more information about this resource, see [docs](./view).
 	OnView *string `json:"onView,omitempty" tf:"on_view,omitempty"`
+
+	// reference/sql/grant-privilege-share#syntax
+	// The privileges to grant on the share. See available list of privileges: https://docs.snowflake.com/en/sql-reference/sql/grant-privilege-share#syntax
+	// +listType=set
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+
+	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+	ToShare *string `json:"toShare,omitempty" tf:"to_share,omitempty"`
 }
 
 type GrantPrivilegesToShareObservation struct {
@@ -81,6 +90,10 @@ type GrantPrivilegesToShareObservation struct {
 	// The privileges to grant on the share. See available list of privileges: https://docs.snowflake.com/en/sql-reference/sql/grant-privilege-share#syntax
 	// +listType=set
 	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+
+	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+	ToShare *string `json:"toShare,omitempty" tf:"to_share,omitempty"`
 }
 
 type GrantPrivilegesToShareParameters struct {
@@ -122,9 +135,14 @@ type GrantPrivilegesToShareParameters struct {
 
 	// reference/sql/grant-privilege-share#syntax
 	// The privileges to grant on the share. See available list of privileges: https://docs.snowflake.com/en/sql-reference/sql/grant-privilege-share#syntax
-	// +kubebuilder:validation:Required
+	// +kubebuilder:validation:Optional
 	// +listType=set
-	Privileges []*string `json:"privileges" tf:"privileges,omitempty"`
+	Privileges []*string `json:"privileges,omitempty" tf:"privileges,omitempty"`
+
+	// (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+	// The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+	// +kubebuilder:validation:Optional
+	ToShare *string `json:"toShare,omitempty" tf:"to_share,omitempty"`
 }
 
 // GrantPrivilegesToShareSpec defines the desired state of GrantPrivilegesToShare
@@ -163,8 +181,10 @@ type GrantPrivilegesToShareStatus struct {
 type GrantPrivilegesToShare struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GrantPrivilegesToShareSpec   `json:"spec"`
-	Status            GrantPrivilegesToShareStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.privileges) || (has(self.initProvider) && has(self.initProvider.privileges))",message="spec.forProvider.privileges is a required parameter"
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.toShare) || (has(self.initProvider) && has(self.initProvider.toShare))",message="spec.forProvider.toShare is a required parameter"
+	Spec   GrantPrivilegesToShareSpec   `json:"spec"`
+	Status GrantPrivilegesToShareStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

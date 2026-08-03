@@ -16,6 +16,10 @@ import (
 
 type GrantDatabaseRoleInitParameters struct {
 
+	// (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+	DatabaseRoleName *string `json:"databaseRoleName,omitempty" tf:"database_role_name,omitempty"`
+
 	// child relationship between the roles. For more information about this resource, see docs.
 	// The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
 	ParentDatabaseRoleName *string `json:"parentDatabaseRoleName,omitempty" tf:"parent_database_role_name,omitempty"`
@@ -30,6 +34,10 @@ type GrantDatabaseRoleInitParameters struct {
 }
 
 type GrantDatabaseRoleObservation struct {
+
+	// (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+	DatabaseRoleName *string `json:"databaseRoleName,omitempty" tf:"database_role_name,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -48,6 +56,11 @@ type GrantDatabaseRoleObservation struct {
 }
 
 type GrantDatabaseRoleParameters struct {
+
+	// (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+	// +kubebuilder:validation:Optional
+	DatabaseRoleName *string `json:"databaseRoleName,omitempty" tf:"database_role_name,omitempty"`
 
 	// child relationship between the roles. For more information about this resource, see docs.
 	// The fully qualified name of the parent database role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./database_role).
@@ -101,8 +114,9 @@ type GrantDatabaseRoleStatus struct {
 type GrantDatabaseRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GrantDatabaseRoleSpec   `json:"spec"`
-	Status            GrantDatabaseRoleStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.databaseRoleName) || (has(self.initProvider) && has(self.initProvider.databaseRoleName))",message="spec.forProvider.databaseRoleName is a required parameter"
+	Spec   GrantDatabaseRoleSpec   `json:"spec"`
+	Status GrantDatabaseRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

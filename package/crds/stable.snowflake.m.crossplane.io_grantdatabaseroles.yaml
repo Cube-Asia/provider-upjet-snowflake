@@ -58,6 +58,11 @@ spec:
             properties:
               forProvider:
                 properties:
+                  databaseRoleName:
+                    description: |-
+                      (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+                      The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+                    type: string
                   parentDatabaseRoleName:
                     description: |-
                       child relationship between the roles. For more information about this resource, see docs.
@@ -87,6 +92,11 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  databaseRoleName:
+                    description: |-
+                      (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+                      The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+                    type: string
                   parentDatabaseRoleName:
                     description: |-
                       child relationship between the roles. For more information about this resource, see docs.
@@ -161,11 +171,21 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.databaseRoleName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.databaseRoleName)
+                || (has(self.initProvider) && has(self.initProvider.databaseRoleName))'
           status:
             description: GrantDatabaseRoleStatus defines the observed state of GrantDatabaseRole.
             properties:
               atProvider:
                 properties:
+                  databaseRoleName:
+                    description: |-
+                      (String) The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see docs.
+                      The fully qualified name of the database role which will be granted to share or parent role. For more information about this resource, see [docs](./database_role).
+                    type: string
                   id:
                     description: (String) The ID of this resource.
                     type: string

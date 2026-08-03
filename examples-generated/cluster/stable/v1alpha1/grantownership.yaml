@@ -66,6 +66,7 @@ metadata:
   name: test
 spec:
   forProvider:
+    roleName: role
     userName: username
 
 ---

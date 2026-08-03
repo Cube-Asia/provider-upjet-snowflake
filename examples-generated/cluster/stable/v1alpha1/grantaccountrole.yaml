@@ -9,6 +9,7 @@ metadata:
 spec:
   forProvider:
     parentRoleName: ${snowflake_account_role.parent_role.name}
+    roleName: ${snowflake_account_role.role.name}
 
 ---
 

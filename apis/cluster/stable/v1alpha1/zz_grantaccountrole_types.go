@@ -19,6 +19,10 @@ type GrantAccountRoleInitParameters struct {
 	// The fully qualified name of the parent role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
 	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
 
+	// (String) The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see [docs](./account_role).
+	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
 	// (String) The fully qualified name of the user on which specified role will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the user on which specified role will be granted. For more information about this resource, see [docs](./user).
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
@@ -33,6 +37,10 @@ type GrantAccountRoleObservation struct {
 	// The fully qualified name of the parent role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
 	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
 
+	// (String) The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see [docs](./account_role).
+	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
+
 	// (String) The fully qualified name of the user on which specified role will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the user on which specified role will be granted. For more information about this resource, see [docs](./user).
 	UserName *string `json:"userName,omitempty" tf:"user_name,omitempty"`
@@ -44,6 +52,11 @@ type GrantAccountRoleParameters struct {
 	// The fully qualified name of the parent role which will create a parent-child relationship between the roles. For more information about this resource, see [docs](./account_role).
 	// +kubebuilder:validation:Optional
 	ParentRoleName *string `json:"parentRoleName,omitempty" tf:"parent_role_name,omitempty"`
+
+	// (String) The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see docs.
+	// The fully qualified name of the role which will be granted to the user or parent role. For more information about this resource, see [docs](./account_role).
+	// +kubebuilder:validation:Optional
+	RoleName *string `json:"roleName,omitempty" tf:"role_name,omitempty"`
 
 	// (String) The fully qualified name of the user on which specified role will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the user on which specified role will be granted. For more information about this resource, see [docs](./user).
@@ -87,8 +100,9 @@ type GrantAccountRoleStatus struct {
 type GrantAccountRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GrantAccountRoleSpec   `json:"spec"`
-	Status            GrantAccountRoleStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.roleName) || (has(self.initProvider) && has(self.initProvider.roleName))",message="spec.forProvider.roleName is a required parameter"
+	Spec   GrantAccountRoleSpec   `json:"spec"`
+	Status GrantAccountRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -116,8 +116,11 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
-                required:
-                - privileges
+                  toShare:
+                    description: |-
+                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+                    type: string
                 type: object
               initProvider:
                 description: |-
@@ -166,6 +169,19 @@ spec:
                     description: |-
                       (String) The fully qualified name of the view on which privileges will be granted. For more information about this resource, see docs.
                       The fully qualified name of the view on which privileges will be granted. For more information about this resource, see [docs](./view).
+                    type: string
+                  privileges:
+                    description: |-
+                      reference/sql/grant-privilege-share#syntax
+                      The privileges to grant on the share. See available list of privileges: https://docs.snowflake.com/en/sql-reference/sql/grant-privilege-share#syntax
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
+                  toShare:
+                    description: |-
+                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
                     type: string
                 type: object
               managementPolicies:
@@ -254,6 +270,15 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.privileges is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.privileges)
+                || (has(self.initProvider) && has(self.initProvider.privileges))'
+            - message: spec.forProvider.toShare is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.toShare)
+                || (has(self.initProvider) && has(self.initProvider.toShare))'
           status:
             description: GrantPrivilegesToShareStatus defines the observed state of
               GrantPrivilegesToShare.
@@ -306,6 +331,11 @@ spec:
                       type: string
                     type: array
                     x-kubernetes-list-type: set
+                  toShare:
+                    description: |-
+                      (String) The fully qualified name of the share on which privileges will be granted. For more information about this resource, see docs.
+                      The fully qualified name of the share on which privileges will be granted. For more information about this resource, see [docs](./share).
+                    type: string
                 type: object
               conditions:
                 description: Conditions of the resource.

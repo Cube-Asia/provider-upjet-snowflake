@@ -8,6 +8,7 @@ metadata:
   name: g
 spec:
   forProvider:
+    databaseRoleName: '"${var.database}"."${snowflake_database_role.database_role.name}"'
     parentRoleName: ${snowflake_account_role.parent_role.name}
 
 ---

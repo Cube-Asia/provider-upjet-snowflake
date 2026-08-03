@@ -78,6 +78,11 @@ spec:
                       (String) The fully qualified name of the application on which application role will be granted.
                       The fully qualified name of the application on which application role will be granted.
                     type: string
+                  applicationRoleName:
+                    description: |-
+                      (String) Specifies the identifier for the application role to grant.
+                      Specifies the identifier for the application role to grant.
+                    type: string
                   parentAccountRoleName:
                     description: |-
                       (String) The fully qualified name of the account role on which application role will be granted. For more information about this resource, see docs.
@@ -101,6 +106,11 @@ spec:
                     description: |-
                       (String) The fully qualified name of the application on which application role will be granted.
                       The fully qualified name of the application on which application role will be granted.
+                    type: string
+                  applicationRoleName:
+                    description: |-
+                      (String) Specifies the identifier for the application role to grant.
+                      Specifies the identifier for the application role to grant.
                     type: string
                   parentAccountRoleName:
                     description: |-
@@ -194,6 +204,11 @@ spec:
             required:
             - forProvider
             type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.applicationRoleName is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.applicationRoleName)
+                || (has(self.initProvider) && has(self.initProvider.applicationRoleName))'
           status:
             description: GrantApplicationRoleStatus defines the observed state of
               GrantApplicationRole.
@@ -204,6 +219,11 @@ spec:
                     description: |-
                       (String) The fully qualified name of the application on which application role will be granted.
                       The fully qualified name of the application on which application role will be granted.
+                    type: string
+                  applicationRoleName:
+                    description: |-
+                      (String) Specifies the identifier for the application role to grant.
+                      Specifies the identifier for the application role to grant.
                     type: string
                   id:
                     description: (String) The ID of this resource.

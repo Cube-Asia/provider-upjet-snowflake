@@ -82,6 +82,15 @@ func DatabaseSchemaIdentifier() config.ExternalName {
 // The generated template iterates over sorted keys for deterministic output.
 // All params use else-if (no bare else fallback), safe because these
 // parameters are ExactlyOneOf in the TF schema.
+// Only appropriate when nameField genuinely IS the resource's sole K8s
+// identity. For resources where nameField can repeat across many sibling
+// grants — grant_account_role, grant_application_role, grant_database_role,
+// and grant_privileges_to_share, which can grant a share multiple
+// non-overlapping privilege sets across different on_* targets under one
+// to_share — use a custom NewExternalNameFrom(IdentifierFromProvider, ...)
+// builder instead, see GrantAccountRoleIdentifier, so the field stays a
+// regular, non-omitted spec parameter instead of being forced into the
+// K8s identity.
 //
 // Example:
 //
@@ -113,6 +122,134 @@ func OneOfIdentifier(nameField, prefix string, params map[string]string) config.
 	tmpl.WriteString(`{{ end }}`)
 
 	return config.TemplatedStringAsIdentifier(nameField, tmpl.String())
+}
+
+// normalizeSFObjectID re-quotes a Snowflake object identifier written as a
+// bare name ("role"), an already-quoted name (`"role"`), or a
+// fully-qualified name ("db"."role"), producing the canonical form the TF
+// provider's SDK emits from AccountObjectIdentifier/DatabaseObjectIdentifier
+// .FullyQualifiedName() — each dot-segment wrapped in double quotes.
+// ponytail: splits on every unconditional ".", so a quoted segment
+// containing a literal dot ("my.db"."role") mis-splits. Snowflake object
+// names containing dots are rare; upgrade to a quote-aware splitter if one
+// shows up in practice.
+func normalizeSFObjectID(raw string) string {
+	segments := strings.Split(raw, ".")
+	for i, seg := range segments {
+		segments[i] = `"` + strings.Trim(seg, `"`) + `"`
+	}
+	return strings.Join(segments, ".")
+}
+
+// buildGrantAccountRoleID constructs the import ID for snowflake_grant_account_role
+// from the resource parameters, matching helpers.EncodeSnowflakeID in the TF
+// provider (pkg/resources/grant_account_role.go): '<role>|ROLE|<parent_role>'
+// or '<role>|USER|<user>'.
+func buildGrantAccountRoleID(parameters map[string]any) (string, error) {
+	roleName, _ := parameters["role_name"].(string)
+	if roleName == "" {
+		return "", fmt.Errorf("grant_account_role: role_name is required")
+	}
+	var objectType, target string
+	if v, _ := parameters["parent_role_name"].(string); v != "" {
+		objectType, target = "ROLE", v
+	} else if v, _ := parameters["user_name"].(string); v != "" {
+		objectType, target = "USER", v
+	} else {
+		return "", fmt.Errorf("grant_account_role: neither parent_role_name nor user_name is set")
+	}
+	return strings.Join([]string{normalizeSFObjectID(roleName), objectType, normalizeSFObjectID(target)}, "|"), nil
+}
+
+// GrantAccountRoleIdentifier returns an ExternalName for snowflake_grant_account_role.
+// No field is omitted from spec.forProvider — role_name, parent_role_name, and
+// user_name all stay visible, allowing multiple grants to share a role_name
+// (matching the TF for_each pattern) since the K8s identity is decoupled from
+// any single field.
+func GrantAccountRoleIdentifier() config.ExternalName {
+	return config.NewExternalNameFrom(config.IdentifierFromProvider,
+		config.WithGetIDFn(func(fn config.GetIDFn, ctx context.Context, externalName string, parameters map[string]any, providerConfig map[string]any) (string, error) {
+			if id, err := buildGrantAccountRoleID(parameters); err == nil && id != "" {
+				return id, nil
+			}
+			return fn(ctx, externalName, parameters, providerConfig)
+		}),
+	)
+}
+
+// buildGrantApplicationRoleID constructs the import ID for
+// snowflake_grant_application_role, matching helpers.EncodeResourceIdentifier
+// in the TF provider (pkg/resources/grant_application_role.go):
+// '<app_role_fqn>|ACCOUNT_ROLE|<parent_account_role>' or
+// '<app_role_fqn>|APPLICATION|<application>'.
+func buildGrantApplicationRoleID(parameters map[string]any) (string, error) {
+	appRoleName, _ := parameters["application_role_name"].(string)
+	if appRoleName == "" {
+		return "", fmt.Errorf("grant_application_role: application_role_name is required")
+	}
+	var objectType, target string
+	if v, _ := parameters["parent_account_role_name"].(string); v != "" {
+		objectType, target = "ACCOUNT_ROLE", v
+	} else if v, _ := parameters["application_name"].(string); v != "" {
+		objectType, target = "APPLICATION", v
+	} else {
+		return "", fmt.Errorf("grant_application_role: neither parent_account_role_name nor application_name is set")
+	}
+	return strings.Join([]string{normalizeSFObjectID(appRoleName), objectType, normalizeSFObjectID(target)}, "|"), nil
+}
+
+// GrantApplicationRoleIdentifier returns an ExternalName for
+// snowflake_grant_application_role. See GrantAccountRoleIdentifier for why no
+// field is omitted.
+func GrantApplicationRoleIdentifier() config.ExternalName {
+	return config.NewExternalNameFrom(config.IdentifierFromProvider,
+		config.WithGetIDFn(func(fn config.GetIDFn, ctx context.Context, externalName string, parameters map[string]any, providerConfig map[string]any) (string, error) {
+			if id, err := buildGrantApplicationRoleID(parameters); err == nil && id != "" {
+				return id, nil
+			}
+			return fn(ctx, externalName, parameters, providerConfig)
+		}),
+	)
+}
+
+// buildGrantDatabaseRoleID constructs the import ID for
+// snowflake_grant_database_role, matching helpers.EncodeResourceIdentifier in
+// the TF provider (pkg/resources/grant_database_role.go):
+// '<db_role_fqn>|ROLE|<parent_role>' or
+// '<db_role_fqn>|DATABASE ROLE|<parent_db_role>' or
+// '<db_role_fqn>|SHARE|<share>'.
+// Note: sdk.ObjectTypeDatabaseRole.String() is "DATABASE ROLE" (space), not
+// "DATABASE_ROLE" — verified against pkg/sdk/object_types.go.
+func buildGrantDatabaseRoleID(parameters map[string]any) (string, error) {
+	dbRoleName, _ := parameters["database_role_name"].(string)
+	if dbRoleName == "" {
+		return "", fmt.Errorf("grant_database_role: database_role_name is required")
+	}
+	var objectType, target string
+	if v, _ := parameters["parent_role_name"].(string); v != "" {
+		objectType, target = "ROLE", v
+	} else if v, _ := parameters["parent_database_role_name"].(string); v != "" {
+		objectType, target = "DATABASE ROLE", v
+	} else if v, _ := parameters["share_name"].(string); v != "" {
+		objectType, target = "SHARE", v
+	} else {
+		return "", fmt.Errorf("grant_database_role: none of parent_role_name, parent_database_role_name, share_name is set")
+	}
+	return strings.Join([]string{normalizeSFObjectID(dbRoleName), objectType, normalizeSFObjectID(target)}, "|"), nil
+}
+
+// GrantDatabaseRoleIdentifier returns an ExternalName for
+// snowflake_grant_database_role. See GrantAccountRoleIdentifier for why no
+// field is omitted.
+func GrantDatabaseRoleIdentifier() config.ExternalName {
+	return config.NewExternalNameFrom(config.IdentifierFromProvider,
+		config.WithGetIDFn(func(fn config.GetIDFn, ctx context.Context, externalName string, parameters map[string]any, providerConfig map[string]any) (string, error) {
+			if id, err := buildGrantDatabaseRoleID(parameters); err == nil && id != "" {
+				return id, nil
+			}
+			return fn(ctx, externalName, parameters, providerConfig)
+		}),
+	)
 }
 
 // =============================================================================
@@ -465,6 +602,80 @@ func buildGrantPrivilegesToDatabaseRoleID(parameters map[string]any) (string, er
 	return "", fmt.Errorf("grant_privileges_to_database_role: one of on_database, on_schema, or on_schema_object is required")
 }
 
+// GrantPrivilegesToShareIdentifier returns an ExternalName for
+// snowflake_grant_privileges_to_share.
+//
+// The TF resource ID is a compound, variable-length pipe-separated string:
+//
+//	<to_share>|<privileges>|<grant_type>|<grant_identifier>
+//
+// No field is omitted from spec.forProvider — to_share stays as a regular
+// spec parameter, allowing multiple grants under the same share (different
+// on_* targets, matching the TF for_each pattern).
+func GrantPrivilegesToShareIdentifier() config.ExternalName {
+	return config.NewExternalNameFrom(
+		config.IdentifierFromProvider,
+		config.WithGetIDFn(func(fn config.GetIDFn, ctx context.Context, externalName string, parameters map[string]any, providerConfig map[string]any) (string, error) {
+			if id, err := buildGrantPrivilegesToShareID(parameters); err == nil && id != "" {
+				return id, nil
+			}
+			return fn(ctx, externalName, parameters, providerConfig)
+		}),
+	)
+}
+
+func buildGrantPrivilegesToShareID(parameters map[string]any) (string, error) {
+	shareName, _ := parameters["to_share"].(string)
+	if shareName == "" {
+		return "", fmt.Errorf("grant_privileges_to_share: to_share is required")
+	}
+
+	// Build privileges string (comma-separated sorted list).
+	// ponytail: inline privileges formatting, not reusing grantPrivilegesBaseStr
+	// because share grants don't have with_grant_option or always_apply fields.
+	var privs string
+	if privRaw, ok := parameters["privileges"].([]any); ok && len(privRaw) > 0 {
+		p := make([]string, len(privRaw))
+		for i, v := range privRaw {
+			p[i] = fmt.Sprint(v)
+		}
+		slices.Sort(p)
+		privs = strings.Join(p, ",")
+	}
+	if privs == "" {
+		return "", fmt.Errorf("grant_privileges_to_share: privileges is required")
+	}
+
+	base := fmt.Sprintf("%s|%s", shareName, privs)
+
+	// Check each on_* field (ExactlyOneOf, all string fields).
+	// Values come from spec.forProvider as the user provides them;
+	// the TF provider's SDK handles both bare and quoted forms.
+	if db, _ := parameters["on_database"].(string); db != "" {
+		return fmt.Sprintf("%s|OnDatabase|%s", base, db), nil
+	}
+	if fn, _ := parameters["on_function"].(string); fn != "" {
+		return fmt.Sprintf("%s|OnFunction|%s", base, fn), nil
+	}
+	if s, _ := parameters["on_schema"].(string); s != "" {
+		return fmt.Sprintf("%s|OnSchema|%s", base, s), nil
+	}
+	if t, _ := parameters["on_table"].(string); t != "" {
+		return fmt.Sprintf("%s|OnTable|%s", base, t), nil
+	}
+	if at, _ := parameters["on_all_tables_in_schema"].(string); at != "" {
+		return fmt.Sprintf("%s|OnAllTablesInSchema|%s", base, at), nil
+	}
+	if tag, _ := parameters["on_tag"].(string); tag != "" {
+		return fmt.Sprintf("%s|OnTag|%s", base, tag), nil
+	}
+	if v, _ := parameters["on_view"].(string); v != "" {
+		return fmt.Sprintf("%s|OnView|%s", base, v), nil
+	}
+
+	return "", fmt.Errorf("grant_privileges_to_share: one of on_database, on_function, on_schema, on_table, on_all_tables_in_schema, on_tag, or on_view is required")
+}
+
 // ---------------------------------------------------------------------------
 // External name configurations
 // ---------------------------------------------------------------------------
@@ -532,43 +743,24 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	// snowflake_git_repository: SchemaObjectIdentifier.
 	"snowflake_git_repository": SchemaObjectIdentifier(),
 
-	// snowflake_grant_account_role: compound with conditional grantee type.
-	// ID: '<role_name>|ROLE|<parent_role_name>' or
+	// snowflake_grant_account_role: compound with conditional grantee type,
+	// no field omitted so multiple grants can share role_name (TF for_each
+	// pattern). ID: '<role_name>|ROLE|<parent_role_name>' or
 	//     '<role_name>|USER|<user_name>'.
-	"snowflake_grant_account_role": OneOfIdentifier(
-		"role_name",
-		`"{{ .external_name }}"|`,
-		map[string]string{
-			"parent_role_name": "ROLE",
-			"user_name":        "USER",
-		},
-	),
+	"snowflake_grant_account_role": GrantAccountRoleIdentifier(),
 
-	// snowflake_grant_application_role: compound with conditional grantee type.
+	// snowflake_grant_application_role: compound with conditional grantee
+	// type, no field omitted (see grant_account_role above).
 	// ID: '<app_role_fqn>|ACCOUNT_ROLE|<parent_account_role>' or
 	//     '<app_role_fqn>|APPLICATION|<application>'.
-	"snowflake_grant_application_role": OneOfIdentifier(
-		"application_role_name",
-		`{{ .external_name }}|`,
-		map[string]string{
-			"parent_account_role_name": "ACCOUNT_ROLE",
-			"application_name":         "APPLICATION",
-		},
-	),
+	"snowflake_grant_application_role": GrantApplicationRoleIdentifier(),
 
-	// snowflake_grant_database_role: compound with conditional grantee type.
+	// snowflake_grant_database_role: compound with conditional grantee type,
+	// no field omitted (see grant_account_role above).
 	// ID: '<db_role_fqn>|ROLE|<parent_role>' or
-	//     '<db_role_fqn>|DATABASE_ROLE|<parent_db_role>' or
+	//     '<db_role_fqn>|DATABASE ROLE|<parent_db_role>' or
 	//     '<db_role_fqn>|SHARE|<share>'.
-	"snowflake_grant_database_role": OneOfIdentifier(
-		"database_role_name",
-		`{{ .external_name }}|`,
-		map[string]string{
-			"parent_role_name":          "ROLE",
-			"parent_database_role_name": "DATABASE_ROLE",
-			"share_name":                "SHARE",
-		},
-	),
+	"snowflake_grant_database_role": GrantDatabaseRoleIdentifier(),
 
 	// snowflake_grant_ownership: compound ID with 5-7+ variable parts
 	// (<target_role>|<fqn>|<outbound>|<kind>|<object_data>).
@@ -586,19 +778,10 @@ var ExternalNameConfigs = map[string]config.ExternalName{
 	"snowflake_grant_privileges_to_database_role": GrantPrivilegesToDatabaseRoleIdentifier(),
 
 	// snowflake_grant_privileges_to_share: compound ID with conditional target.
-	// ID: '<share>|<privileges>|OnDatabase|<db>' or OnSchema/OnTable/etc.
-	"snowflake_grant_privileges_to_share": OneOfIdentifier(
-		"to_share",
-		`"{{ .external_name }}"|{{ .parameters.privileges }}|`,
-		map[string]string{
-			"on_database":             "OnDatabase",
-			"on_schema":               "OnSchema",
-			"on_table":                "OnTable",
-			"on_all_tables_in_schema": "OnAllTablesInSchema",
-			"on_tag":                  "OnTag",
-			"on_view":                 "OnView",
-		},
-	),
+	// ID: '<to_share>|<privileges>|OnDatabase|<db>' or OnSchema/OnTable/etc.
+	// Uses custom GrantPrivilegesToShareIdentifier so to_share stays in
+	// spec.forProvider (not omitted), allowing multiple grants per share.
+	"snowflake_grant_privileges_to_share": GrantPrivilegesToShareIdentifier(),
 
 	// snowflake_image_repository: SchemaObjectIdentifier.
 	"snowflake_image_repository": SchemaObjectIdentifier(),

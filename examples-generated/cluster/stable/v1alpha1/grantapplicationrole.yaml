@@ -8,6 +8,7 @@ metadata:
   name: g
 spec:
   forProvider:
+    applicationRoleName: ${local.application_role_identifier}
     parentAccountRoleName: ${snowflake_account_role.role.name}
 
 ---

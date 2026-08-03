@@ -19,6 +19,10 @@ type GrantApplicationRoleInitParameters struct {
 	// The fully qualified name of the application on which application role will be granted.
 	ApplicationName *string `json:"applicationName,omitempty" tf:"application_name,omitempty"`
 
+	// (String) Specifies the identifier for the application role to grant.
+	// Specifies the identifier for the application role to grant.
+	ApplicationRoleName *string `json:"applicationRoleName,omitempty" tf:"application_role_name,omitempty"`
+
 	// (String) The fully qualified name of the account role on which application role will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the account role on which application role will be granted. For more information about this resource, see [docs](./account_role).
 	ParentAccountRoleName *string `json:"parentAccountRoleName,omitempty" tf:"parent_account_role_name,omitempty"`
@@ -29,6 +33,10 @@ type GrantApplicationRoleObservation struct {
 	// (String) The fully qualified name of the application on which application role will be granted.
 	// The fully qualified name of the application on which application role will be granted.
 	ApplicationName *string `json:"applicationName,omitempty" tf:"application_name,omitempty"`
+
+	// (String) Specifies the identifier for the application role to grant.
+	// Specifies the identifier for the application role to grant.
+	ApplicationRoleName *string `json:"applicationRoleName,omitempty" tf:"application_role_name,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -44,6 +52,11 @@ type GrantApplicationRoleParameters struct {
 	// The fully qualified name of the application on which application role will be granted.
 	// +kubebuilder:validation:Optional
 	ApplicationName *string `json:"applicationName,omitempty" tf:"application_name,omitempty"`
+
+	// (String) Specifies the identifier for the application role to grant.
+	// Specifies the identifier for the application role to grant.
+	// +kubebuilder:validation:Optional
+	ApplicationRoleName *string `json:"applicationRoleName,omitempty" tf:"application_role_name,omitempty"`
 
 	// (String) The fully qualified name of the account role on which application role will be granted. For more information about this resource, see docs.
 	// The fully qualified name of the account role on which application role will be granted. For more information about this resource, see [docs](./account_role).
@@ -87,8 +100,9 @@ type GrantApplicationRoleStatus struct {
 type GrantApplicationRole struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              GrantApplicationRoleSpec   `json:"spec"`
-	Status            GrantApplicationRoleStatus `json:"status,omitempty"`
+	// +kubebuilder:validation:XValidation:rule="!('*' in self.managementPolicies || 'Create' in self.managementPolicies || 'Update' in self.managementPolicies) || has(self.forProvider.applicationRoleName) || (has(self.initProvider) && has(self.initProvider.applicationRoleName))",message="spec.forProvider.applicationRoleName is a required parameter"
+	Spec   GrantApplicationRoleSpec   `json:"spec"`
+	Status GrantApplicationRoleStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -11,6 +11,7 @@ spec:
     onDatabase: ${snowflake_database.example.name}
     privileges:
     - USAGE
+    toShare: ${snowflake_share.example.name}
 
 ---
 

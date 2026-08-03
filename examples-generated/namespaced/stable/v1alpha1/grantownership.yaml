@@ -71,6 +71,7 @@ metadata:
   namespace: crossplane-system
 spec:
   forProvider:
+    roleName: role
     userName: username
 
 ---
