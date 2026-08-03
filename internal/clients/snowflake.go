@@ -165,6 +165,28 @@ var configKeys = []string{
 	keyParams,
 }
 
+// buildProviderConfiguration translates the extracted credential map into the
+// terraform.Setup configuration map, JSON-decoding the params key.
+func buildProviderConfiguration(creds map[string]string) (map[string]any, error) {
+	cfg := make(map[string]any, len(configKeys))
+	for _, k := range configKeys {
+		v, ok := creds[k]
+		if !ok {
+			continue
+		}
+		if k != keyParams {
+			cfg[k] = v
+			continue
+		}
+		var params map[string]string
+		if err := json.Unmarshal([]byte(v), &params); err != nil {
+			return nil, errors.Wrap(err, "cannot unmarshal params as JSON map")
+		}
+		cfg[k] = params
+	}
+	return cfg, nil
+}
+
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string, ujprovider *ujconfig.Provider) terraform.SetupFn {
@@ -191,19 +213,9 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 			return ps, errors.Wrap(err, errUnmarshalCredentials)
 		}
 
-		ps.Configuration = make(map[string]any, len(configKeys))
-		for _, k := range configKeys {
-			if v, ok := creds[k]; !ok {
-				continue
-			} else if k == keyParams {
-				var params map[string]string
-				if err := json.Unmarshal([]byte(v), &params); err != nil {
-					return ps, errors.Wrap(err, "cannot unmarshal params as JSON map")
-				}
-				ps.Configuration[k] = params
-			} else {
-				ps.Configuration[k] = v
-			}
+		ps.Configuration, err = buildProviderConfiguration(creds)
+		if err != nil {
+			return ps, err
 		}
 
 		if ujprovider == nil || ujprovider.TerraformProvider == nil {

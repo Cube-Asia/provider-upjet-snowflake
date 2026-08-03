@@ -624,53 +624,53 @@ func GrantPrivilegesToShareIdentifier() config.ExternalName {
 	)
 }
 
+func formatSharePrivileges(parameters map[string]any) string {
+	privRaw, ok := parameters["privileges"].([]any)
+	if !ok || len(privRaw) == 0 {
+		return ""
+	}
+	p := make([]string, len(privRaw))
+	for i, v := range privRaw {
+		p[i] = fmt.Sprint(v)
+	}
+	slices.Sort(p)
+	return strings.Join(p, ",")
+}
+
+// shareOnFields lists the ExactlyOneOf on_* fields for
+// snowflake_grant_privileges_to_share, in the order the TF provider checks
+// them, paired with their ID label.
+var shareOnFields = []struct{ key, label string }{
+	{"on_database", "OnDatabase"},
+	{"on_function", "OnFunction"},
+	{"on_schema", "OnSchema"},
+	{"on_table", "OnTable"},
+	{"on_all_tables_in_schema", "OnAllTablesInSchema"},
+	{"on_tag", "OnTag"},
+	{"on_view", "OnView"},
+}
+
 func buildGrantPrivilegesToShareID(parameters map[string]any) (string, error) {
 	shareName, _ := parameters["to_share"].(string)
 	if shareName == "" {
 		return "", fmt.Errorf("grant_privileges_to_share: to_share is required")
 	}
 
-	// Build privileges string (comma-separated sorted list).
 	// ponytail: inline privileges formatting, not reusing grantPrivilegesBaseStr
 	// because share grants don't have with_grant_option or always_apply fields.
-	var privs string
-	if privRaw, ok := parameters["privileges"].([]any); ok && len(privRaw) > 0 {
-		p := make([]string, len(privRaw))
-		for i, v := range privRaw {
-			p[i] = fmt.Sprint(v)
-		}
-		slices.Sort(p)
-		privs = strings.Join(p, ",")
-	}
+	privs := formatSharePrivileges(parameters)
 	if privs == "" {
 		return "", fmt.Errorf("grant_privileges_to_share: privileges is required")
 	}
 
 	base := fmt.Sprintf("%s|%s", shareName, privs)
 
-	// Check each on_* field (ExactlyOneOf, all string fields).
 	// Values come from spec.forProvider as the user provides them;
 	// the TF provider's SDK handles both bare and quoted forms.
-	if db, _ := parameters["on_database"].(string); db != "" {
-		return fmt.Sprintf("%s|OnDatabase|%s", base, db), nil
-	}
-	if fn, _ := parameters["on_function"].(string); fn != "" {
-		return fmt.Sprintf("%s|OnFunction|%s", base, fn), nil
-	}
-	if s, _ := parameters["on_schema"].(string); s != "" {
-		return fmt.Sprintf("%s|OnSchema|%s", base, s), nil
-	}
-	if t, _ := parameters["on_table"].(string); t != "" {
-		return fmt.Sprintf("%s|OnTable|%s", base, t), nil
-	}
-	if at, _ := parameters["on_all_tables_in_schema"].(string); at != "" {
-		return fmt.Sprintf("%s|OnAllTablesInSchema|%s", base, at), nil
-	}
-	if tag, _ := parameters["on_tag"].(string); tag != "" {
-		return fmt.Sprintf("%s|OnTag|%s", base, tag), nil
-	}
-	if v, _ := parameters["on_view"].(string); v != "" {
-		return fmt.Sprintf("%s|OnView|%s", base, v), nil
+	for _, f := range shareOnFields {
+		if v, _ := parameters[f.key].(string); v != "" {
+			return fmt.Sprintf("%s|%s|%s", base, f.label, v), nil
+		}
 	}
 
 	return "", fmt.Errorf("grant_privileges_to_share: one of on_database, on_function, on_schema, on_table, on_all_tables_in_schema, on_tag, or on_view is required")
