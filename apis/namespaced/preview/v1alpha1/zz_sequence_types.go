@@ -17,22 +17,22 @@ import (
 type SequenceInitParameters struct {
 
 	// (String) (Default: “) Specifies a comment for the sequence.
-	// (Default: “) Specifies a comment for the sequence.
+	// Specifies a comment for the sequence.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Number) (Default: 1) The amount the sequence will increase by each time it is used
-	// (Default: `1`) The amount the sequence will increase by each time it is used
-	Increment *float64 `json:"increment,omitempty" tf:"increment,omitempty"`
+	// The amount the sequence will increase by each time it is used
+	Increment *int64 `json:"increment,omitempty" tf:"increment,omitempty"`
 
 	// (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-	// (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+	// The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
 	Ordering *string `json:"ordering,omitempty" tf:"ordering,omitempty"`
 }
 
 type SequenceObservation struct {
 
 	// (String) (Default: “) Specifies a comment for the sequence.
-	// (Default: “) Specifies a comment for the sequence.
+	// Specifies a comment for the sequence.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) The database in which to create the sequence. Don't use the | character.
@@ -47,15 +47,15 @@ type SequenceObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Number) (Default: 1) The amount the sequence will increase by each time it is used
-	// (Default: `1`) The amount the sequence will increase by each time it is used
-	Increment *float64 `json:"increment,omitempty" tf:"increment,omitempty"`
+	// The amount the sequence will increase by each time it is used
+	Increment *int64 `json:"increment,omitempty" tf:"increment,omitempty"`
 
 	// (Number) The increment sequence interval.
 	// The increment sequence interval.
-	NextValue *float64 `json:"nextValue,omitempty" tf:"next_value,omitempty"`
+	NextValue *int64 `json:"nextValue,omitempty" tf:"next_value,omitempty"`
 
 	// (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-	// (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+	// The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
 	Ordering *string `json:"ordering,omitempty" tf:"ordering,omitempty"`
 
 	// (String) The schema in which to create the sequence. Don't use the | character.
@@ -66,7 +66,7 @@ type SequenceObservation struct {
 type SequenceParameters struct {
 
 	// (String) (Default: “) Specifies a comment for the sequence.
-	// (Default: “) Specifies a comment for the sequence.
+	// Specifies a comment for the sequence.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -76,12 +76,12 @@ type SequenceParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// (Number) (Default: 1) The amount the sequence will increase by each time it is used
-	// (Default: `1`) The amount the sequence will increase by each time it is used
+	// The amount the sequence will increase by each time it is used
 	// +kubebuilder:validation:Optional
-	Increment *float64 `json:"increment,omitempty" tf:"increment,omitempty"`
+	Increment *int64 `json:"increment,omitempty" tf:"increment,omitempty"`
 
 	// (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-	// (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+	// The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
 	// +kubebuilder:validation:Optional
 	Ordering *string `json:"ordering,omitempty" tf:"ordering,omitempty"`
 

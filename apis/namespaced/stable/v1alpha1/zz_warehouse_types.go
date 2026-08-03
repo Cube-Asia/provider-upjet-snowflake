@@ -41,19 +41,19 @@ type MaxConcurrencyLevelParameters struct {
 type WarehouseInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	AutoSuspend *float64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
+	// Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+	AutoSuspend *int64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
 
 	// (String) Specifies a comment for the warehouse.
 	// Specifies a comment for the warehouse.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EnableQueryAcceleration *string `json:"enableQueryAcceleration,omitempty" tf:"enable_query_acceleration,omitempty"`
 
 	// insensitive): 1 | 2. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
@@ -66,19 +66,19 @@ type WarehouseInitParameters struct {
 
 	// (Number) Specifies the maximum number of server clusters for the warehouse.
 	// Specifies the maximum number of server clusters for the warehouse.
-	MaxClusterCount *float64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
+	MaxClusterCount *int64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
 
 	// (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
 	// Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// cluster warehouses).
 	// Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
-	MinClusterCount *float64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
+	MinClusterCount *int64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	QueryAccelerationMaxScaleFactor *float64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
+	// Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+	QueryAccelerationMaxScaleFactor *int64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
 
 	// optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
 	// Specifies the resource constraint for the warehouse. Only available for snowpark-optimized warehouses. For setting generation please use the `generation` field. Please check [Snowflake documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): `MEMORY_1X` | `MEMORY_1X_x86` | `MEMORY_16X` | `MEMORY_16X_x86` | `MEMORY_64X` | `MEMORY_64X_x86`. Gen2 warehouses are not available in all regions. Please consult the [Snowflake Gen2 Region Availability documentation](https://docs.snowflake.com/en/user-guide/warehouses-gen2#region-availability) prior to configuration.
@@ -94,11 +94,11 @@ type WarehouseInitParameters struct {
 
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.
 	// Specifies the size of the virtual warehouse. Valid values are (case-insensitive): `XSMALL` | `X-SMALL` | `SMALL` | `MEDIUM` | `LARGE` | `XLARGE` | `X-LARGE` | `XXLARGE` | `X2LARGE` | `2X-LARGE` | `XXXLARGE` | `X3LARGE` | `3X-LARGE` | `X4LARGE` | `4X-LARGE` | `X5LARGE` | `5X-LARGE` | `X6LARGE` | `6X-LARGE`. Consult [warehouse documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for the details. Note: removing the size from config will result in the resource recreation.
@@ -112,19 +112,19 @@ type WarehouseInitParameters struct {
 type WarehouseObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	AutoSuspend *float64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
+	// Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+	AutoSuspend *int64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
 
 	// (String) Specifies a comment for the warehouse.
 	// Specifies a comment for the warehouse.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EnableQueryAcceleration *string `json:"enableQueryAcceleration,omitempty" tf:"enable_query_acceleration,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -144,23 +144,23 @@ type WarehouseObservation struct {
 
 	// (Number) Specifies the maximum number of server clusters for the warehouse.
 	// Specifies the maximum number of server clusters for the warehouse.
-	MaxClusterCount *float64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
+	MaxClusterCount *int64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
 
 	// (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
 	// Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// cluster warehouses).
 	// Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
-	MinClusterCount *float64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
+	MinClusterCount *int64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW PARAMETERS IN WAREHOUSE for the given warehouse. (see below for nested schema)
 	// Outputs the result of `SHOW PARAMETERS IN WAREHOUSE` for the given warehouse.
 	Parameters []WarehouseParametersObservation `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	QueryAccelerationMaxScaleFactor *float64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
+	// Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+	QueryAccelerationMaxScaleFactor *int64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
 
 	// optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
 	// Specifies the resource constraint for the warehouse. Only available for snowpark-optimized warehouses. For setting generation please use the `generation` field. Please check [Snowflake documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): `MEMORY_1X` | `MEMORY_1X_x86` | `MEMORY_16X` | `MEMORY_16X_x86` | `MEMORY_64X` | `MEMORY_64X_x86`. Gen2 warehouses are not available in all regions. Please consult the [Snowflake Gen2 Region Availability documentation](https://docs.snowflake.com/en/user-guide/warehouses-gen2#region-availability) prior to configuration.
@@ -180,11 +180,11 @@ type WarehouseObservation struct {
 
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.
 	// Specifies the size of the virtual warehouse. Valid values are (case-insensitive): `XSMALL` | `X-SMALL` | `SMALL` | `MEDIUM` | `LARGE` | `XLARGE` | `X-LARGE` | `XXLARGE` | `X2LARGE` | `2X-LARGE` | `XXXLARGE` | `X3LARGE` | `3X-LARGE` | `X4LARGE` | `4X-LARGE` | `X5LARGE` | `5X-LARGE` | `X6LARGE` | `6X-LARGE`. Consult [warehouse documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for the details. Note: removing the size from config will result in the resource recreation.
@@ -198,14 +198,14 @@ type WarehouseObservation struct {
 type WarehouseParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+	// Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
 	// +kubebuilder:validation:Optional
-	AutoSuspend *float64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
+	AutoSuspend *int64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
 
 	// (String) Specifies a comment for the warehouse.
 	// Specifies a comment for the warehouse.
@@ -213,7 +213,7 @@ type WarehouseParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	EnableQueryAcceleration *string `json:"enableQueryAcceleration,omitempty" tf:"enable_query_acceleration,omitempty"`
 
@@ -230,22 +230,22 @@ type WarehouseParameters struct {
 	// (Number) Specifies the maximum number of server clusters for the warehouse.
 	// Specifies the maximum number of server clusters for the warehouse.
 	// +kubebuilder:validation:Optional
-	MaxClusterCount *float64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
+	MaxClusterCount *int64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
 
 	// (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
 	// Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
 	// +kubebuilder:validation:Optional
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// cluster warehouses).
 	// Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
 	// +kubebuilder:validation:Optional
-	MinClusterCount *float64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
+	MinClusterCount *int64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+	// Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
 	// +kubebuilder:validation:Optional
-	QueryAccelerationMaxScaleFactor *float64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
+	QueryAccelerationMaxScaleFactor *int64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
 
 	// optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
 	// Specifies the resource constraint for the warehouse. Only available for snowpark-optimized warehouses. For setting generation please use the `generation` field. Please check [Snowflake documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): `MEMORY_1X` | `MEMORY_1X_x86` | `MEMORY_16X` | `MEMORY_16X_x86` | `MEMORY_64X` | `MEMORY_64X_x86`. Gen2 warehouses are not available in all regions. Please consult the [Snowflake Gen2 Region Availability documentation](https://docs.snowflake.com/en/user-guide/warehouses-gen2#region-availability) prior to configuration.
@@ -265,12 +265,12 @@ type WarehouseParameters struct {
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// +kubebuilder:validation:Optional
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
 	// +kubebuilder:validation:Optional
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.
 	// Specifies the size of the virtual warehouse. Valid values are (case-insensitive): `XSMALL` | `X-SMALL` | `SMALL` | `MEDIUM` | `LARGE` | `XLARGE` | `X-LARGE` | `XXLARGE` | `X2LARGE` | `2X-LARGE` | `XXXLARGE` | `X3LARGE` | `3X-LARGE` | `X4LARGE` | `4X-LARGE` | `X5LARGE` | `5X-LARGE` | `X6LARGE` | `6X-LARGE`. Consult [warehouse documentation](https://docs.snowflake.com/en/sql-reference/sql/create-warehouse#optional-properties-objectproperties) for the details. Note: removing the size from config will result in the resource recreation.
@@ -358,7 +358,7 @@ type WarehouseShowOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-	AutoSuspend *float64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
+	AutoSuspend *int64 `json:"autoSuspend,omitempty" tf:"auto_suspend,omitempty"`
 
 	// (Number)
 	Available *float64 `json:"available,omitempty" tf:"available,omitempty"`
@@ -382,10 +382,10 @@ type WarehouseShowOutputObservation struct {
 	IsDefault *bool `json:"isDefault,omitempty" tf:"is_default,omitempty"`
 
 	// (Number) Specifies the maximum number of server clusters for the warehouse.
-	MaxClusterCount *float64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
+	MaxClusterCount *int64 `json:"maxClusterCount,omitempty" tf:"max_cluster_count,omitempty"`
 
 	// cluster warehouses).
-	MinClusterCount *float64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
+	MinClusterCount *int64 `json:"minClusterCount,omitempty" tf:"min_cluster_count,omitempty"`
 
 	// (String) Identifier for the virtual warehouse; must be unique for your account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -403,10 +403,10 @@ type WarehouseShowOutputObservation struct {
 	Provisioning *float64 `json:"provisioning,omitempty" tf:"provisioning,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-	QueryAccelerationMaxScaleFactor *float64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
+	QueryAccelerationMaxScaleFactor *int64 `json:"queryAccelerationMaxScaleFactor,omitempty" tf:"query_acceleration_max_scale_factor,omitempty"`
 
 	// (Number)
-	Queued *float64 `json:"queued,omitempty" tf:"queued,omitempty"`
+	Queued *int64 `json:"queued,omitempty" tf:"queued,omitempty"`
 
 	// (Number)
 	Quiescing *float64 `json:"quiescing,omitempty" tf:"quiescing,omitempty"`
@@ -421,7 +421,7 @@ type WarehouseShowOutputObservation struct {
 	ResumedOn *string `json:"resumedOn,omitempty" tf:"resumed_on,omitempty"`
 
 	// (Number)
-	Running *float64 `json:"running,omitempty" tf:"running,omitempty"`
+	Running *int64 `json:"running,omitempty" tf:"running,omitempty"`
 
 	// cluster warehouse running in Auto-scale mode. Valid values are (case-insensitive): STANDARD | ECONOMY.
 	ScalingPolicy *string `json:"scalingPolicy,omitempty" tf:"scaling_policy,omitempty"`
@@ -430,7 +430,7 @@ type WarehouseShowOutputObservation struct {
 	Size *string `json:"size,omitempty" tf:"size,omitempty"`
 
 	// (Number)
-	StartedClusters *float64 `json:"startedClusters,omitempty" tf:"started_clusters,omitempty"`
+	StartedClusters *int64 `json:"startedClusters,omitempty" tf:"started_clusters,omitempty"`
 
 	// (String)
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

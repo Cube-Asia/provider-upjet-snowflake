@@ -89,7 +89,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthAllowedScopes:
                     description: |-
                       insensitive): read_api | read_repository | write_repository.
@@ -124,7 +125,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) The OAuth 2.0 token endpoint for the Git repository.
@@ -177,7 +179,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthAllowedScopes:
                     description: |-
                       insensitive): read_api | read_repository | write_repository.
@@ -212,7 +215,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) The OAuth 2.0 token endpoint for the Git repository.
@@ -359,7 +363,8 @@ spec:
                         oauthAccessTokenValidity:
                           description: (Number) Specifies the validity period (in
                             seconds) for the OAuth 2.0 access token.
-                          type: number
+                          format: int64
+                          type: integer
                         oauthAllowedScopes:
                           description: 'insensitive): read_api | read_repository |
                             write_repository.'
@@ -376,7 +381,8 @@ spec:
                         oauthRefreshTokenValidity:
                           description: (Number) Specifies the validity period (in
                             seconds) for the OAuth 2.0 refresh token.
-                          type: number
+                          format: int64
+                          type: integer
                         oauthTokenEndpoint:
                           description: (String) The OAuth 2.0 token endpoint for the
                             Git repository.
@@ -407,7 +413,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthAllowedScopes:
                     description: |-
                       insensitive): read_api | read_repository | write_repository.
@@ -429,7 +436,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
                       Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) The OAuth 2.0 token endpoint for the Git repository.

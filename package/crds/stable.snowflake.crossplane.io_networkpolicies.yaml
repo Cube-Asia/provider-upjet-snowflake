@@ -347,16 +347,20 @@ spec:
                           type: string
                         entriesInAllowedIpList:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         entriesInAllowedNetworkRules:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         entriesInBlockedIpList:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         entriesInBlockedNetworkRules:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             network policy; must be unique for the account in which

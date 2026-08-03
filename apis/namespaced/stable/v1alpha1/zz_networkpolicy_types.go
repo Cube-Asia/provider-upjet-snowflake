@@ -148,16 +148,16 @@ type NetworkPolicyShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	EntriesInAllowedIPList *float64 `json:"entriesInAllowedIpList,omitempty" tf:"entries_in_allowed_ip_list,omitempty"`
+	EntriesInAllowedIPList *int64 `json:"entriesInAllowedIpList,omitempty" tf:"entries_in_allowed_ip_list,omitempty"`
 
 	// (Number)
-	EntriesInAllowedNetworkRules *float64 `json:"entriesInAllowedNetworkRules,omitempty" tf:"entries_in_allowed_network_rules,omitempty"`
+	EntriesInAllowedNetworkRules *int64 `json:"entriesInAllowedNetworkRules,omitempty" tf:"entries_in_allowed_network_rules,omitempty"`
 
 	// (Number)
-	EntriesInBlockedIPList *float64 `json:"entriesInBlockedIpList,omitempty" tf:"entries_in_blocked_ip_list,omitempty"`
+	EntriesInBlockedIPList *int64 `json:"entriesInBlockedIpList,omitempty" tf:"entries_in_blocked_ip_list,omitempty"`
 
 	// (Number)
-	EntriesInBlockedNetworkRules *float64 `json:"entriesInBlockedNetworkRules,omitempty" tf:"entries_in_blocked_network_rules,omitempty"`
+	EntriesInBlockedNetworkRules *int64 `json:"entriesInBlockedNetworkRules,omitempty" tf:"entries_in_blocked_network_rules,omitempty"`
 
 	// (String) Specifies the identifier for the network policy; must be unique for the account in which the network policy is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

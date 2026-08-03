@@ -58,7 +58,7 @@ type ExternalVolumeDescribeOutputParameters struct {
 type ExternalVolumeInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowWrites *string `json:"allowWrites,omitempty" tf:"allow_writes,omitempty"`
 
 	// (String) Specifies a comment for the external volume.
@@ -73,7 +73,7 @@ type ExternalVolumeInitParameters struct {
 type ExternalVolumeObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowWrites *string `json:"allowWrites,omitempty" tf:"allow_writes,omitempty"`
 
 	// (String) Specifies a comment for the external volume.
@@ -103,7 +103,7 @@ type ExternalVolumeObservation struct {
 type ExternalVolumeParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether write operations are allowed for the external volume; must be set to TRUE for Iceberg tables that use Snowflake as the catalog. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AllowWrites *string `json:"allowWrites,omitempty" tf:"allow_writes,omitempty"`
 
@@ -247,7 +247,7 @@ type StorageLocationInitParameters struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -298,7 +298,7 @@ type StorageLocationObservation struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -365,7 +365,7 @@ type StorageLocationParameters struct {
 	StorageProvider *string `json:"storageProvider" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use a privatelink endpoint for the storage location. Only applicable for S3, S3GOV, and AZURE storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }

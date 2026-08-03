@@ -21,7 +21,7 @@ func (mg *CatalogIntegrationOpenCatalog) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this CatalogIntegrationOpenCatalog
 func (tr *CatalogIntegrationOpenCatalog) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"rest_authentication[*].oauth_client_id": "restAuthentication[*].oauthClientIdSecretRef", "rest_authentication[*].oauth_client_secret": "restAuthentication[*].oauthClientSecretSecretRef"}
+	return map[string]string{"describe_output[*].rest_authentication[*].oauth_client_id": "status.atProvider.describeOutput[*].restAuthentication[*].oauthClientId", "rest_authentication[*].oauth_client_id": "restAuthentication[*].oauthClientIdSecretRef", "rest_authentication[*].oauth_client_secret": "restAuthentication[*].oauthClientSecretSecretRef"}
 }
 
 // GetObservation of this CatalogIntegrationOpenCatalog

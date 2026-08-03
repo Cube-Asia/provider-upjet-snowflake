@@ -116,7 +116,7 @@ spec:
                   ignoreEditionCheck:
                     description: |-
                       (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-                      (Default: `false`) Allows replicating objects to accounts on lower editions.
+                      Allows replicating objects to accounts on lower editions.
                     type: boolean
                   objectTypes:
                     description: |-
@@ -154,7 +154,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                 type: object
@@ -229,7 +230,7 @@ spec:
                   ignoreEditionCheck:
                     description: |-
                       (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-                      (Default: `false`) Allows replicating objects to accounts on lower editions.
+                      Allows replicating objects to accounts on lower editions.
                     type: boolean
                   objectTypes:
                     description: |-
@@ -267,7 +268,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                 type: object
@@ -400,7 +402,7 @@ spec:
                   ignoreEditionCheck:
                     description: |-
                       (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-                      (Default: `false`) Allows replicating objects to accounts on lower editions.
+                      Allows replicating objects to accounts on lower editions.
                     type: boolean
                   objectTypes:
                     description: |-
@@ -438,7 +440,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                 type: object

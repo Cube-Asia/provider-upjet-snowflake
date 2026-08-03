@@ -424,7 +424,8 @@ spec:
                           type: boolean
                         autoSuspendSecs:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the service.
                           type: string
@@ -439,7 +440,8 @@ spec:
                           type: string
                         currentInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         databaseName:
                           description: (String)
                           type: string
@@ -471,13 +473,16 @@ spec:
                           type: string
                         maxInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         minInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         minReadyInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             service; must be unique for the schema in which the service
@@ -517,7 +522,8 @@ spec:
                           type: string
                         targetInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string
@@ -639,7 +645,8 @@ spec:
                           type: boolean
                         autoSuspendSecs:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the service.
                           type: string
@@ -654,7 +661,8 @@ spec:
                           type: string
                         currentInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         databaseName:
                           description: (String)
                           type: string
@@ -686,13 +694,16 @@ spec:
                           type: string
                         maxInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         minInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         minReadyInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             service; must be unique for the schema in which the service
@@ -729,7 +740,8 @@ spec:
                           type: string
                         targetInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string

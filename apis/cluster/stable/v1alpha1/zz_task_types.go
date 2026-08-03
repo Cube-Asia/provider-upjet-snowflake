@@ -137,15 +137,15 @@ type ScheduleInitParameters struct {
 
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
 	// Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with `seconds`, `minutes`, and `hours`)
@@ -156,15 +156,15 @@ type ScheduleObservation struct {
 
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
 	// Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with `seconds`, `minutes`, and `hours`)
@@ -176,17 +176,17 @@ type ScheduleParameters struct {
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
 	// +kubebuilder:validation:Optional
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
 	// +kubebuilder:validation:Optional
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
 	// +kubebuilder:validation:Optional
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
 	// Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with `seconds`, `minutes`, and `hours`)
@@ -248,13 +248,13 @@ type TargetCompletionIntervalInitParameters struct {
 type TargetCompletionIntervalObservation struct {
 
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 }
 
 type TargetCompletionIntervalParameters struct {
@@ -272,7 +272,7 @@ type TaskInitParameters struct {
 	After []*string `json:"after,omitempty" tf:"after,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowOverlappingExecution *string `json:"allowOverlappingExecution,omitempty" tf:"allow_overlapping_execution,omitempty"`
 
 	// (Boolean) Specifies whether autocommit is enabled for the session. Autocommit determines whether a DML statement, when executed without an active transaction, is automatically committed after the statement successfully completes. For more information, see Transactions. For more information, check AUTOCOMMIT docs.
@@ -289,7 +289,7 @@ type TaskInitParameters struct {
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -297,11 +297,11 @@ type TaskInitParameters struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -313,7 +313,7 @@ type TaskInitParameters struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -365,7 +365,7 @@ type TaskInitParameters struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs.
 	// Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check [JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-timestamp-ntz-as-utc).
@@ -377,7 +377,7 @@ type TaskInitParameters struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -389,7 +389,7 @@ type TaskInitParameters struct {
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
 	// Specifies whether the ORDER or NOORDER property is set by default when you create a new sequence or add a new table column. The ORDER and NOORDER properties determine whether or not the values are generated for the sequence or auto-incremented column in [increasing or decreasing order](https://docs.snowflake.com/en/user-guide/querying-sequences.html#label-querying-sequences-increasing-values). For more information, check [NOORDER_SEQUENCE_AS_DEFAULT docs](https://docs.snowflake.com/en/sql-reference/parameters#noorder-sequence-as-default).
@@ -409,7 +409,7 @@ type TaskInitParameters struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -441,11 +441,11 @@ type TaskInitParameters struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -453,7 +453,7 @@ type TaskInitParameters struct {
 
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// fields hours, minutes, or seconds should be set) (see below for nested schema)
 	// Specifies the target completion interval for tasks. This can be specified in hours, minutes, or seconds. (when set, one of the sub-fields `hours`, `minutes`, or `seconds` should be set)
@@ -461,7 +461,7 @@ type TaskInitParameters struct {
 
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -517,7 +517,7 @@ type TaskInitParameters struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -533,11 +533,11 @@ type TaskInitParameters struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
 	// The warehouse the task will use. Omit this parameter to use Snowflake-managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see [docs](./warehouse).
@@ -545,11 +545,11 @@ type TaskInitParameters struct {
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 
 	// (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
 	// Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
@@ -568,7 +568,7 @@ type TaskObservation struct {
 	After []*string `json:"after,omitempty" tf:"after,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowOverlappingExecution *string `json:"allowOverlappingExecution,omitempty" tf:"allow_overlapping_execution,omitempty"`
 
 	// (Boolean) Specifies whether autocommit is enabled for the session. Autocommit determines whether a DML statement, when executed without an active transaction, is automatically committed after the statement successfully completes. For more information, see Transactions. For more information, check AUTOCOMMIT docs.
@@ -585,7 +585,7 @@ type TaskObservation struct {
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -593,11 +593,11 @@ type TaskObservation struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -609,7 +609,7 @@ type TaskObservation struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -672,7 +672,7 @@ type TaskObservation struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs.
 	// Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check [JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-timestamp-ntz-as-utc).
@@ -684,7 +684,7 @@ type TaskObservation struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -696,7 +696,7 @@ type TaskObservation struct {
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
 	// Specifies whether the ORDER or NOORDER property is set by default when you create a new sequence or add a new table column. The ORDER and NOORDER properties determine whether or not the values are generated for the sequence or auto-incremented column in [increasing or decreasing order](https://docs.snowflake.com/en/user-guide/querying-sequences.html#label-querying-sequences-increasing-values). For more information, check [NOORDER_SEQUENCE_AS_DEFAULT docs](https://docs.snowflake.com/en/sql-reference/parameters#noorder-sequence-as-default).
@@ -720,7 +720,7 @@ type TaskObservation struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -760,11 +760,11 @@ type TaskObservation struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -772,7 +772,7 @@ type TaskObservation struct {
 
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// fields hours, minutes, or seconds should be set) (see below for nested schema)
 	// Specifies the target completion interval for tasks. This can be specified in hours, minutes, or seconds. (when set, one of the sub-fields `hours`, `minutes`, or `seconds` should be set)
@@ -780,7 +780,7 @@ type TaskObservation struct {
 
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -836,7 +836,7 @@ type TaskObservation struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -852,11 +852,11 @@ type TaskObservation struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
 	// The warehouse the task will use. Omit this parameter to use Snowflake-managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see [docs](./warehouse).
@@ -864,11 +864,11 @@ type TaskObservation struct {
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 
 	// (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
 	// Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
@@ -889,7 +889,7 @@ type TaskParameters struct {
 	After []*string `json:"after,omitempty" tf:"after,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AllowOverlappingExecution *string `json:"allowOverlappingExecution,omitempty" tf:"allow_overlapping_execution,omitempty"`
 
@@ -911,7 +911,7 @@ type TaskParameters struct {
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
 	// +kubebuilder:validation:Optional
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -921,12 +921,12 @@ type TaskParameters struct {
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
 	// +kubebuilder:validation:Optional
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
 	// +kubebuilder:validation:Optional
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -941,7 +941,7 @@ type TaskParameters struct {
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
 	// +kubebuilder:validation:Optional
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -1011,7 +1011,7 @@ type TaskParameters struct {
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
 	// +kubebuilder:validation:Optional
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs.
 	// Specifies how JDBC processes TIMESTAMP_NTZ values. For more information, check [JDBC_TREAT_TIMESTAMP_NTZ_AS_UTC docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-timestamp-ntz-as-utc).
@@ -1026,7 +1026,7 @@ type TaskParameters struct {
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
 	// +kubebuilder:validation:Optional
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -1041,7 +1041,7 @@ type TaskParameters struct {
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
 	// +kubebuilder:validation:Optional
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
 	// Specifies whether the ORDER or NOORDER property is set by default when you create a new sequence or add a new table column. The ORDER and NOORDER properties determine whether or not the values are generated for the sequence or auto-incremented column in [increasing or decreasing order](https://docs.snowflake.com/en/user-guide/querying-sequences.html#label-querying-sequences-increasing-values). For more information, check [NOORDER_SEQUENCE_AS_DEFAULT docs](https://docs.snowflake.com/en/sql-reference/parameters#noorder-sequence-as-default).
@@ -1066,7 +1066,7 @@ type TaskParameters struct {
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
 	// +kubebuilder:validation:Optional
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -1111,12 +1111,12 @@ type TaskParameters struct {
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -1126,7 +1126,7 @@ type TaskParameters struct {
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
 	// +kubebuilder:validation:Optional
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// fields hours, minutes, or seconds should be set) (see below for nested schema)
 	// Specifies the target completion interval for tasks. This can be specified in hours, minutes, or seconds. (when set, one of the sub-fields `hours`, `minutes`, or `seconds` should be set)
@@ -1136,7 +1136,7 @@ type TaskParameters struct {
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
 	// +kubebuilder:validation:Optional
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -1206,7 +1206,7 @@ type TaskParameters struct {
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
 	// +kubebuilder:validation:Optional
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -1226,12 +1226,12 @@ type TaskParameters struct {
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
 	// +kubebuilder:validation:Optional
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
 	// +kubebuilder:validation:Optional
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
 	// The warehouse the task will use. Omit this parameter to use Snowflake-managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see [docs](./warehouse).
@@ -1241,12 +1241,12 @@ type TaskParameters struct {
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
 	// +kubebuilder:validation:Optional
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
 	// +kubebuilder:validation:Optional
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 
 	// (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
 	// Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
@@ -2843,30 +2843,30 @@ type TaskTargetCompletionIntervalInitParameters struct {
 
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 }
 
 type TaskTargetCompletionIntervalObservation struct {
 
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 }
 
 type TaskTargetCompletionIntervalParameters struct {
@@ -2874,17 +2874,17 @@ type TaskTargetCompletionIntervalParameters struct {
 	// (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
 	// Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
 	// +kubebuilder:validation:Optional
-	Hours *float64 `json:"hours,omitempty" tf:"hours,omitempty"`
+	Hours *int64 `json:"hours,omitempty" tf:"hours,omitempty"`
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
 	// Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
 	// +kubebuilder:validation:Optional
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
 	// Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
 	// +kubebuilder:validation:Optional
-	Seconds *float64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
+	Seconds *int64 `json:"seconds,omitempty" tf:"seconds,omitempty"`
 }
 
 // TaskSpec defines the desired state of Task

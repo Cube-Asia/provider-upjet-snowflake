@@ -20,11 +20,11 @@ type DynamicTableInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: ON_CREATE) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
-	// (Default: `ON_CREATE`) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
+	// Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
 	Initialize *string `json:"initialize,omitempty" tf:"initialize,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to replace the dynamic table if it already exists.
-	// (Default: `false`) Specifies whether to replace the dynamic table if it already exists.
+	// Specifies whether to replace the dynamic table if it already exists.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
 	// (String) Specifies the query to use to populate the dynamic table.
@@ -32,7 +32,7 @@ type DynamicTableInitParameters struct {
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 
 	// (String) (Default: AUTO) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
-	// (Default: `AUTO`) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
+	// INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
 	RefreshMode *string `json:"refreshMode,omitempty" tf:"refresh_mode,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Specifies the target lag time for the dynamic table. (see below for nested schema)
@@ -52,7 +52,7 @@ type DynamicTableObservation struct {
 
 	// (Number) Number of bytes that will be scanned if the entire dynamic table is scanned in a query.
 	// Number of bytes that will be scanned if the entire dynamic table is scanned in a query.
-	Bytes *float64 `json:"bytes,omitempty" tf:"bytes,omitempty"`
+	Bytes *int64 `json:"bytes,omitempty" tf:"bytes,omitempty"`
 
 	// (String) The clustering key for the dynamic table.
 	// The clustering key for the dynamic table.
@@ -82,7 +82,7 @@ type DynamicTableObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) (Default: ON_CREATE) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
-	// (Default: `ON_CREATE`) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
+	// Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
 	Initialize *string `json:"initialize,omitempty" tf:"initialize,omitempty"`
 
 	// (Boolean) TRUE if the dynamic table has been cloned, else FALSE.
@@ -98,7 +98,7 @@ type DynamicTableObservation struct {
 	LastSuspendedOn *string `json:"lastSuspendedOn,omitempty" tf:"last_suspended_on,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to replace the dynamic table if it already exists.
-	// (Default: `false`) Specifies whether to replace the dynamic table if it already exists.
+	// Specifies whether to replace the dynamic table if it already exists.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
 	// (String) Role that owns the dynamic table.
@@ -110,7 +110,7 @@ type DynamicTableObservation struct {
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 
 	// (String) (Default: AUTO) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
-	// (Default: `AUTO`) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
+	// INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
 	RefreshMode *string `json:"refreshMode,omitempty" tf:"refresh_mode,omitempty"`
 
 	// (String) Explanation for why FULL refresh mode was chosen. NULL if refresh mode is not FULL.
@@ -119,7 +119,7 @@ type DynamicTableObservation struct {
 
 	// (Number) Number of rows in the table.
 	// Number of rows in the table.
-	Rows *float64 `json:"rows,omitempty" tf:"rows,omitempty"`
+	Rows *int64 `json:"rows,omitempty" tf:"rows,omitempty"`
 
 	// (String) Displays ACTIVE for dynamic tables that are actively scheduling refreshes and SUSPENDED for suspended dynamic tables.
 	// Displays ACTIVE for dynamic tables that are actively scheduling refreshes and SUSPENDED for suspended dynamic tables.
@@ -151,12 +151,12 @@ type DynamicTableParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// (String) (Default: ON_CREATE) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
-	// (Default: `ON_CREATE`) Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
+	// Initialize trigger for the dynamic table. Can only be set on creation. Available options are ON_CREATE and ON_SCHEDULE.
 	// +kubebuilder:validation:Optional
 	Initialize *string `json:"initialize,omitempty" tf:"initialize,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to replace the dynamic table if it already exists.
-	// (Default: `false`) Specifies whether to replace the dynamic table if it already exists.
+	// Specifies whether to replace the dynamic table if it already exists.
 	// +kubebuilder:validation:Optional
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
@@ -166,7 +166,7 @@ type DynamicTableParameters struct {
 	Query *string `json:"query,omitempty" tf:"query,omitempty"`
 
 	// (String) (Default: AUTO) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
-	// (Default: `AUTO`) INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
+	// INCREMENTAL to use incremental refreshes, FULL to recompute the whole table on every refresh, or AUTO to let Snowflake decide.
 	// +kubebuilder:validation:Optional
 	RefreshMode *string `json:"refreshMode,omitempty" tf:"refresh_mode,omitempty"`
 

@@ -394,7 +394,8 @@ spec:
                             properties:
                               currentSnapshotId:
                                 description: (Number)
-                                type: number
+                                format: int64
+                                type: integer
                               executionState:
                                 description: (String)
                                 type: string
@@ -406,7 +407,8 @@ spec:
                                 type: string
                               pendingSnapshotCount:
                                 description: (Number)
-                                type: number
+                                format: int64
+                                type: integer
                             type: object
                           type: array
                         baseLocation:
@@ -436,7 +438,8 @@ spec:
                           type: string
                         currentPartitionSpecId:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         databaseName:
                           description: (String)
                           type: string
@@ -445,7 +448,8 @@ spec:
                           type: string
                         icebergTableFormatVersion:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         icebergTableType:
                           description: (String)
                           type: string
@@ -467,7 +471,37 @@ spec:
                           type: string
                         partitionSpecs:
                           description: (String)
-                          type: string
+                          items:
+                            properties:
+                              fields:
+                                items:
+                                  properties:
+                                    fieldId:
+                                      description: (String) The ID of this resource.
+                                      format: int64
+                                      type: integer
+                                    name:
+                                      description: '(String) Specifies the identifier
+                                        for the Iceberg table; must be unique for
+                                        the schema in which the Iceberg table is created.
+                                        Due to technical limitations (read more here),
+                                        avoid using the following characters: |, .,
+                                        ".'
+                                      type: string
+                                    sourceId:
+                                      description: (String) The ID of this resource.
+                                      format: int64
+                                      type: integer
+                                    transform:
+                                      type: string
+                                  type: object
+                                type: array
+                              specId:
+                                description: (String) The ID of this resource.
+                                format: int64
+                                type: integer
+                            type: object
+                          type: array
                         schemaName:
                           description: (String)
                           type: string

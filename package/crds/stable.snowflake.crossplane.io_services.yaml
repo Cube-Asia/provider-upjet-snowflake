@@ -81,13 +81,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                    type: number
+                      Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the service.
@@ -189,17 +190,20 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of service instances to run.
                       Specifies the maximum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minInstances:
                     description: |-
                       (Number) Specifies the minimum number of service instances to run.
                       Specifies the minimum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minReadyInstances:
                     description: |-
                       (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
                       Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-                    type: number
+                    format: int64
+                    type: integer
                   queryWarehouse:
                     description: |-
                       (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -230,13 +234,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                    type: number
+                      Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the service.
@@ -333,17 +338,20 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of service instances to run.
                       Specifies the maximum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minInstances:
                     description: |-
                       (Number) Specifies the minimum number of service instances to run.
                       Specifies the minimum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minReadyInstances:
                     description: |-
                       (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
                       Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-                    type: number
+                    format: int64
+                    type: integer
                   queryWarehouse:
                     description: |-
                       (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -449,13 +457,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-                    type: number
+                      Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the service.
@@ -490,7 +499,8 @@ spec:
                             configuration manually (-1)) Specifies the number of seconds
                             of inactivity (service is idle) after which Snowflake
                             automatically suspends the service.
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the service.
                           type: string
@@ -505,7 +515,8 @@ spec:
                           type: string
                         currentInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         databaseName:
                           description: (String)
                           type: string
@@ -538,16 +549,19 @@ spec:
                         maxInstances:
                           description: (Number) Specifies the maximum number of service
                             instances to run.
-                          type: number
+                          format: int64
+                          type: integer
                         minInstances:
                           description: (Number) Specifies the minimum number of service
                             instances to run.
-                          type: number
+                          format: int64
+                          type: integer
                         minReadyInstances:
                           description: (Number) Indicates the minimum service instances
                             that must be ready for Snowflake to consider the service
                             is ready to process requests.
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             service; must be unique for the schema in which the service
@@ -587,7 +601,8 @@ spec:
                           type: string
                         targetInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string
@@ -687,17 +702,20 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of service instances to run.
                       Specifies the maximum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minInstances:
                     description: |-
                       (Number) Specifies the minimum number of service instances to run.
                       Specifies the minimum number of service instances to run.
-                    type: number
+                    format: int64
+                    type: integer
                   minReadyInstances:
                     description: |-
                       (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
                       Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-                    type: number
+                    format: int64
+                    type: integer
                   queryWarehouse:
                     description: |-
                       (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -732,7 +750,8 @@ spec:
                             configuration manually (-1)) Specifies the number of seconds
                             of inactivity (service is idle) after which Snowflake
                             automatically suspends the service.
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the service.
                           type: string
@@ -747,7 +766,8 @@ spec:
                           type: string
                         currentInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         databaseName:
                           description: (String)
                           type: string
@@ -780,16 +800,19 @@ spec:
                         maxInstances:
                           description: (Number) Specifies the maximum number of service
                             instances to run.
-                          type: number
+                          format: int64
+                          type: integer
                         minInstances:
                           description: (Number) Specifies the minimum number of service
                             instances to run.
-                          type: number
+                          format: int64
+                          type: integer
                         minReadyInstances:
                           description: (Number) Indicates the minimum service instances
                             that must be ready for Snowflake to consider the service
                             is ready to process requests.
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             service; must be unique for the schema in which the service
@@ -826,7 +849,8 @@ spec:
                           type: string
                         targetInstances:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string

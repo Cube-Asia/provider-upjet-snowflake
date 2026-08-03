@@ -41,7 +41,7 @@ type FailoverGroupInitParameters struct {
 	FromReplica []FromReplicaInitParameters `json:"fromReplica,omitempty" tf:"from_replica,omitempty"`
 
 	// (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-	// (Default: `false`) Allows replicating objects to accounts on lower editions.
+	// Allows replicating objects to accounts on lower editions.
 	IgnoreEditionCheck *bool `json:"ignoreEditionCheck,omitempty" tf:"ignore_edition_check,omitempty"`
 
 	// (Set of String) Type(s) of objects for which you are enabling replication and failover from the source account to the target account. The following object types are supported: "ACCOUNT PARAMETERS", "DATABASES", "INTEGRATIONS", "NETWORK POLICIES", "RESOURCE MONITORS", "ROLES", "SHARES", "USERS", "WAREHOUSES"
@@ -88,7 +88,7 @@ type FailoverGroupObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-	// (Default: `false`) Allows replicating objects to accounts on lower editions.
+	// Allows replicating objects to accounts on lower editions.
 	IgnoreEditionCheck *bool `json:"ignoreEditionCheck,omitempty" tf:"ignore_edition_check,omitempty"`
 
 	// (Set of String) Type(s) of objects for which you are enabling replication and failover from the source account to the target account. The following object types are supported: "ACCOUNT PARAMETERS", "DATABASES", "INTEGRATIONS", "NETWORK POLICIES", "RESOURCE MONITORS", "ROLES", "SHARES", "USERS", "WAREHOUSES"
@@ -133,7 +133,7 @@ type FailoverGroupParameters struct {
 	FromReplica []FromReplicaParameters `json:"fromReplica,omitempty" tf:"from_replica,omitempty"`
 
 	// (Boolean) (Default: false) Allows replicating objects to accounts on lower editions.
-	// (Default: `false`) Allows replicating objects to accounts on lower editions.
+	// Allows replicating objects to accounts on lower editions.
 	// +kubebuilder:validation:Optional
 	IgnoreEditionCheck *bool `json:"ignoreEditionCheck,omitempty" tf:"ignore_edition_check,omitempty"`
 
@@ -240,7 +240,7 @@ type ReplicationScheduleInitParameters struct {
 
 	// (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type ReplicationScheduleObservation struct {
@@ -251,7 +251,7 @@ type ReplicationScheduleObservation struct {
 
 	// (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type ReplicationScheduleParameters struct {
@@ -264,7 +264,7 @@ type ReplicationScheduleParameters struct {
 	// (Number) Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the replication schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// +kubebuilder:validation:Optional
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 // FailoverGroupSpec defines the desired state of FailoverGroup

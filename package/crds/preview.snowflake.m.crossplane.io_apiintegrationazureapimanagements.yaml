@@ -297,8 +297,6 @@ spec:
                           items:
                             type: string
                           type: array
-                        apiKey:
-                          type: string
                         apiProvider:
                           description: (String)
                           type: string

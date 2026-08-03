@@ -4,6 +4,7 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	sfprovider "github.com/Snowflake-Labs/terraform-provider-snowflake/v2/pkg/provider"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
 	previewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/preview"
@@ -27,7 +28,11 @@ var providerMetadata string
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithRootGroup("snowflake.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		// all resources are reconciled via the Terraform Plugin SDK (no-fork
+		// mode); nothing goes through the CLI-fork include list.
+		ujconfig.WithIncludeList([]string{}),
+		ujconfig.WithTerraformPluginSDKIncludeList(ExternalNameConfigured()),
+		ujconfig.WithTerraformProvider(sfprovider.Provider()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
@@ -49,7 +54,9 @@ func GetProvider() *ujconfig.Provider {
 func GetProviderNamespaced() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithRootGroup("snowflake.m.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithIncludeList([]string{}),
+		ujconfig.WithTerraformPluginSDKIncludeList(ExternalNameConfigured()),
+		ujconfig.WithTerraformProvider(sfprovider.Provider()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),

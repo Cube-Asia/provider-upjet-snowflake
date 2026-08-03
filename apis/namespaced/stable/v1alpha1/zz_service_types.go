@@ -158,7 +158,7 @@ type ServiceDescribeOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -170,7 +170,7 @@ type ServiceDescribeOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	CurrentInstances *float64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
+	CurrentInstances *int64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
 
 	// (String)
 	DNSName *string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
@@ -198,13 +198,13 @@ type ServiceDescribeOutputObservation struct {
 	ManagingObjectName *string `json:"managingObjectName,omitempty" tf:"managing_object_name,omitempty"`
 
 	// (Number) Specifies the maximum number of service instances to run.
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number) Specifies the minimum number of service instances to run.
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Specifies the identifier for the service; must be unique for the schema in which the service is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -237,7 +237,7 @@ type ServiceDescribeOutputObservation struct {
 	SuspendedOn *string `json:"suspendedOn,omitempty" tf:"suspended_on,omitempty"`
 
 	// (Number)
-	TargetInstances *float64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
+	TargetInstances *int64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`
@@ -249,12 +249,12 @@ type ServiceDescribeOutputParameters struct {
 type ServiceInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	// Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	// Specifies a comment for the service.
@@ -279,15 +279,15 @@ type ServiceInitParameters struct {
 
 	// (Number) Specifies the maximum number of service instances to run.
 	// Specifies the maximum number of service instances to run.
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number) Specifies the minimum number of service instances to run.
 	// Specifies the minimum number of service instances to run.
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
 	// Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -297,12 +297,12 @@ type ServiceInitParameters struct {
 type ServiceObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	// Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	// Specifies a comment for the service.
@@ -342,15 +342,15 @@ type ServiceObservation struct {
 
 	// (Number) Specifies the maximum number of service instances to run.
 	// Specifies the maximum number of service instances to run.
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number) Specifies the minimum number of service instances to run.
 	// Specifies the minimum number of service instances to run.
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
 	// Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -372,14 +372,14 @@ type ServiceObservation struct {
 type ServiceParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a service. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
+	// Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
 	// +kubebuilder:validation:Optional
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	// Specifies a comment for the service.
@@ -415,17 +415,17 @@ type ServiceParameters struct {
 	// (Number) Specifies the maximum number of service instances to run.
 	// Specifies the maximum number of service instances to run.
 	// +kubebuilder:validation:Optional
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number) Specifies the minimum number of service instances to run.
 	// Specifies the minimum number of service instances to run.
 	// +kubebuilder:validation:Optional
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
 	// Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
 	// +kubebuilder:validation:Optional
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// Warehouse to use if a service container connects to Snowflake to execute a query but does not explicitly specify a warehouse to use. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -447,7 +447,7 @@ type ServiceShowOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity (service is idle) after which Snowflake automatically suspends the service.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -459,7 +459,7 @@ type ServiceShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	CurrentInstances *float64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
+	CurrentInstances *int64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
 
 	// (String)
 	DNSName *string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
@@ -487,13 +487,13 @@ type ServiceShowOutputObservation struct {
 	ManagingObjectName *string `json:"managingObjectName,omitempty" tf:"managing_object_name,omitempty"`
 
 	// (Number) Specifies the maximum number of service instances to run.
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number) Specifies the minimum number of service instances to run.
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number) Indicates the minimum service instances that must be ready for Snowflake to consider the service is ready to process requests.
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Specifies the identifier for the service; must be unique for the schema in which the service is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -523,7 +523,7 @@ type ServiceShowOutputObservation struct {
 	SuspendedOn *string `json:"suspendedOn,omitempty" tf:"suspended_on,omitempty"`
 
 	// (Number)
-	TargetInstances *float64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
+	TargetInstances *int64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`

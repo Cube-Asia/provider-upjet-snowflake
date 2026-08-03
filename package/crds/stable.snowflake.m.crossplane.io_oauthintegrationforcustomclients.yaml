@@ -62,6 +62,15 @@ spec:
             properties:
               forProvider:
                 properties:
+                  allowedRolesList:
+                    description: A set of Snowflake roles that a user can explicitly
+                      consent to using after authenticating. Can only be set when
+                      oauth_use_secondary_roles is set to NONE. For more information
+                      about this resource, see [docs](./account_role).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   blockedRolesList:
                     description: |-
                       (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
@@ -78,7 +87,7 @@ spec:
                   enabled:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   networkPolicy:
                     description: |-
@@ -88,7 +97,7 @@ spec:
                   oauthAllowNonTlsRedirectUri:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthClientRsaPublicKey:
                     description: |-
@@ -108,12 +117,12 @@ spec:
                   oauthEnforcePkce:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthIssueRefreshTokens:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthRedirectUriSecretRef:
                     description: |-
@@ -132,8 +141,9 @@ spec:
                   oauthRefreshTokenValidity:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                    type: number
+                      Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+                    format: int64
+                    type: integer
                   oauthUseSecondaryRoles:
                     description: |-
                       (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.
@@ -161,6 +171,15 @@ spec:
                   for example because of an external controller is managing them, like an
                   autoscaler.
                 properties:
+                  allowedRolesList:
+                    description: A set of Snowflake roles that a user can explicitly
+                      consent to using after authenticating. Can only be set when
+                      oauth_use_secondary_roles is set to NONE. For more information
+                      about this resource, see [docs](./account_role).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   blockedRolesList:
                     description: |-
                       (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
@@ -177,7 +196,7 @@ spec:
                   enabled:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   networkPolicy:
                     description: |-
@@ -187,7 +206,7 @@ spec:
                   oauthAllowNonTlsRedirectUri:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthClientRsaPublicKey:
                     description: |-
@@ -207,12 +226,12 @@ spec:
                   oauthEnforcePkce:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthIssueRefreshTokens:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthRedirectUriSecretRef:
                     description: |-
@@ -231,8 +250,9 @@ spec:
                   oauthRefreshTokenValidity:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                    type: number
+                      Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+                    format: int64
+                    type: integer
                   oauthUseSecondaryRoles:
                     description: |-
                       (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.
@@ -321,6 +341,15 @@ spec:
             properties:
               atProvider:
                 properties:
+                  allowedRolesList:
+                    description: A set of Snowflake roles that a user can explicitly
+                      consent to using after authenticating. Can only be set when
+                      oauth_use_secondary_roles is set to NONE. For more information
+                      about this resource, see [docs](./account_role).
+                    items:
+                      type: string
+                    type: array
+                    x-kubernetes-list-type: set
                   blockedRolesList:
                     description: |-
                       (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
@@ -340,6 +369,28 @@ spec:
                       Outputs the result of `DESCRIBE SECURITY INTEGRATION` for the given integration.
                     items:
                       properties:
+                        allowedRolesList:
+                          items:
+                            properties:
+                              default:
+                                description: (String)
+                                type: string
+                              name:
+                                description: '(String) Specifies the name of the OAuth
+                                  integration. This name follows the rules for Object
+                                  Identifiers. The name should be unique among security
+                                  integrations in your account. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String)
+                                type: string
+                              value:
+                                description: (String)
+                                type: string
+                            type: object
+                          type: array
                         blockedRolesList:
                           description: (Set of String) A set of Snowflake roles that
                             a user cannot explicitly consent to using after authenticating.
@@ -783,7 +834,7 @@ spec:
                   enabled:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   fullyQualifiedName:
                     description: |-
@@ -801,7 +852,7 @@ spec:
                   oauthAllowNonTlsRedirectUri:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      If true, allows setting oauth_redirect_uri to a URI not protected by TLS. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthClientRsaPublicKey:
                     description: |-
@@ -821,18 +872,19 @@ spec:
                   oauthEnforcePkce:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Boolean that specifies whether Proof Key for Code Exchange (PKCE) should be required for the integration. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthIssueRefreshTokens:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   oauthRefreshTokenValidity:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-                    type: number
+                      Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+                    format: int64
+                    type: integer
                   oauthUseSecondaryRoles:
                     description: |-
                       (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.

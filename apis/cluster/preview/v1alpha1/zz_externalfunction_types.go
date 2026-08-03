@@ -59,11 +59,11 @@ type ExternalFunctionInitParameters struct {
 	Arg []ArgInitParameters `json:"arg,omitempty" tf:"arg,omitempty"`
 
 	// defined function) A description of the external function.
-	// (Default: `user-defined function`) A description of the external function.
+	// A description of the external function.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-	// (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+	// If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// (List of String) Binds Snowflake context function results to HTTP headers.
@@ -80,14 +80,14 @@ type ExternalFunctionInitParameters struct {
 
 	// (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
 	// This specifies the maximum number of rows in each batch sent to the proxy service.
-	MaxBatchRows *float64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
+	MaxBatchRows *int64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
 
 	// (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
 	// Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-	// (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+	// Specifies the behavior of the external function when called with null inputs.
 	NullInputBehavior *string `json:"nullInputBehavior,omitempty" tf:"null_input_behavior,omitempty"`
 
 	// (String) This specifies the name of the request translator function
@@ -103,7 +103,7 @@ type ExternalFunctionInitParameters struct {
 	ReturnBehavior *string `json:"returnBehavior,omitempty" tf:"return_behavior,omitempty"`
 
 	// NULL values (false).
-	// (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+	// Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
 	ReturnNullAllowed *bool `json:"returnNullAllowed,omitempty" tf:"return_null_allowed,omitempty"`
 
 	// (String) Specifies the data type returned by the external function.
@@ -130,11 +130,11 @@ type ExternalFunctionObservation struct {
 	Arg []ArgObservation `json:"arg,omitempty" tf:"arg,omitempty"`
 
 	// defined function) A description of the external function.
-	// (Default: `user-defined function`) A description of the external function.
+	// A description of the external function.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-	// (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+	// If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// (List of String) Binds Snowflake context function results to HTTP headers.
@@ -162,14 +162,14 @@ type ExternalFunctionObservation struct {
 
 	// (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
 	// This specifies the maximum number of rows in each batch sent to the proxy service.
-	MaxBatchRows *float64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
+	MaxBatchRows *int64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
 
 	// (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
 	// Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-	// (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+	// Specifies the behavior of the external function when called with null inputs.
 	NullInputBehavior *string `json:"nullInputBehavior,omitempty" tf:"null_input_behavior,omitempty"`
 
 	// (String) This specifies the name of the request translator function
@@ -185,7 +185,7 @@ type ExternalFunctionObservation struct {
 	ReturnBehavior *string `json:"returnBehavior,omitempty" tf:"return_behavior,omitempty"`
 
 	// NULL values (false).
-	// (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+	// Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
 	ReturnNullAllowed *bool `json:"returnNullAllowed,omitempty" tf:"return_null_allowed,omitempty"`
 
 	// (String) Specifies the data type returned by the external function.
@@ -214,12 +214,12 @@ type ExternalFunctionParameters struct {
 	Arg []ArgParameters `json:"arg,omitempty" tf:"arg,omitempty"`
 
 	// defined function) A description of the external function.
-	// (Default: `user-defined function`) A description of the external function.
+	// A description of the external function.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-	// (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+	// If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
 	// +kubebuilder:validation:Optional
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
@@ -241,7 +241,7 @@ type ExternalFunctionParameters struct {
 	// (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
 	// This specifies the maximum number of rows in each batch sent to the proxy service.
 	// +kubebuilder:validation:Optional
-	MaxBatchRows *float64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
+	MaxBatchRows *int64 `json:"maxBatchRows,omitempty" tf:"max_batch_rows,omitempty"`
 
 	// (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
 	// Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
@@ -249,7 +249,7 @@ type ExternalFunctionParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-	// (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+	// Specifies the behavior of the external function when called with null inputs.
 	// +kubebuilder:validation:Optional
 	NullInputBehavior *string `json:"nullInputBehavior,omitempty" tf:"null_input_behavior,omitempty"`
 
@@ -269,7 +269,7 @@ type ExternalFunctionParameters struct {
 	ReturnBehavior *string `json:"returnBehavior,omitempty" tf:"return_behavior,omitempty"`
 
 	// NULL values (false).
-	// (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+	// Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
 	// +kubebuilder:validation:Optional
 	ReturnNullAllowed *bool `json:"returnNullAllowed,omitempty" tf:"return_null_allowed,omitempty"`
 

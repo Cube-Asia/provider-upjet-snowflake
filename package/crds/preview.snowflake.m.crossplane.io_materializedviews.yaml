@@ -71,11 +71,11 @@ spec:
                   isSecure:
                     description: |-
                       (Boolean) (Default: false) Specifies that the view is secure.
-                      (Default: `false`) Specifies that the view is secure.
+                      Specifies that the view is secure.
                     type: boolean
                   orReplace:
-                    description: '(Default: `false`) Specifies whether to use CREATE
-                      OR REPLACE when creating the materialized view.'
+                    description: Specifies whether to use CREATE OR REPLACE when creating
+                      the materialized view.
                     type: boolean
                   schema:
                     description: |-
@@ -145,11 +145,11 @@ spec:
                   isSecure:
                     description: |-
                       (Boolean) (Default: false) Specifies that the view is secure.
-                      (Default: `false`) Specifies that the view is secure.
+                      Specifies that the view is secure.
                     type: boolean
                   orReplace:
-                    description: '(Default: `false`) Specifies whether to use CREATE
-                      OR REPLACE when creating the materialized view.'
+                    description: Specifies whether to use CREATE OR REPLACE when creating
+                      the materialized view.
                     type: boolean
                   statement:
                     description: |-
@@ -273,11 +273,11 @@ spec:
                   isSecure:
                     description: |-
                       (Boolean) (Default: false) Specifies that the view is secure.
-                      (Default: `false`) Specifies that the view is secure.
+                      Specifies that the view is secure.
                     type: boolean
                   orReplace:
-                    description: '(Default: `false`) Specifies whether to use CREATE
-                      OR REPLACE when creating the materialized view.'
+                    description: Specifies whether to use CREATE OR REPLACE when creating
+                      the materialized view.
                     type: boolean
                   schema:
                     description: |-

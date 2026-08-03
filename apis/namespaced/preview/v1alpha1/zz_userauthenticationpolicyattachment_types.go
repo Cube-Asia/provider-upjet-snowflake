@@ -20,7 +20,7 @@ type UserAuthenticationPolicyAttachmentInitParameters struct {
 type UserAuthenticationPolicyAttachmentObservation struct {
 
 	// (String) Fully qualified name of the authentication policy
-	// Fully qualified name of the authentication policy
+	// Fully qualified name of the authentication policy.
 	AuthenticationPolicyName *string `json:"authenticationPolicyName,omitempty" tf:"authentication_policy_name,omitempty"`
 
 	// (String) The ID of this resource.
@@ -30,7 +30,7 @@ type UserAuthenticationPolicyAttachmentObservation struct {
 type UserAuthenticationPolicyAttachmentParameters struct {
 
 	// (String) Fully qualified name of the authentication policy
-	// Fully qualified name of the authentication policy
+	// Fully qualified name of the authentication policy.
 	// +kubebuilder:validation:Required
 	AuthenticationPolicyName *string `json:"authenticationPolicyName" tf:"authentication_policy_name,omitempty"`
 }

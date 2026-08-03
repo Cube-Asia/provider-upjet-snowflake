@@ -94,7 +94,7 @@ spec:
                   onAccount:
                     description: |-
                       (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-                      (Default: `false`) If true, the object parameter will be set on the account level.
+                      If true, the object parameter will be set on the account level.
                     type: boolean
                   value:
                     description: |-
@@ -151,7 +151,7 @@ spec:
                   onAccount:
                     description: |-
                       (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-                      (Default: `false`) If true, the object parameter will be set on the account level.
+                      If true, the object parameter will be set on the account level.
                     type: boolean
                   value:
                     description: |-
@@ -270,7 +270,7 @@ spec:
                   onAccount:
                     description: |-
                       (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-                      (Default: `false`) If true, the object parameter will be set on the account level.
+                      If true, the object parameter will be set on the account level.
                     type: boolean
                   value:
                     description: |-

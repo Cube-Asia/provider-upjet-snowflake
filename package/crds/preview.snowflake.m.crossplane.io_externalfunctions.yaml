@@ -84,12 +84,12 @@ spec:
                   comment:
                     description: |-
                       defined function) A description of the external function.
-                      (Default: `user-defined function`) A description of the external function.
+                      A description of the external function.
                     type: string
                   compression:
                     description: |-
                       (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-                      (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+                      If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
                     type: string
                   contextHeaders:
                     description: |-
@@ -125,7 +125,8 @@ spec:
                     description: |-
                       (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
                       This specifies the maximum number of rows in each batch sent to the proxy service.
-                    type: number
+                    format: int64
+                    type: integer
                   name:
                     description: |-
                       (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
@@ -134,7 +135,7 @@ spec:
                   nullInputBehavior:
                     description: |-
                       (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-                      (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+                      Specifies the behavior of the external function when called with null inputs.
                     type: string
                   requestTranslator:
                     description: |-
@@ -154,7 +155,7 @@ spec:
                   returnNullAllowed:
                     description: |-
                       NULL values (false).
-                      (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+                      Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
                     type: boolean
                   returnType:
                     description: |-
@@ -211,12 +212,12 @@ spec:
                   comment:
                     description: |-
                       defined function) A description of the external function.
-                      (Default: `user-defined function`) A description of the external function.
+                      A description of the external function.
                     type: string
                   compression:
                     description: |-
                       (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-                      (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+                      If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
                     type: string
                   contextHeaders:
                     description: |-
@@ -252,7 +253,8 @@ spec:
                     description: |-
                       (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
                       This specifies the maximum number of rows in each batch sent to the proxy service.
-                    type: number
+                    format: int64
+                    type: integer
                   name:
                     description: |-
                       (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
@@ -261,7 +263,7 @@ spec:
                   nullInputBehavior:
                     description: |-
                       (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-                      (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+                      Specifies the behavior of the external function when called with null inputs.
                     type: string
                   requestTranslator:
                     description: |-
@@ -281,7 +283,7 @@ spec:
                   returnNullAllowed:
                     description: |-
                       NULL values (false).
-                      (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+                      Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
                     type: boolean
                   returnType:
                     description: |-
@@ -417,12 +419,12 @@ spec:
                   comment:
                     description: |-
                       defined function) A description of the external function.
-                      (Default: `user-defined function`) A description of the external function.
+                      A description of the external function.
                     type: string
                   compression:
                     description: |-
                       (String) (Default: AUTO) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
-                      (Default: `AUTO`) If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
+                      If specified, the JSON payload is compressed when sent from Snowflake to the proxy service, and when sent back from the proxy service to Snowflake.
                     type: string
                   contextHeaders:
                     description: |-
@@ -471,7 +473,8 @@ spec:
                     description: |-
                       (Number) This specifies the maximum number of rows in each batch sent to the proxy service.
                       This specifies the maximum number of rows in each batch sent to the proxy service.
-                    type: number
+                    format: int64
+                    type: integer
                   name:
                     description: |-
                       (String) Specifies the identifier for the external function. The identifier can contain the schema name and database name, as well as the function name. The function's signature (name and argument data types) must be unique within the schema.
@@ -480,7 +483,7 @@ spec:
                   nullInputBehavior:
                     description: |-
                       (String) (Default: CALLED ON NULL INPUT) Specifies the behavior of the external function when called with null inputs.
-                      (Default: `CALLED ON NULL INPUT`) Specifies the behavior of the external function when called with null inputs.
+                      Specifies the behavior of the external function when called with null inputs.
                     type: string
                   requestTranslator:
                     description: |-
@@ -500,7 +503,7 @@ spec:
                   returnNullAllowed:
                     description: |-
                       NULL values (false).
-                      (Default: `true`) Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
+                      Indicates whether the function can return NULL values (true) or must return only NON-NULL values (false).
                     type: boolean
                   returnType:
                     description: |-

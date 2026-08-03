@@ -157,7 +157,7 @@ type JobServiceDescribeOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// (Number)
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -169,7 +169,7 @@ type JobServiceDescribeOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	CurrentInstances *float64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
+	CurrentInstances *int64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
 
 	// (String)
 	DNSName *string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
@@ -197,13 +197,13 @@ type JobServiceDescribeOutputObservation struct {
 	ManagingObjectName *string `json:"managingObjectName,omitempty" tf:"managing_object_name,omitempty"`
 
 	// (Number)
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number)
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number)
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Specifies the identifier for the service; must be unique for the schema in which the service is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -236,7 +236,7 @@ type JobServiceDescribeOutputObservation struct {
 	SuspendedOn *string `json:"suspendedOn,omitempty" tf:"suspended_on,omitempty"`
 
 	// (Number)
-	TargetInstances *float64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
+	TargetInstances *int64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`
@@ -381,7 +381,7 @@ type JobServiceShowOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// (Number)
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the service.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -393,7 +393,7 @@ type JobServiceShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	CurrentInstances *float64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
+	CurrentInstances *int64 `json:"currentInstances,omitempty" tf:"current_instances,omitempty"`
 
 	// (String)
 	DNSName *string `json:"dnsName,omitempty" tf:"dns_name,omitempty"`
@@ -421,13 +421,13 @@ type JobServiceShowOutputObservation struct {
 	ManagingObjectName *string `json:"managingObjectName,omitempty" tf:"managing_object_name,omitempty"`
 
 	// (Number)
-	MaxInstances *float64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
+	MaxInstances *int64 `json:"maxInstances,omitempty" tf:"max_instances,omitempty"`
 
 	// (Number)
-	MinInstances *float64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
+	MinInstances *int64 `json:"minInstances,omitempty" tf:"min_instances,omitempty"`
 
 	// (Number)
-	MinReadyInstances *float64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
+	MinReadyInstances *int64 `json:"minReadyInstances,omitempty" tf:"min_ready_instances,omitempty"`
 
 	// (String) Specifies the identifier for the service; must be unique for the schema in which the service is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -457,7 +457,7 @@ type JobServiceShowOutputObservation struct {
 	SuspendedOn *string `json:"suspendedOn,omitempty" tf:"suspended_on,omitempty"`
 
 	// (Number)
-	TargetInstances *float64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
+	TargetInstances *int64 `json:"targetInstances,omitempty" tf:"target_instances,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`

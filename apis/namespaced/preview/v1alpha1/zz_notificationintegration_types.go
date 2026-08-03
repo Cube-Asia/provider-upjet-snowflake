@@ -49,7 +49,6 @@ type NotificationIntegrationInitParameters struct {
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) The subscription id that Snowflake will listen to when using the GCP_PUBSUB provider.
@@ -65,7 +64,7 @@ type NotificationIntegrationInitParameters struct {
 	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
 
 	// (String, Deprecated) (Default: QUEUE) A type of integration
-	// (Default: `QUEUE`) A type of integration
+	// A type of integration
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -124,7 +123,6 @@ type NotificationIntegrationObservation struct {
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -151,7 +149,7 @@ type NotificationIntegrationObservation struct {
 	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
 
 	// (String, Deprecated) (Default: QUEUE) A type of integration
-	// (Default: `QUEUE`) A type of integration
+	// A type of integration
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -198,7 +196,6 @@ type NotificationIntegrationParameters struct {
 	Direction *string `json:"direction,omitempty" tf:"direction,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -218,7 +215,7 @@ type NotificationIntegrationParameters struct {
 	NotificationProvider *string `json:"notificationProvider,omitempty" tf:"notification_provider,omitempty"`
 
 	// (String, Deprecated) (Default: QUEUE) A type of integration
-	// (Default: `QUEUE`) A type of integration
+	// A type of integration
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

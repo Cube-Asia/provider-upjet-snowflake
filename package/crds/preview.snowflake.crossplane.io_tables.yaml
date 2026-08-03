@@ -75,7 +75,7 @@ spec:
                   changeTracking:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-                      (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
                     type: boolean
                   clusterBy:
                     description: |-
@@ -93,12 +93,12 @@ spec:
                         collate:
                           description: |-
                             (String) (Default: “) Column collation, e.g. utf8
-                            (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
                           type: string
                         comment:
                           description: |-
                             (String) Specifies a comment for the table.
-                            (Default: “) Column comment
+                            Column comment
                           type: string
                         default:
                           description: |-
@@ -132,19 +132,21 @@ spec:
                               startNum:
                                 description: |-
                                   (Number) (Default: 1) The number to start incrementing at.
-                                  (Default: `1`) The number to start incrementing at.
-                                type: number
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
                               stepNum:
                                 description: |-
                                   (Number) (Default: 1) Step size to increment by.
-                                  (Default: `1`) Step size to increment by.
-                                type: number
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
                             type: object
                           type: array
                         maskingPolicy:
                           description: |-
                             (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-                            (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
                           type: string
                         name:
                           description: |-
@@ -154,7 +156,7 @@ spec:
                         nullable:
                           description: |-
                             (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-                            (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
                           type: boolean
                         type:
                           description: |-
@@ -171,8 +173,9 @@ spec:
                   dataRetentionTimeInDays:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                    type: number
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
                   database:
                     description: |-
                       (String) The database in which to create the table.
@@ -251,7 +254,7 @@ spec:
                   changeTracking:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-                      (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
                     type: boolean
                   clusterBy:
                     description: |-
@@ -269,12 +272,12 @@ spec:
                         collate:
                           description: |-
                             (String) (Default: “) Column collation, e.g. utf8
-                            (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
                           type: string
                         comment:
                           description: |-
                             (String) Specifies a comment for the table.
-                            (Default: “) Column comment
+                            Column comment
                           type: string
                         default:
                           description: |-
@@ -308,19 +311,21 @@ spec:
                               startNum:
                                 description: |-
                                   (Number) (Default: 1) The number to start incrementing at.
-                                  (Default: `1`) The number to start incrementing at.
-                                type: number
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
                               stepNum:
                                 description: |-
                                   (Number) (Default: 1) Step size to increment by.
-                                  (Default: `1`) Step size to increment by.
-                                type: number
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
                             type: object
                           type: array
                         maskingPolicy:
                           description: |-
                             (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-                            (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
                           type: string
                         name:
                           description: |-
@@ -330,7 +335,7 @@ spec:
                         nullable:
                           description: |-
                             (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-                            (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
                           type: boolean
                         type:
                           description: |-
@@ -347,8 +352,9 @@ spec:
                   dataRetentionTimeInDays:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                    type: number
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
                   primaryKey:
                     description: |-
                       (Block List, Max: 1, Deprecated) Definitions of primary key constraint to create on table (see below for nested schema)
@@ -487,7 +493,7 @@ spec:
                   changeTracking:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-                      (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
                     type: boolean
                   clusterBy:
                     description: |-
@@ -505,12 +511,12 @@ spec:
                         collate:
                           description: |-
                             (String) (Default: “) Column collation, e.g. utf8
-                            (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
                           type: string
                         comment:
                           description: |-
                             (String) Specifies a comment for the table.
-                            (Default: “) Column comment
+                            Column comment
                           type: string
                         default:
                           description: |-
@@ -544,19 +550,21 @@ spec:
                               startNum:
                                 description: |-
                                   (Number) (Default: 1) The number to start incrementing at.
-                                  (Default: `1`) The number to start incrementing at.
-                                type: number
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
                               stepNum:
                                 description: |-
                                   (Number) (Default: 1) Step size to increment by.
-                                  (Default: `1`) Step size to increment by.
-                                type: number
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
                             type: object
                           type: array
                         maskingPolicy:
                           description: |-
                             (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-                            (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
                           type: string
                         name:
                           description: |-
@@ -566,7 +574,7 @@ spec:
                         nullable:
                           description: |-
                             (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-                            (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
                           type: boolean
                         schemaEvolutionRecord:
                           description: |-
@@ -588,8 +596,9 @@ spec:
                   dataRetentionTimeInDays:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-                    type: number
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
                   database:
                     description: |-
                       (String) The database in which to create the table.

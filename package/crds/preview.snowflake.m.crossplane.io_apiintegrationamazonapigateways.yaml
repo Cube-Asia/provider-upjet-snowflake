@@ -304,8 +304,6 @@ spec:
                             the IAM role that grants Snowflake permission to call
                             the API endpoint.
                           type: string
-                        apiKey:
-                          type: string
                         apiProvider:
                           description: 'insensitive): aws_api_gateway | aws_private_api_gateway
                             | aws_gov_api_gateway | aws_gov_private_api_gateway.'

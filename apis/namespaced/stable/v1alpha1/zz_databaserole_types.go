@@ -71,13 +71,13 @@ type DatabaseRoleShowOutputObservation struct {
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	// (Number)
-	GrantedDatabaseRoles *float64 `json:"grantedDatabaseRoles,omitempty" tf:"granted_database_roles,omitempty"`
+	GrantedDatabaseRoles *int64 `json:"grantedDatabaseRoles,omitempty" tf:"granted_database_roles,omitempty"`
 
 	// (Number)
-	GrantedToDatabaseRoles *float64 `json:"grantedToDatabaseRoles,omitempty" tf:"granted_to_database_roles,omitempty"`
+	GrantedToDatabaseRoles *int64 `json:"grantedToDatabaseRoles,omitempty" tf:"granted_to_database_roles,omitempty"`
 
 	// (Number)
-	GrantedToRoles *float64 `json:"grantedToRoles,omitempty" tf:"granted_to_roles,omitempty"`
+	GrantedToRoles *int64 `json:"grantedToRoles,omitempty" tf:"granted_to_roles,omitempty"`
 
 	// (Boolean)
 	IsCurrent *bool `json:"isCurrent,omitempty" tf:"is_current,omitempty"`

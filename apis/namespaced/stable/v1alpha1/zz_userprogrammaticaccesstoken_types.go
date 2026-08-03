@@ -21,22 +21,22 @@ type UserProgrammaticAccessTokenInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// The number of days that the programmatic access token can be used for authentication. This field cannot be altered after the token is created. Instead, you must rotate the token with the `keeper` field. External changes for this field won't be detected.
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) This field is only used when the token is rotated by changing the keeper field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
-	ExpireRotatedTokenAfterHours *float64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
+	// This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
+	ExpireRotatedTokenAfterHours *int64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
 
 	// empty to a different non-empty value (or known after apply), will trigger a key to be rotated. When you add this field to the configuration, or remove it from the configuration, the rotation is not triggered. When the token is rotated, the token and rotated_token_name fields are marked as computed.
 	// Arbitrary string that, if and only if, changed from a non-empty to a different non-empty value (or known after apply), will trigger a key to be rotated. When you add this field to the configuration, or remove it from the configuration, the rotation is not triggered. When the token is rotated, the `token` and `rotated_token_name` fields are marked as computed.
 	Keeper *string `json:"keeper,omitempty" tf:"keeper,omitempty"`
 
 	// The number of minutes during which a user can use this token to access Snowflake without being subject to an active network policy. External changes for this field won't be detected.
-	MinsToBypassNetworkPolicyRequirement *float64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
+	MinsToBypassNetworkPolicyRequirement *int64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
 
 	// (String) The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -50,15 +50,15 @@ type UserProgrammaticAccessTokenObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// The number of days that the programmatic access token can be used for authentication. This field cannot be altered after the token is created. Instead, you must rotate the token with the `keeper` field. External changes for this field won't be detected.
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) This field is only used when the token is rotated by changing the keeper field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
-	ExpireRotatedTokenAfterHours *float64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
+	// This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
+	ExpireRotatedTokenAfterHours *int64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -68,7 +68,7 @@ type UserProgrammaticAccessTokenObservation struct {
 	Keeper *string `json:"keeper,omitempty" tf:"keeper,omitempty"`
 
 	// The number of minutes during which a user can use this token to access Snowflake without being subject to an active network policy. External changes for this field won't be detected.
-	MinsToBypassNetworkPolicyRequirement *float64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
+	MinsToBypassNetworkPolicyRequirement *int64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
 
 	// (String) The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -96,17 +96,17 @@ type UserProgrammaticAccessTokenParameters struct {
 
 	// The number of days that the programmatic access token can be used for authentication. This field cannot be altered after the token is created. Instead, you must rotate the token with the `keeper` field. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Disables or enables the programmatic access token. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) This field is only used when the token is rotated by changing the keeper field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
+	// This field is only used when the token is rotated by changing the `keeper` field. Sets the expiration time of the existing token secret to expire after the specified number of hours. You can set this to a value of 0 to expire the current token secret immediately.
 	// +kubebuilder:validation:Optional
-	ExpireRotatedTokenAfterHours *float64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
+	ExpireRotatedTokenAfterHours *int64 `json:"expireRotatedTokenAfterHours,omitempty" tf:"expire_rotated_token_after_hours,omitempty"`
 
 	// empty to a different non-empty value (or known after apply), will trigger a key to be rotated. When you add this field to the configuration, or remove it from the configuration, the rotation is not triggered. When the token is rotated, the token and rotated_token_name fields are marked as computed.
 	// Arbitrary string that, if and only if, changed from a non-empty to a different non-empty value (or known after apply), will trigger a key to be rotated. When you add this field to the configuration, or remove it from the configuration, the rotation is not triggered. When the token is rotated, the `token` and `rotated_token_name` fields are marked as computed.
@@ -115,7 +115,7 @@ type UserProgrammaticAccessTokenParameters struct {
 
 	// The number of minutes during which a user can use this token to access Snowflake without being subject to an active network policy. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	MinsToBypassNetworkPolicyRequirement *float64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
+	MinsToBypassNetworkPolicyRequirement *int64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
 
 	// (String) The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The name of the role used for privilege evaluation and object creation. This must be one of the roles that has already been granted to the user. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -145,7 +145,7 @@ type UserProgrammaticAccessTokenShowOutputObservation struct {
 	// (String)
 	ExpiresAt *string `json:"expiresAt,omitempty" tf:"expires_at,omitempty"`
 
-	MinsToBypassNetworkPolicyRequirement *float64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
+	MinsToBypassNetworkPolicyRequirement *int64 `json:"minsToBypassNetworkPolicyRequirement,omitempty" tf:"mins_to_bypass_network_policy_requirement,omitempty"`
 
 	// (String) Specifies the name for the programmatic access token; must be unique for the user. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

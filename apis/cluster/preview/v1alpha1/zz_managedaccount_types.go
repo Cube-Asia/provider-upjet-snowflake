@@ -28,7 +28,7 @@ type ManagedAccountInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: READER) Specifies the type of managed account.
-	// (Default: `READER`) Specifies the type of managed account.
+	// Specifies the type of managed account.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }
 
@@ -66,7 +66,7 @@ type ManagedAccountObservation struct {
 	Region *string `json:"region,omitempty" tf:"region,omitempty"`
 
 	// (String) (Default: READER) Specifies the type of managed account.
-	// (Default: `READER`) Specifies the type of managed account.
+	// Specifies the type of managed account.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (String) URL for accessing the managed account, particularly through the web interface.
@@ -92,7 +92,7 @@ type ManagedAccountParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) (Default: READER) Specifies the type of managed account.
-	// (Default: `READER`) Specifies the type of managed account.
+	// Specifies the type of managed account.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 }

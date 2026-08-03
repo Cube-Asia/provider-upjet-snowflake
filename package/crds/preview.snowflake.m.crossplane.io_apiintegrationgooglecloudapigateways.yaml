@@ -241,9 +241,6 @@ spec:
                           items:
                             type: string
                           type: array
-                        apiKey:
-                          description: (String)
-                          type: string
                         apiProvider:
                           description: (String)
                           type: string

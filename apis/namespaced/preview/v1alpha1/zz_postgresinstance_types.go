@@ -38,7 +38,7 @@ type PostgresInstanceDescribeOutputObservation struct {
 	Host *string `json:"host,omitempty" tf:"host,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	MaintenanceWindowStart *float64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
+	MaintenanceWindowStart *int64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
 
 	// (String) Specifies the identifier for the Postgres instance; must be unique for your account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
@@ -59,13 +59,13 @@ type PostgresInstanceDescribeOutputObservation struct {
 	PostgresSettings *string `json:"postgresSettings,omitempty" tf:"postgres_settings,omitempty"`
 
 	// (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-	PostgresVersion *float64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
+	PostgresVersion *int64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
 
 	// (String)
 	PrivatelinkServiceIdentifier *string `json:"privatelinkServiceIdentifier,omitempty" tf:"privatelink_service_identifier,omitempty"`
 
 	// (Number)
-	RetentionTime *float64 `json:"retentionTime,omitempty" tf:"retention_time,omitempty"`
+	RetentionTime *int64 `json:"retentionTime,omitempty" tf:"retention_time,omitempty"`
 
 	// (String)
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
@@ -74,7 +74,7 @@ type PostgresInstanceDescribeOutputObservation struct {
 	StorageIntegration *string `json:"storageIntegration,omitempty" tf:"storage_integration,omitempty"`
 
 	// (Number) Specifies the storage size in GB for the Postgres instance.
-	StorageSizeGb *float64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
+	StorageSizeGb *int64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
 
 	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
@@ -101,12 +101,12 @@ type PostgresInstanceInitParameters struct {
 	ComputeFamily *string `json:"computeFamily,omitempty" tf:"compute_family,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	HighAvailability *string `json:"highAvailability,omitempty" tf:"high_availability,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	MaintenanceWindowStart *float64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
+	// Specifies the hour (0-23 UTC) at which the maintenance window starts.
+	MaintenanceWindowStart *int64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
 
 	// (String) Specifies the network policy to associate with the Postgres instance.
 	// Specifies the network policy to associate with the Postgres instance.
@@ -118,7 +118,7 @@ type PostgresInstanceInitParameters struct {
 
 	// (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
 	// Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-	PostgresVersion *float64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
+	PostgresVersion *int64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
 
 	// (String) Specifies the storage integration for the Postgres instance.
 	// Specifies the storage integration for the Postgres instance.
@@ -126,7 +126,7 @@ type PostgresInstanceInitParameters struct {
 
 	// (Number) Specifies the storage size in GB for the Postgres instance.
 	// Specifies the storage size in GB for the Postgres instance.
-	StorageSizeGb *float64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
+	StorageSizeGb *int64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
 }
 
 type PostgresInstanceObservation struct {
@@ -152,15 +152,15 @@ type PostgresInstanceObservation struct {
 	FullyQualifiedName *string `json:"fullyQualifiedName,omitempty" tf:"fully_qualified_name,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	HighAvailability *string `json:"highAvailability,omitempty" tf:"high_availability,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	MaintenanceWindowStart *float64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
+	// Specifies the hour (0-23 UTC) at which the maintenance window starts.
+	MaintenanceWindowStart *int64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
 
 	// (String) Specifies the network policy to associate with the Postgres instance.
 	// Specifies the network policy to associate with the Postgres instance.
@@ -172,7 +172,7 @@ type PostgresInstanceObservation struct {
 
 	// (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
 	// Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-	PostgresVersion *float64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
+	PostgresVersion *int64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW POSTGRES INSTANCES for the given Postgres instance. (see below for nested schema)
 	// Outputs the result of `SHOW POSTGRES INSTANCES` for the given Postgres instance.
@@ -184,7 +184,7 @@ type PostgresInstanceObservation struct {
 
 	// (Number) Specifies the storage size in GB for the Postgres instance.
 	// Specifies the storage size in GB for the Postgres instance.
-	StorageSizeGb *float64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
+	StorageSizeGb *int64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
 }
 
 type PostgresInstanceParameters struct {
@@ -205,14 +205,14 @@ type PostgresInstanceParameters struct {
 	ComputeFamily *string `json:"computeFamily,omitempty" tf:"compute_family,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	HighAvailability *string `json:"highAvailability,omitempty" tf:"high_availability,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
+	// Specifies the hour (0-23 UTC) at which the maintenance window starts.
 	// +kubebuilder:validation:Optional
-	MaintenanceWindowStart *float64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
+	MaintenanceWindowStart *int64 `json:"maintenanceWindowStart,omitempty" tf:"maintenance_window_start,omitempty"`
 
 	// (String) Specifies the network policy to associate with the Postgres instance.
 	// Specifies the network policy to associate with the Postgres instance.
@@ -227,7 +227,7 @@ type PostgresInstanceParameters struct {
 	// (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
 	// Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
 	// +kubebuilder:validation:Optional
-	PostgresVersion *float64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
+	PostgresVersion *int64 `json:"postgresVersion,omitempty" tf:"postgres_version,omitempty"`
 
 	// (String) Specifies the storage integration for the Postgres instance.
 	// Specifies the storage integration for the Postgres instance.
@@ -237,7 +237,7 @@ type PostgresInstanceParameters struct {
 	// (Number) Specifies the storage size in GB for the Postgres instance.
 	// Specifies the storage size in GB for the Postgres instance.
 	// +kubebuilder:validation:Optional
-	StorageSizeGb *float64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
+	StorageSizeGb *int64 `json:"storageSizeGb,omitempty" tf:"storage_size_gb,omitempty"`
 }
 
 type PostgresInstanceShowOutputInitParameters struct {
@@ -285,13 +285,13 @@ type PostgresInstanceShowOutputObservation struct {
 	PrivatelinkServiceIdentifier *string `json:"privatelinkServiceIdentifier,omitempty" tf:"privatelink_service_identifier,omitempty"`
 
 	// (Number)
-	RetentionTime *float64 `json:"retentionTime,omitempty" tf:"retention_time,omitempty"`
+	RetentionTime *int64 `json:"retentionTime,omitempty" tf:"retention_time,omitempty"`
 
 	// (String)
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// (Number)
-	StorageSize *float64 `json:"storageSize,omitempty" tf:"storage_size,omitempty"`
+	StorageSize *int64 `json:"storageSize,omitempty" tf:"storage_size,omitempty"`
 
 	// (String)
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`

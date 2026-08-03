@@ -34,7 +34,7 @@ type UserInitParameters struct {
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -42,11 +42,11 @@ type UserInitParameters struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -58,7 +58,7 @@ type UserInitParameters struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -77,7 +77,7 @@ type UserInitParameters struct {
 	DateOutputFormat *string `json:"dateOutputFormat,omitempty" tf:"date_output_format,omitempty"`
 
 	// Specifies the number of days after which the user status is set to `Expired` and the user is no longer allowed to log in. This is useful for defining temporary users (i.e. users who should only have access to Snowflake for a limited time period). In general, you should not set this property for [account administrators](https://docs.snowflake.com/en/user-guide/security-access-control-considerations.html#label-accountadmin-users) (i.e. users with the `ACCOUNTADMIN` role) because Snowflake locks them out when they become `Expired`. External changes for this field won't be detected.
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// (String) Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
 	// Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
@@ -88,7 +88,7 @@ type UserInitParameters struct {
 	DefaultRole *string `json:"defaultRole,omitempty" tf:"default_role,omitempty"`
 
 	// insensitive): DEFAULT | NONE | ALL. More information can be found in doc.
-	// (Default: `DEFAULT`) Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
+	// Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
 	DefaultSecondaryRolesOption *string `json:"defaultSecondaryRolesOption,omitempty" tf:"default_secondary_roles_option,omitempty"`
 
 	// (String) Specifies the virtual warehouse that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the warehouse exists. For more information about this resource, see docs.
@@ -96,11 +96,11 @@ type UserInitParameters struct {
 	DefaultWarehouse *string `json:"defaultWarehouse,omitempty" tf:"default_warehouse,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Allows enabling or disabling multi-factor authentication. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	DisableMfa *string `json:"disableMfa,omitempty" tf:"disable_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (String) Name displayed for the user in the Snowflake web interface.
@@ -141,7 +141,7 @@ type UserInitParameters struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -161,7 +161,7 @@ type UserInitParameters struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -180,19 +180,19 @@ type UserInitParameters struct {
 	MiddleNameSecretRef *v1.LocalSecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
-	MinsToBypassMfa *float64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
+	// Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
+	MinsToBypassMfa *int64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. Note because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
-	MinsToUnlock *float64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
+	// Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
+	MinsToUnlock *int64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
 	// (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Any existing network policy (created using CREATE NETWORK POLICY). For more information, check NETWORK_POLICY docs.
@@ -224,7 +224,7 @@ type UserInitParameters struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// pair authentication. Must be on 1 line without header and trailer.
 	// Specifies the user’s RSA public key; used for key-pair authentication. Must be on 1 line without header and trailer.
@@ -248,11 +248,11 @@ type UserInitParameters struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -312,7 +312,7 @@ type UserInitParameters struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -324,11 +324,11 @@ type UserInitParameters struct {
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type UserObservation struct {
@@ -351,7 +351,7 @@ type UserObservation struct {
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -359,11 +359,11 @@ type UserObservation struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -375,7 +375,7 @@ type UserObservation struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -394,7 +394,7 @@ type UserObservation struct {
 	DateOutputFormat *string `json:"dateOutputFormat,omitempty" tf:"date_output_format,omitempty"`
 
 	// Specifies the number of days after which the user status is set to `Expired` and the user is no longer allowed to log in. This is useful for defining temporary users (i.e. users who should only have access to Snowflake for a limited time period). In general, you should not set this property for [account administrators](https://docs.snowflake.com/en/user-guide/security-access-control-considerations.html#label-accountadmin-users) (i.e. users with the `ACCOUNTADMIN` role) because Snowflake locks them out when they become `Expired`. External changes for this field won't be detected.
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// (String) Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
 	// Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
@@ -405,7 +405,7 @@ type UserObservation struct {
 	DefaultRole *string `json:"defaultRole,omitempty" tf:"default_role,omitempty"`
 
 	// insensitive): DEFAULT | NONE | ALL. More information can be found in doc.
-	// (Default: `DEFAULT`) Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
+	// Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
 	DefaultSecondaryRolesOption *string `json:"defaultSecondaryRolesOption,omitempty" tf:"default_secondary_roles_option,omitempty"`
 
 	// (String) Specifies the virtual warehouse that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the warehouse exists. For more information about this resource, see docs.
@@ -413,11 +413,11 @@ type UserObservation struct {
 	DefaultWarehouse *string `json:"defaultWarehouse,omitempty" tf:"default_warehouse,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Allows enabling or disabling multi-factor authentication. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	DisableMfa *string `json:"disableMfa,omitempty" tf:"disable_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
 	// (String) Name displayed for the user in the Snowflake web interface.
@@ -457,7 +457,7 @@ type UserObservation struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -473,7 +473,7 @@ type UserObservation struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -484,19 +484,19 @@ type UserObservation struct {
 	LogLevel *string `json:"logLevel,omitempty" tf:"log_level,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
-	MinsToBypassMfa *float64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
+	// Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
+	MinsToBypassMfa *int64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. Note because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
-	MinsToUnlock *float64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
+	// Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
+	MinsToUnlock *int64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
 	// (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Any existing network policy (created using CREATE NETWORK POLICY). For more information, check NETWORK_POLICY docs.
@@ -529,7 +529,7 @@ type UserObservation struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// pair authentication. Must be on 1 line without header and trailer.
 	// Specifies the user’s RSA public key; used for key-pair authentication. Must be on 1 line without header and trailer.
@@ -557,11 +557,11 @@ type UserObservation struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -621,7 +621,7 @@ type UserObservation struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -637,11 +637,11 @@ type UserObservation struct {
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type UserParameters struct {
@@ -669,7 +669,7 @@ type UserParameters struct {
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
 	// +kubebuilder:validation:Optional
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -679,12 +679,12 @@ type UserParameters struct {
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
 	// +kubebuilder:validation:Optional
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
 	// +kubebuilder:validation:Optional
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -699,7 +699,7 @@ type UserParameters struct {
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
 	// +kubebuilder:validation:Optional
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -723,7 +723,7 @@ type UserParameters struct {
 
 	// Specifies the number of days after which the user status is set to `Expired` and the user is no longer allowed to log in. This is useful for defining temporary users (i.e. users who should only have access to Snowflake for a limited time period). In general, you should not set this property for [account administrators](https://docs.snowflake.com/en/user-guide/security-access-control-considerations.html#label-accountadmin-users) (i.e. users with the `ACCOUNTADMIN` role) because Snowflake locks them out when they become `Expired`. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	DaysToExpiry *float64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
+	DaysToExpiry *int64 `json:"daysToExpiry,omitempty" tf:"days_to_expiry,omitempty"`
 
 	// (String) Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
 	// Specifies the namespace (database only or database and schema) that is active by default for the user’s session upon login. Note that the CREATE USER operation does not verify that the namespace exists.
@@ -736,7 +736,7 @@ type UserParameters struct {
 	DefaultRole *string `json:"defaultRole,omitempty" tf:"default_role,omitempty"`
 
 	// insensitive): DEFAULT | NONE | ALL. More information can be found in doc.
-	// (Default: `DEFAULT`) Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
+	// Specifies the secondary roles that are active for the user’s session upon login. Valid values are (case-insensitive): `DEFAULT` | `NONE` | `ALL`. More information can be found in [doc](https://docs.snowflake.com/en/sql-reference/sql/create-user#optional-object-properties-objectproperties).
 	// +kubebuilder:validation:Optional
 	DefaultSecondaryRolesOption *string `json:"defaultSecondaryRolesOption,omitempty" tf:"default_secondary_roles_option,omitempty"`
 
@@ -746,12 +746,12 @@ type UserParameters struct {
 	DefaultWarehouse *string `json:"defaultWarehouse,omitempty" tf:"default_warehouse,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Allows enabling or disabling multi-factor authentication. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Allows enabling or disabling [multi-factor authentication](https://docs.snowflake.com/en/user-guide/security-mfa). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
 	DisableMfa *string `json:"disableMfa,omitempty" tf:"disable_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is disabled, which prevents logging in and aborts all the currently-running queries for the user. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	Disabled *string `json:"disabled,omitempty" tf:"disabled,omitempty"`
 
@@ -803,7 +803,7 @@ type UserParameters struct {
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
 	// +kubebuilder:validation:Optional
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -828,7 +828,7 @@ type UserParameters struct {
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
 	// +kubebuilder:validation:Optional
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -851,22 +851,22 @@ type UserParameters struct {
 	MiddleNameSecretRef *v1.LocalSecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
+	// Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	MinsToBypassMfa *float64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
+	MinsToBypassMfa *int64 `json:"minsToBypassMfa,omitempty" tf:"mins_to_bypass_mfa,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. Note because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
+	// Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	MinsToUnlock *float64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
+	MinsToUnlock *int64 `json:"minsToUnlock,omitempty" tf:"mins_to_unlock,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
 	// +kubebuilder:validation:Optional
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether the user is forced to change their password on next login (including their first/initial login) into the system. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
@@ -907,7 +907,7 @@ type UserParameters struct {
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
 	// +kubebuilder:validation:Optional
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// pair authentication. Must be on 1 line without header and trailer.
 	// Specifies the user’s RSA public key; used for key-pair authentication. Must be on 1 line without header and trailer.
@@ -937,12 +937,12 @@ type UserParameters struct {
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
 	// This parameter specifies whether JSON output in a session is compatible with the general standard (as described by [http://json.org](http://json.org)). By design, Snowflake allows JSON input that contains non-standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check [STRICT_JSON_OUTPUT docs](https://docs.snowflake.com/en/sql-reference/parameters#strict-json-output).
@@ -1017,7 +1017,7 @@ type UserParameters struct {
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
 	// +kubebuilder:validation:Optional
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -1032,12 +1032,12 @@ type UserParameters struct {
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
 	// +kubebuilder:validation:Optional
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
 	// +kubebuilder:validation:Optional
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type UserParametersAbortDetachedQueryInitParameters struct {

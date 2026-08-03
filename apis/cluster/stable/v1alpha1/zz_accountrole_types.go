@@ -49,7 +49,7 @@ type AccountRoleShowOutputInitParameters struct {
 type AccountRoleShowOutputObservation struct {
 
 	// (Number)
-	AssignedToUsers *float64 `json:"assignedToUsers,omitempty" tf:"assigned_to_users,omitempty"`
+	AssignedToUsers *int64 `json:"assignedToUsers,omitempty" tf:"assigned_to_users,omitempty"`
 
 	// (String)
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -58,10 +58,10 @@ type AccountRoleShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	GrantedRoles *float64 `json:"grantedRoles,omitempty" tf:"granted_roles,omitempty"`
+	GrantedRoles *int64 `json:"grantedRoles,omitempty" tf:"granted_roles,omitempty"`
 
 	// (Number)
-	GrantedToRoles *float64 `json:"grantedToRoles,omitempty" tf:"granted_to_roles,omitempty"`
+	GrantedToRoles *int64 `json:"grantedToRoles,omitempty" tf:"granted_to_roles,omitempty"`
 
 	// (Boolean)
 	IsCurrent *bool `json:"isCurrent,omitempty" tf:"is_current,omitempty"`

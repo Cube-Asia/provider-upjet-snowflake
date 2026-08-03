@@ -91,7 +91,7 @@ type NotebookDescribeOutputObservation struct {
 	ExternalAccessSecrets *string `json:"externalAccessSecrets,omitempty" tf:"external_access_secrets,omitempty"`
 
 	// (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
-	IdleAutoShutdownTimeSeconds *float64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
+	IdleAutoShutdownTimeSeconds *int64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
 
 	// (String)
 	ImportUrls *string `json:"importUrls,omitempty" tf:"import_urls,omitempty"`
@@ -157,7 +157,7 @@ type NotebookInitParameters struct {
 
 	// (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
 	// Specifies the number of seconds of idle time before the notebook is shut down automatically.
-	IdleAutoShutdownTimeSeconds *float64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
+	IdleAutoShutdownTimeSeconds *int64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
 
 	// specified identifier for the notebook file name.
 	// Specifies a user-specified identifier for the notebook file name.
@@ -199,7 +199,7 @@ type NotebookObservation struct {
 
 	// (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
 	// Specifies the number of seconds of idle time before the notebook is shut down automatically.
-	IdleAutoShutdownTimeSeconds *float64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
+	IdleAutoShutdownTimeSeconds *int64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
 
 	// specified identifier for the notebook file name.
 	// Specifies a user-specified identifier for the notebook file name.
@@ -242,7 +242,7 @@ type NotebookParameters struct {
 	// (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
 	// Specifies the number of seconds of idle time before the notebook is shut down automatically.
 	// +kubebuilder:validation:Optional
-	IdleAutoShutdownTimeSeconds *float64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
+	IdleAutoShutdownTimeSeconds *int64 `json:"idleAutoShutdownTimeSeconds,omitempty" tf:"idle_auto_shutdown_time_seconds,omitempty"`
 
 	// specified identifier for the notebook file name.
 	// Specifies a user-specified identifier for the notebook file name.

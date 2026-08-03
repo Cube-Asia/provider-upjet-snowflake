@@ -67,13 +67,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                    type: number
+                      Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the compute pool.
@@ -87,7 +88,7 @@ spec:
                   initiallySuspended:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+                      Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
                     type: string
                   instanceFamily:
                     description: |-
@@ -98,12 +99,14 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of nodes for the compute pool.
                       Specifies the maximum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                   minNodes:
                     description: |-
                       (Number) Specifies the minimum number of nodes for the compute pool.
                       Specifies the minimum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               initProvider:
                 description: |-
@@ -121,13 +124,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                    type: number
+                      Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the compute pool.
@@ -141,7 +145,7 @@ spec:
                   initiallySuspended:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+                      Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
                     type: string
                   instanceFamily:
                     description: |-
@@ -152,12 +156,14 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of nodes for the compute pool.
                       Specifies the maximum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                   minNodes:
                     description: |-
                       (Number) Specifies the minimum number of nodes for the compute pool.
                       Specifies the minimum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -238,13 +244,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspendSecs:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-                    type: number
+                      Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the compute pool.
@@ -258,7 +265,8 @@ spec:
                       properties:
                         activeNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         application:
                           description: (String)
                           type: string
@@ -276,7 +284,8 @@ spec:
                             configuration manually (-1)) Number of seconds of inactivity
                             after which you want Snowflake to automatically suspend
                             the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the compute
                             pool.
@@ -289,7 +298,8 @@ spec:
                           type: string
                         idleNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         instanceFamily:
                           description: 'insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M
                             | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M
@@ -314,11 +324,13 @@ spec:
                         maxNodes:
                           description: (Number) Specifies the maximum number of nodes
                             for the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         minNodes:
                           description: (Number) Specifies the minimum number of nodes
                             for the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             compute pool; must be unique for the account. Due to technical
@@ -327,10 +339,12 @@ spec:
                           type: string
                         numJobs:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         numServices:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         owner:
                           description: (String)
                           type: string
@@ -345,7 +359,8 @@ spec:
                           type: string
                         targetNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string
@@ -367,7 +382,7 @@ spec:
                   initiallySuspended:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+                      Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
                     type: string
                   instanceFamily:
                     description: |-
@@ -378,12 +393,14 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of nodes for the compute pool.
                       Specifies the maximum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                   minNodes:
                     description: |-
                       (Number) Specifies the minimum number of nodes for the compute pool.
                       Specifies the minimum number of nodes for the compute pool.
-                    type: number
+                    format: int64
+                    type: integer
                   showOutput:
                     description: |-
                       (List of Object) Outputs the result of SHOW COMPUTE POOLS for the given compute pool. (see below for nested schema)
@@ -392,7 +409,8 @@ spec:
                       properties:
                         activeNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         application:
                           description: (String)
                           type: string
@@ -410,7 +428,8 @@ spec:
                             configuration manually (-1)) Number of seconds of inactivity
                             after which you want Snowflake to automatically suspend
                             the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String) Specifies a comment for the compute
                             pool.
@@ -420,7 +439,8 @@ spec:
                           type: string
                         idleNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         instanceFamily:
                           description: 'insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M
                             | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M
@@ -445,11 +465,13 @@ spec:
                         maxNodes:
                           description: (Number) Specifies the maximum number of nodes
                             for the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         minNodes:
                           description: (Number) Specifies the minimum number of nodes
                             for the compute pool.
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             compute pool; must be unique for the account. Due to technical
@@ -458,10 +480,12 @@ spec:
                           type: string
                         numJobs:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         numServices:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         owner:
                           description: (String)
                           type: string
@@ -473,7 +497,8 @@ spec:
                           type: string
                         targetNodes:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         updatedOn:
                           description: (String)
                           type: string

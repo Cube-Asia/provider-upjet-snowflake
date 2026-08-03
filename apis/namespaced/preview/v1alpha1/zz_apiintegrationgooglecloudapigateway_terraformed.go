@@ -21,7 +21,7 @@ func (mg *ApiIntegrationGoogleCloudApiGateway) GetTerraformResourceType() string
 
 // GetConnectionDetailsMapping for this ApiIntegrationGoogleCloudApiGateway
 func (tr *ApiIntegrationGoogleCloudApiGateway) GetConnectionDetailsMapping() map[string]string {
-	return nil
+	return map[string]string{"describe_output[*].api_key": "status.atProvider.describeOutput[*].apiKey"}
 }
 
 // GetObservation of this ApiIntegrationGoogleCloudApiGateway

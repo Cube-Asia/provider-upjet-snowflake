@@ -87,17 +87,17 @@ spec:
                   deferrable:
                     description: |-
                       (Boolean) (Default: true) Whether the constraint is deferrable
-                      (Default: `true`) Whether the constraint is deferrable
+                      Whether the constraint is deferrable
                     type: boolean
                   enable:
                     description: |-
                       (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-                      (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+                      Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
                     type: boolean
                   enforced:
                     description: |-
                       (Boolean) (Default: false) Whether the constraint is enforced
-                      (Default: `false`) Whether the constraint is enforced
+                      Whether the constraint is enforced
                     type: boolean
                   foreignKeyProperties:
                     description: |-
@@ -108,17 +108,17 @@ spec:
                         match:
                           description: |-
                             (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-                            (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+                            The match type for the foreign key. Not applicable for primary/unique keys
                           type: string
                         onDelete:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
                           type: string
                         onUpdate:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
                           type: string
                         references:
                           description: |-
@@ -145,7 +145,7 @@ spec:
                   initially:
                     description: |-
                       (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-                      (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+                      Whether the constraint is initially deferred or immediate
                     type: string
                   name:
                     description: |-
@@ -155,7 +155,7 @@ spec:
                   rely:
                     description: |-
                       (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-                      (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+                      Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
                     type: boolean
                   tableId:
                     description: |-
@@ -170,7 +170,7 @@ spec:
                   validate:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-                      (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+                      Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
                     type: boolean
                 type: object
               initProvider:
@@ -201,17 +201,17 @@ spec:
                   deferrable:
                     description: |-
                       (Boolean) (Default: true) Whether the constraint is deferrable
-                      (Default: `true`) Whether the constraint is deferrable
+                      Whether the constraint is deferrable
                     type: boolean
                   enable:
                     description: |-
                       (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-                      (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+                      Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
                     type: boolean
                   enforced:
                     description: |-
                       (Boolean) (Default: false) Whether the constraint is enforced
-                      (Default: `false`) Whether the constraint is enforced
+                      Whether the constraint is enforced
                     type: boolean
                   foreignKeyProperties:
                     description: |-
@@ -222,17 +222,17 @@ spec:
                         match:
                           description: |-
                             (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-                            (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+                            The match type for the foreign key. Not applicable for primary/unique keys
                           type: string
                         onDelete:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
                           type: string
                         onUpdate:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
                           type: string
                         references:
                           description: |-
@@ -259,7 +259,7 @@ spec:
                   initially:
                     description: |-
                       (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-                      (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+                      Whether the constraint is initially deferred or immediate
                     type: string
                   name:
                     description: |-
@@ -269,7 +269,7 @@ spec:
                   rely:
                     description: |-
                       (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-                      (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+                      Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
                     type: boolean
                   tableId:
                     description: |-
@@ -284,7 +284,7 @@ spec:
                   validate:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-                      (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+                      Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
                     type: boolean
                 type: object
               managementPolicies:
@@ -410,17 +410,17 @@ spec:
                   deferrable:
                     description: |-
                       (Boolean) (Default: true) Whether the constraint is deferrable
-                      (Default: `true`) Whether the constraint is deferrable
+                      Whether the constraint is deferrable
                     type: boolean
                   enable:
                     description: |-
                       (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-                      (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+                      Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
                     type: boolean
                   enforced:
                     description: |-
                       (Boolean) (Default: false) Whether the constraint is enforced
-                      (Default: `false`) Whether the constraint is enforced
+                      Whether the constraint is enforced
                     type: boolean
                   foreignKeyProperties:
                     description: |-
@@ -431,17 +431,17 @@ spec:
                         match:
                           description: |-
                             (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-                            (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+                            The match type for the foreign key. Not applicable for primary/unique keys
                           type: string
                         onDelete:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
                           type: string
                         onUpdate:
                           description: |-
                             (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-                            (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+                            Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
                           type: string
                         references:
                           description: |-
@@ -471,7 +471,7 @@ spec:
                   initially:
                     description: |-
                       (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-                      (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+                      Whether the constraint is initially deferred or immediate
                     type: string
                   name:
                     description: |-
@@ -481,7 +481,7 @@ spec:
                   rely:
                     description: |-
                       (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-                      (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+                      Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
                     type: boolean
                   tableId:
                     description: |-
@@ -496,7 +496,7 @@ spec:
                   validate:
                     description: |-
                       (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-                      (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+                      Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
                     type: boolean
                 type: object
               conditions:

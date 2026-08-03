@@ -92,13 +92,14 @@ spec:
                   highAvailability:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   maintenanceWindowStart:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                    type: number
+                      Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to associate with the Postgres instance.
@@ -113,7 +114,8 @@ spec:
                     description: |-
                       (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
                       Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-                    type: number
+                    format: int64
+                    type: integer
                   storageIntegration:
                     description: |-
                       (String) Specifies the storage integration for the Postgres instance.
@@ -123,7 +125,8 @@ spec:
                     description: |-
                       (Number) Specifies the storage size in GB for the Postgres instance.
                       Specifies the storage size in GB for the Postgres instance.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               initProvider:
                 description: |-
@@ -156,13 +159,14 @@ spec:
                   highAvailability:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   maintenanceWindowStart:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                    type: number
+                      Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to associate with the Postgres instance.
@@ -177,7 +181,8 @@ spec:
                     description: |-
                       (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
                       Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-                    type: number
+                    format: int64
+                    type: integer
                   storageIntegration:
                     description: |-
                       (String) Specifies the storage integration for the Postgres instance.
@@ -187,7 +192,8 @@ spec:
                     description: |-
                       (Number) Specifies the storage size in GB for the Postgres instance.
                       Specifies the storage size in GB for the Postgres instance.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -352,7 +358,8 @@ spec:
                           description: uses special value that cannot be set in the
                             configuration manually (-1)) Specifies the hour (0-23
                             UTC) at which the maintenance window starts.
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Specifies the identifier for the
                             Postgres instance; must be unique for your account. Due
@@ -380,13 +387,15 @@ spec:
                           description: (Number) Specifies the Postgres version for
                             the instance. Note that Snowflake does not allow downgrading;
                             the version can only be upgraded.
-                          type: number
+                          format: int64
+                          type: integer
                         privatelinkServiceIdentifier:
                           description: (String)
                           type: string
                         retentionTime:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         state:
                           description: (String)
                           type: string
@@ -397,7 +406,8 @@ spec:
                         storageSizeGb:
                           description: (Number) Specifies the storage size in GB for
                             the Postgres instance.
-                          type: number
+                          format: int64
+                          type: integer
                         type:
                           description: (String)
                           type: string
@@ -414,7 +424,7 @@ spec:
                   highAvailability:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether the Postgres instance should be configured for high availability. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   id:
                     description: (String) The ID of this resource.
@@ -422,8 +432,9 @@ spec:
                   maintenanceWindowStart:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the hour (0-23 UTC) at which the maintenance window starts.
-                    type: number
+                      Specifies the hour (0-23 UTC) at which the maintenance window starts.
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to associate with the Postgres instance.
@@ -438,7 +449,8 @@ spec:
                     description: |-
                       (Number) Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
                       Specifies the Postgres version for the instance. Note that Snowflake does not allow downgrading; the version can only be upgraded.
-                    type: number
+                    format: int64
+                    type: integer
                   showOutput:
                     description: |-
                       (List of Object) Outputs the result of SHOW POSTGRES INSTANCES for the given Postgres instance. (see below for nested schema)
@@ -498,13 +510,15 @@ spec:
                           type: string
                         retentionTime:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         state:
                           description: (String)
                           type: string
                         storageSize:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         type:
                           description: (String)
                           type: string
@@ -522,7 +536,8 @@ spec:
                     description: |-
                       (Number) Specifies the storage size in GB for the Postgres instance.
                       Specifies the storage size in GB for the Postgres instance.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.

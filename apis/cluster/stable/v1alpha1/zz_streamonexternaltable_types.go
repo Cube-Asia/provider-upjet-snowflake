@@ -204,7 +204,7 @@ type StreamOnExternalTableInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) Specifies an identifier for the external table the stream will monitor. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information about this resource, see docs.
@@ -212,7 +212,7 @@ type StreamOnExternalTableInitParameters struct {
 	ExternalTable *string `json:"externalTable,omitempty" tf:"external_table,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	InsertOnly *string `json:"insertOnly,omitempty" tf:"insert_only,omitempty"`
 }
 
@@ -231,7 +231,7 @@ type StreamOnExternalTableObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) The database in which to create the stream. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -254,7 +254,7 @@ type StreamOnExternalTableObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	InsertOnly *string `json:"insertOnly,omitempty" tf:"insert_only,omitempty"`
 
 	// (String) The schema in which to create the stream. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -292,7 +292,7 @@ type StreamOnExternalTableParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	// +kubebuilder:validation:Optional
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
@@ -307,7 +307,7 @@ type StreamOnExternalTableParameters struct {
 	ExternalTable *string `json:"externalTable,omitempty" tf:"external_table,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an insert-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	InsertOnly *string `json:"insertOnly,omitempty" tf:"insert_only,omitempty"`
 

@@ -72,16 +72,20 @@ type WarehouseAdaptiveInitParameters struct {
 	MaxQueryPerformanceLevel *string `json:"maxQueryPerformanceLevel,omitempty" tf:"max_query_performance_level,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
-	QueryThroughputMultiplier *float64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+	// Specifies the query throughput multiplier for the adaptive warehouse.
+	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+
+	// (String)
+	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 }
 
 type WarehouseAdaptiveObservation struct {
@@ -106,8 +110,12 @@ type WarehouseAdaptiveObservation struct {
 	Parameters []WarehouseAdaptiveParametersObservation `json:"parameters,omitempty" tf:"parameters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
-	QueryThroughputMultiplier *float64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+	// Specifies the query throughput multiplier for the adaptive warehouse.
+	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+
+	// (String)
+	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW WAREHOUSES for the given adaptive warehouse. (see below for nested schema)
 	// Outputs the result of `SHOW WAREHOUSES` for the given adaptive warehouse.
@@ -115,11 +123,11 @@ type WarehouseAdaptiveObservation struct {
 
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// (String) Specifies the type for the adaptive warehouse. This field is used for checking external changes and recreating the resource if needed.
 	// Specifies the type for the adaptive warehouse. This field is used for checking external changes and recreating the resource if needed.
@@ -139,19 +147,24 @@ type WarehouseAdaptiveParameters struct {
 	MaxQueryPerformanceLevel *string `json:"maxQueryPerformanceLevel,omitempty" tf:"max_query_performance_level,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
+	// Specifies the query throughput multiplier for the adaptive warehouse.
 	// +kubebuilder:validation:Optional
-	QueryThroughputMultiplier *float64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+
+	// (String)
+	// Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+	// +kubebuilder:validation:Optional
+	ResourceMonitor *string `json:"resourceMonitor,omitempty" tf:"resource_monitor,omitempty"`
 
 	// (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
 	// +kubebuilder:validation:Optional
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
 	// Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
 	// +kubebuilder:validation:Optional
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 }
 
 type WarehouseAdaptiveParametersInitParameters struct {
@@ -211,10 +224,10 @@ type WarehouseAdaptiveShowOutputObservation struct {
 	Provisioning *float64 `json:"provisioning,omitempty" tf:"provisioning,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-	QueryThroughputMultiplier *float64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
+	QueryThroughputMultiplier *int64 `json:"queryThroughputMultiplier,omitempty" tf:"query_throughput_multiplier,omitempty"`
 
 	// (Number)
-	Queued *float64 `json:"queued,omitempty" tf:"queued,omitempty"`
+	Queued *int64 `json:"queued,omitempty" tf:"queued,omitempty"`
 
 	// (Number)
 	Quiescing *float64 `json:"quiescing,omitempty" tf:"quiescing,omitempty"`
@@ -226,7 +239,7 @@ type WarehouseAdaptiveShowOutputObservation struct {
 	ResumedOn *string `json:"resumedOn,omitempty" tf:"resumed_on,omitempty"`
 
 	// (Number)
-	Running *float64 `json:"running,omitempty" tf:"running,omitempty"`
+	Running *int64 `json:"running,omitempty" tf:"running,omitempty"`
 
 	// (String)
 	State *string `json:"state,omitempty" tf:"state,omitempty"`

@@ -91,18 +91,26 @@ spec:
                   queryThroughputMultiplier:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
-                    type: number
+                      Specifies the query throughput multiplier for the adaptive warehouse.
+                    format: int64
+                    type: integer
+                  resourceMonitor:
+                    description: |-
+                      (String)
+                      Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+                    type: string
                   statementQueuedTimeoutInSeconds:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               initProvider:
                 description: |-
@@ -130,18 +138,26 @@ spec:
                   queryThroughputMultiplier:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
-                    type: number
+                      Specifies the query throughput multiplier for the adaptive warehouse.
+                    format: int64
+                    type: integer
+                  resourceMonitor:
+                    description: |-
+                      (String)
+                      Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+                    type: string
                   statementQueuedTimeoutInSeconds:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -310,8 +326,14 @@ spec:
                   queryThroughputMultiplier:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the query throughput multiplier for the adaptive warehouse.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the query throughput multiplier for the adaptive warehouse.
-                    type: number
+                      Specifies the query throughput multiplier for the adaptive warehouse.
+                    format: int64
+                    type: integer
+                  resourceMonitor:
+                    description: |-
+                      (String)
+                      Specifies the name of a resource monitor that is explicitly assigned to the adaptive warehouse. For more information about this resource, see [docs](./resource_monitor).
+                    type: string
                   showOutput:
                     description: |-
                       (List of Object) Outputs the result of SHOW WAREHOUSES for the given adaptive warehouse. (see below for nested schema)
@@ -363,10 +385,12 @@ spec:
                           description: uses special value that cannot be set in the
                             configuration manually (-1)) Specifies the query throughput
                             multiplier for the adaptive warehouse.
-                          type: number
+                          format: int64
+                          type: integer
                         queued:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         quiescing:
                           description: (Number)
                           type: number
@@ -378,7 +402,8 @@ spec:
                           type: string
                         running:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         state:
                           description: (String)
                           type: string
@@ -394,12 +419,14 @@ spec:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   warehouseType:
                     description: |-
                       (String) Specifies the type for the adaptive warehouse. This field is used for checking external changes and recreating the resource if needed.

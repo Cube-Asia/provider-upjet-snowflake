@@ -61,7 +61,7 @@ spec:
                   autoIngest:
                     description: |-
                       (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-                      (Default: `false`) Specifies a auto_ingest param for the pipe.
+                      Specifies a auto_ingest param for the pipe.
                     type: boolean
                   awsSnsTopicArn:
                     description: |-
@@ -118,7 +118,7 @@ spec:
                   autoIngest:
                     description: |-
                       (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-                      (Default: `false`) Specifies a auto_ingest param for the pipe.
+                      Specifies a auto_ingest param for the pipe.
                     type: boolean
                   awsSnsTopicArn:
                     description: |-
@@ -217,7 +217,7 @@ spec:
                   autoIngest:
                     description: |-
                       (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-                      (Default: `false`) Specifies a auto_ingest param for the pipe.
+                      Specifies a auto_ingest param for the pipe.
                     type: boolean
                   awsSnsTopicArn:
                     description: |-

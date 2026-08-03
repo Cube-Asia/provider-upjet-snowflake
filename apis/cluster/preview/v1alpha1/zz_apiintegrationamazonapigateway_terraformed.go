@@ -21,7 +21,7 @@ func (mg *ApiIntegrationAmazonApiGateway) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this ApiIntegrationAmazonApiGateway
 func (tr *ApiIntegrationAmazonApiGateway) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"api_key": "apiKeySecretRef"}
+	return map[string]string{"api_key": "apiKeySecretRef", "describe_output[*].api_key": "status.atProvider.describeOutput[*].apiKey"}
 }
 
 // GetObservation of this ApiIntegrationAmazonApiGateway

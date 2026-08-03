@@ -35,7 +35,7 @@ type CatalogIntegrationOpenCatalogDescribeOutputObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-	RefreshIntervalSeconds *float64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
+	RefreshIntervalSeconds *int64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Specifies authentication details that Snowflake uses to connect to Open Catalog. (see below for nested schema)
 	RestAuthentication []RestAuthenticationObservation `json:"restAuthentication,omitempty" tf:"rest_authentication,omitempty"`
@@ -57,7 +57,7 @@ type CatalogIntegrationOpenCatalogInitParameters struct {
 	CatalogNamespace *string `json:"catalogNamespace,omitempty" tf:"catalog_namespace,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the catalog integration.
-	// (Default: “) Specifies a comment for the catalog integration.
+	// Specifies a comment for the catalog integration.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) Specifies whether the catalog integration is available for use for Iceberg tables. true allows users to create new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration function normally. false prevents users from creating new Iceberg tables that reference this integration. Existing Iceberg tables that reference this integration cannot access the catalog in the table definition.
@@ -66,7 +66,7 @@ type CatalogIntegrationOpenCatalogInitParameters struct {
 
 	// based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
 	// Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-	RefreshIntervalSeconds *float64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
+	RefreshIntervalSeconds *int64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Specifies authentication details that Snowflake uses to connect to Open Catalog. (see below for nested schema)
 	// Specifies authentication details that Snowflake uses to connect to Open Catalog.
@@ -88,7 +88,7 @@ type CatalogIntegrationOpenCatalogObservation struct {
 	CatalogSource *string `json:"catalogSource,omitempty" tf:"catalog_source,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the catalog integration.
-	// (Default: “) Specifies a comment for the catalog integration.
+	// Specifies a comment for the catalog integration.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (List of Object) Outputs the result of DESCRIBE CATALOG INTEGRATION for the given catalog integration. (see below for nested schema)
@@ -108,7 +108,7 @@ type CatalogIntegrationOpenCatalogObservation struct {
 
 	// based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
 	// Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-	RefreshIntervalSeconds *float64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
+	RefreshIntervalSeconds *int64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Specifies authentication details that Snowflake uses to connect to Open Catalog. (see below for nested schema)
 	// Specifies authentication details that Snowflake uses to connect to Open Catalog.
@@ -131,7 +131,7 @@ type CatalogIntegrationOpenCatalogParameters struct {
 	CatalogNamespace *string `json:"catalogNamespace,omitempty" tf:"catalog_namespace,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the catalog integration.
-	// (Default: “) Specifies a comment for the catalog integration.
+	// Specifies a comment for the catalog integration.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -143,7 +143,7 @@ type CatalogIntegrationOpenCatalogParameters struct {
 	// based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
 	// Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
 	// +kubebuilder:validation:Optional
-	RefreshIntervalSeconds *float64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
+	RefreshIntervalSeconds *int64 `json:"refreshIntervalSeconds,omitempty" tf:"refresh_interval_seconds,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) Specifies authentication details that Snowflake uses to connect to Open Catalog. (see below for nested schema)
 	// Specifies authentication details that Snowflake uses to connect to Open Catalog.
@@ -323,9 +323,6 @@ type RestAuthenticationObservation struct {
 
 	// (List of String) Specifies one or more scopes for the OAuth token.
 	OauthAllowedScopes []*string `json:"oauthAllowedScopes,omitempty" tf:"oauth_allowed_scopes,omitempty"`
-
-	// (String, Sensitive) Specifies the client ID of the OAuth2 credential associated with your Open Catalog service connection.
-	OauthClientID *string `json:"oauthClientId,omitempty" tf:"oauth_client_id,omitempty"`
 
 	// party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
 	OauthTokenURI *string `json:"oauthTokenUri,omitempty" tf:"oauth_token_uri,omitempty"`

@@ -32,7 +32,7 @@ type ApiIntegrationGitRepositoryOauth2DescribeOutputObservation struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// insensitive): read_api | read_repository | write_repository.
 	OauthAllowedScopes []*string `json:"oauthAllowedScopes,omitempty" tf:"oauth_allowed_scopes,omitempty"`
@@ -44,7 +44,7 @@ type ApiIntegrationGitRepositoryOauth2DescribeOutputObservation struct {
 	OauthClientID *string `json:"oauthClientId,omitempty" tf:"oauth_client_id,omitempty"`
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) The OAuth 2.0 token endpoint for the Git repository.
 	OauthTokenEndpoint *string `json:"oauthTokenEndpoint,omitempty" tf:"oauth_token_endpoint,omitempty"`
@@ -79,7 +79,7 @@ type ApiIntegrationGitRepositoryOauth2InitParameters struct {
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// insensitive): read_api | read_repository | write_repository.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration. Valid values are (case-insensitive): `read_api` | `read_repository` | `write_repository`.
@@ -98,7 +98,7 @@ type ApiIntegrationGitRepositoryOauth2InitParameters struct {
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) The OAuth 2.0 token endpoint for the Git repository.
 	// The OAuth 2.0 token endpoint for the Git repository.
@@ -140,7 +140,7 @@ type ApiIntegrationGitRepositoryOauth2Observation struct {
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 access token.
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// insensitive): read_api | read_repository | write_repository.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration. Valid values are (case-insensitive): `read_api` | `read_repository` | `write_repository`.
@@ -156,7 +156,7 @@ type ApiIntegrationGitRepositoryOauth2Observation struct {
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) The OAuth 2.0 token endpoint for the Git repository.
 	// The OAuth 2.0 token endpoint for the Git repository.
@@ -196,7 +196,7 @@ type ApiIntegrationGitRepositoryOauth2Parameters struct {
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 access token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 access token.
 	// +kubebuilder:validation:Optional
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// insensitive): read_api | read_repository | write_repository.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration. Valid values are (case-insensitive): `read_api` | `read_repository` | `write_repository`.
@@ -220,7 +220,7 @@ type ApiIntegrationGitRepositoryOauth2Parameters struct {
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// +kubebuilder:validation:Optional
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) The OAuth 2.0 token endpoint for the Git repository.
 	// The OAuth 2.0 token endpoint for the Git repository.

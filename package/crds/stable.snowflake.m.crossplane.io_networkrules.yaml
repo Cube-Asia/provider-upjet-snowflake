@@ -299,7 +299,8 @@ spec:
                           type: string
                         entriesInValueList:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         mode:
                           description: 'reference/sql/create-network-rule#required-parameters
                             for details. Valid values are (case-insensitive): INGRESS

@@ -17,7 +17,7 @@ type ResourceMonitorInitParameters struct {
 
 	// (Number) The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
 	// The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
-	CreditQuota *float64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
+	CreditQuota *int64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
 
 	// (String) The date and time when the resource monitor suspends the assigned warehouses.
 	// The date and time when the resource monitor suspends the assigned warehouses.
@@ -30,7 +30,7 @@ type ResourceMonitorInitParameters struct {
 	// (Set of Number) Specifies a list of percentages of the credit quota. After reaching any of the values the users passed in the notify_users field will be notified (to receive the notification they should have notifications enabled). Values over 100 are supported.
 	// Specifies a list of percentages of the credit quota. After reaching any of the values the users passed in the notify_users field will be notified (to receive the notification they should have notifications enabled). Values over 100 are supported.
 	// +listType=set
-	NotifyTriggers []*float64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
+	NotifyTriggers []*int64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
 
 	// (Set of String) Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see docs.
 	// Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see [docs](./user).
@@ -43,18 +43,18 @@ type ResourceMonitorInitParameters struct {
 
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
-	SuspendImmediateTrigger *float64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
+	SuspendImmediateTrigger *int64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
 
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
-	SuspendTrigger *float64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
+	SuspendTrigger *int64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
 }
 
 type ResourceMonitorObservation struct {
 
 	// (Number) The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
 	// The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
-	CreditQuota *float64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
+	CreditQuota *int64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
 
 	// (String) The date and time when the resource monitor suspends the assigned warehouses.
 	// The date and time when the resource monitor suspends the assigned warehouses.
@@ -74,7 +74,7 @@ type ResourceMonitorObservation struct {
 	// (Set of Number) Specifies a list of percentages of the credit quota. After reaching any of the values the users passed in the notify_users field will be notified (to receive the notification they should have notifications enabled). Values over 100 are supported.
 	// Specifies a list of percentages of the credit quota. After reaching any of the values the users passed in the notify_users field will be notified (to receive the notification they should have notifications enabled). Values over 100 are supported.
 	// +listType=set
-	NotifyTriggers []*float64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
+	NotifyTriggers []*int64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
 
 	// (Set of String) Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see docs.
 	// Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see [docs](./user).
@@ -91,11 +91,11 @@ type ResourceMonitorObservation struct {
 
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
-	SuspendImmediateTrigger *float64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
+	SuspendImmediateTrigger *int64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
 
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
-	SuspendTrigger *float64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
+	SuspendTrigger *int64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
 }
 
 type ResourceMonitorParameters struct {
@@ -103,7 +103,7 @@ type ResourceMonitorParameters struct {
 	// (Number) The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
 	// The number of credits allocated to the resource monitor per frequency interval. When total usage for all warehouses assigned to the monitor reaches this number for the current frequency interval, the resource monitor is considered to be at 100% of quota.
 	// +kubebuilder:validation:Optional
-	CreditQuota *float64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
+	CreditQuota *int64 `json:"creditQuota,omitempty" tf:"credit_quota,omitempty"`
 
 	// (String) The date and time when the resource monitor suspends the assigned warehouses.
 	// The date and time when the resource monitor suspends the assigned warehouses.
@@ -119,7 +119,7 @@ type ResourceMonitorParameters struct {
 	// Specifies a list of percentages of the credit quota. After reaching any of the values the users passed in the notify_users field will be notified (to receive the notification they should have notifications enabled). Values over 100 are supported.
 	// +kubebuilder:validation:Optional
 	// +listType=set
-	NotifyTriggers []*float64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
+	NotifyTriggers []*int64 `json:"notifyTriggers,omitempty" tf:"notify_triggers,omitempty"`
 
 	// (Set of String) Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see docs.
 	// Specifies the list of users (their identifiers) to receive email notifications on resource monitors. For more information about this resource, see [docs](./user).
@@ -135,12 +135,12 @@ type ResourceMonitorParameters struct {
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses immediately cancel any currently running queries or statements. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// +kubebuilder:validation:Optional
-	SuspendImmediateTrigger *float64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
+	SuspendImmediateTrigger *int64 `json:"suspendImmediateTrigger,omitempty" tf:"suspend_immediate_trigger,omitempty"`
 
 	// (Number) Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// Represents a numeric value specified as a percentage of the credit quota. Values over 100 are supported. After reaching this value, all assigned warehouses while allowing currently running queries to complete will be suspended. No new queries can be executed by the warehouses until the credit quota for the resource monitor is increased. In addition, this action sends a notification to all users who have enabled notifications for themselves.
 	// +kubebuilder:validation:Optional
-	SuspendTrigger *float64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
+	SuspendTrigger *int64 `json:"suspendTrigger,omitempty" tf:"suspend_trigger,omitempty"`
 }
 
 type ResourceMonitorShowOutputInitParameters struct {
@@ -179,10 +179,10 @@ type ResourceMonitorShowOutputObservation struct {
 	StartTime *string `json:"startTime,omitempty" tf:"start_time,omitempty"`
 
 	// (Number)
-	SuspendAt *float64 `json:"suspendAt,omitempty" tf:"suspend_at,omitempty"`
+	SuspendAt *int64 `json:"suspendAt,omitempty" tf:"suspend_at,omitempty"`
 
 	// (Number)
-	SuspendImmediateAt *float64 `json:"suspendImmediateAt,omitempty" tf:"suspend_immediate_at,omitempty"`
+	SuspendImmediateAt *int64 `json:"suspendImmediateAt,omitempty" tf:"suspend_immediate_at,omitempty"`
 
 	// (Number)
 	UsedCredits *float64 `json:"usedCredits,omitempty" tf:"used_credits,omitempty"`

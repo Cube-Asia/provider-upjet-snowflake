@@ -35,7 +35,7 @@ type ApiIntegrationExternalMcpOauth2DescribeOutputObservation struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (Number)
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// (List of String)
 	OauthAllowedScopes []*string `json:"oauthAllowedScopes,omitempty" tf:"oauth_allowed_scopes,omitempty"`
@@ -56,7 +56,7 @@ type ApiIntegrationExternalMcpOauth2DescribeOutputObservation struct {
 	OauthGrant *string `json:"oauthGrant,omitempty" tf:"oauth_grant,omitempty"`
 
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
 	OauthTokenEndpoint *string `json:"oauthTokenEndpoint,omitempty" tf:"oauth_token_endpoint,omitempty"`
@@ -106,7 +106,7 @@ type ApiIntegrationExternalMcpOauth2InitParameters struct {
 
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
 	// Specifies the OAuth 2.0 token endpoint URL for the MCP server.
@@ -156,7 +156,7 @@ type ApiIntegrationExternalMcpOauth2Observation struct {
 
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
 	// Specifies the OAuth 2.0 token endpoint URL for the MCP server.
@@ -211,7 +211,7 @@ type ApiIntegrationExternalMcpOauth2Parameters struct {
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// +kubebuilder:validation:Optional
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
 	// Specifies the OAuth 2.0 token endpoint URL for the MCP server.

@@ -295,15 +295,14 @@ type StorageIntegrationDescribeOutputParameters struct {
 type StorageIntegrationInitParameters struct {
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+	// Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the storage integration.
-	// (Default: “) Specifies a comment for the storage integration.
+	// Specifies a comment for the storage integration.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (List of String) Explicitly limits external stages that use the integration to reference one or more storage locations.
@@ -319,7 +318,7 @@ type StorageIntegrationInitParameters struct {
 	StorageAwsObjectACL *string `json:"storageAwsObjectAcl,omitempty" tf:"storage_aws_object_acl,omitempty"`
 
 	// (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-	// (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+	// Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
 	StorageAwsRoleArn *string `json:"storageAwsRoleArn,omitempty" tf:"storage_aws_role_arn,omitempty"`
 
 	// (List of String) Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
@@ -331,11 +330,11 @@ type StorageIntegrationInitParameters struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-	// (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+	// Specifies the type of the storage integration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -346,11 +345,11 @@ type StorageIntegrationObservation struct {
 	AzureMultiTenantAppName *string `json:"azureMultiTenantAppName,omitempty" tf:"azure_multi_tenant_app_name,omitempty"`
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+	// Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the storage integration.
-	// (Default: “) Specifies a comment for the storage integration.
+	// Specifies a comment for the storage integration.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) Date and time when the storage integration was created.
@@ -362,7 +361,6 @@ type StorageIntegrationObservation struct {
 	DescribeOutput []StorageIntegrationDescribeOutputObservation `json:"describeOutput,omitempty" tf:"describe_output,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -389,7 +387,7 @@ type StorageIntegrationObservation struct {
 	StorageAwsObjectACL *string `json:"storageAwsObjectAcl,omitempty" tf:"storage_aws_object_acl,omitempty"`
 
 	// (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-	// (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+	// Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
 	StorageAwsRoleArn *string `json:"storageAwsRoleArn,omitempty" tf:"storage_aws_role_arn,omitempty"`
 
 	// (List of String) Explicitly prohibits external stages that use the integration from referencing one or more storage locations.
@@ -405,28 +403,27 @@ type StorageIntegrationObservation struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-	// (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+	// Specifies the type of the storage integration.
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
 type StorageIntegrationParameters struct {
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+	// Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
 	// +kubebuilder:validation:Optional
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String) (Default: “) Specifies a comment for the storage integration.
-	// (Default: “) Specifies a comment for the storage integration.
+	// Specifies a comment for the storage integration.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true)
-	// (Default: `true`)
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -446,7 +443,7 @@ type StorageIntegrationParameters struct {
 	StorageAwsObjectACL *string `json:"storageAwsObjectAcl,omitempty" tf:"storage_aws_object_acl,omitempty"`
 
 	// (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-	// (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+	// Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
 	// +kubebuilder:validation:Optional
 	StorageAwsRoleArn *string `json:"storageAwsRoleArn,omitempty" tf:"storage_aws_role_arn,omitempty"`
 
@@ -461,12 +458,12 @@ type StorageIntegrationParameters struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-	// (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+	// Specifies the type of the storage integration.
 	// +kubebuilder:validation:Optional
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }

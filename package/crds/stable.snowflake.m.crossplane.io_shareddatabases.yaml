@@ -76,6 +76,14 @@ spec:
                       (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
+                  defaultNotebookComputePoolCpu:
+                    description: Sets the preferred CPU compute pool used for Notebooks
+                      on CPU Container Runtime.
+                    type: string
+                  defaultNotebookComputePoolGpu:
+                    description: Sets the preferred GPU compute pool used for Notebooks
+                      on GPU Container Runtime.
+                    type: string
                   enableConsoleOutput:
                     description: |-
                       (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -120,12 +128,14 @@ spec:
                     description: |-
                       suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
                       How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
                       Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   traceLevel:
                     description: |-
                       (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
@@ -140,12 +150,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds.
                       Minimum amount of time between Triggered Task executions in seconds.
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
                       User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               initProvider:
                 description: |-
@@ -175,6 +187,14 @@ spec:
                       (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
+                  defaultNotebookComputePoolCpu:
+                    description: Sets the preferred CPU compute pool used for Notebooks
+                      on CPU Container Runtime.
+                    type: string
+                  defaultNotebookComputePoolGpu:
+                    description: Sets the preferred GPU compute pool used for Notebooks
+                      on GPU Container Runtime.
+                    type: string
                   enableConsoleOutput:
                     description: |-
                       (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -219,12 +239,14 @@ spec:
                     description: |-
                       suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
                       How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
                       Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   traceLevel:
                     description: |-
                       (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
@@ -239,12 +261,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds.
                       Minimum amount of time between Triggered Task executions in seconds.
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
                       User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -329,6 +353,14 @@ spec:
                       (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
                       Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
                     type: string
+                  defaultNotebookComputePoolCpu:
+                    description: Sets the preferred CPU compute pool used for Notebooks
+                      on CPU Container Runtime.
+                    type: string
+                  defaultNotebookComputePoolGpu:
+                    description: Sets the preferred GPU compute pool used for Notebooks
+                      on GPU Container Runtime.
+                    type: string
                   enableConsoleOutput:
                     description: |-
                       (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -381,12 +413,14 @@ spec:
                     description: |-
                       suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
                       How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
                       Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   traceLevel:
                     description: |-
                       (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
@@ -401,12 +435,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds.
                       Minimum amount of time between Triggered Task executions in seconds.
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
                       User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.

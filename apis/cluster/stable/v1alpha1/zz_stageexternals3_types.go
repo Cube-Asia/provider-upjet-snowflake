@@ -240,7 +240,7 @@ type StageExternalS3DescribeOutputFileFormatCsvObservation struct {
 	SkipByteOrderMark *bool `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of lines at the start of the file to skip.
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// detect the format.
 	TimeFormat *string `json:"timeFormat,omitempty" tf:"time_format,omitempty"`
@@ -462,39 +462,49 @@ type StageExternalS3DescribeOutputParameters struct {
 type StageExternalS3DirectoryInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
+	// Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
+
+	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`
 
 	// (Boolean) Specifies whether to enable a directory table on the external stage.
 	// Specifies whether to enable a directory table on the external stage.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
+	// Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
 	RefreshOnCreate *string `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 }
 
 type StageExternalS3DirectoryObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
+	// Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
+
+	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`
 
 	// (Boolean) Specifies whether to enable a directory table on the external stage.
 	// Specifies whether to enable a directory table on the external stage.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
+	// Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
 	RefreshOnCreate *string `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 }
 
 type StageExternalS3DirectoryParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
+	// Specifies whether Snowflake should enable triggering automatic refreshes of the directory table metadata.
 	// +kubebuilder:validation:Optional
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
+
+	// Specifies the AWS SNS topic ARN used for directory table auto-refresh notifications. Changing this field causes resource recreation (ForceNew). External change detection for this field is not yet supported and will be addressed in a future update.
+	// +kubebuilder:validation:Optional
+	AwsSnsTopic *string `json:"awsSnsTopic,omitempty" tf:"aws_sns_topic,omitempty"`
 
 	// (Boolean) Specifies whether to enable a directory table on the external stage.
 	// Specifies whether to enable a directory table on the external stage.
@@ -502,7 +512,7 @@ type StageExternalS3DirectoryParameters struct {
 	Enable *bool `json:"enable" tf:"enable,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
+	// Specifies whether to automatically refresh the directory table metadata once, immediately after the stage is created.This field is used only when creating the object. Changes on this field are ignored after creation.
 	// +kubebuilder:validation:Optional
 	RefreshOnCreate *string `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 }
@@ -588,11 +598,11 @@ type StageExternalS3FileFormatAvroInitParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -607,11 +617,11 @@ type StageExternalS3FileFormatAvroObservation struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -628,12 +638,12 @@ type StageExternalS3FileFormatAvroParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
@@ -653,7 +663,7 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EmptyFieldAsNull *string `json:"emptyFieldAsNull,omitempty" tf:"empty_field_as_null,omitempty"`
 
 	// (String) Specifies the character set of the source data when loading data into a table. Valid values: BIG5 | EUCJP | EUCKR | GB18030 | IBM420 | IBM424 | ISO2022CN | ISO2022JP | ISO2022KR | ISO88591 | ISO88592 | ISO88595 | ISO88596 | ISO88597 | ISO88598 | ISO88599 | ISO885915 | KOI8R | SHIFTJIS | UTF8 | UTF16 | UTF16BE | UTF16LE | UTF32 | UTF32BE | UTF32LE | WINDOWS1250 | WINDOWS1251 | WINDOWS1252 | WINDOWS1253 | WINDOWS1254 | WINDOWS1255 | WINDOWS1256.
@@ -661,7 +671,7 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ErrorOnColumnCountMismatch *string `json:"errorOnColumnCountMismatch,omitempty" tf:"error_on_column_count_mismatch,omitempty"`
 
 	// (String) Single character string used as the escape character for field values. Use NONE to specify no escape character. NOTE: This value may be not imported properly from Snowflake. Snowflake returns escaped values.
@@ -685,7 +695,7 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
 	// (List of String) String used to convert to and from SQL NULL.
@@ -693,7 +703,7 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ParseHeader *string `json:"parseHeader,omitempty" tf:"parse_header,omitempty"`
 
 	// (String) One or more singlebyte or multibyte characters that separate records in an input file. Use NONE to specify no delimiter.
@@ -701,20 +711,20 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipBlankLines *string `json:"skipBlankLines,omitempty" tf:"skip_blank_lines,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of lines at the start of the file to skip.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of lines at the start of the file to skip.
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	// Number of lines at the start of the file to skip.
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// detect the format.
 	// Defines the format of time values in the data files. Use `AUTO` to have Snowflake auto-detect the format.
@@ -725,7 +735,7 @@ type StageExternalS3FileFormatCsvInitParameters struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -744,7 +754,7 @@ type StageExternalS3FileFormatCsvObservation struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EmptyFieldAsNull *string `json:"emptyFieldAsNull,omitempty" tf:"empty_field_as_null,omitempty"`
 
 	// (String) Specifies the character set of the source data when loading data into a table. Valid values: BIG5 | EUCJP | EUCKR | GB18030 | IBM420 | IBM424 | ISO2022CN | ISO2022JP | ISO2022KR | ISO88591 | ISO88592 | ISO88595 | ISO88596 | ISO88597 | ISO88598 | ISO88599 | ISO885915 | KOI8R | SHIFTJIS | UTF8 | UTF16 | UTF16BE | UTF16LE | UTF32 | UTF32BE | UTF32LE | WINDOWS1250 | WINDOWS1251 | WINDOWS1252 | WINDOWS1253 | WINDOWS1254 | WINDOWS1255 | WINDOWS1256.
@@ -752,7 +762,7 @@ type StageExternalS3FileFormatCsvObservation struct {
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ErrorOnColumnCountMismatch *string `json:"errorOnColumnCountMismatch,omitempty" tf:"error_on_column_count_mismatch,omitempty"`
 
 	// (String) Single character string used as the escape character for field values. Use NONE to specify no escape character. NOTE: This value may be not imported properly from Snowflake. Snowflake returns escaped values.
@@ -776,7 +786,7 @@ type StageExternalS3FileFormatCsvObservation struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
 	// (List of String) String used to convert to and from SQL NULL.
@@ -784,7 +794,7 @@ type StageExternalS3FileFormatCsvObservation struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ParseHeader *string `json:"parseHeader,omitempty" tf:"parse_header,omitempty"`
 
 	// (String) One or more singlebyte or multibyte characters that separate records in an input file. Use NONE to specify no delimiter.
@@ -792,20 +802,20 @@ type StageExternalS3FileFormatCsvObservation struct {
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipBlankLines *string `json:"skipBlankLines,omitempty" tf:"skip_blank_lines,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of lines at the start of the file to skip.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of lines at the start of the file to skip.
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	// Number of lines at the start of the file to skip.
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// detect the format.
 	// Defines the format of time values in the data files. Use `AUTO` to have Snowflake auto-detect the format.
@@ -816,7 +826,7 @@ type StageExternalS3FileFormatCsvObservation struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -838,7 +848,7 @@ type StageExternalS3FileFormatCsvParameters struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to insert SQL NULL for empty fields in an input file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	EmptyFieldAsNull *string `json:"emptyFieldAsNull,omitempty" tf:"empty_field_as_null,omitempty"`
 
@@ -848,7 +858,7 @@ type StageExternalS3FileFormatCsvParameters struct {
 	Encoding *string `json:"encoding,omitempty" tf:"encoding,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to generate a parsing error if the number of delimited columns in an input file does not match the number of columns in the corresponding table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ErrorOnColumnCountMismatch *string `json:"errorOnColumnCountMismatch,omitempty" tf:"error_on_column_count_mismatch,omitempty"`
 
@@ -878,7 +888,7 @@ type StageExternalS3FileFormatCsvParameters struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
@@ -888,7 +898,7 @@ type StageExternalS3FileFormatCsvParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use the first row headers in the data files to determine column names. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ParseHeader *string `json:"parseHeader,omitempty" tf:"parse_header,omitempty"`
 
@@ -898,24 +908,24 @@ type StageExternalS3FileFormatCsvParameters struct {
 	RecordDelimiter *string `json:"recordDelimiter,omitempty" tf:"record_delimiter,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies to skip any blank lines encountered in the data files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	SkipBlankLines *string `json:"skipBlankLines,omitempty" tf:"skip_blank_lines,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of lines at the start of the file to skip.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of lines at the start of the file to skip.
+	// Number of lines at the start of the file to skip.
 	// +kubebuilder:validation:Optional
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// detect the format.
 	// Defines the format of time values in the data files. Use `AUTO` to have Snowflake auto-detect the format.
@@ -928,7 +938,7 @@ type StageExternalS3FileFormatCsvParameters struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
@@ -967,7 +977,7 @@ type StageExternalS3FileFormatInitParameters struct {
 type StageExternalS3FileFormatJSONInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowDuplicate *string `json:"allowDuplicate,omitempty" tf:"allow_duplicate,omitempty"`
 
 	// (String) Defines the encoding format for binary input or output. Valid values: HEX | BASE64 | UTF8.
@@ -983,7 +993,7 @@ type StageExternalS3FileFormatJSONInitParameters struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EnableOctal *string `json:"enableOctal,omitempty" tf:"enable_octal,omitempty"`
 
 	// (String) Specifies the extension for files unloaded to a stage.
@@ -991,11 +1001,11 @@ type StageExternalS3FileFormatJSONInitParameters struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
 	// (List of String) String used to convert to and from SQL NULL.
@@ -1003,19 +1013,19 @@ type StageExternalS3FileFormatJSONInitParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripNullValues *string `json:"stripNullValues,omitempty" tf:"strip_null_values,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripOuterArray *string `json:"stripOuterArray,omitempty" tf:"strip_outer_array,omitempty"`
 
 	// detect the format.
@@ -1027,14 +1037,14 @@ type StageExternalS3FileFormatJSONInitParameters struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
 type StageExternalS3FileFormatJSONObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AllowDuplicate *string `json:"allowDuplicate,omitempty" tf:"allow_duplicate,omitempty"`
 
 	// (String) Defines the encoding format for binary input or output. Valid values: HEX | BASE64 | UTF8.
@@ -1050,7 +1060,7 @@ type StageExternalS3FileFormatJSONObservation struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	EnableOctal *string `json:"enableOctal,omitempty" tf:"enable_octal,omitempty"`
 
 	// (String) Specifies the extension for files unloaded to a stage.
@@ -1058,11 +1068,11 @@ type StageExternalS3FileFormatJSONObservation struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
 	// (List of String) String used to convert to and from SQL NULL.
@@ -1070,19 +1080,19 @@ type StageExternalS3FileFormatJSONObservation struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripNullValues *string `json:"stripNullValues,omitempty" tf:"strip_null_values,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripOuterArray *string `json:"stripOuterArray,omitempty" tf:"strip_outer_array,omitempty"`
 
 	// detect the format.
@@ -1094,14 +1104,14 @@ type StageExternalS3FileFormatJSONObservation struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
 type StageExternalS3FileFormatJSONParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow duplicate object field names (only the last one will be preserved). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AllowDuplicate *string `json:"allowDuplicate,omitempty" tf:"allow_duplicate,omitempty"`
 
@@ -1121,7 +1131,7 @@ type StageExternalS3FileFormatJSONParameters struct {
 	DateFormat *string `json:"dateFormat,omitempty" tf:"date_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that enables parsing of octal numbers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	EnableOctal *string `json:"enableOctal,omitempty" tf:"enable_octal,omitempty"`
 
@@ -1131,12 +1141,12 @@ type StageExternalS3FileFormatJSONParameters struct {
 	FileExtension *string `json:"fileExtension,omitempty" tf:"file_extension,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to parse CSV files containing multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to allow multiple records on a single line. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	MultiLine *string `json:"multiLine,omitempty" tf:"multi_line,omitempty"`
 
@@ -1146,22 +1156,22 @@ type StageExternalS3FileFormatJSONParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	StripNullValues *string `json:"stripNullValues,omitempty" tf:"strip_null_values,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that instructs the JSON parser to remove outer brackets. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	StripOuterArray *string `json:"stripOuterArray,omitempty" tf:"strip_outer_array,omitempty"`
 
@@ -1176,7 +1186,7 @@ type StageExternalS3FileFormatJSONParameters struct {
 	TimestampFormat *string `json:"timestampFormat,omitempty" tf:"timestamp_format,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
@@ -1219,11 +1229,11 @@ type StageExternalS3FileFormatOrcInitParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -1234,11 +1244,11 @@ type StageExternalS3FileFormatOrcObservation struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
 
@@ -1250,12 +1260,12 @@ type StageExternalS3FileFormatOrcParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 }
@@ -1301,7 +1311,7 @@ type StageExternalS3FileFormatParameters struct {
 type StageExternalS3FileFormatParquetInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	BinaryAsText *string `json:"binaryAsText,omitempty" tf:"binary_as_text,omitempty"`
 
 	// (String) Specifies the compression format. Valid values: AUTO | GZIP | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.
@@ -1313,26 +1323,26 @@ type StageExternalS3FileFormatParquetInitParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UseLogicalType *string `json:"useLogicalType,omitempty" tf:"use_logical_type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UseVectorizedScanner *string `json:"useVectorizedScanner,omitempty" tf:"use_vectorized_scanner,omitempty"`
 }
 
 type StageExternalS3FileFormatParquetObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	BinaryAsText *string `json:"binaryAsText,omitempty" tf:"binary_as_text,omitempty"`
 
 	// (String) Specifies the compression format. Valid values: AUTO | GZIP | BROTLI | ZSTD | DEFLATE | RAW_DEFLATE | NONE.
@@ -1344,26 +1354,26 @@ type StageExternalS3FileFormatParquetObservation struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UseLogicalType *string `json:"useLogicalType,omitempty" tf:"use_logical_type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UseVectorizedScanner *string `json:"useVectorizedScanner,omitempty" tf:"use_vectorized_scanner,omitempty"`
 }
 
 type StageExternalS3FileFormatParquetParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to interpret columns with no defined logical data type as UTF-8 text. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	BinaryAsText *string `json:"binaryAsText,omitempty" tf:"binary_as_text,omitempty"`
 
@@ -1378,22 +1388,22 @@ type StageExternalS3FileFormatParquetParameters struct {
 	NullIf []*string `json:"nullIf,omitempty" tf:"null_if,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to remove white space from fields. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	TrimSpace *string `json:"trimSpace,omitempty" tf:"trim_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use Parquet logical types when loading data. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	UseLogicalType *string `json:"useLogicalType,omitempty" tf:"use_logical_type,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to use a vectorized scanner for loading Parquet files. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	UseVectorizedScanner *string `json:"useVectorizedScanner,omitempty" tf:"use_vectorized_scanner,omitempty"`
 }
@@ -1405,27 +1415,27 @@ type StageExternalS3FileFormatXMLInitParameters struct {
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	DisableAutoConvert *string `json:"disableAutoConvert,omitempty" tf:"disable_auto_convert,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	PreserveSpace *string `json:"preserveSpace,omitempty" tf:"preserve_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripOuterElement *string `json:"stripOuterElement,omitempty" tf:"strip_outer_element,omitempty"`
 }
 
@@ -1436,27 +1446,27 @@ type StageExternalS3FileFormatXMLObservation struct {
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	DisableAutoConvert *string `json:"disableAutoConvert,omitempty" tf:"disable_auto_convert,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	PreserveSpace *string `json:"preserveSpace,omitempty" tf:"preserve_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	StripOuterElement *string `json:"stripOuterElement,omitempty" tf:"strip_outer_element,omitempty"`
 }
 
@@ -1468,32 +1478,32 @@ type StageExternalS3FileFormatXMLParameters struct {
 	Compression *string `json:"compression,omitempty" tf:"compression,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser disables automatic conversion of numeric and Boolean values from text to native representation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	DisableAutoConvert *string `json:"disableAutoConvert,omitempty" tf:"disable_auto_convert,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether UTF-8 encoding errors produce error conditions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IgnoreUTF8Errors *string `json:"ignoreUtf8Errors,omitempty" tf:"ignore_utf8_errors,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser preserves leading and trailing spaces in element content. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	PreserveSpace *string `json:"preserveSpace,omitempty" tf:"preserve_space,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to replace invalid UTF-8 characters with the Unicode replacement character. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ReplaceInvalidCharacters *string `json:"replaceInvalidCharacters,omitempty" tf:"replace_invalid_characters,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether to skip the BOM (byte order mark) if present in a data file. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	SkipByteOrderMark *string `json:"skipByteOrderMark,omitempty" tf:"skip_byte_order_mark,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Boolean that specifies whether the XML parser strips out the outer XML element, exposing 2nd level elements as separate documents. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	StripOuterElement *string `json:"stripOuterElement,omitempty" tf:"strip_outer_element,omitempty"`
 }
@@ -1533,7 +1543,7 @@ type StageExternalS3InitParameters struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a private link endpoint for S3 storage.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a private link endpoint for S3 storage.
+	// Specifies whether to use a private link endpoint for S3 storage.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -1603,7 +1613,7 @@ type StageExternalS3Observation struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a private link endpoint for S3 storage.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a private link endpoint for S3 storage.
+	// Specifies whether to use a private link endpoint for S3 storage.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -1660,7 +1670,7 @@ type StageExternalS3Parameters struct {
 	URL *string `json:"url,omitempty" tf:"url,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use a private link endpoint for S3 storage.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use a private link endpoint for S3 storage.
+	// Specifies whether to use a private link endpoint for S3 storage.
 	// +kubebuilder:validation:Optional
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }

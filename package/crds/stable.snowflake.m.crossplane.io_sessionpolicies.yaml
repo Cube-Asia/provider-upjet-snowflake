@@ -131,12 +131,14 @@ spec:
                     description: |-
                       (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                   sessionUiIdleTimeoutMins:
                     description: |-
                       (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                 required:
                 - database
                 - schema
@@ -215,12 +217,14 @@ spec:
                     description: |-
                       (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                   sessionUiIdleTimeoutMins:
                     description: |-
                       (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -386,12 +390,14 @@ spec:
                             clients, specifies the number of minutes in which a session
                             can be idle before users must authenticate to Snowflake
                             again.
-                          type: number
+                          format: int64
+                          type: integer
                         sessionUiIdleTimeoutMins:
                           description: (Number) For Snowsight, specifies the number
                             of minutes in which a session can be idle before users
                             must authenticate to Snowflake again.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   fullyQualifiedName:
@@ -411,12 +417,14 @@ spec:
                     description: |-
                       (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                   sessionUiIdleTimeoutMins:
                     description: |-
                       (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
                       For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-                    type: number
+                    format: int64
+                    type: integer
                   showOutput:
                     description: |-
                       (List of Object) Outputs the result of SHOW SESSION POLICIES for this session policy. (see below for nested schema)

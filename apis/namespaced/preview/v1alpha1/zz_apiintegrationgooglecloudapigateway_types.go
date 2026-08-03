@@ -20,9 +20,6 @@ type ApiIntegrationGoogleCloudApiGatewayDescribeOutputInitParameters struct {
 type ApiIntegrationGoogleCloudApiGatewayDescribeOutputObservation struct {
 
 	// (String)
-	APIKey *string `json:"apiKey,omitempty" tf:"api_key,omitempty"`
-
-	// (String)
 	APIProvider *string `json:"apiProvider,omitempty" tf:"api_provider,omitempty"`
 
 	// (List of String)

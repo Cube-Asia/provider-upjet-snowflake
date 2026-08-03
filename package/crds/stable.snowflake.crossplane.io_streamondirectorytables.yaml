@@ -82,7 +82,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-                      (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+                      Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
                     type: boolean
                   database:
                     description: |-
@@ -124,7 +124,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-                      (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+                      Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
                     type: boolean
                   stage:
                     description: |-
@@ -237,7 +237,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-                      (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+                      Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
                     type: boolean
                   database:
                     description: |-

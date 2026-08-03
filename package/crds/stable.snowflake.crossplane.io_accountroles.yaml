@@ -207,7 +207,8 @@ spec:
                       properties:
                         assignedToUsers:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         comment:
                           description: (String)
                           type: string
@@ -216,10 +217,12 @@ spec:
                           type: string
                         grantedRoles:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         grantedToRoles:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         isCurrent:
                           description: (Boolean)
                           type: boolean

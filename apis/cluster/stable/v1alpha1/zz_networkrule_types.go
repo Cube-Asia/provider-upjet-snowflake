@@ -161,7 +161,7 @@ type NetworkRuleShowOutputObservation struct {
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
 
 	// (Number)
-	EntriesInValueList *float64 `json:"entriesInValueList,omitempty" tf:"entries_in_value_list,omitempty"`
+	EntriesInValueList *int64 `json:"entriesInValueList,omitempty" tf:"entries_in_value_list,omitempty"`
 
 	// reference/sql/create-network-rule#required-parameters for details. Valid values are (case-insensitive): INGRESS | INTERNAL_STAGE | EGRESS | POSTGRES_INGRESS | POSTGRES_EGRESS.
 	Mode *string `json:"mode,omitempty" tf:"mode,omitempty"`

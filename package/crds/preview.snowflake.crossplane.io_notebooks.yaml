@@ -109,7 +109,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
                       Specifies the number of seconds of idle time before the notebook is shut down automatically.
-                    type: number
+                    format: int64
+                    type: integer
                   mainFile:
                     description: |-
                       specified identifier for the notebook file name.
@@ -174,7 +175,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
                       Specifies the number of seconds of idle time before the notebook is shut down automatically.
-                    type: number
+                    format: int64
+                    type: integer
                   mainFile:
                     description: |-
                       specified identifier for the notebook file name.
@@ -337,7 +339,8 @@ spec:
                         idleAutoShutdownTimeSeconds:
                           description: (Number) Specifies the number of seconds of
                             idle time before the notebook is shut down automatically.
-                          type: number
+                          format: int64
+                          type: integer
                         importUrls:
                           description: (String)
                           type: string
@@ -422,7 +425,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of seconds of idle time before the notebook is shut down automatically.
                       Specifies the number of seconds of idle time before the notebook is shut down automatically.
-                    type: number
+                    format: int64
+                    type: integer
                   mainFile:
                     description: |-
                       specified identifier for the notebook file name.

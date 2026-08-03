@@ -121,12 +121,14 @@ spec:
                     description: |-
                       (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
                       Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMemoryLimit:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -141,12 +143,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -161,7 +165,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -176,17 +181,20 @@ spec:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeDesktopDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeSnowsightDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexEnabledCrossRegion:
                     description: |-
                       region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
@@ -206,7 +214,8 @@ spec:
                     description: |-
                       (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
                       Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   dateInputFormat:
                     description: |-
                       (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
@@ -236,6 +245,13 @@ spec:
                     description: |-
                       insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.
                       Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
+                    type: string
+                  defaultStreamlitComputePool:
+                    description: 'Specifies the name of the default compute pool to
+                      use when creating container-runtime Streamlit apps. Due to technical
+                      limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)),
+                      avoid using the following characters: `|`, `.`, `"`. For more
+                      information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).'
                     type: string
                   defaultStreamlitNotebookWarehouse:
                     description: |-
@@ -351,7 +367,8 @@ spec:
                     description: |-
                       level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   initialReplicationSizeLimitInTb:
                     description: |-
                       (String) Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs.
@@ -381,7 +398,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   listingAutoFulfillmentReplicationRefreshSchedule:
                     description: |-
                       (String) Sets the time interval used to refresh the application package based data products to other regions. For more information, check LISTING_AUTO_FULFILLMENT_REPLICATION_REFRESH_SCHEDULE docs.
@@ -391,7 +409,8 @@ spec:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -406,12 +425,14 @@ spec:
                     description: |-
                       (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
                       Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
-                    type: number
+                    format: int64
+                    type: integer
                   maxDataExtensionTimeInDays:
                     description: |-
                       (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
                       Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   metricLevel:
                     description: |-
                       insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
@@ -421,12 +442,14 @@ spec:
                     description: |-
                       (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
                       Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   multiStatementCount:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
@@ -516,7 +539,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -556,12 +580,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   storageSerializationPolicy:
                     description: |-
                       managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
@@ -576,12 +602,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -651,7 +679,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -671,22 +700,26 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   weekOfYearPolicy:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               initProvider:
                 description: |-
@@ -760,12 +793,14 @@ spec:
                     description: |-
                       (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
                       Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMemoryLimit:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -780,12 +815,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -800,7 +837,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -815,17 +853,20 @@ spec:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeDesktopDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeSnowsightDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexEnabledCrossRegion:
                     description: |-
                       region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
@@ -845,7 +886,8 @@ spec:
                     description: |-
                       (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
                       Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   dateInputFormat:
                     description: |-
                       (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
@@ -875,6 +917,13 @@ spec:
                     description: |-
                       insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.
                       Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
+                    type: string
+                  defaultStreamlitComputePool:
+                    description: 'Specifies the name of the default compute pool to
+                      use when creating container-runtime Streamlit apps. Due to technical
+                      limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)),
+                      avoid using the following characters: `|`, `.`, `"`. For more
+                      information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).'
                     type: string
                   defaultStreamlitNotebookWarehouse:
                     description: |-
@@ -990,7 +1039,8 @@ spec:
                     description: |-
                       level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   initialReplicationSizeLimitInTb:
                     description: |-
                       (String) Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs.
@@ -1020,7 +1070,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   listingAutoFulfillmentReplicationRefreshSchedule:
                     description: |-
                       (String) Sets the time interval used to refresh the application package based data products to other regions. For more information, check LISTING_AUTO_FULFILLMENT_REPLICATION_REFRESH_SCHEDULE docs.
@@ -1030,7 +1081,8 @@ spec:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -1045,12 +1097,14 @@ spec:
                     description: |-
                       (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
                       Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
-                    type: number
+                    format: int64
+                    type: integer
                   maxDataExtensionTimeInDays:
                     description: |-
                       (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
                       Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   metricLevel:
                     description: |-
                       insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
@@ -1060,12 +1114,14 @@ spec:
                     description: |-
                       (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
                       Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   multiStatementCount:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
@@ -1155,7 +1211,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -1195,12 +1252,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   storageSerializationPolicy:
                     description: |-
                       managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
@@ -1215,12 +1274,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -1290,7 +1351,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -1310,22 +1372,26 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   weekOfYearPolicy:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               managementPolicies:
                 default:
@@ -1450,12 +1516,14 @@ spec:
                     description: |-
                       (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
                       Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMemoryLimit:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -1470,12 +1538,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -1490,7 +1560,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -1505,17 +1576,20 @@ spec:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeDesktopDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexCodeSnowsightDailyEstCreditLimitPerUser:
                     description: |-
                       1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
                       Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
-                    type: number
+                    format: int64
+                    type: integer
                   cortexEnabledCrossRegion:
                     description: |-
                       region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
@@ -1535,7 +1609,8 @@ spec:
                     description: |-
                       (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
                       Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   dateInputFormat:
                     description: |-
                       (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
@@ -1565,6 +1640,13 @@ spec:
                     description: |-
                       insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.
                       Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
+                    type: string
+                  defaultStreamlitComputePool:
+                    description: 'Specifies the name of the default compute pool to
+                      use when creating container-runtime Streamlit apps. Due to technical
+                      limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)),
+                      avoid using the following characters: `|`, `.`, `"`. For more
+                      information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).'
                     type: string
                   defaultStreamlitNotebookWarehouse:
                     description: |-
@@ -1680,7 +1762,8 @@ spec:
                     description: |-
                       level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   id:
                     description: (String) The ID of this resource.
                     type: string
@@ -1713,7 +1796,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   listingAutoFulfillmentReplicationRefreshSchedule:
                     description: |-
                       (String) Sets the time interval used to refresh the application package based data products to other regions. For more information, check LISTING_AUTO_FULFILLMENT_REPLICATION_REFRESH_SCHEDULE docs.
@@ -1723,7 +1807,8 @@ spec:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -1738,12 +1823,14 @@ spec:
                     description: |-
                       (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
                       Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
-                    type: number
+                    format: int64
+                    type: integer
                   maxDataExtensionTimeInDays:
                     description: |-
                       (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
                       Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   metricLevel:
                     description: |-
                       insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
@@ -1753,12 +1840,14 @@ spec:
                     description: |-
                       (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
                       Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
-                    type: number
+                    format: int64
+                    type: integer
                   multiStatementCount:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   networkPolicy:
                     description: |-
                       (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
@@ -1848,7 +1937,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -1922,7 +2012,8 @@ spec:
                           type: boolean
                         managedAccounts:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         marketplaceConsumerBillingEntityName:
                           description: (String)
                           type: string
@@ -1963,12 +2054,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   storageSerializationPolicy:
                     description: |-
                       managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
@@ -1983,12 +2076,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -2058,7 +2153,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -2078,22 +2174,26 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   weekOfYearPolicy:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.

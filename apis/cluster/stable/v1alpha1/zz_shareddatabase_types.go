@@ -27,6 +27,12 @@ type SharedDatabaseInitParameters struct {
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
 
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
+
 	// (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	// If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	EnableConsoleOutput *bool `json:"enableConsoleOutput,omitempty" tf:"enable_console_output,omitempty"`
@@ -61,11 +67,11 @@ type SharedDatabaseInitParameters struct {
 
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -77,11 +83,11 @@ type SharedDatabaseInitParameters struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 }
 
 type SharedDatabaseObservation struct {
@@ -97,6 +103,12 @@ type SharedDatabaseObservation struct {
 	// (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
+
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
 	// (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	// If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -139,11 +151,11 @@ type SharedDatabaseObservation struct {
 
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -155,11 +167,11 @@ type SharedDatabaseObservation struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 }
 
 type SharedDatabaseParameters struct {
@@ -178,6 +190,14 @@ type SharedDatabaseParameters struct {
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	// +kubebuilder:validation:Optional
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
+
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	// +kubebuilder:validation:Optional
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	// +kubebuilder:validation:Optional
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
 	// (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	// If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -222,12 +242,12 @@ type SharedDatabaseParameters struct {
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
 	// +kubebuilder:validation:Optional
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
 	// +kubebuilder:validation:Optional
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -242,12 +262,12 @@ type SharedDatabaseParameters struct {
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
 	// +kubebuilder:validation:Optional
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
 	// +kubebuilder:validation:Optional
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 }
 
 // SharedDatabaseSpec defines the desired state of SharedDatabase

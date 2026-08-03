@@ -64,36 +64,36 @@ type DefaultParameters struct {
 type IdentityInitParameters struct {
 
 	// (Number) (Default: 1) The number to start incrementing at.
-	// (Default: `1`) The number to start incrementing at.
-	StartNum *float64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
+	// The number to start incrementing at.
+	StartNum *int64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
 
 	// (Number) (Default: 1) Step size to increment by.
-	// (Default: `1`) Step size to increment by.
-	StepNum *float64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
+	// Step size to increment by.
+	StepNum *int64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
 }
 
 type IdentityObservation struct {
 
 	// (Number) (Default: 1) The number to start incrementing at.
-	// (Default: `1`) The number to start incrementing at.
-	StartNum *float64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
+	// The number to start incrementing at.
+	StartNum *int64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
 
 	// (Number) (Default: 1) Step size to increment by.
-	// (Default: `1`) Step size to increment by.
-	StepNum *float64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
+	// Step size to increment by.
+	StepNum *int64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
 }
 
 type IdentityParameters struct {
 
 	// (Number) (Default: 1) The number to start incrementing at.
-	// (Default: `1`) The number to start incrementing at.
+	// The number to start incrementing at.
 	// +kubebuilder:validation:Optional
-	StartNum *float64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
+	StartNum *int64 `json:"startNum,omitempty" tf:"start_num,omitempty"`
 
 	// (Number) (Default: 1) Step size to increment by.
-	// (Default: `1`) Step size to increment by.
+	// Step size to increment by.
 	// +kubebuilder:validation:Optional
-	StepNum *float64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
+	StepNum *int64 `json:"stepNum,omitempty" tf:"step_num,omitempty"`
 }
 
 type PrimaryKeyInitParameters struct {
@@ -134,11 +134,11 @@ type PrimaryKeyParameters struct {
 type TableColumnInitParameters struct {
 
 	// (String) (Default: “) Column collation, e.g. utf8
-	// (Default: “) Column collation, e.g. utf8
+	// Column collation, e.g. utf8
 	Collate *string `json:"collate,omitempty" tf:"collate,omitempty"`
 
 	// (String) Specifies a comment for the table.
-	// (Default: “) Column comment
+	// Column comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Block List, Max: 1) Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied (see below for nested schema)
@@ -150,7 +150,7 @@ type TableColumnInitParameters struct {
 	Identity []IdentityInitParameters `json:"identity,omitempty" tf:"identity,omitempty"`
 
 	// (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-	// (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+	// Masking policy to apply on column. It has to be a fully qualified name.
 	MaskingPolicy *string `json:"maskingPolicy,omitempty" tf:"masking_policy,omitempty"`
 
 	// (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
@@ -158,7 +158,7 @@ type TableColumnInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-	// (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+	// Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
 	Nullable *bool `json:"nullable,omitempty" tf:"nullable,omitempty"`
 
 	// (String) Column type, e.g. VARIANT. For a full list of column types, see Summary of Data Types.
@@ -169,11 +169,11 @@ type TableColumnInitParameters struct {
 type TableColumnObservation struct {
 
 	// (String) (Default: “) Column collation, e.g. utf8
-	// (Default: “) Column collation, e.g. utf8
+	// Column collation, e.g. utf8
 	Collate *string `json:"collate,omitempty" tf:"collate,omitempty"`
 
 	// (String) Specifies a comment for the table.
-	// (Default: “) Column comment
+	// Column comment
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Block List, Max: 1) Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied (see below for nested schema)
@@ -185,7 +185,7 @@ type TableColumnObservation struct {
 	Identity []IdentityObservation `json:"identity,omitempty" tf:"identity,omitempty"`
 
 	// (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-	// (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+	// Masking policy to apply on column. It has to be a fully qualified name.
 	MaskingPolicy *string `json:"maskingPolicy,omitempty" tf:"masking_policy,omitempty"`
 
 	// (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
@@ -193,7 +193,7 @@ type TableColumnObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-	// (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+	// Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
 	Nullable *bool `json:"nullable,omitempty" tf:"nullable,omitempty"`
 
 	// (String) Record of schema evolution.
@@ -208,12 +208,12 @@ type TableColumnObservation struct {
 type TableColumnParameters struct {
 
 	// (String) (Default: “) Column collation, e.g. utf8
-	// (Default: “) Column collation, e.g. utf8
+	// Column collation, e.g. utf8
 	// +kubebuilder:validation:Optional
 	Collate *string `json:"collate,omitempty" tf:"collate,omitempty"`
 
 	// (String) Specifies a comment for the table.
-	// (Default: “) Column comment
+	// Column comment
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -228,7 +228,7 @@ type TableColumnParameters struct {
 	Identity []IdentityParameters `json:"identity,omitempty" tf:"identity,omitempty"`
 
 	// (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
-	// (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+	// Masking policy to apply on column. It has to be a fully qualified name.
 	// +kubebuilder:validation:Optional
 	MaskingPolicy *string `json:"maskingPolicy,omitempty" tf:"masking_policy,omitempty"`
 
@@ -238,7 +238,7 @@ type TableColumnParameters struct {
 	Name *string `json:"name" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
-	// (Default: `true`) Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+	// Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
 	// +kubebuilder:validation:Optional
 	Nullable *bool `json:"nullable,omitempty" tf:"nullable,omitempty"`
 
@@ -251,7 +251,7 @@ type TableColumnParameters struct {
 type TableInitParameters struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+	// Specifies whether to enable change tracking on the table. Default false.
 	ChangeTracking *bool `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
 	// (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table
@@ -267,8 +267,8 @@ type TableInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	// Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (Block List, Max: 1, Deprecated) Definitions of primary key constraint to create on table (see below for nested schema)
 	// Definitions of primary key constraint to create on table
@@ -282,7 +282,7 @@ type TableInitParameters struct {
 type TableObservation struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+	// Specifies whether to enable change tracking on the table. Default false.
 	ChangeTracking *bool `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
 	// (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table
@@ -298,8 +298,8 @@ type TableObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	// Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) The database in which to create the table.
 	// The database in which to create the table.
@@ -332,7 +332,7 @@ type TableObservation struct {
 type TableParameters struct {
 
 	// (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
-	// (Default: `false`) Specifies whether to enable change tracking on the table. Default false.
+	// Specifies whether to enable change tracking on the table. Default false.
 	// +kubebuilder:validation:Optional
 	ChangeTracking *bool `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
@@ -352,9 +352,9 @@ type TableParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+	// Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
 	// +kubebuilder:validation:Optional
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) The database in which to create the table.
 	// The database in which to create the table.

@@ -104,7 +104,7 @@ spec:
                   type:
                     description: |-
                       (String) (Default: READER) Specifies the type of managed account.
-                      (Default: `READER`) Specifies the type of managed account.
+                      Specifies the type of managed account.
                     type: string
                 type: object
               initProvider:
@@ -152,7 +152,7 @@ spec:
                   type:
                     description: |-
                       (String) (Default: READER) Specifies the type of managed account.
-                      (Default: `READER`) Specifies the type of managed account.
+                      Specifies the type of managed account.
                     type: string
                 required:
                 - adminPasswordSecretRef
@@ -297,7 +297,7 @@ spec:
                   type:
                     description: |-
                       (String) (Default: READER) Specifies the type of managed account.
-                      (Default: `READER`) Specifies the type of managed account.
+                      Specifies the type of managed account.
                     type: string
                   url:
                     description: |-

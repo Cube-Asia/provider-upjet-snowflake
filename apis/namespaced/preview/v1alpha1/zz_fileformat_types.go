@@ -122,7 +122,7 @@ type FileFormatInitParameters struct {
 
 	// (Number) Number of lines at the start of the file to skip.
 	// Number of lines at the start of the file to skip.
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
 	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
@@ -272,7 +272,7 @@ type FileFormatObservation struct {
 
 	// (Number) Number of lines at the start of the file to skip.
 	// Number of lines at the start of the file to skip.
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
 	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
@@ -444,7 +444,7 @@ type FileFormatParameters struct {
 	// (Number) Number of lines at the start of the file to skip.
 	// Number of lines at the start of the file to skip.
 	// +kubebuilder:validation:Optional
-	SkipHeader *float64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
+	SkipHeader *int64 `json:"skipHeader,omitempty" tf:"skip_header,omitempty"`
 
 	// (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
 	// Boolean that instructs the JSON parser to remove object fields or array elements containing null values.

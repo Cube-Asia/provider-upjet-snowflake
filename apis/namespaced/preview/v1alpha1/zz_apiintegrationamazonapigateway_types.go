@@ -137,8 +137,6 @@ type DescribeOutputObservation struct {
 	// (String) The Amazon Resource Name (ARN) of the IAM role that grants Snowflake permission to call the API endpoint.
 	APIAwsRoleArn *string `json:"apiAwsRoleArn,omitempty" tf:"api_aws_role_arn,omitempty"`
 
-	APIKey *string `json:"apiKey,omitempty" tf:"api_key,omitempty"`
-
 	// insensitive): aws_api_gateway | aws_private_api_gateway | aws_gov_api_gateway | aws_gov_private_api_gateway.
 	APIProvider *string `json:"apiProvider,omitempty" tf:"api_provider,omitempty"`
 

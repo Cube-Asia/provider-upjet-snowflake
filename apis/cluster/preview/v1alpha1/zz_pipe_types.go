@@ -16,7 +16,7 @@ import (
 type PipeInitParameters struct {
 
 	// (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-	// (Default: `false`) Specifies a auto_ingest param for the pipe.
+	// Specifies a auto_ingest param for the pipe.
 	AutoIngest *bool `json:"autoIngest,omitempty" tf:"auto_ingest,omitempty"`
 
 	// (String) Specifies the Amazon Resource Name (ARN) for the SNS topic for your S3 bucket.
@@ -43,7 +43,7 @@ type PipeInitParameters struct {
 type PipeObservation struct {
 
 	// (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-	// (Default: `false`) Specifies a auto_ingest param for the pipe.
+	// Specifies a auto_ingest param for the pipe.
 	AutoIngest *bool `json:"autoIngest,omitempty" tf:"auto_ingest,omitempty"`
 
 	// (String) Specifies the Amazon Resource Name (ARN) for the SNS topic for your S3 bucket.
@@ -93,7 +93,7 @@ type PipeObservation struct {
 type PipeParameters struct {
 
 	// (Boolean) (Default: false) Specifies a auto_ingest param for the pipe.
-	// (Default: `false`) Specifies a auto_ingest param for the pipe.
+	// Specifies a auto_ingest param for the pipe.
 	// +kubebuilder:validation:Optional
 	AutoIngest *bool `json:"autoIngest,omitempty" tf:"auto_ingest,omitempty"`
 

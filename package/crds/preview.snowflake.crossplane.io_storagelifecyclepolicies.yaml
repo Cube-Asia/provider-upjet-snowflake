@@ -78,7 +78,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
                       Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-                    type: number
+                    format: int64
+                    type: integer
                   archiveTier:
                     description: |-
                       insensitive): COOL | COLD.
@@ -143,7 +144,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
                       Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-                    type: number
+                    format: int64
+                    type: integer
                   archiveTier:
                     description: |-
                       insensitive): COOL | COLD.
@@ -283,7 +285,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
                       Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-                    type: number
+                    format: int64
+                    type: integer
                   archiveTier:
                     description: |-
                       insensitive): COOL | COLD.
@@ -335,7 +338,8 @@ spec:
                             according to the value you select for archive_tier. If
                             unset, Snowflake expires the rows from the table without
                             archiving the data.
-                          type: number
+                          format: int64
+                          type: integer
                         archiveTier:
                           description: 'insensitive): COOL | COLD.'
                           type: string
@@ -346,6 +350,9 @@ spec:
                             where a change in case or run of whitespace is semantically
                             significant.
                           type: string
+                        databaseName:
+                          description: (String)
+                          type: string
                         name:
                           description: '(String) Specifies the identifier for the
                             storage lifecycle policy; must be unique for the database
@@ -354,6 +361,9 @@ spec:
                             the following characters: |, ., ".'
                           type: string
                         returnType:
+                          description: (String)
+                          type: string
+                        schemaName:
                           description: (String)
                           type: string
                         signature:

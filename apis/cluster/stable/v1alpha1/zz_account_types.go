@@ -48,17 +48,17 @@ type AccountInitParameters struct {
 
 	// (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
-	GracePeriodInDays *float64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
+	GracePeriodInDays *int64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+	// Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
 	IsOrgAdmin *string `json:"isOrgAdmin,omitempty" tf:"is_org_admin,omitempty"`
 
 	// Last name of the initial administrative user of the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+	// Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
 	// (String) Snowflake Region ID of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
@@ -96,17 +96,17 @@ type AccountObservation struct {
 
 	// (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
-	GracePeriodInDays *float64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
+	GracePeriodInDays *int64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+	// Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
 	IsOrgAdmin *string `json:"isOrgAdmin,omitempty" tf:"is_org_admin,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+	// Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
 	// (String) Snowflake Region ID of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
@@ -167,10 +167,10 @@ type AccountParameters struct {
 	// (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// +kubebuilder:validation:Optional
-	GracePeriodInDays *float64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
+	GracePeriodInDays *int64 `json:"gracePeriodInDays,omitempty" tf:"grace_period_in_days,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+	// Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
 	// +kubebuilder:validation:Optional
 	IsOrgAdmin *string `json:"isOrgAdmin,omitempty" tf:"is_org_admin,omitempty"`
 
@@ -179,7 +179,7 @@ type AccountParameters struct {
 	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+	// Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
 	MustChangePassword *string `json:"mustChangePassword,omitempty" tf:"must_change_password,omitempty"`
 
@@ -242,7 +242,7 @@ type ShowOutputObservation struct {
 	IsOrganizationAccount *bool `json:"isOrganizationAccount,omitempty" tf:"is_organization_account,omitempty"`
 
 	// (Number)
-	ManagedAccounts *float64 `json:"managedAccounts,omitempty" tf:"managed_accounts,omitempty"`
+	ManagedAccounts *int64 `json:"managedAccounts,omitempty" tf:"managed_accounts,omitempty"`
 
 	// (String)
 	MarketplaceConsumerBillingEntityName *string `json:"marketplaceConsumerBillingEntityName,omitempty" tf:"marketplace_consumer_billing_entity_name,omitempty"`

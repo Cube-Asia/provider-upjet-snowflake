@@ -75,7 +75,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the sequence.
-                      (Default: “) Specifies a comment for the sequence.
+                      Specifies a comment for the sequence.
                     type: string
                   database:
                     description: |-
@@ -85,12 +85,13 @@ spec:
                   increment:
                     description: |-
                       (Number) (Default: 1) The amount the sequence will increase by each time it is used
-                      (Default: `1`) The amount the sequence will increase by each time it is used
-                    type: number
+                      The amount the sequence will increase by each time it is used
+                    format: int64
+                    type: integer
                   ordering:
                     description: |-
                       (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-                      (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+                      The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
                     type: string
                   schema:
                     description: |-
@@ -117,17 +118,18 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the sequence.
-                      (Default: “) Specifies a comment for the sequence.
+                      Specifies a comment for the sequence.
                     type: string
                   increment:
                     description: |-
                       (Number) (Default: 1) The amount the sequence will increase by each time it is used
-                      (Default: `1`) The amount the sequence will increase by each time it is used
-                    type: number
+                      The amount the sequence will increase by each time it is used
+                    format: int64
+                    type: integer
                   ordering:
                     description: |-
                       (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-                      (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+                      The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
                     type: string
                 type: object
               managementPolicies:
@@ -224,7 +226,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the sequence.
-                      (Default: “) Specifies a comment for the sequence.
+                      Specifies a comment for the sequence.
                     type: string
                   database:
                     description: |-
@@ -242,17 +244,19 @@ spec:
                   increment:
                     description: |-
                       (Number) (Default: 1) The amount the sequence will increase by each time it is used
-                      (Default: `1`) The amount the sequence will increase by each time it is used
-                    type: number
+                      The amount the sequence will increase by each time it is used
+                    format: int64
+                    type: integer
                   nextValue:
                     description: |-
                       (Number) The increment sequence interval.
                       The increment sequence interval.
-                    type: number
+                    format: int64
+                    type: integer
                   ordering:
                     description: |-
                       (String) (Default: ORDER) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
-                      (Default: `ORDER`) The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
+                      The ordering of the sequence. Either ORDER or NOORDER. Default is ORDER.
                     type: string
                   schema:
                     description: |-

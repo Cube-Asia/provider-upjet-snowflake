@@ -91,7 +91,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   comment:
@@ -112,7 +113,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-                      (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+                      Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
                     type: boolean
                   schema:
                     description: |-
@@ -174,7 +175,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   comment:
@@ -190,7 +192,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-                      (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+                      Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
                     type: boolean
                   warehouse:
                     description: |-
@@ -307,7 +309,8 @@ spec:
                           description: |-
                             (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
                             Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   comment:
@@ -328,7 +331,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-                      (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+                      Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
                     type: boolean
                   fullyQualifiedName:
                     description: |-

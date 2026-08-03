@@ -66,8 +66,8 @@ type ApiAuthenticationIntegrationWithClientCredentialsInitParameters struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	// Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// (Set of String) Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
@@ -87,7 +87,7 @@ type ApiAuthenticationIntegrationWithClientCredentialsInitParameters struct {
 
 	// (Number) Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.
 	// Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.
@@ -116,8 +116,8 @@ type ApiAuthenticationIntegrationWithClientCredentialsObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	// Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// (Set of String) Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
@@ -130,7 +130,7 @@ type ApiAuthenticationIntegrationWithClientCredentialsObservation struct {
 
 	// (Number) Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.
 	// Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.
@@ -154,9 +154,9 @@ type ApiAuthenticationIntegrationWithClientCredentialsParameters struct {
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
+	// Specifies the default lifetime of the OAuth access token (in seconds) issued by an OAuth server.
 	// +kubebuilder:validation:Optional
-	OauthAccessTokenValidity *float64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
+	OauthAccessTokenValidity *int64 `json:"oauthAccessTokenValidity,omitempty" tf:"oauth_access_token_validity,omitempty"`
 
 	// (Set of String) Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
 	// Specifies a list of scopes to use when making a request from the OAuth by a role with USAGE on the integration during the OAuth client credentials flow.
@@ -181,7 +181,7 @@ type ApiAuthenticationIntegrationWithClientCredentialsParameters struct {
 	// (Number) Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// +kubebuilder:validation:Optional
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.
 	// Specifies the token endpoint used by the client to obtain an access token by presenting its authorization grant or refresh token. The token endpoint is used with every authorization grant except for the implicit grant type (since an access token is issued directly). If removed from the config, the resource is recreated.

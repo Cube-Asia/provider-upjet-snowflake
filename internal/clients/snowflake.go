@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
+	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -22,6 +24,7 @@ const (
 	errTrackUsage           = "cannot track ProviderConfig usage"
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal snowflake credentials as JSON"
+	errConfigureProvider    = "cannot configure the Snowflake terraform provider"
 )
 
 // For the full list of supported config keys, see the Snowflake TF provider schema:
@@ -164,7 +167,7 @@ var configKeys = []string{
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
-func TerraformSetupBuilder(version, providerSource, providerVersion string) terraform.SetupFn {
+func TerraformSetupBuilder(version, providerSource, providerVersion string, ujprovider *ujconfig.Provider) terraform.SetupFn {
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
 			Version: version,
@@ -202,6 +205,15 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 				ps.Configuration[k] = v
 			}
 		}
+
+		if ujprovider == nil || ujprovider.TerraformProvider == nil {
+			return ps, errors.New(errConfigureProvider + ": no terraform provider configured")
+		}
+		diags := ujprovider.TerraformProvider.Configure(ctx, &tfsdk.ResourceConfig{Config: ps.Configuration})
+		if diags.HasError() {
+			return ps, errors.Errorf("%s: %v", errConfigureProvider, diags)
+		}
+		ps.Meta = ujprovider.TerraformProvider.Meta()
 		return ps, nil
 	}
 }

@@ -64,7 +64,7 @@ type ColumnParameters struct {
 type ExternalTableInitParameters struct {
 
 	// (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-	// (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+	// Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
 	AutoRefresh *bool `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
 	// (String) Specifies the aws sns topic for the external table.
@@ -80,7 +80,7 @@ type ExternalTableInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-	// (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+	// Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) Specifies the file format for the external table.
@@ -100,7 +100,7 @@ type ExternalTableInitParameters struct {
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-	// (Default: `true`) Specifies weather to refresh when an external table is created.
+	// Specifies weather to refresh when an external table is created.
 	RefreshOnCreate *bool `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 
 	// (String) Identifies the external table table type. For now, only "delta" for Delta Lake table format is supported.
@@ -115,7 +115,7 @@ type ExternalTableInitParameters struct {
 type ExternalTableObservation struct {
 
 	// (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-	// (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+	// Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
 	AutoRefresh *bool `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
 	// (String) Specifies the aws sns topic for the external table.
@@ -131,7 +131,7 @@ type ExternalTableObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-	// (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+	// Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) The database in which to create the external table.
@@ -166,7 +166,7 @@ type ExternalTableObservation struct {
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-	// (Default: `true`) Specifies weather to refresh when an external table is created.
+	// Specifies weather to refresh when an external table is created.
 	RefreshOnCreate *bool `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 
 	// (String) The schema in which to create the external table.
@@ -185,7 +185,7 @@ type ExternalTableObservation struct {
 type ExternalTableParameters struct {
 
 	// (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-	// (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+	// Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
 	// +kubebuilder:validation:Optional
 	AutoRefresh *bool `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
@@ -205,7 +205,7 @@ type ExternalTableParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-	// (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+	// Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
 	// +kubebuilder:validation:Optional
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
@@ -235,7 +235,7 @@ type ExternalTableParameters struct {
 	Pattern *string `json:"pattern,omitempty" tf:"pattern,omitempty"`
 
 	// (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-	// (Default: `true`) Specifies weather to refresh when an external table is created.
+	// Specifies weather to refresh when an external table is created.
 	// +kubebuilder:validation:Optional
 	RefreshOnCreate *bool `json:"refreshOnCreate,omitempty" tf:"refresh_on_create,omitempty"`
 

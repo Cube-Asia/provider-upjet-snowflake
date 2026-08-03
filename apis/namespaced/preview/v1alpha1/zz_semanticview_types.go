@@ -85,7 +85,7 @@ type FactsInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+	// Specifies whether the fact is private.
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
@@ -109,7 +109,7 @@ type FactsObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+	// Specifies whether the fact is private.
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
@@ -134,7 +134,7 @@ type FactsParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+	// Specifies whether the fact is private.
 	// +kubebuilder:validation:Optional
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
@@ -158,7 +158,7 @@ type FactsParameters struct {
 type MetricsInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+	// Specifies whether the metric is private.
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (Block List, Max: 1) Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function. (see below for nested schema)
@@ -173,7 +173,7 @@ type MetricsInitParameters struct {
 type MetricsObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+	// Specifies whether the metric is private.
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 
 	// (Block List, Max: 1) Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function. (see below for nested schema)
@@ -188,7 +188,7 @@ type MetricsObservation struct {
 type MetricsParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+	// Specifies whether the metric is private.
 	// +kubebuilder:validation:Optional
 	IsPrivate *string `json:"isPrivate,omitempty" tf:"is_private,omitempty"`
 

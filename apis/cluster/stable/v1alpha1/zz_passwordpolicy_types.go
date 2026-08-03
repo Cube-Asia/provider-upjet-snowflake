@@ -21,6 +21,9 @@ type PasswordPolicyDescribeOutputObservation struct {
 	// (String) Adds a comment or overwrites an existing comment for the password policy.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
+	// (String)
+	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+
 	// (String) Identifier for the password policy; must be unique for your account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
@@ -28,37 +31,40 @@ type PasswordPolicyDescribeOutputObservation struct {
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
 
 	// (Number)
-	PasswordHistory *float64 `json:"passwordHistory,omitempty" tf:"password_history,omitempty"`
+	PasswordHistory *int64 `json:"passwordHistory,omitempty" tf:"password_history,omitempty"`
 
 	// (Number)
-	PasswordLockoutTimeMins *float64 `json:"passwordLockoutTimeMins,omitempty" tf:"password_lockout_time_mins,omitempty"`
+	PasswordLockoutTimeMins *int64 `json:"passwordLockoutTimeMins,omitempty" tf:"password_lockout_time_mins,omitempty"`
 
 	// (Number)
-	PasswordMaxAgeDays *float64 `json:"passwordMaxAgeDays,omitempty" tf:"password_max_age_days,omitempty"`
+	PasswordMaxAgeDays *int64 `json:"passwordMaxAgeDays,omitempty" tf:"password_max_age_days,omitempty"`
 
 	// (Number)
-	PasswordMaxLength *float64 `json:"passwordMaxLength,omitempty" tf:"password_max_length,omitempty"`
+	PasswordMaxLength *int64 `json:"passwordMaxLength,omitempty" tf:"password_max_length,omitempty"`
 
 	// (Number)
-	PasswordMaxRetries *float64 `json:"passwordMaxRetries,omitempty" tf:"password_max_retries,omitempty"`
+	PasswordMaxRetries *int64 `json:"passwordMaxRetries,omitempty" tf:"password_max_retries,omitempty"`
 
 	// (Number)
-	PasswordMinAgeDays *float64 `json:"passwordMinAgeDays,omitempty" tf:"password_min_age_days,omitempty"`
+	PasswordMinAgeDays *int64 `json:"passwordMinAgeDays,omitempty" tf:"password_min_age_days,omitempty"`
 
 	// (Number)
-	PasswordMinLength *float64 `json:"passwordMinLength,omitempty" tf:"password_min_length,omitempty"`
+	PasswordMinLength *int64 `json:"passwordMinLength,omitempty" tf:"password_min_length,omitempty"`
 
 	// (Number)
-	PasswordMinLowerCaseChars *float64 `json:"passwordMinLowerCaseChars,omitempty" tf:"password_min_lower_case_chars,omitempty"`
+	PasswordMinLowerCaseChars *int64 `json:"passwordMinLowerCaseChars,omitempty" tf:"password_min_lower_case_chars,omitempty"`
 
 	// (Number)
-	PasswordMinNumericChars *float64 `json:"passwordMinNumericChars,omitempty" tf:"password_min_numeric_chars,omitempty"`
+	PasswordMinNumericChars *int64 `json:"passwordMinNumericChars,omitempty" tf:"password_min_numeric_chars,omitempty"`
 
 	// (Number)
-	PasswordMinSpecialChars *float64 `json:"passwordMinSpecialChars,omitempty" tf:"password_min_special_chars,omitempty"`
+	PasswordMinSpecialChars *int64 `json:"passwordMinSpecialChars,omitempty" tf:"password_min_special_chars,omitempty"`
 
 	// (Number)
-	PasswordMinUpperCaseChars *float64 `json:"passwordMinUpperCaseChars,omitempty" tf:"password_min_upper_case_chars,omitempty"`
+	PasswordMinUpperCaseChars *int64 `json:"passwordMinUpperCaseChars,omitempty" tf:"password_min_upper_case_chars,omitempty"`
+
+	// (String)
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 }
 
 type PasswordPolicyDescribeOutputParameters struct {
@@ -71,55 +77,55 @@ type PasswordPolicyInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
-	History *float64 `json:"history,omitempty" tf:"history,omitempty"`
+	// Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
+	History *int64 `json:"history,omitempty" tf:"history,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Prevent overwriting a previous password policy with the same name.
-	// (Default: `false`) Prevent overwriting a previous password policy with the same name.
+	// Prevent overwriting a previous password policy with the same name.
 	IfNotExists *bool `json:"ifNotExists,omitempty" tf:"if_not_exists,omitempty"`
 
 	// (Number) Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
 	// Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
-	LockoutTimeMins *float64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
+	LockoutTimeMins *int64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
-	MaxAgeDays *float64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
+	// Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
+	MaxAgeDays *int64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
 
 	// (Number) Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
 	// Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
-	MaxLength *float64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
+	MaxLength *int64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
 
 	// (Number) Specifies the maximum number of attempts to enter a password before being locked out.
 	// Specifies the maximum number of attempts to enter a password before being locked out.
-	MaxRetries *float64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
+	MaxRetries *int64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of days the user must wait before a recently changed password can be changed again.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of days the user must wait before a recently changed password can be changed again.
-	MinAgeDays *float64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
+	// Specifies the number of days the user must wait before a recently changed password can be changed again.
+	MinAgeDays *int64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
 
 	// (Number) Specifies the minimum number of characters the password must contain.
 	// Specifies the minimum number of characters the password must contain.
-	MinLength *float64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
+	MinLength *int64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of lowercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of lowercase characters the password must contain.
-	MinLowerCaseChars *float64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
+	// Specifies the minimum number of lowercase characters the password must contain.
+	MinLowerCaseChars *int64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of numeric characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of numeric characters the password must contain.
-	MinNumericChars *float64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
+	// Specifies the minimum number of numeric characters the password must contain.
+	MinNumericChars *int64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of special characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of special characters the password must contain.
-	MinSpecialChars *float64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
+	// Specifies the minimum number of special characters the password must contain.
+	MinSpecialChars *int64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of uppercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of uppercase characters the password must contain.
-	MinUpperCaseChars *float64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
+	// Specifies the minimum number of uppercase characters the password must contain.
+	MinUpperCaseChars *int64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Whether to override a previous password policy with the same name.
-	// (Default: `false`) Whether to override a previous password policy with the same name.
+	// Whether to override a previous password policy with the same name.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 }
 
@@ -142,58 +148,58 @@ type PasswordPolicyObservation struct {
 	FullyQualifiedName *string `json:"fullyQualifiedName,omitempty" tf:"fully_qualified_name,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
-	History *float64 `json:"history,omitempty" tf:"history,omitempty"`
+	// Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
+	History *int64 `json:"history,omitempty" tf:"history,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Prevent overwriting a previous password policy with the same name.
-	// (Default: `false`) Prevent overwriting a previous password policy with the same name.
+	// Prevent overwriting a previous password policy with the same name.
 	IfNotExists *bool `json:"ifNotExists,omitempty" tf:"if_not_exists,omitempty"`
 
 	// (Number) Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
 	// Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
-	LockoutTimeMins *float64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
+	LockoutTimeMins *int64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
-	MaxAgeDays *float64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
+	// Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
+	MaxAgeDays *int64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
 
 	// (Number) Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
 	// Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
-	MaxLength *float64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
+	MaxLength *int64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
 
 	// (Number) Specifies the maximum number of attempts to enter a password before being locked out.
 	// Specifies the maximum number of attempts to enter a password before being locked out.
-	MaxRetries *float64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
+	MaxRetries *int64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of days the user must wait before a recently changed password can be changed again.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of days the user must wait before a recently changed password can be changed again.
-	MinAgeDays *float64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
+	// Specifies the number of days the user must wait before a recently changed password can be changed again.
+	MinAgeDays *int64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
 
 	// (Number) Specifies the minimum number of characters the password must contain.
 	// Specifies the minimum number of characters the password must contain.
-	MinLength *float64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
+	MinLength *int64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of lowercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of lowercase characters the password must contain.
-	MinLowerCaseChars *float64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
+	// Specifies the minimum number of lowercase characters the password must contain.
+	MinLowerCaseChars *int64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of numeric characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of numeric characters the password must contain.
-	MinNumericChars *float64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
+	// Specifies the minimum number of numeric characters the password must contain.
+	MinNumericChars *int64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of special characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of special characters the password must contain.
-	MinSpecialChars *float64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
+	// Specifies the minimum number of special characters the password must contain.
+	MinSpecialChars *int64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of uppercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of uppercase characters the password must contain.
-	MinUpperCaseChars *float64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
+	// Specifies the minimum number of uppercase characters the password must contain.
+	MinUpperCaseChars *int64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Whether to override a previous password policy with the same name.
-	// (Default: `false`) Whether to override a previous password policy with the same name.
+	// Whether to override a previous password policy with the same name.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
 	// (String) The schema this password policy belongs to. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -218,67 +224,67 @@ type PasswordPolicyParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
+	// Specifies the number of the most recent passwords that Snowflake stores. These stored passwords cannot be repeated when a user updates their password value. The current password value does not count towards the history. When you increase the history value, Snowflake saves the previous values. When you decrease the value, Snowflake saves the stored values up to that value that is set. For example, if the history value is 8 and you change the history value to 3, Snowflake stores the most recent 3 passwords and deletes the 5 older password values from the history.
 	// +kubebuilder:validation:Optional
-	History *float64 `json:"history,omitempty" tf:"history,omitempty"`
+	History *int64 `json:"history,omitempty" tf:"history,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Prevent overwriting a previous password policy with the same name.
-	// (Default: `false`) Prevent overwriting a previous password policy with the same name.
+	// Prevent overwriting a previous password policy with the same name.
 	// +kubebuilder:validation:Optional
 	IfNotExists *bool `json:"ifNotExists,omitempty" tf:"if_not_exists,omitempty"`
 
 	// (Number) Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
 	// Specifies the number of minutes the user account will be locked after exhausting the designated number of password retries (i.e. PASSWORD_MAX_RETRIES).
 	// +kubebuilder:validation:Optional
-	LockoutTimeMins *float64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
+	LockoutTimeMins *int64 `json:"lockoutTimeMins,omitempty" tf:"lockout_time_mins,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
+	// Specifies the maximum number of days before the password must be changed. A value of zero (i.e. 0) indicates that the password does not need to be changed.
 	// +kubebuilder:validation:Optional
-	MaxAgeDays *float64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
+	MaxAgeDays *int64 `json:"maxAgeDays,omitempty" tf:"max_age_days,omitempty"`
 
 	// (Number) Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
 	// Specifies the maximum number of characters the password must contain. This number must be greater than or equal to the sum of PASSWORD_MIN_LENGTH, PASSWORD_MIN_UPPER_CASE_CHARS, and PASSWORD_MIN_LOWER_CASE_CHARS.
 	// +kubebuilder:validation:Optional
-	MaxLength *float64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
+	MaxLength *int64 `json:"maxLength,omitempty" tf:"max_length,omitempty"`
 
 	// (Number) Specifies the maximum number of attempts to enter a password before being locked out.
 	// Specifies the maximum number of attempts to enter a password before being locked out.
 	// +kubebuilder:validation:Optional
-	MaxRetries *float64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
+	MaxRetries *int64 `json:"maxRetries,omitempty" tf:"max_retries,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of days the user must wait before a recently changed password can be changed again.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of days the user must wait before a recently changed password can be changed again.
+	// Specifies the number of days the user must wait before a recently changed password can be changed again.
 	// +kubebuilder:validation:Optional
-	MinAgeDays *float64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
+	MinAgeDays *int64 `json:"minAgeDays,omitempty" tf:"min_age_days,omitempty"`
 
 	// (Number) Specifies the minimum number of characters the password must contain.
 	// Specifies the minimum number of characters the password must contain.
 	// +kubebuilder:validation:Optional
-	MinLength *float64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
+	MinLength *int64 `json:"minLength,omitempty" tf:"min_length,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of lowercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of lowercase characters the password must contain.
+	// Specifies the minimum number of lowercase characters the password must contain.
 	// +kubebuilder:validation:Optional
-	MinLowerCaseChars *float64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
+	MinLowerCaseChars *int64 `json:"minLowerCaseChars,omitempty" tf:"min_lower_case_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of numeric characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of numeric characters the password must contain.
+	// Specifies the minimum number of numeric characters the password must contain.
 	// +kubebuilder:validation:Optional
-	MinNumericChars *float64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
+	MinNumericChars *int64 `json:"minNumericChars,omitempty" tf:"min_numeric_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of special characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of special characters the password must contain.
+	// Specifies the minimum number of special characters the password must contain.
 	// +kubebuilder:validation:Optional
-	MinSpecialChars *float64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
+	MinSpecialChars *int64 `json:"minSpecialChars,omitempty" tf:"min_special_chars,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the minimum number of uppercase characters the password must contain.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the minimum number of uppercase characters the password must contain.
+	// Specifies the minimum number of uppercase characters the password must contain.
 	// +kubebuilder:validation:Optional
-	MinUpperCaseChars *float64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
+	MinUpperCaseChars *int64 `json:"minUpperCaseChars,omitempty" tf:"min_upper_case_chars,omitempty"`
 
 	// (Boolean, Deprecated) (Default: false) Whether to override a previous password policy with the same name.
-	// (Default: `false`) Whether to override a previous password policy with the same name.
+	// Whether to override a previous password policy with the same name.
 	// +kubebuilder:validation:Optional
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 

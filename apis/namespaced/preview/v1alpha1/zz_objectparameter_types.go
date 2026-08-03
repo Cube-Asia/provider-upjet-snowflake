@@ -77,7 +77,7 @@ type ObjectParameterInitParameters struct {
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 
 	// (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-	// (Default: `false`) If true, the object parameter will be set on the account level.
+	// If true, the object parameter will be set on the account level.
 	OnAccount *bool `json:"onAccount,omitempty" tf:"on_account,omitempty"`
 
 	// (String) Value of object parameter, as a string. Constraints are the same as those for the parameters in Snowflake documentation.
@@ -103,7 +103,7 @@ type ObjectParameterObservation struct {
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 
 	// (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-	// (Default: `false`) If true, the object parameter will be set on the account level.
+	// If true, the object parameter will be set on the account level.
 	OnAccount *bool `json:"onAccount,omitempty" tf:"on_account,omitempty"`
 
 	// (String) Value of object parameter, as a string. Constraints are the same as those for the parameters in Snowflake documentation.
@@ -129,7 +129,7 @@ type ObjectParameterParameters struct {
 	ObjectType *string `json:"objectType,omitempty" tf:"object_type,omitempty"`
 
 	// (Boolean) (Default: false) If true, the object parameter will be set on the account level.
-	// (Default: `false`) If true, the object parameter will be set on the account level.
+	// If true, the object parameter will be set on the account level.
 	// +kubebuilder:validation:Optional
 	OnAccount *bool `json:"onAccount,omitempty" tf:"on_account,omitempty"`
 

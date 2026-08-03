@@ -62,17 +62,15 @@ spec:
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
                     type: string
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the storage integration.
-                      (Default: “) Specifies a comment for the storage integration.
+                      Specifies a comment for the storage integration.
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   storageAllowedLocations:
                     description: |-
@@ -94,7 +92,7 @@ spec:
                   storageAwsRoleArn:
                     description: |-
                       (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
                     type: string
                   storageBlockedLocations:
                     description: |-
@@ -111,12 +109,12 @@ spec:
                   type:
                     description: |-
                       (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                      Specifies the type of the storage integration.
                     type: string
                   usePrivatelinkEndpoint:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                 type: object
               initProvider:
@@ -135,17 +133,15 @@ spec:
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
                     type: string
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the storage integration.
-                      (Default: “) Specifies a comment for the storage integration.
+                      Specifies a comment for the storage integration.
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   storageAllowedLocations:
                     description: |-
@@ -167,7 +163,7 @@ spec:
                   storageAwsRoleArn:
                     description: |-
                       (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
                     type: string
                   storageBlockedLocations:
                     description: |-
@@ -184,12 +180,12 @@ spec:
                   type:
                     description: |-
                       (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                      Specifies the type of the storage integration.
                     type: string
                   usePrivatelinkEndpoint:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                 type: object
               managementPolicies:
@@ -272,12 +268,12 @@ spec:
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
+                      Specifies the ID for your Office 365 tenant that the allowed and blocked storage accounts belong to.
                     type: string
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the storage integration.
-                      (Default: “) Specifies a comment for the storage integration.
+                      Specifies a comment for the storage integration.
                     type: string
                   createdOn:
                     description: |-
@@ -592,9 +588,7 @@ spec:
                       type: object
                     type: array
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   fullyQualifiedName:
                     description: |-
@@ -629,7 +623,7 @@ spec:
                   storageAwsRoleArn:
                     description: |-
                       (String) (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
-                      (Default: “) Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
+                      Specifies the Amazon Resource Name (ARN) of the AWS identity and access management (IAM) role that grants privileges on the S3 bucket containing your data files.
                     type: string
                   storageBlockedLocations:
                     description: |-
@@ -651,12 +645,12 @@ spec:
                   type:
                     description: |-
                       (String) (Default: EXTERNAL_STAGE) Specifies the type of the storage integration.
-                      (Default: `EXTERNAL_STAGE`) Specifies the type of the storage integration.
+                      Specifies the type of the storage integration.
                     type: string
                   usePrivatelinkEndpoint:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to use outbound private connectivity to harden the security posture. Supported for AWS S3 and Azure storage providers. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                 type: object
               conditions:

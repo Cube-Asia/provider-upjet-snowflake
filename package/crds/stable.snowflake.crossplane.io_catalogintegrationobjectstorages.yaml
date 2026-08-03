@@ -79,7 +79,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   enabled:
                     description: |-
@@ -90,7 +90,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   tableFormat:
                     description: |-
                       insensitive): ICEBERG | DELTA.
@@ -113,7 +114,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   enabled:
                     description: |-
@@ -124,7 +125,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   tableFormat:
                     description: |-
                       insensitive): ICEBERG | DELTA.
@@ -240,7 +242,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   describeOutput:
                     description: |-
@@ -272,7 +274,8 @@ spec:
                           description: based tables, specifies the number of seconds
                             to wait between attempts to poll your external cloud storage
                             for new metadata.
-                          type: number
+                          format: int64
+                          type: integer
                         tableFormat:
                           description: 'insensitive): ICEBERG | DELTA.'
                           type: string
@@ -295,7 +298,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   showOutput:
                     description: |-
                       (List of Object) Outputs the result of SHOW CATALOG INTEGRATIONS for the given catalog integration. (see below for nested schema)

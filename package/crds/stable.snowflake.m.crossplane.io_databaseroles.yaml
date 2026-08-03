@@ -191,13 +191,16 @@ spec:
                           type: string
                         grantedDatabaseRoles:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         grantedToDatabaseRoles:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         grantedToRoles:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         isCurrent:
                           description: (Boolean)
                           type: boolean

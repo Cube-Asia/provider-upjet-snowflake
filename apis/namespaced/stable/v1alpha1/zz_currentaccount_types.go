@@ -66,11 +66,11 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
 	// Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
-	ClientEncryptionKeySize *float64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
+	ClientEncryptionKeySize *int64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -82,11 +82,11 @@ type CurrentAccountInitParameters struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -98,7 +98,7 @@ type CurrentAccountInitParameters struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. Valid values are (case-insensitive): `TIMESTAMP_LTZ` | `TIMESTAMP_NTZ`. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -106,15 +106,15 @@ type CurrentAccountInitParameters struct {
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
-	CortexCodeCliDailyEstCreditLimitPerUser *float64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeCliDailyEstCreditLimitPerUser *int64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
-	CortexCodeDesktopDailyEstCreditLimitPerUser *float64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeDesktopDailyEstCreditLimitPerUser *int64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
-	CortexCodeSnowsightDailyEstCreditLimitPerUser *float64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeSnowsightDailyEstCreditLimitPerUser *int64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
 
 	// region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
 	// Specifies the regions where an inference request may be processed in case the request cannot be processed in the region where request is originally placed. Specifying DISABLED disables cross-region inferencing. For examples and details, see [Cross-region inference](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference). For more information, check [CORTEX_ENABLED_CROSS_REGION docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-enabled-cross-region).
@@ -130,7 +130,7 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
 	// Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
 	// Specifies the input format for the DATE data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). For more information, check [DATE_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#date-input-format).
@@ -155,6 +155,9 @@ type CurrentAccountInitParameters struct {
 	// insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.
 	// Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
+
+	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
+	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`
 
 	// (String) Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs.
 	// Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-notebook-warehouse).
@@ -250,7 +253,7 @@ type CurrentAccountInitParameters struct {
 
 	// level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
-	HybridTableLockTimeout *float64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
+	HybridTableLockTimeout *int64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
 
 	// (String) Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs.
 	// Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check [INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs](https://docs.snowflake.com/en/sql-reference/parameters#initial-replication-size-limit-in-tb).
@@ -258,7 +261,7 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -282,7 +285,7 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -294,11 +297,11 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
 	// Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
 	// Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
 	// Controls how metrics data is ingested into the event table. For more information about metric levels, see [Setting levels for logging, metrics, and tracing](https://docs.snowflake.com/en/developer-guide/logging-tracing/telemetry-levels). Valid values are (case-insensitive): `ALL` | `NONE`. For more information, check [METRIC_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#metric-level).
@@ -306,11 +309,11 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
 	// Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
-	MinDataRetentionTimeInDays *float64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
+	MinDataRetentionTimeInDays *int64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
 	// Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see [Controlling network traffic with network policies](https://docs.snowflake.com/en/user-guide/network-policies). Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [NETWORK_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#network-policy).
@@ -385,7 +388,7 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -417,11 +420,11 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
 	// Specifies the storage serialization policy for Snowflake-managed [Apache Iceberg™ tables](https://docs.snowflake.com/en/user-guide/tables-iceberg). Valid values are (case-insensitive): `COMPATIBLE` | `OPTIMIZED`. For more information, check [STORAGE_SERIALIZATION_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
@@ -433,11 +436,11 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -493,7 +496,7 @@ type CurrentAccountInitParameters struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -509,19 +512,19 @@ type CurrentAccountInitParameters struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type CurrentAccountObservation struct {
@@ -576,11 +579,11 @@ type CurrentAccountObservation struct {
 
 	// (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
 	// Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
-	ClientEncryptionKeySize *float64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
+	ClientEncryptionKeySize *int64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -592,11 +595,11 @@ type CurrentAccountObservation struct {
 
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -608,7 +611,7 @@ type CurrentAccountObservation struct {
 
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. Valid values are (case-insensitive): `TIMESTAMP_LTZ` | `TIMESTAMP_NTZ`. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -616,15 +619,15 @@ type CurrentAccountObservation struct {
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
-	CortexCodeCliDailyEstCreditLimitPerUser *float64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeCliDailyEstCreditLimitPerUser *int64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
-	CortexCodeDesktopDailyEstCreditLimitPerUser *float64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeDesktopDailyEstCreditLimitPerUser *int64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
-	CortexCodeSnowsightDailyEstCreditLimitPerUser *float64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeSnowsightDailyEstCreditLimitPerUser *int64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
 
 	// region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
 	// Specifies the regions where an inference request may be processed in case the request cannot be processed in the region where request is originally placed. Specifying DISABLED disables cross-region inferencing. For examples and details, see [Cross-region inference](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference). For more information, check [CORTEX_ENABLED_CROSS_REGION docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-enabled-cross-region).
@@ -640,7 +643,7 @@ type CurrentAccountObservation struct {
 
 	// (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
 	// Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
 	// Specifies the input format for the DATE data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). For more information, check [DATE_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#date-input-format).
@@ -665,6 +668,9 @@ type CurrentAccountObservation struct {
 	// insensitive): FIRST | LAST. For more information, check DEFAULT_NULL_ORDERING docs.
 	// Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
+
+	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
+	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`
 
 	// (String) Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs.
 	// Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-notebook-warehouse).
@@ -760,7 +766,7 @@ type CurrentAccountObservation struct {
 
 	// level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
-	HybridTableLockTimeout *float64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
+	HybridTableLockTimeout *int64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -771,7 +777,7 @@ type CurrentAccountObservation struct {
 
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -795,7 +801,7 @@ type CurrentAccountObservation struct {
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -807,11 +813,11 @@ type CurrentAccountObservation struct {
 
 	// (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
 	// Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
 	// Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
 	// Controls how metrics data is ingested into the event table. For more information about metric levels, see [Setting levels for logging, metrics, and tracing](https://docs.snowflake.com/en/developer-guide/logging-tracing/telemetry-levels). Valid values are (case-insensitive): `ALL` | `NONE`. For more information, check [METRIC_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#metric-level).
@@ -819,11 +825,11 @@ type CurrentAccountObservation struct {
 
 	// (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
 	// Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
-	MinDataRetentionTimeInDays *float64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
+	MinDataRetentionTimeInDays *int64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
 	// Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see [Controlling network traffic with network policies](https://docs.snowflake.com/en/user-guide/network-policies). Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [NETWORK_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#network-policy).
@@ -898,7 +904,7 @@ type CurrentAccountObservation struct {
 
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -930,11 +936,11 @@ type CurrentAccountObservation struct {
 
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
 	// Specifies the storage serialization policy for Snowflake-managed [Apache Iceberg™ tables](https://docs.snowflake.com/en/user-guide/tables-iceberg). Valid values are (case-insensitive): `COMPATIBLE` | `OPTIMIZED`. For more information, check [STORAGE_SERIALIZATION_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
@@ -946,11 +952,11 @@ type CurrentAccountObservation struct {
 
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -1006,7 +1012,7 @@ type CurrentAccountObservation struct {
 
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -1022,19 +1028,19 @@ type CurrentAccountObservation struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 type CurrentAccountParameters struct {
@@ -1102,12 +1108,12 @@ type CurrentAccountParameters struct {
 	// (Number) Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check CLIENT_ENCRYPTION_KEY_SIZE docs.
 	// Specifies the AES encryption key size, in bits, used by Snowflake to encrypt/decrypt files stored on internal stages (for loading/unloading data) when you use the SNOWFLAKE_FULL encryption type. For more information, check [CLIENT_ENCRYPTION_KEY_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-encryption-key-size).
 	// +kubebuilder:validation:Optional
-	ClientEncryptionKeySize *float64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
+	ClientEncryptionKeySize *int64 `json:"clientEncryptionKeySize,omitempty" tf:"client_encryption_key_size,omitempty"`
 
 	// (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
 	// Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
 	// +kubebuilder:validation:Optional
-	ClientMemoryLimit *float64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
+	ClientMemoryLimit *int64 `json:"clientMemoryLimit,omitempty" tf:"client_memory_limit,omitempty"`
 
 	// (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
 	// For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check [CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs](https://docs.snowflake.com/en/sql-reference/parameters#client-metadata-request-use-connection-ctx).
@@ -1122,12 +1128,12 @@ type CurrentAccountParameters struct {
 	// fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
 	// Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
 	// +kubebuilder:validation:Optional
-	ClientPrefetchThreads *float64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
+	ClientPrefetchThreads *int64 `json:"clientPrefetchThreads,omitempty" tf:"client_prefetch_threads,omitempty"`
 
 	// (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
 	// Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
 	// +kubebuilder:validation:Optional
-	ClientResultChunkSize *float64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
+	ClientResultChunkSize *int64 `json:"clientResultChunkSize,omitempty" tf:"client_result_chunk_size,omitempty"`
 
 	// insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
 	// Parameter that indicates whether to match column name case-insensitively in ResultSet.get* methods in JDBC. For more information, check [CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-column-case-insensitive).
@@ -1142,7 +1148,7 @@ type CurrentAccountParameters struct {
 	// between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
 	// Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
 	// +kubebuilder:validation:Optional
-	ClientSessionKeepAliveHeartbeatFrequency *float64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
+	ClientSessionKeepAliveHeartbeatFrequency *int64 `json:"clientSessionKeepAliveHeartbeatFrequency,omitempty" tf:"client_session_keep_alive_heartbeat_frequency,omitempty"`
 
 	// insensitive): TIMESTAMP_LTZ | TIMESTAMP_NTZ. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
 	// Specifies the [TIMESTAMP_* variation](https://docs.snowflake.com/en/sql-reference/data-types-datetime.html#label-datatypes-timestamp-variations) to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. Valid values are (case-insensitive): `TIMESTAMP_LTZ` | `TIMESTAMP_NTZ`. For more information, check [CLIENT_TIMESTAMP_TYPE_MAPPING docs](https://docs.snowflake.com/en/sql-reference/parameters#client-timestamp-type-mapping).
@@ -1152,17 +1158,17 @@ type CurrentAccountParameters struct {
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code CLI usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_CLI_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-cli-daily-est-credit-limit-per-user).
 	// +kubebuilder:validation:Optional
-	CortexCodeCliDailyEstCreditLimitPerUser *float64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeCliDailyEstCreditLimitPerUser *int64 `json:"cortexCodeCliDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_cli_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Desktop usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_DESKTOP_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-desktop-daily-est-credit-limit-per-user).
 	// +kubebuilder:validation:Optional
-	CortexCodeDesktopDailyEstCreditLimitPerUser *float64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeDesktopDailyEstCreditLimitPerUser *int64 `json:"cortexCodeDesktopDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_desktop_daily_est_credit_limit_per_user,omitempty"`
 
 	// 1 for the default (unlimited), 0 to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see Cortex Code credit usage limits. For more information, check CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs.
 	// Daily estimated credit limit per user for Cortex Code Snowsight usage. Set to `-1` for the default (unlimited), `0` to block usage, or a positive value to cap a user's estimated credit usage over a rolling 24-hour window. For more information, see [Cortex Code credit usage limits](https://docs.snowflake.com/en/user-guide/cortex-code/credit-usage-limit). For more information, check [CORTEX_CODE_SNOWSIGHT_DAILY_EST_CREDIT_LIMIT_PER_USER docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-code-snowsight-daily-est-credit-limit-per-user).
 	// +kubebuilder:validation:Optional
-	CortexCodeSnowsightDailyEstCreditLimitPerUser *float64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
+	CortexCodeSnowsightDailyEstCreditLimitPerUser *int64 `json:"cortexCodeSnowsightDailyEstCreditLimitPerUser,omitempty" tf:"cortex_code_snowsight_daily_est_credit_limit_per_user,omitempty"`
 
 	// region inferencing. For examples and details, see Cross-region inference. For more information, check CORTEX_ENABLED_CROSS_REGION docs.
 	// Specifies the regions where an inference request may be processed in case the request cannot be processed in the region where request is originally placed. Specifying DISABLED disables cross-region inferencing. For examples and details, see [Cross-region inference](https://docs.snowflake.com/en/user-guide/snowflake-cortex/cross-region-inference). For more information, check [CORTEX_ENABLED_CROSS_REGION docs](https://docs.snowflake.com/en/sql-reference/parameters#cortex-enabled-cross-region).
@@ -1182,7 +1188,7 @@ type CurrentAccountParameters struct {
 	// (Number) Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see Understanding & using Time Travel. For more information, check DATA_RETENTION_TIME_IN_DAYS docs.
 	// Number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on the object. A value of 0 effectively disables Time Travel for the specified database, schema, or table. For more information, see [Understanding & using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel). For more information, check [DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days).
 	// +kubebuilder:validation:Optional
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) Specifies the input format for the DATE data type. For more information, see Date and time input and output formats. For more information, check DATE_INPUT_FORMAT docs.
 	// Specifies the input format for the DATE data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). For more information, check [DATE_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#date-input-format).
@@ -1213,6 +1219,10 @@ type CurrentAccountParameters struct {
 	// Specifies the default ordering of NULL values in a result set ([more details](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering)). Valid values are (case-insensitive): `FIRST` | `LAST`. For more information, check [DEFAULT_NULL_ORDERING docs](https://docs.snowflake.com/en/sql-reference/parameters#default-null-ordering).
 	// +kubebuilder:validation:Optional
 	DefaultNullOrdering *string `json:"defaultNullOrdering,omitempty" tf:"default_null_ordering,omitempty"`
+
+	// Specifies the name of the default compute pool to use when creating container-runtime Streamlit apps. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_COMPUTE_POOL docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-compute-pool).
+	// +kubebuilder:validation:Optional
+	DefaultStreamlitComputePool *string `json:"defaultStreamlitComputePool,omitempty" tf:"default_streamlit_compute_pool,omitempty"`
 
 	// (String) Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs.
 	// Specifies the name of the default warehouse to use when creating a notebook. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [DEFAULT_STREAMLIT_NOTEBOOK_WAREHOUSE docs](https://docs.snowflake.com/en/sql-reference/parameters#default-streamlit-notebook-warehouse).
@@ -1332,7 +1342,7 @@ type CurrentAccountParameters struct {
 	// level locks on a hybrid table, before timing out and aborting the statement. For more information, check HYBRID_TABLE_LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to acquire row-level locks on a hybrid table, before timing out and aborting the statement. For more information, check [HYBRID_TABLE_LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#hybrid-table-lock-timeout).
 	// +kubebuilder:validation:Optional
-	HybridTableLockTimeout *float64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
+	HybridTableLockTimeout *int64 `json:"hybridTableLockTimeout,omitempty" tf:"hybrid_table_lock_timeout,omitempty"`
 
 	// (String) Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs.
 	// Sets the maximum estimated size limit for the initial replication of a primary database to a secondary database (in TB). Set this parameter on any account that stores a secondary database. This size limit helps prevent accounts from accidentally incurring large database replication charges. To remove the size limit, set the value to 0.0. It is required to pass numbers with scale of at least 1 (e.g. 20.5, 32.25, 33.333, etc.). For more information, check [INITIAL_REPLICATION_SIZE_LIMIT_IN_TB docs](https://docs.snowflake.com/en/sql-reference/parameters#initial-replication-size-limit-in-tb).
@@ -1342,7 +1352,7 @@ type CurrentAccountParameters struct {
 	// (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
 	// Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
 	// +kubebuilder:validation:Optional
-	JSONIndent *float64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
+	JSONIndent *int64 `json:"jsonIndent,omitempty" tf:"json_indent,omitempty"`
 
 	// (Boolean) Specifies how JDBC processes columns that have a scale of zero (0). For more information, check JDBC_TREAT_DECIMAL_AS_INT docs.
 	// Specifies how JDBC processes columns that have a scale of zero (0). For more information, check [JDBC_TREAT_DECIMAL_AS_INT docs](https://docs.snowflake.com/en/sql-reference/parameters#jdbc-treat-decimal-as-int).
@@ -1372,7 +1382,7 @@ type CurrentAccountParameters struct {
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
 	// +kubebuilder:validation:Optional
-	LockTimeout *float64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
+	LockTimeout *int64 `json:"lockTimeout,omitempty" tf:"lock_timeout,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
 	// Specifies the severity level of log events (rows with record type EVENT) that should be ingested and made available in the active event table. Log events at the specified level (and at more severe levels) are ingested. For more information, see [LOG_EVENT_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#log_event_level). Valid values are (case-insensitive): `TRACE` | `DEBUG` | `INFO` | `WARN` | `ERROR` | `FATAL` | `OFF`. For more information, check [LOG_EVENT_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#log-event-level).
@@ -1387,12 +1397,12 @@ type CurrentAccountParameters struct {
 	// (Number) Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse (more details). For more information, check MAX_CONCURRENCY_LEVEL docs.
 	// Specifies the concurrency level for SQL statements (that is, queries and DML) executed by a warehouse ([more details](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level)). For more information, check [MAX_CONCURRENCY_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#max-concurrency-level).
 	// +kubebuilder:validation:Optional
-	MaxConcurrencyLevel *float64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
+	MaxConcurrencyLevel *int64 `json:"maxConcurrencyLevel,omitempty" tf:"max_concurrency_level,omitempty"`
 
 	// (Number) Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the DATA_RETENTION_TIME_IN_DAYS setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the Snowflake Edition for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check MAX_DATA_EXTENSION_TIME_IN_DAYS docs.
 	// Maximum number of days Snowflake can extend the data retention period for tables to prevent streams on the tables from becoming stale. By default, if the [DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#data-retention-time-in-days) setting for a source table is less than 14 days, and a stream has not been consumed, Snowflake temporarily extends this period to the stream’s offset, up to a maximum of 14 days, regardless of the [Snowflake Edition](https://docs.snowflake.com/en/user-guide/intro-editions) for your account. The MAX_DATA_EXTENSION_TIME_IN_DAYS parameter enables you to limit this automatic extension period to control storage costs for data retention or for compliance reasons. For more information, check [MAX_DATA_EXTENSION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#max-data-extension-time-in-days).
 	// +kubebuilder:validation:Optional
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// insensitive): ALL | NONE. For more information, check METRIC_LEVEL docs.
 	// Controls how metrics data is ingested into the event table. For more information about metric levels, see [Setting levels for logging, metrics, and tracing](https://docs.snowflake.com/en/developer-guide/logging-tracing/telemetry-levels). Valid values are (case-insensitive): `ALL` | `NONE`. For more information, check [METRIC_LEVEL docs](https://docs.snowflake.com/en/sql-reference/parameters#metric-level).
@@ -1402,12 +1412,12 @@ type CurrentAccountParameters struct {
 	// (Number) Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX(DATA_RETENTION_TIME_IN_DAYS, MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check MIN_DATA_RETENTION_TIME_IN_DAYS docs.
 	// Minimum number of days for which Snowflake retains historical data for performing Time Travel actions (SELECT, CLONE, UNDROP) on an object. If a minimum number of days for data retention is set on an account, the data retention period for an object is determined by MAX([DATA_RETENTION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters#label-data-retention-time-in-days), MIN_DATA_RETENTION_TIME_IN_DAYS). For more information, check [MIN_DATA_RETENTION_TIME_IN_DAYS docs](https://docs.snowflake.com/en/sql-reference/parameters#min-data-retention-time-in-days).
 	// +kubebuilder:validation:Optional
-	MinDataRetentionTimeInDays *float64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
+	MinDataRetentionTimeInDays *int64 `json:"minDataRetentionTimeInDays,omitempty" tf:"min_data_retention_time_in_days,omitempty"`
 
 	// statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
 	// Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
 	// +kubebuilder:validation:Optional
-	MultiStatementCount *float64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
+	MultiStatementCount *int64 `json:"multiStatementCount,omitempty" tf:"multi_statement_count,omitempty"`
 
 	// (String) Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see Controlling network traffic with network policies. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information, check NETWORK_POLICY docs.
 	// Specifies the network policy to enforce for your account. Network policies enable restricting access to your account based on users’ IP address. For more details, see [Controlling network traffic with network policies](https://docs.snowflake.com/en/user-guide/network-policies). Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`. For more information, check [NETWORK_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#network-policy).
@@ -1501,7 +1511,7 @@ type CurrentAccountParameters struct {
 	// (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
 	// Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
 	// +kubebuilder:validation:Optional
-	RowsPerResultset *float64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
+	RowsPerResultset *int64 `json:"rowsPerResultset,omitempty" tf:"rows_per_resultset,omitempty"`
 
 	// (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
 	// Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via [AWS PrivateLink for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/privatelink-interface-endpoints.html) use this endpoint to connect. For more information, see [Accessing Internal stages with dedicated interface endpoints](https://docs.snowflake.com/en/user-guide/private-internal-stages-aws.html#label-aws-privatelink-internal-stage-network-isolation). For more information, check [S3_STAGE_VPCE_DNS_NAME docs](https://docs.snowflake.com/en/sql-reference/parameters#s3-stage-vpce-dns-name).
@@ -1541,12 +1551,12 @@ type CurrentAccountParameters struct {
 	// (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementQueuedTimeoutInSeconds *float64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
+	StatementQueuedTimeoutInSeconds *int64 `json:"statementQueuedTimeoutInSeconds,omitempty" tf:"statement_queued_timeout_in_seconds,omitempty"`
 
 	// (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
 	// Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
 	// +kubebuilder:validation:Optional
-	StatementTimeoutInSeconds *float64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
+	StatementTimeoutInSeconds *int64 `json:"statementTimeoutInSeconds,omitempty" tf:"statement_timeout_in_seconds,omitempty"`
 
 	// managed Apache Iceberg™ tables. Valid values are (case-insensitive): COMPATIBLE | OPTIMIZED. For more information, check STORAGE_SERIALIZATION_POLICY docs.
 	// Specifies the storage serialization policy for Snowflake-managed [Apache Iceberg™ tables](https://docs.snowflake.com/en/user-guide/tables-iceberg). Valid values are (case-insensitive): `COMPATIBLE` | `OPTIMIZED`. For more information, check [STORAGE_SERIALIZATION_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#storage-serialization-policy).
@@ -1561,12 +1571,12 @@ type CurrentAccountParameters struct {
 	// (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
 	// Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
 	// +kubebuilder:validation:Optional
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
 	// Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
 	// +kubebuilder:validation:Optional
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
 	// Specifies the input format for the TIME data type. For more information, see [Date and time input and output formats](https://docs.snowflake.com/en/sql-reference/date-time-input-output). Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check [TIME_INPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#time-input-format).
@@ -1636,7 +1646,7 @@ type CurrentAccountParameters struct {
 	// digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
 	// Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
 	// +kubebuilder:validation:Optional
-	TwoDigitCenturyStart *float64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
+	TwoDigitCenturyStart *int64 `json:"twoDigitCenturyStart,omitempty" tf:"two_digit_century_start,omitempty"`
 
 	// default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
 	// Determines if an unsupported (i.e. non-default) value specified for a constraint property returns an error. For more information, check [UNSUPPORTED_DDL_ACTION docs](https://docs.snowflake.com/en/sql-reference/parameters#unsupported-ddl-action).
@@ -1656,22 +1666,22 @@ type CurrentAccountParameters struct {
 	// (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
 	// Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
 	// +kubebuilder:validation:Optional
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
 	// Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
 	// +kubebuilder:validation:Optional
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
 	// Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
 	// +kubebuilder:validation:Optional
-	WeekOfYearPolicy *float64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
+	WeekOfYearPolicy *int64 `json:"weekOfYearPolicy,omitempty" tf:"week_of_year_policy,omitempty"`
 
 	// related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
 	// Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
 	// +kubebuilder:validation:Optional
-	WeekStart *float64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
+	WeekStart *int64 `json:"weekStart,omitempty" tf:"week_start,omitempty"`
 }
 
 // CurrentAccountSpec defines the desired state of CurrentAccount

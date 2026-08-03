@@ -69,7 +69,7 @@ type StorageLifecyclePolicyDescribeOutputInitParameters struct {
 type StorageLifecyclePolicyDescribeOutputObservation struct {
 
 	// (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-	ArchiveForDays *float64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
+	ArchiveForDays *int64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
 
 	// insensitive): COOL | COLD.
 	ArchiveTier *string `json:"archiveTier,omitempty" tf:"archive_tier,omitempty"`
@@ -77,11 +77,17 @@ type StorageLifecyclePolicyDescribeOutputObservation struct {
 	// valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
 	Body *string `json:"body,omitempty" tf:"body,omitempty"`
 
+	// (String)
+	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
+
 	// (String) Specifies the identifier for the storage lifecycle policy; must be unique for the database and schema in which the storage lifecycle policy is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (String)
 	ReturnType *string `json:"returnType,omitempty" tf:"return_type,omitempty"`
+
+	// (String)
+	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 
 	// (List of Object) (see below for nested schema)
 	Signature []SignatureObservation `json:"signature,omitempty" tf:"signature,omitempty"`
@@ -94,7 +100,7 @@ type StorageLifecyclePolicyInitParameters struct {
 
 	// (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
 	// Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-	ArchiveForDays *float64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
+	ArchiveForDays *int64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
 
 	// insensitive): COOL | COLD.
 	// Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.
@@ -117,7 +123,7 @@ type StorageLifecyclePolicyObservation struct {
 
 	// (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
 	// Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
-	ArchiveForDays *float64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
+	ArchiveForDays *int64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
 
 	// insensitive): COOL | COLD.
 	// Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.
@@ -164,7 +170,7 @@ type StorageLifecyclePolicyParameters struct {
 	// (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
 	// Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
 	// +kubebuilder:validation:Optional
-	ArchiveForDays *float64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
+	ArchiveForDays *int64 `json:"archiveForDays,omitempty" tf:"archive_for_days,omitempty"`
 
 	// insensitive): COOL | COLD.
 	// Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.

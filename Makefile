@@ -12,10 +12,10 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 
 export TERRAFORM_PROVIDER_SOURCE ?= snowflakedb/snowflake
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/snowflakedb/terraform-provider-snowflake
-export TERRAFORM_PROVIDER_VERSION ?= 2.18.0
+export TERRAFORM_PROVIDER_VERSION ?= 2.19.0
 export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-snowflake
 export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-snowflake_v2.18.0
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-snowflake_v2.19.0
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
@@ -44,7 +44,7 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.24
+GO_REQUIRED_VERSION ?= 1.26.4
 GOLANGCILINT_VERSION ?= 2.12.1
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
@@ -129,16 +129,37 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 
-pull-docs:
-	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
-  		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
-		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
-	fi
-	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
+generate.init: $(TERRAFORM_PROVIDER_SCHEMA) fetch-snowflake-provider-src
 
-generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+# Vendors the Snowflake TF provider source (patched to import as a Go
+# library) into .work/ for upjet's no-fork mode. This same checkout also
+# backs doc scraping: apis/generate.go's `//go:generate` scraper directive
+# reads docs straight out of $(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)
+# — one clone serves both, not two.
+#
+# ponytail: upstream (github.com/snowflakedb/terraform-provider-snowflake)
+# tags v2.x releases but its go.mod still declares the pre-v2 module path
+# (no "/v2" suffix), which Go's semantic import versioning rejects outright
+# for every v2 tag - not something a version bump fixes. Workaround: patch
+# the checkout's own module path (and every internal import) to add "/v2"
+# in place, and point go.mod's `replace` directive at this checkout. Drop
+# this target (and the SNOWFLAKE_SRC_DIR/SNOWFLAKE_OLD_MODULE_PATH vars,
+# and the `replace` line in go.mod) the day upstream fixes its own go.mod.
+SNOWFLAKE_SRC_DIR := $(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)
+SNOWFLAKE_OLD_MODULE_PATH := github.com/Snowflake-Labs/terraform-provider-snowflake
+fetch-snowflake-provider-src:
+	@if [ "$$(cat "$(SNOWFLAKE_SRC_DIR)/.fetched-version" 2>/dev/null)" = "$(TERRAFORM_PROVIDER_VERSION)" ]; then \
+		exit 0; \
+	fi; \
+	rm -rf "$(SNOWFLAKE_SRC_DIR)" && mkdir -p "$(SNOWFLAKE_SRC_DIR)" && \
+	git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" "$(TERRAFORM_PROVIDER_REPO)" "$(SNOWFLAKE_SRC_DIR)"; \
+	sed -i "s#^module $(SNOWFLAKE_OLD_MODULE_PATH)\$$#module $(SNOWFLAKE_OLD_MODULE_PATH)/v2#" "$(SNOWFLAKE_SRC_DIR)/go.mod"; \
+	grep -rlZ "\"$(SNOWFLAKE_OLD_MODULE_PATH)/" --include='*.go' "$(SNOWFLAKE_SRC_DIR)" | xargs -0 -r sed -i "s#\"$(SNOWFLAKE_OLD_MODULE_PATH)/#\"$(SNOWFLAKE_OLD_MODULE_PATH)/v2/#g"; \
+	echo "$(TERRAFORM_PROVIDER_VERSION)" > "$(SNOWFLAKE_SRC_DIR)/.fetched-version"
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version
+go.build: fetch-snowflake-provider-src
+
+.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) check-terraform-version fetch-snowflake-provider-src
 # ====================================================================================
 # Targets
 

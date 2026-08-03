@@ -13,6 +13,27 @@ import (
 	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
 )
 
+type DescribeOutputAllowedRolesListInitParameters struct {
+}
+
+type DescribeOutputAllowedRolesListObservation struct {
+
+	// (String)
+	Default *string `json:"default,omitempty" tf:"default,omitempty"`
+
+	// (String) Specifies the name of the OAuth integration. This name follows the rules for Object Identifiers. The name should be unique among security integrations in your account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String)
+	Type *string `json:"type,omitempty" tf:"type,omitempty"`
+
+	// (String)
+	Value *string `json:"value,omitempty" tf:"value,omitempty"`
+}
+
+type DescribeOutputAllowedRolesListParameters struct {
+}
+
 type DescribeOutputBlockedRolesListInitParameters struct {
 }
 
@@ -374,6 +395,7 @@ type OauthIntegrationForPartnerApplicationsDescribeOutputOauthTokenEndpointParam
 }
 
 type OauthIntegrationForPartnerApplicationsDescribeOutputObservation struct {
+	AllowedRolesList []DescribeOutputAllowedRolesListObservation `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
 
 	// (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
 	BlockedRolesList []DescribeOutputBlockedRolesListObservation `json:"blockedRolesList,omitempty" tf:"blocked_roles_list,omitempty"`
@@ -432,6 +454,10 @@ type OauthIntegrationForPartnerApplicationsDescribeOutputParameters struct {
 
 type OauthIntegrationForPartnerApplicationsInitParameters struct {
 
+	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
+	// +listType=set
+	AllowedRolesList []*string `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
+
 	// (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see [docs](./account_role).
 	// +listType=set
@@ -442,7 +468,7 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Enabled *string `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Creates an OAuth interface between Snowflake and a partner application. Valid options are: LOOKER | TABLEAU_DESKTOP | TABLEAU_SERVER.
@@ -450,7 +476,7 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 	OauthClient *string `json:"oauthClient,omitempty" tf:"oauth_client,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	OauthIssueRefreshTokens *string `json:"oauthIssueRefreshTokens,omitempty" tf:"oauth_issue_refresh_tokens,omitempty"`
 
 	// (String, Sensitive) Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI. The field should be only set when OAUTH_CLIENT = LOOKER. In any other case the field should be left out empty.
@@ -458,8 +484,8 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 	OauthRedirectURISecretRef *v1.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.
 	// Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: `IMPLICIT` | `NONE`.
@@ -467,6 +493,10 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 }
 
 type OauthIntegrationForPartnerApplicationsObservation struct {
+
+	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
+	// +listType=set
+	AllowedRolesList []*string `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
 
 	// (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see [docs](./account_role).
@@ -482,7 +512,7 @@ type OauthIntegrationForPartnerApplicationsObservation struct {
 	DescribeOutput []OauthIntegrationForPartnerApplicationsDescribeOutputObservation `json:"describeOutput,omitempty" tf:"describe_output,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	Enabled *string `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -497,12 +527,12 @@ type OauthIntegrationForPartnerApplicationsObservation struct {
 	OauthClient *string `json:"oauthClient,omitempty" tf:"oauth_client,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	OauthIssueRefreshTokens *string `json:"oauthIssueRefreshTokens,omitempty" tf:"oauth_issue_refresh_tokens,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.
 	// Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: `IMPLICIT` | `NONE`.
@@ -519,6 +549,11 @@ type OauthIntegrationForPartnerApplicationsObservation struct {
 
 type OauthIntegrationForPartnerApplicationsParameters struct {
 
+	// A set of Snowflake roles that a user can explicitly consent to using after authenticating. Can only be set when oauth_use_secondary_roles is set to NONE. For more information about this resource, see [docs](./account_role).
+	// +kubebuilder:validation:Optional
+	// +listType=set
+	AllowedRolesList []*string `json:"allowedRolesList,omitempty" tf:"allowed_roles_list,omitempty"`
+
 	// (Set of String) A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see docs.
 	// A set of Snowflake roles that a user cannot explicitly consent to using after authenticating. By default, this list includes the ACCOUNTADMIN, ORGADMIN and SECURITYADMIN roles. To remove these privileged roles from the list, use the ALTER ACCOUNT command to set the OAUTH_ADD_PRIVILEGED_ROLES_TO_BLOCKED_LIST account parameter to FALSE. For more information about this resource, see [docs](./account_role).
 	// +kubebuilder:validation:Optional
@@ -531,7 +566,7 @@ type OauthIntegrationForPartnerApplicationsParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this OAuth integration is enabled or disabled. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	Enabled *string `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -541,7 +576,7 @@ type OauthIntegrationForPartnerApplicationsParameters struct {
 	OauthClient *string `json:"oauthClient,omitempty" tf:"oauth_client,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to allow the client to exchange a refresh token for an access token when the current access token has expired. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	OauthIssueRefreshTokens *string `json:"oauthIssueRefreshTokens,omitempty" tf:"oauth_issue_refresh_tokens,omitempty"`
 
@@ -551,9 +586,9 @@ type OauthIntegrationForPartnerApplicationsParameters struct {
 	OauthRedirectURISecretRef *v1.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
+	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
 	// +kubebuilder:validation:Optional
-	OauthRefreshTokenValidity *float64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
+	OauthRefreshTokenValidity *int64 `json:"oauthRefreshTokenValidity,omitempty" tf:"oauth_refresh_token_validity,omitempty"`
 
 	// (String) Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: IMPLICIT | NONE.
 	// Specifies whether default secondary roles set in the user properties are activated by default in the session being opened. Valid options are: `IMPLICIT` | `NONE`.

@@ -62,7 +62,7 @@ type CortexSearchServiceDescribeOutputObservation struct {
 	ServiceQueryURL *string `json:"serviceQueryUrl,omitempty" tf:"service_query_url,omitempty"`
 
 	// (Number)
-	SourceDataNumRows *float64 `json:"sourceDataNumRows,omitempty" tf:"source_data_num_rows,omitempty"`
+	SourceDataNumRows *int64 `json:"sourceDataNumRows,omitempty" tf:"source_data_num_rows,omitempty"`
 
 	// (String) Specifies the maximum target lag time for the Cortex search service.
 	TargetLag *string `json:"targetLag,omitempty" tf:"target_lag,omitempty"`

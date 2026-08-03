@@ -331,11 +331,17 @@ type SchemaInitParameters struct {
 
 	// (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
 	// Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
+
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
 	// (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	// If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -346,7 +352,7 @@ type SchemaInitParameters struct {
 	ExternalVolume *string `json:"externalVolume,omitempty" tf:"external_volume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsTransient *string `json:"isTransient,omitempty" tf:"is_transient,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
@@ -359,7 +365,7 @@ type SchemaInitParameters struct {
 
 	// (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
 	// Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// (Boolean) Specifies whether to pause a running pipe, primarily in preparation for transferring ownership of the pipe to a different role. For more information, check PIPE_EXECUTION_PAUSED docs.
 	// Specifies whether to pause a running pipe, primarily in preparation for transferring ownership of the pipe to a different role. For more information, check [PIPE_EXECUTION_PAUSED docs](https://docs.snowflake.com/en/sql-reference/parameters#pipe-execution-paused).
@@ -379,11 +385,11 @@ type SchemaInitParameters struct {
 
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -395,14 +401,14 @@ type SchemaInitParameters struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	WithManagedAccess *string `json:"withManagedAccess,omitempty" tf:"with_managed_access,omitempty"`
 }
 
@@ -418,7 +424,7 @@ type SchemaObservation struct {
 
 	// (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
 	// Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) The database in which to create the schema. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The database in which to create the schema. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -427,6 +433,12 @@ type SchemaObservation struct {
 	// (String) Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see collation specification.
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
+
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
 	// (List of Object) Outputs the result of DESCRIBE SCHEMA for the given object. In order to handle this output, one must grant sufficient privileges, e.g. grant_ownership on all objects in the schema. (see below for nested schema)
 	// Outputs the result of `DESCRIBE SCHEMA` for the given object. In order to handle this output, one must grant sufficient privileges, e.g. [grant_ownership](./grant_ownership) on all objects in the schema.
@@ -448,7 +460,7 @@ type SchemaObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsTransient *string `json:"isTransient,omitempty" tf:"is_transient,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF.
@@ -461,7 +473,7 @@ type SchemaObservation struct {
 
 	// (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
 	// Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW PARAMETERS IN SCHEMA for the given object. (see below for nested schema)
 	// Outputs the result of `SHOW PARAMETERS IN SCHEMA` for the given object.
@@ -489,11 +501,11 @@ type SchemaObservation struct {
 
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -505,14 +517,14 @@ type SchemaObservation struct {
 
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	WithManagedAccess *string `json:"withManagedAccess,omitempty" tf:"with_managed_access,omitempty"`
 }
 
@@ -531,7 +543,7 @@ type SchemaParameters struct {
 	// (Number) Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see Understanding & Using Time Travel.
 	// Specifies the number of days for which Time Travel actions (CLONE and UNDROP) can be performed on the database, as well as specifying the default Time Travel retention time for all schemas created in the database. For more details, see [Understanding & Using Time Travel](https://docs.snowflake.com/en/user-guide/data-time-travel).
 	// +kubebuilder:validation:Optional
-	DataRetentionTimeInDays *float64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
+	DataRetentionTimeInDays *int64 `json:"dataRetentionTimeInDays,omitempty" tf:"data_retention_time_in_days,omitempty"`
 
 	// (String) The database in which to create the schema. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The database in which to create the schema. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -542,6 +554,14 @@ type SchemaParameters struct {
 	// Specifies a default collation specification for all schemas and tables added to the database. It can be overridden on schema or table level. For more information, see [collation specification](https://docs.snowflake.com/en/sql-reference/collation#label-collation-specification).
 	// +kubebuilder:validation:Optional
 	DefaultDdlCollation *string `json:"defaultDdlCollation,omitempty" tf:"default_ddl_collation,omitempty"`
+
+	// Sets the preferred CPU compute pool used for Notebooks on CPU Container Runtime.
+	// +kubebuilder:validation:Optional
+	DefaultNotebookComputePoolCPU *string `json:"defaultNotebookComputePoolCpu,omitempty" tf:"default_notebook_compute_pool_cpu,omitempty"`
+
+	// Sets the preferred GPU compute pool used for Notebooks on GPU Container Runtime.
+	// +kubebuilder:validation:Optional
+	DefaultNotebookComputePoolGpu *string `json:"defaultNotebookComputePoolGpu,omitempty" tf:"default_notebook_compute_pool_gpu,omitempty"`
 
 	// (Boolean) If true, enables stdout/stderr fast path logging for anonymous stored procedures.
 	// If true, enables stdout/stderr fast path logging for anonymous stored procedures.
@@ -554,7 +574,7 @@ type SchemaParameters struct {
 	ExternalVolume *string `json:"externalVolume,omitempty" tf:"external_volume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies the schema as transient. Transient schemas do not have a Fail-safe period so they do not incur additional storage costs once they leave Time Travel; however, this means they are also not protected by Fail-safe in the event of a data loss. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsTransient *string `json:"isTransient,omitempty" tf:"is_transient,omitempty"`
 
@@ -571,7 +591,7 @@ type SchemaParameters struct {
 	// (Number) Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see MAX_DATA_EXTENSION_TIME_IN_DAYS.
 	// Object parameter that specifies the maximum number of days for which Snowflake can extend the data retention period for tables in the database to prevent streams on the tables from becoming stale. For a detailed description of this parameter, see [MAX_DATA_EXTENSION_TIME_IN_DAYS](https://docs.snowflake.com/en/sql-reference/parameters.html#label-max-data-extension-time-in-days).
 	// +kubebuilder:validation:Optional
-	MaxDataExtensionTimeInDays *float64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
+	MaxDataExtensionTimeInDays *int64 `json:"maxDataExtensionTimeInDays,omitempty" tf:"max_data_extension_time_in_days,omitempty"`
 
 	// (Boolean) Specifies whether to pause a running pipe, primarily in preparation for transferring ownership of the pipe to a different role. For more information, check PIPE_EXECUTION_PAUSED docs.
 	// Specifies whether to pause a running pipe, primarily in preparation for transferring ownership of the pipe to a different role. For more information, check [PIPE_EXECUTION_PAUSED docs](https://docs.snowflake.com/en/sql-reference/parameters#pipe-execution-paused).
@@ -596,12 +616,12 @@ type SchemaParameters struct {
 	// suspending. For more information, see SUSPEND_TASK_AFTER_NUM_FAILURES.
 	// How many times a task must fail in a row before it is automatically suspended. 0 disables auto-suspending. For more information, see [SUSPEND_TASK_AFTER_NUM_FAILURES](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
 	// +kubebuilder:validation:Optional
-	SuspendTaskAfterNumFailures *float64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
+	SuspendTaskAfterNumFailures *int64 `json:"suspendTaskAfterNumFailures,omitempty" tf:"suspend_task_after_num_failures,omitempty"`
 
 	// (Number) Maximum automatic retries allowed for a user task. For more information, see TASK_AUTO_RETRY_ATTEMPTS.
 	// Maximum automatic retries allowed for a user task. For more information, see [TASK_AUTO_RETRY_ATTEMPTS](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
 	// +kubebuilder:validation:Optional
-	TaskAutoRetryAttempts *float64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
+	TaskAutoRetryAttempts *int64 `json:"taskAutoRetryAttempts,omitempty" tf:"task_auto_retry_attempts,omitempty"`
 
 	// (String) Controls how trace events are ingested into the event table. Valid options are: ALWAYS | ON_EVENT | PROPAGATE | OFF. For information about levels, see TRACE_LEVEL.
 	// Controls how trace events are ingested into the event table. Valid options are: `ALWAYS` | `ON_EVENT` | `PROPAGATE` | `OFF`. For information about levels, see [TRACE_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters.html#label-trace-level).
@@ -616,15 +636,15 @@ type SchemaParameters struct {
 	// (Number) Minimum amount of time between Triggered Task executions in seconds.
 	// Minimum amount of time between Triggered Task executions in seconds.
 	// +kubebuilder:validation:Optional
-	UserTaskMinimumTriggerIntervalInSeconds *float64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
+	UserTaskMinimumTriggerIntervalInSeconds *int64 `json:"userTaskMinimumTriggerIntervalInSeconds,omitempty" tf:"user_task_minimum_trigger_interval_in_seconds,omitempty"`
 
 	// (Number) User task execution timeout in milliseconds. For more information, see USER_TASK_TIMEOUT_MS.
 	// User task execution timeout in milliseconds. For more information, see [USER_TASK_TIMEOUT_MS](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
 	// +kubebuilder:validation:Optional
-	UserTaskTimeoutMs *float64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
+	UserTaskTimeoutMs *int64 `json:"userTaskTimeoutMs,omitempty" tf:"user_task_timeout_ms,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies a managed schema. Managed access schemas centralize privilege management with the schema owner. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	WithManagedAccess *string `json:"withManagedAccess,omitempty" tf:"with_managed_access,omitempty"`
 }

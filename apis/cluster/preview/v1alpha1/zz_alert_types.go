@@ -32,7 +32,7 @@ type AlertInitParameters struct {
 	Condition *string `json:"condition,omitempty" tf:"condition,omitempty"`
 
 	// (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-	// (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+	// Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) The warehouse the alert will use.
@@ -63,7 +63,7 @@ type AlertObservation struct {
 	Database *string `json:"database,omitempty" tf:"database,omitempty"`
 
 	// (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-	// (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+	// Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -110,7 +110,7 @@ type AlertParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// (Boolean) (Default: false) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
-	// (Default: `false`) Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
+	// Specifies if an alert should be 'started' (enabled) after creation or should remain 'suspended' (default).
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
@@ -133,7 +133,7 @@ type AlertScheduleInitParameters struct {
 
 	// (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type AlertScheduleObservation struct {
@@ -144,7 +144,7 @@ type AlertScheduleObservation struct {
 
 	// (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type AlertScheduleParameters struct {
@@ -157,7 +157,7 @@ type AlertScheduleParameters struct {
 	// (Number) Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// Specifies the interval in minutes for the alert schedule. The interval must be greater than 0 and less than 1440 (24 hours).
 	// +kubebuilder:validation:Optional
-	Interval *float64 `json:"interval,omitempty" tf:"interval,omitempty"`
+	Interval *int64 `json:"interval,omitempty" tf:"interval,omitempty"`
 }
 
 type CronInitParameters struct {

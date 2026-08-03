@@ -89,7 +89,7 @@ type FunctionJavaInitParameters struct {
 	Arguments []ArgumentsInitParameters `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined function) Specifies a comment for the function.
-	// (Default: `user-defined function`) Specifies a comment for the function.
+	// Specifies a comment for the function.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) The database in which to create the function. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -118,7 +118,7 @@ type FunctionJavaInitParameters struct {
 	Imports []ImportsInitParameters `json:"imports,omitempty" tf:"imports,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the function is secure. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -182,7 +182,7 @@ type FunctionJavaObservation struct {
 	Arguments []ArgumentsObservation `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined function) Specifies a comment for the function.
-	// (Default: `user-defined function`) Specifies a comment for the function.
+	// Specifies a comment for the function.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) The database in which to create the function. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -222,7 +222,7 @@ type FunctionJavaObservation struct {
 	Imports []ImportsObservation `json:"imports,omitempty" tf:"imports,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the function is secure. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -295,7 +295,7 @@ type FunctionJavaParameters struct {
 	Arguments []ArgumentsParameters `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined function) Specifies a comment for the function.
-	// (Default: `user-defined function`) Specifies a comment for the function.
+	// Specifies a comment for the function.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -331,7 +331,7 @@ type FunctionJavaParameters struct {
 	Imports []ImportsParameters `json:"imports,omitempty" tf:"imports,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the function is secure. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the function is secure. By design, the Snowflake's `SHOW FUNCTIONS` command does not provide information about secure functions (consult [function docs](https://docs.snowflake.com/en/sql-reference/sql/create-function#id1) and [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake. Use the role owning the function while managing secure functions. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
@@ -450,10 +450,10 @@ type FunctionJavaShowOutputObservation struct {
 	Language *string `json:"language,omitempty" tf:"language,omitempty"`
 
 	// (Number)
-	MaxNumArguments *float64 `json:"maxNumArguments,omitempty" tf:"max_num_arguments,omitempty"`
+	MaxNumArguments *int64 `json:"maxNumArguments,omitempty" tf:"max_num_arguments,omitempty"`
 
 	// (Number)
-	MinNumArguments *float64 `json:"minNumArguments,omitempty" tf:"min_num_arguments,omitempty"`
+	MinNumArguments *int64 `json:"minNumArguments,omitempty" tf:"min_num_arguments,omitempty"`
 
 	// (String) The name of the function; the identifier does not need to be unique for the schema in which the function is created because UDFs are identified and resolved by the combination of the name and argument types. Check the docs. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

@@ -20,7 +20,7 @@ type AutoRefreshStatusInitParameters struct {
 type AutoRefreshStatusObservation struct {
 
 	// (Number)
-	CurrentSnapshotID *float64 `json:"currentSnapshotId,omitempty" tf:"current_snapshot_id,omitempty"`
+	CurrentSnapshotID *int64 `json:"currentSnapshotId,omitempty" tf:"current_snapshot_id,omitempty"`
 
 	// (String)
 	ExecutionState *string `json:"executionState,omitempty" tf:"execution_state,omitempty"`
@@ -32,7 +32,7 @@ type AutoRefreshStatusObservation struct {
 	LastUpdatedTime *string `json:"lastUpdatedTime,omitempty" tf:"last_updated_time,omitempty"`
 
 	// (Number)
-	PendingSnapshotCount *float64 `json:"pendingSnapshotCount,omitempty" tf:"pending_snapshot_count,omitempty"`
+	PendingSnapshotCount *int64 `json:"pendingSnapshotCount,omitempty" tf:"pending_snapshot_count,omitempty"`
 }
 
 type AutoRefreshStatusParameters struct {
@@ -84,6 +84,26 @@ type ExternalVolumeObservation struct {
 }
 
 type ExternalVolumeParameters struct {
+}
+
+type FieldsInitParameters struct {
+}
+
+type FieldsObservation struct {
+
+	// (String) The ID of this resource.
+	FieldID *int64 `json:"fieldId,omitempty" tf:"field_id,omitempty"`
+
+	// (String) Specifies the identifier for the Iceberg table; must be unique for the schema in which the Iceberg table is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+	Name *string `json:"name,omitempty" tf:"name,omitempty"`
+
+	// (String) The ID of this resource.
+	SourceID *int64 `json:"sourceId,omitempty" tf:"source_id,omitempty"`
+
+	Transform *string `json:"transform,omitempty" tf:"transform,omitempty"`
+}
+
+type FieldsParameters struct {
 }
 
 type IcebergTableFromDeltaFilesDescribeOutputInitParameters struct {
@@ -143,7 +163,7 @@ type IcebergTableFromDeltaFilesDescribeOutputParameters struct {
 type IcebergTableFromDeltaFilesInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
 	// (String) Specifies the relative path of the Delta table's directory in the external volume. Cannot be changed after creation.
@@ -170,7 +190,7 @@ type IcebergTableFromDeltaFilesInitParameters struct {
 type IcebergTableFromDeltaFilesObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
 	// (String) Specifies the relative path of the Delta table's directory in the external volume. Cannot be changed after creation.
@@ -224,7 +244,7 @@ type IcebergTableFromDeltaFilesObservation struct {
 type IcebergTableFromDeltaFilesParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether Snowflake should automatically refresh the Iceberg table metadata when new files are added to the Delta table's directory. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AutoRefresh *string `json:"autoRefresh,omitempty" tf:"auto_refresh,omitempty"`
 
@@ -315,7 +335,7 @@ type IcebergTableFromDeltaFilesShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	CurrentPartitionSpecID *float64 `json:"currentPartitionSpecId,omitempty" tf:"current_partition_spec_id,omitempty"`
+	CurrentPartitionSpecID *int64 `json:"currentPartitionSpecId,omitempty" tf:"current_partition_spec_id,omitempty"`
 
 	// (String)
 	DatabaseName *string `json:"databaseName,omitempty" tf:"database_name,omitempty"`
@@ -324,7 +344,7 @@ type IcebergTableFromDeltaFilesShowOutputObservation struct {
 	ExternalVolumeName *string `json:"externalVolumeName,omitempty" tf:"external_volume_name,omitempty"`
 
 	// (Number)
-	IcebergTableFormatVersion *float64 `json:"icebergTableFormatVersion,omitempty" tf:"iceberg_table_format_version,omitempty"`
+	IcebergTableFormatVersion *int64 `json:"icebergTableFormatVersion,omitempty" tf:"iceberg_table_format_version,omitempty"`
 
 	// (String)
 	IcebergTableType *string `json:"icebergTableType,omitempty" tf:"iceberg_table_type,omitempty"`
@@ -342,13 +362,26 @@ type IcebergTableFromDeltaFilesShowOutputObservation struct {
 	OwnerRoleType *string `json:"ownerRoleType,omitempty" tf:"owner_role_type,omitempty"`
 
 	// (String)
-	PartitionSpecs *string `json:"partitionSpecs,omitempty" tf:"partition_specs,omitempty"`
+	PartitionSpecs []PartitionSpecsObservation `json:"partitionSpecs,omitempty" tf:"partition_specs,omitempty"`
 
 	// (String)
 	SchemaName *string `json:"schemaName,omitempty" tf:"schema_name,omitempty"`
 }
 
 type IcebergTableFromDeltaFilesShowOutputParameters struct {
+}
+
+type PartitionSpecsInitParameters struct {
+}
+
+type PartitionSpecsObservation struct {
+	Fields []FieldsObservation `json:"fields,omitempty" tf:"fields,omitempty"`
+
+	// (String) The ID of this resource.
+	SpecID *int64 `json:"specId,omitempty" tf:"spec_id,omitempty"`
+}
+
+type PartitionSpecsParameters struct {
 }
 
 type ReplaceInvalidCharactersInitParameters struct {

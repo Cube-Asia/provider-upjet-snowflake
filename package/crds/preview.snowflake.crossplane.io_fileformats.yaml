@@ -218,7 +218,8 @@ spec:
                     description: |-
                       (Number) Number of lines at the start of the file to skip.
                       Number of lines at the start of the file to skip.
-                    type: number
+                    format: int64
+                    type: integer
                   stripNullValues:
                     description: |-
                       (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
@@ -402,7 +403,8 @@ spec:
                     description: |-
                       (Number) Number of lines at the start of the file to skip.
                       Number of lines at the start of the file to skip.
-                    type: number
+                    format: int64
+                    type: integer
                   stripNullValues:
                     description: |-
                       (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.
@@ -684,7 +686,8 @@ spec:
                     description: |-
                       (Number) Number of lines at the start of the file to skip.
                       Number of lines at the start of the file to skip.
-                    type: number
+                    format: int64
+                    type: integer
                   stripNullValues:
                     description: |-
                       (Boolean) Boolean that instructs the JSON parser to remove object fields or array elements containing null values.

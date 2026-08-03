@@ -68,7 +68,7 @@ spec:
                   apiAwsRoleArn:
                     description: |-
                       (String) (Default: “) ARN of a cloud platform role.
-                      (Default: “) ARN of a cloud platform role.
+                      ARN of a cloud platform role.
                     type: string
                   apiBlockedPrefixes:
                     description: |-
@@ -104,12 +104,12 @@ spec:
                   azureAdApplicationId:
                     description: |-
                       (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-                      (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+                      The 'Application (client) id' of the Azure AD app for your remote service.
                     type: string
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+                      Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
                     type: string
                   comment:
                     description: (String)
@@ -117,12 +117,12 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-                      (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+                      Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
                     type: boolean
                   googleAudience:
                     description: |-
                       (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-                      (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+                      The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
                     type: string
                 type: object
               initProvider:
@@ -148,7 +148,7 @@ spec:
                   apiAwsRoleArn:
                     description: |-
                       (String) (Default: “) ARN of a cloud platform role.
-                      (Default: “) ARN of a cloud platform role.
+                      ARN of a cloud platform role.
                     type: string
                   apiBlockedPrefixes:
                     description: |-
@@ -184,12 +184,12 @@ spec:
                   azureAdApplicationId:
                     description: |-
                       (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-                      (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+                      The 'Application (client) id' of the Azure AD app for your remote service.
                     type: string
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+                      Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
                     type: string
                   comment:
                     description: (String)
@@ -197,12 +197,12 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-                      (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+                      Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
                     type: boolean
                   googleAudience:
                     description: |-
                       (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-                      (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+                      The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
                     type: string
                 type: object
               managementPolicies:
@@ -297,7 +297,7 @@ spec:
                   apiAwsRoleArn:
                     description: |-
                       (String) (Default: “) ARN of a cloud platform role.
-                      (Default: “) ARN of a cloud platform role.
+                      ARN of a cloud platform role.
                     type: string
                   apiBlockedPrefixes:
                     description: |-
@@ -319,7 +319,7 @@ spec:
                   azureAdApplicationId:
                     description: |-
                       (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-                      (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+                      The 'Application (client) id' of the Azure AD app for your remote service.
                     type: string
                   azureConsentUrl:
                     description: (String)
@@ -330,7 +330,7 @@ spec:
                   azureTenantId:
                     description: |-
                       (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-                      (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+                      Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
                     type: string
                   comment:
                     description: (String)
@@ -343,7 +343,7 @@ spec:
                   enabled:
                     description: |-
                       (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-                      (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+                      Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
                     type: boolean
                   fullyQualifiedName:
                     description: |-
@@ -353,7 +353,7 @@ spec:
                   googleAudience:
                     description: |-
                       (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-                      (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+                      The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
                     type: string
                   id:
                     description: (String) The ID of this resource.

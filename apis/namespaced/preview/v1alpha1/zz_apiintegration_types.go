@@ -21,7 +21,7 @@ type ApiIntegrationInitParameters struct {
 	APIAllowedPrefixes []*string `json:"apiAllowedPrefixes,omitempty" tf:"api_allowed_prefixes,omitempty"`
 
 	// (String) (Default: “) ARN of a cloud platform role.
-	// (Default: “) ARN of a cloud platform role.
+	// ARN of a cloud platform role.
 	APIAwsRoleArn *string `json:"apiAwsRoleArn,omitempty" tf:"api_aws_role_arn,omitempty"`
 
 	// (List of String) Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
@@ -41,22 +41,22 @@ type ApiIntegrationInitParameters struct {
 	APIProvider *string `json:"apiProvider,omitempty" tf:"api_provider,omitempty"`
 
 	// (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-	// (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+	// The 'Application (client) id' of the Azure AD app for your remote service.
 	AzureAdApplicationID *string `json:"azureAdApplicationId,omitempty" tf:"azure_ad_application_id,omitempty"`
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+	// Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String)
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-	// (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+	// Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-	// (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+	// The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
 	GoogleAudience *string `json:"googleAudience,omitempty" tf:"google_audience,omitempty"`
 }
 
@@ -75,7 +75,7 @@ type ApiIntegrationObservation struct {
 	APIAwsIAMUserArn *string `json:"apiAwsIamUserArn,omitempty" tf:"api_aws_iam_user_arn,omitempty"`
 
 	// (String) (Default: “) ARN of a cloud platform role.
-	// (Default: “) ARN of a cloud platform role.
+	// ARN of a cloud platform role.
 	APIAwsRoleArn *string `json:"apiAwsRoleArn,omitempty" tf:"api_aws_role_arn,omitempty"`
 
 	// (List of String) Lists the endpoints and resources in the HTTPS proxy service that are not allowed to be called from Snowflake.
@@ -91,7 +91,7 @@ type ApiIntegrationObservation struct {
 	APIProvider *string `json:"apiProvider,omitempty" tf:"api_provider,omitempty"`
 
 	// (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-	// (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+	// The 'Application (client) id' of the Azure AD app for your remote service.
 	AzureAdApplicationID *string `json:"azureAdApplicationId,omitempty" tf:"azure_ad_application_id,omitempty"`
 
 	// (String)
@@ -101,7 +101,7 @@ type ApiIntegrationObservation struct {
 	AzureMultiTenantAppName *string `json:"azureMultiTenantAppName,omitempty" tf:"azure_multi_tenant_app_name,omitempty"`
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+	// Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
 	// (String)
@@ -112,7 +112,7 @@ type ApiIntegrationObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-	// (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+	// Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) Fully qualified name of the resource. For more information, see object name resolution.
@@ -120,7 +120,7 @@ type ApiIntegrationObservation struct {
 	FullyQualifiedName *string `json:"fullyQualifiedName,omitempty" tf:"fully_qualified_name,omitempty"`
 
 	// (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-	// (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+	// The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
 	GoogleAudience *string `json:"googleAudience,omitempty" tf:"google_audience,omitempty"`
 
 	// (String) The ID of this resource.
@@ -135,7 +135,7 @@ type ApiIntegrationParameters struct {
 	APIAllowedPrefixes []*string `json:"apiAllowedPrefixes,omitempty" tf:"api_allowed_prefixes,omitempty"`
 
 	// (String) (Default: “) ARN of a cloud platform role.
-	// (Default: “) ARN of a cloud platform role.
+	// ARN of a cloud platform role.
 	// +kubebuilder:validation:Optional
 	APIAwsRoleArn *string `json:"apiAwsRoleArn,omitempty" tf:"api_aws_role_arn,omitempty"`
 
@@ -160,12 +160,12 @@ type ApiIntegrationParameters struct {
 	APIProvider *string `json:"apiProvider,omitempty" tf:"api_provider,omitempty"`
 
 	// (String) (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
-	// (Default: “) The 'Application (client) id' of the Azure AD app for your remote service.
+	// The 'Application (client) id' of the Azure AD app for your remote service.
 	// +kubebuilder:validation:Optional
 	AzureAdApplicationID *string `json:"azureAdApplicationId,omitempty" tf:"azure_ad_application_id,omitempty"`
 
 	// (String) (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
-	// (Default: “) Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
+	// Specifies the ID for your Office 365 tenant that all Azure API Management instances belong to.
 	// +kubebuilder:validation:Optional
 	AzureTenantID *string `json:"azureTenantId,omitempty" tf:"azure_tenant_id,omitempty"`
 
@@ -174,12 +174,12 @@ type ApiIntegrationParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
-	// (Default: `true`) Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
+	// Specifies whether this API integration is enabled or disabled. If the API integration is disabled, any external function that relies on it will not work.
 	// +kubebuilder:validation:Optional
 	Enabled *bool `json:"enabled,omitempty" tf:"enabled,omitempty"`
 
 	// (String) (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
-	// (Default: “) The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
+	// The audience claim when generating the JWT (JSON Web Token) to authenticate to the Google API Gateway.
 	// +kubebuilder:validation:Optional
 	GoogleAudience *string `json:"googleAudience,omitempty" tf:"google_audience,omitempty"`
 }

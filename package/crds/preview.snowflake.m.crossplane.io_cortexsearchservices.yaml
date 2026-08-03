@@ -325,7 +325,8 @@ spec:
                           type: string
                         sourceDataNumRows:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         targetLag:
                           description: (String) Specifies the maximum target lag time
                             for the Cortex search service.

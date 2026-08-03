@@ -128,7 +128,7 @@ spec:
                   publish:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+                      Determines if the listing should be published.
                     type: string
                   share:
                     description: |-
@@ -203,7 +203,7 @@ spec:
                   publish:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+                      Determines if the listing should be published.
                     type: string
                   share:
                     description: |-
@@ -369,7 +369,7 @@ spec:
                   publish:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+                      Determines if the listing should be published.
                     type: string
                   share:
                     description: |-

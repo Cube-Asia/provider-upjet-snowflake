@@ -86,7 +86,7 @@ spec:
                   comment:
                     description: |-
                       defined procedure) Specifies a comment for the procedure.
-                      (Default: `user-defined procedure`) Specifies a comment for the procedure.
+                      Specifies a comment for the procedure.
                     type: string
                   database:
                     description: |-
@@ -137,7 +137,7 @@ spec:
                   isSecure:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   logEventLevel:
                     description: |-
@@ -260,7 +260,7 @@ spec:
                   comment:
                     description: |-
                       defined procedure) Specifies a comment for the procedure.
-                      (Default: `user-defined procedure`) Specifies a comment for the procedure.
+                      Specifies a comment for the procedure.
                     type: string
                   database:
                     description: |-
@@ -311,7 +311,7 @@ spec:
                   isSecure:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   logEventLevel:
                     description: |-
@@ -513,7 +513,7 @@ spec:
                   comment:
                     description: |-
                       defined procedure) Specifies a comment for the procedure.
-                      (Default: `user-defined procedure`) Specifies a comment for the procedure.
+                      Specifies a comment for the procedure.
                     type: string
                   database:
                     description: |-
@@ -572,7 +572,7 @@ spec:
                   isSecure:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   logEventLevel:
                     description: |-
@@ -823,10 +823,12 @@ spec:
                           type: boolean
                         maxNumArguments:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         minNumArguments:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) The name of the procedure; the identifier
                             does not need to be unique for the schema in which the

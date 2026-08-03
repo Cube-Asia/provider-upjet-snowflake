@@ -137,7 +137,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
                       Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
@@ -218,7 +219,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
                       Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.
@@ -390,7 +392,8 @@ spec:
                           type: boolean
                         oauthAccessTokenValidity:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         oauthAllowedScopes:
                           description: (List of String)
                           items:
@@ -416,7 +419,8 @@ spec:
                         oauthRefreshTokenValidity:
                           description: (Number) Specifies the validity period (in
                             seconds) for refresh tokens issued by the MCP server.
-                          type: number
+                          format: int64
+                          type: integer
                         oauthTokenEndpoint:
                           description: (String) Specifies the OAuth 2.0 token endpoint
                             URL for the MCP server.
@@ -461,7 +465,8 @@ spec:
                     description: |-
                       (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
                       Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
-                    type: number
+                    format: int64
+                    type: integer
                   oauthTokenEndpoint:
                     description: |-
                       (String) Specifies the OAuth 2.0 token endpoint URL for the MCP server.

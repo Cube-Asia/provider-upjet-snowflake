@@ -16,15 +16,15 @@ import (
 type ForeignKeyPropertiesInitParameters struct {
 
 	// (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-	// (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+	// The match type for the foreign key. Not applicable for primary/unique keys
 	Match *string `json:"match,omitempty" tf:"match,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
 	OnDelete *string `json:"onDelete,omitempty" tf:"on_delete,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
 	OnUpdate *string `json:"onUpdate,omitempty" tf:"on_update,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) The table and columns that the foreign key references. (see below for nested schema)
@@ -35,15 +35,15 @@ type ForeignKeyPropertiesInitParameters struct {
 type ForeignKeyPropertiesObservation struct {
 
 	// (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-	// (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+	// The match type for the foreign key. Not applicable for primary/unique keys
 	Match *string `json:"match,omitempty" tf:"match,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
 	OnDelete *string `json:"onDelete,omitempty" tf:"on_delete,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
 	OnUpdate *string `json:"onUpdate,omitempty" tf:"on_update,omitempty"`
 
 	// (Block List, Min: 1, Max: 1) The table and columns that the foreign key references. (see below for nested schema)
@@ -54,17 +54,17 @@ type ForeignKeyPropertiesObservation struct {
 type ForeignKeyPropertiesParameters struct {
 
 	// (String) (Default: FULL) The match type for the foreign key. Not applicable for primary/unique keys
-	// (Default: `FULL`) The match type for the foreign key. Not applicable for primary/unique keys
+	// The match type for the foreign key. Not applicable for primary/unique keys
 	// +kubebuilder:validation:Optional
 	Match *string `json:"match,omitempty" tf:"match,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is deleted. Not applicable for primary/unique keys
 	// +kubebuilder:validation:Optional
 	OnDelete *string `json:"onDelete,omitempty" tf:"on_delete,omitempty"`
 
 	// (String) (Default: NO ACTION) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
-	// (Default: `NO ACTION`) Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
+	// Specifies the action performed when the primary/unique key for the foreign key is updated. Not applicable for primary/unique keys
 	// +kubebuilder:validation:Optional
 	OnUpdate *string `json:"onUpdate,omitempty" tf:"on_update,omitempty"`
 
@@ -120,15 +120,15 @@ type TableConstraintInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true) Whether the constraint is deferrable
-	// (Default: `true`) Whether the constraint is deferrable
+	// Whether the constraint is deferrable
 	Deferrable *bool `json:"deferrable,omitempty" tf:"deferrable,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-	// (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+	// Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
 	// (Boolean) (Default: false) Whether the constraint is enforced
-	// (Default: `false`) Whether the constraint is enforced
+	// Whether the constraint is enforced
 	Enforced *bool `json:"enforced,omitempty" tf:"enforced,omitempty"`
 
 	// (Block List, Max: 1) Additional properties when type is set to foreign key. Not applicable for primary/unique keys (see below for nested schema)
@@ -136,7 +136,7 @@ type TableConstraintInitParameters struct {
 	ForeignKeyProperties []ForeignKeyPropertiesInitParameters `json:"foreignKeyProperties,omitempty" tf:"foreign_key_properties,omitempty"`
 
 	// (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-	// (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+	// Whether the constraint is initially deferred or immediate
 	Initially *string `json:"initially,omitempty" tf:"initially,omitempty"`
 
 	// (String) Name of constraint
@@ -144,7 +144,7 @@ type TableConstraintInitParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-	// (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+	// Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
 	Rely *bool `json:"rely,omitempty" tf:"rely,omitempty"`
 
 	// (String) Identifier for table to create constraint on. Format must follow: ""<db_name>"."<schema_name>"."<table_name>"" or "<db_name>.<schema_name>.<table_name>" (snowflake_table.my_table.id)
@@ -156,7 +156,7 @@ type TableConstraintInitParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-	// (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+	// Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 }
 
@@ -171,15 +171,15 @@ type TableConstraintObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true) Whether the constraint is deferrable
-	// (Default: `true`) Whether the constraint is deferrable
+	// Whether the constraint is deferrable
 	Deferrable *bool `json:"deferrable,omitempty" tf:"deferrable,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-	// (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+	// Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
 	// (Boolean) (Default: false) Whether the constraint is enforced
-	// (Default: `false`) Whether the constraint is enforced
+	// Whether the constraint is enforced
 	Enforced *bool `json:"enforced,omitempty" tf:"enforced,omitempty"`
 
 	// (Block List, Max: 1) Additional properties when type is set to foreign key. Not applicable for primary/unique keys (see below for nested schema)
@@ -190,7 +190,7 @@ type TableConstraintObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-	// (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+	// Whether the constraint is initially deferred or immediate
 	Initially *string `json:"initially,omitempty" tf:"initially,omitempty"`
 
 	// (String) Name of constraint
@@ -198,7 +198,7 @@ type TableConstraintObservation struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-	// (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+	// Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
 	Rely *bool `json:"rely,omitempty" tf:"rely,omitempty"`
 
 	// (String) Identifier for table to create constraint on. Format must follow: ""<db_name>"."<schema_name>"."<table_name>"" or "<db_name>.<schema_name>.<table_name>" (snowflake_table.my_table.id)
@@ -210,7 +210,7 @@ type TableConstraintObservation struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-	// (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+	// Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 }
 
@@ -227,17 +227,17 @@ type TableConstraintParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: true) Whether the constraint is deferrable
-	// (Default: `true`) Whether the constraint is deferrable
+	// Whether the constraint is deferrable
 	// +kubebuilder:validation:Optional
 	Deferrable *bool `json:"deferrable,omitempty" tf:"deferrable,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
-	// (Default: `true`) Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
+	// Specifies whether the constraint is enabled or disabled. These properties are provided for compatibility with Oracle.
 	// +kubebuilder:validation:Optional
 	Enable *bool `json:"enable,omitempty" tf:"enable,omitempty"`
 
 	// (Boolean) (Default: false) Whether the constraint is enforced
-	// (Default: `false`) Whether the constraint is enforced
+	// Whether the constraint is enforced
 	// +kubebuilder:validation:Optional
 	Enforced *bool `json:"enforced,omitempty" tf:"enforced,omitempty"`
 
@@ -247,7 +247,7 @@ type TableConstraintParameters struct {
 	ForeignKeyProperties []ForeignKeyPropertiesParameters `json:"foreignKeyProperties,omitempty" tf:"foreign_key_properties,omitempty"`
 
 	// (String) (Default: DEFERRED) Whether the constraint is initially deferred or immediate
-	// (Default: `DEFERRED`) Whether the constraint is initially deferred or immediate
+	// Whether the constraint is initially deferred or immediate
 	// +kubebuilder:validation:Optional
 	Initially *string `json:"initially,omitempty" tf:"initially,omitempty"`
 
@@ -257,7 +257,7 @@ type TableConstraintParameters struct {
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Boolean) (Default: true) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
-	// (Default: `true`) Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
+	// Specifies whether a constraint in NOVALIDATE mode is taken into account during query rewrite.
 	// +kubebuilder:validation:Optional
 	Rely *bool `json:"rely,omitempty" tf:"rely,omitempty"`
 
@@ -272,7 +272,7 @@ type TableConstraintParameters struct {
 	Type *string `json:"type,omitempty" tf:"type,omitempty"`
 
 	// (Boolean) (Default: false) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
-	// (Default: `false`) Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
+	// Specifies whether to validate existing data on the table when a constraint is created. Only used in conjunction with the ENABLE property.
 	// +kubebuilder:validation:Optional
 	Validate *bool `json:"validate,omitempty" tf:"validate,omitempty"`
 }

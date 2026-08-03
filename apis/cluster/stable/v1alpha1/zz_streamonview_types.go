@@ -192,7 +192,7 @@ type StreamOnViewDescribeOutputParameters struct {
 type StreamOnViewInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AppendOnly *string `json:"appendOnly,omitempty" tf:"append_only,omitempty"`
 
 	// (see below for nested schema)
@@ -208,11 +208,11 @@ type StreamOnViewInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	ShowInitialRows *string `json:"showInitialRows,omitempty" tf:"show_initial_rows,omitempty"`
 
 	// (String) Specifies an identifier for the view the stream will monitor. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information about this resource, see docs.
@@ -223,7 +223,7 @@ type StreamOnViewInitParameters struct {
 type StreamOnViewObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AppendOnly *string `json:"appendOnly,omitempty" tf:"append_only,omitempty"`
 
 	// (see below for nested schema)
@@ -239,7 +239,7 @@ type StreamOnViewObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) The database in which to create the stream. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -262,7 +262,7 @@ type StreamOnViewObservation struct {
 	Schema *string `json:"schema,omitempty" tf:"schema,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	ShowInitialRows *string `json:"showInitialRows,omitempty" tf:"show_initial_rows,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW STREAMS for the given stream. (see below for nested schema)
@@ -285,7 +285,7 @@ type StreamOnViewObservation struct {
 type StreamOnViewParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether this is an append-only stream. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AppendOnly *string `json:"appendOnly,omitempty" tf:"append_only,omitempty"`
 
@@ -305,7 +305,7 @@ type StreamOnViewParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	// +kubebuilder:validation:Optional
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
@@ -320,7 +320,7 @@ type StreamOnViewParameters struct {
 	Schema *string `json:"schema" tf:"schema,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
+	// Specifies whether to return all existing rows in the source table as row inserts the first time the stream is consumed. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
 	ShowInitialRows *string `json:"showInitialRows,omitempty" tf:"show_initial_rows,omitempty"`
 

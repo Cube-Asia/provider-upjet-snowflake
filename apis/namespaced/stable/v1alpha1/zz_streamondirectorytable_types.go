@@ -75,7 +75,7 @@ type StreamOnDirectoryTableInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) Specifies an identifier for the stage the stream will monitor. Due to technical limitations (read more here), avoid using the following characters: |, ., ". For more information about this resource, see docs.
@@ -90,7 +90,7 @@ type StreamOnDirectoryTableObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (String) The database in which to create the stream. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -137,7 +137,7 @@ type StreamOnDirectoryTableParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original stream when a stream is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	// +kubebuilder:validation:Optional
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 

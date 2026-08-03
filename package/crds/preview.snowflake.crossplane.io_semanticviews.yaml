@@ -129,7 +129,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
                           type: string
                         qualifiedExpressionName:
                           description: |-
@@ -160,7 +160,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+                            Specifies whether the metric is private.
                           type: string
                         semanticExpression:
                           description: |-
@@ -424,7 +424,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
                           type: string
                         qualifiedExpressionName:
                           description: |-
@@ -455,7 +455,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+                            Specifies whether the metric is private.
                           type: string
                         semanticExpression:
                           description: |-
@@ -799,7 +799,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
                           type: string
                         qualifiedExpressionName:
                           description: |-
@@ -838,7 +838,7 @@ spec:
                         isPrivate:
                           description: |-
                             uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
-                            (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the metric is private.
+                            Specifies whether the metric is private.
                           type: string
                         semanticExpression:
                           description: |-

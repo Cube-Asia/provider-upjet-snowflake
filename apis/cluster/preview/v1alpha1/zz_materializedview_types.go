@@ -20,10 +20,10 @@ type MaterializedViewInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Specifies that the view is secure.
-	// (Default: `false`) Specifies that the view is secure.
+	// Specifies that the view is secure.
 	IsSecure *bool `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
-	// (Default: `false`) Specifies whether to use CREATE OR REPLACE when creating the materialized view.
+	// Specifies whether to use CREATE OR REPLACE when creating the materialized view.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
 	// (String) Specifies the query used to create the view. Changing this value will trigger a drop and recreate of the materialized view.
@@ -57,10 +57,10 @@ type MaterializedViewObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// (Boolean) (Default: false) Specifies that the view is secure.
-	// (Default: `false`) Specifies that the view is secure.
+	// Specifies that the view is secure.
 	IsSecure *bool `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
-	// (Default: `false`) Specifies whether to use CREATE OR REPLACE when creating the materialized view.
+	// Specifies whether to use CREATE OR REPLACE when creating the materialized view.
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 
 	// (String) The schema in which to create the view. Don't use the | character.
@@ -93,11 +93,11 @@ type MaterializedViewParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// (Boolean) (Default: false) Specifies that the view is secure.
-	// (Default: `false`) Specifies that the view is secure.
+	// Specifies that the view is secure.
 	// +kubebuilder:validation:Optional
 	IsSecure *bool `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
-	// (Default: `false`) Specifies whether to use CREATE OR REPLACE when creating the materialized view.
+	// Specifies whether to use CREATE OR REPLACE when creating the materialized view.
 	// +kubebuilder:validation:Optional
 	OrReplace *bool `json:"orReplace,omitempty" tf:"or_replace,omitempty"`
 

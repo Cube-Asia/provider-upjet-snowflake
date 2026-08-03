@@ -61,7 +61,7 @@ spec:
                   autoRefresh:
                     description: |-
                       (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-                      (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+                      Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
                     type: boolean
                   awsSnsTopic:
                     description: |-
@@ -99,7 +99,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-                      (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+                      Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
                     type: boolean
                   database:
                     description: |-
@@ -131,7 +131,7 @@ spec:
                   refreshOnCreate:
                     description: |-
                       (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-                      (Default: `true`) Specifies weather to refresh when an external table is created.
+                      Specifies weather to refresh when an external table is created.
                     type: boolean
                   schema:
                     description: |-
@@ -191,7 +191,7 @@ spec:
                   autoRefresh:
                     description: |-
                       (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-                      (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+                      Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
                     type: boolean
                   awsSnsTopic:
                     description: |-
@@ -229,7 +229,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-                      (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+                      Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
                     type: boolean
                   fileFormat:
                     description: |-
@@ -256,7 +256,7 @@ spec:
                   refreshOnCreate:
                     description: |-
                       (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-                      (Default: `true`) Specifies weather to refresh when an external table is created.
+                      Specifies weather to refresh when an external table is created.
                     type: boolean
                   tableFormat:
                     description: |-
@@ -361,7 +361,7 @@ spec:
                   autoRefresh:
                     description: |-
                       (Boolean) (Default: true) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
-                      (Default: `true`) Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
+                      Specifies whether to automatically refresh the external table metadata once, immediately after the external table is created.
                     type: boolean
                   awsSnsTopic:
                     description: |-
@@ -399,7 +399,7 @@ spec:
                   copyGrants:
                     description: |-
                       (Boolean) (Default: false) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
-                      (Default: `false`) Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
+                      Specifies to retain the access permissions from the original table when an external table is recreated using the CREATE OR REPLACE TABLE variant
                     type: boolean
                   database:
                     description: |-
@@ -444,7 +444,7 @@ spec:
                   refreshOnCreate:
                     description: |-
                       (Boolean) (Default: true) Specifies weather to refresh when an external table is created.
-                      (Default: `true`) Specifies weather to refresh when an external table is created.
+                      Specifies weather to refresh when an external table is created.
                     type: boolean
                   schema:
                     description: |-

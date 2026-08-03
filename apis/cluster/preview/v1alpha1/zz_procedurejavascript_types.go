@@ -65,7 +65,7 @@ type ProcedureJavascriptInitParameters struct {
 	Arguments []ProcedureJavascriptArgumentsInitParameters `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined procedure) Specifies a comment for the procedure.
-	// (Default: `user-defined procedure`) Specifies a comment for the procedure.
+	// Specifies a comment for the procedure.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) The database in which to create the procedure. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -81,7 +81,7 @@ type ProcedureJavascriptInitParameters struct {
 	ExecuteAs *string `json:"executeAs,omitempty" tf:"execute_as,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -128,7 +128,7 @@ type ProcedureJavascriptObservation struct {
 	Arguments []ProcedureJavascriptArgumentsObservation `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined procedure) Specifies a comment for the procedure.
-	// (Default: `user-defined procedure`) Specifies a comment for the procedure.
+	// Specifies a comment for the procedure.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (String) The database in which to create the procedure. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
@@ -151,7 +151,7 @@ type ProcedureJavascriptObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -211,7 +211,7 @@ type ProcedureJavascriptParameters struct {
 	Arguments []ProcedureJavascriptArgumentsParameters `json:"arguments,omitempty" tf:"arguments,omitempty"`
 
 	// defined procedure) Specifies a comment for the procedure.
-	// (Default: `user-defined procedure`) Specifies a comment for the procedure.
+	// Specifies a comment for the procedure.
 	// +kubebuilder:validation:Optional
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
@@ -231,7 +231,7 @@ type ProcedureJavascriptParameters struct {
 	ExecuteAs *string `json:"executeAs,omitempty" tf:"execute_as,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the procedure is secure. For more information about secure procedures, see Protecting Sensitive Information with Secure UDFs and Stored Procedures. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the procedure is secure. For more information about secure procedures, see [Protecting Sensitive Information with Secure UDFs and Stored Procedures](https://docs.snowflake.com/en/developer-guide/secure-udf-procedure). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
@@ -461,10 +461,10 @@ type ProcedureJavascriptShowOutputObservation struct {
 	IsTableFunction *bool `json:"isTableFunction,omitempty" tf:"is_table_function,omitempty"`
 
 	// (Number)
-	MaxNumArguments *float64 `json:"maxNumArguments,omitempty" tf:"max_num_arguments,omitempty"`
+	MaxNumArguments *int64 `json:"maxNumArguments,omitempty" tf:"max_num_arguments,omitempty"`
 
 	// (Number)
-	MinNumArguments *float64 `json:"minNumArguments,omitempty" tf:"min_num_arguments,omitempty"`
+	MinNumArguments *int64 `json:"minNumArguments,omitempty" tf:"min_num_arguments,omitempty"`
 
 	// (String) The name of the procedure; the identifier does not need to be unique for the schema in which the procedure is created because stored procedures are identified and resolved by the combination of the name and argument types. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`

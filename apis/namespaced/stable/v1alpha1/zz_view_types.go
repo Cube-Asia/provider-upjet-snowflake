@@ -197,7 +197,7 @@ type DataMetricScheduleInitParameters struct {
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with using_cron. Valid values are: 5 | 15 | 30 | 60 | 720 | 1440. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using taint command, using_cron field, or replace_triggered_by metadata argument.
 	// Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with `using_cron`. Valid values are: `5` | `15` | `30` | `60` | `720` | `1440`. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using [taint](https://developer.hashicorp.hashicorp.
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with minutes.
 	// Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with `minutes`.
@@ -208,7 +208,7 @@ type DataMetricScheduleObservation struct {
 
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with using_cron. Valid values are: 5 | 15 | 30 | 60 | 720 | 1440. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using taint command, using_cron field, or replace_triggered_by metadata argument.
 	// Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with `using_cron`. Valid values are: `5` | `15` | `30` | `60` | `720` | `1440`. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using [taint](https://developer.hashicorp.hashicorp.
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with minutes.
 	// Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with `minutes`.
@@ -220,7 +220,7 @@ type DataMetricScheduleParameters struct {
 	// (Number) Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with using_cron. Valid values are: 5 | 15 | 30 | 60 | 720 | 1440. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using taint command, using_cron field, or replace_triggered_by metadata argument.
 	// Specifies an interval (in minutes) of wait time inserted between runs of the data metric function. Conflicts with `using_cron`. Valid values are: `5` | `15` | `30` | `60` | `720` | `1440`. Due to Snowflake limitations, changes in this field are not managed by the provider. Please consider using [taint](https://developer.hashicorp.hashicorp.
 	// +kubebuilder:validation:Optional
-	Minutes *float64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
+	Minutes *int64 `json:"minutes,omitempty" tf:"minutes,omitempty"`
 
 	// (String) Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with minutes.
 	// Specifies a cron expression and time zone for periodically running the data metric function. Supports a subset of standard cron utility syntax. Conflicts with `minutes`.
@@ -302,7 +302,7 @@ type ViewInitParameters struct {
 	AggregationPolicy []AggregationPolicyInitParameters `json:"aggregationPolicy,omitempty" tf:"aggregation_policy,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ChangeTracking *string `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
 	// (Block List) If you want to change the name of a column or add a comment to a column in the new view, include a column list that specifies the column names and (if needed) comments about the columns. You do not need to specify the data types of the columns. If this field is not specified, columns are inferred from the statement field by Snowflake. (see below for nested schema)
@@ -314,7 +314,7 @@ type ViewInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (Block Set) Data metric functions used for the view. (see below for nested schema)
@@ -326,15 +326,15 @@ type ViewInitParameters struct {
 	DataMetricSchedule []DataMetricScheduleInitParameters `json:"dataMetricSchedule,omitempty" tf:"data_metric_schedule,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsRecursive *string `json:"isRecursive,omitempty" tf:"is_recursive,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view is secure. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsTemporary *string `json:"isTemporary,omitempty" tf:"is_temporary,omitempty"`
 
 	// (Block List, Max: 1) Specifies the row access policy to set on a view. (see below for nested schema)
@@ -353,7 +353,7 @@ type ViewObservation struct {
 	AggregationPolicy []AggregationPolicyObservation `json:"aggregationPolicy,omitempty" tf:"aggregation_policy,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	ChangeTracking *string `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
 	// (Block List) If you want to change the name of a column or add a comment to a column in the new view, include a column list that specifies the column names and (if needed) comments about the columns. You do not need to specify the data types of the columns. If this field is not specified, columns are inferred from the statement field by Snowflake. (see below for nested schema)
@@ -365,7 +365,7 @@ type ViewObservation struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
 	// (Block Set) Data metric functions used for the view. (see below for nested schema)
@@ -392,15 +392,15 @@ type ViewObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsRecursive *string `json:"isRecursive,omitempty" tf:"is_recursive,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view is secure. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	IsTemporary *string `json:"isTemporary,omitempty" tf:"is_temporary,omitempty"`
 
 	// (Block List, Max: 1) Specifies the row access policy to set on a view. (see below for nested schema)
@@ -428,7 +428,7 @@ type ViewParameters struct {
 	AggregationPolicy []AggregationPolicyParameters `json:"aggregationPolicy,omitempty" tf:"aggregation_policy,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies to enable or disable change tracking on the table. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	ChangeTracking *string `json:"changeTracking,omitempty" tf:"change_tracking,omitempty"`
 
@@ -443,7 +443,7 @@ type ViewParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// (Boolean) (Default: false) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
-	// (Default: `false`) Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
+	// Retains the access permissions from the original view when a view is recreated using the OR REPLACE clause. This is used when the provider detects changes for fields that can not be changed by ALTER.
 	// +kubebuilder:validation:Optional
 	CopyGrants *bool `json:"copyGrants,omitempty" tf:"copy_grants,omitempty"`
 
@@ -463,17 +463,17 @@ type ViewParameters struct {
 	Database *string `json:"database" tf:"database,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view can refer to itself using recursive syntax without necessarily using a CTE (common table expression). Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsRecursive *string `json:"isRecursive,omitempty" tf:"is_recursive,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view is secure. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view is secure. By design, the Snowflake's `SHOW VIEWS` command does not provide information about secure views (consult [view usage notes](https://docs.snowflake. Use the role owning the view while managing secure views. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsSecure *string `json:"isSecure,omitempty" tf:"is_secure,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies that the view persists only for the duration of the session that you created it in. A temporary view and all its contents are dropped at the end of the session. This results in a permanent plan with object creation. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	IsTemporary *string `json:"isTemporary,omitempty" tf:"is_temporary,omitempty"`
 

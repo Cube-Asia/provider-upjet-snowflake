@@ -139,10 +139,10 @@ type SessionPolicyDescribeOutputObservation struct {
 	OwnerRoleType *string `json:"ownerRoleType,omitempty" tf:"owner_role_type,omitempty"`
 
 	// (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionIdleTimeoutMins *float64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
+	SessionIdleTimeoutMins *int64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
 
 	// (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionUIIdleTimeoutMins *float64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
+	SessionUIIdleTimeoutMins *int64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
 }
 
 type SessionPolicyDescribeOutputParameters struct {
@@ -164,11 +164,11 @@ type SessionPolicyInitParameters struct {
 
 	// (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionIdleTimeoutMins *float64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
+	SessionIdleTimeoutMins *int64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
 
 	// (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionUIIdleTimeoutMins *float64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
+	SessionUIIdleTimeoutMins *int64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
 }
 
 type SessionPolicyObservation struct {
@@ -206,11 +206,11 @@ type SessionPolicyObservation struct {
 
 	// (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionIdleTimeoutMins *float64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
+	SessionIdleTimeoutMins *int64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
 
 	// (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
-	SessionUIIdleTimeoutMins *float64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
+	SessionUIIdleTimeoutMins *int64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW SESSION POLICIES for this session policy. (see below for nested schema)
 	// Outputs the result of `SHOW SESSION POLICIES` for this session policy.
@@ -247,12 +247,12 @@ type SessionPolicyParameters struct {
 	// (Number) For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowflake clients and programmatic clients, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// +kubebuilder:validation:Optional
-	SessionIdleTimeoutMins *float64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
+	SessionIdleTimeoutMins *int64 `json:"sessionIdleTimeoutMins,omitempty" tf:"session_idle_timeout_mins,omitempty"`
 
 	// (Number) For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// For Snowsight, specifies the number of minutes in which a session can be idle before users must authenticate to Snowflake again.
 	// +kubebuilder:validation:Optional
-	SessionUIIdleTimeoutMins *float64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
+	SessionUIIdleTimeoutMins *int64 `json:"sessionUiIdleTimeoutMins,omitempty" tf:"session_ui_idle_timeout_mins,omitempty"`
 }
 
 type SessionPolicyShowOutputInitParameters struct {

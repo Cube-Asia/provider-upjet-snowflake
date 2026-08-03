@@ -89,7 +89,7 @@ spec:
                   allowOverlappingExecution:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autocommit:
                     description: |-
@@ -110,7 +110,8 @@ spec:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -120,12 +121,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -140,7 +143,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -220,12 +224,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   lockTimeout:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -240,7 +246,8 @@ spec:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   noorderSequenceAsDefault:
                     description: |-
                       incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
@@ -265,7 +272,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -281,17 +289,20 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         usingCron:
                           description: |-
                             (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
@@ -333,12 +344,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   strictJsonOutput:
                     description: |-
                       standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
@@ -348,7 +361,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   targetCompletionInterval:
                     description: |-
                       fields hours, minutes, or seconds should be set) (see below for nested schema)
@@ -359,24 +373,28 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -446,7 +464,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -466,12 +485,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   warehouse:
                     description: |-
                       managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
@@ -481,12 +502,14 @@ spec:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                   when:
                     description: |-
                       (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
@@ -525,7 +548,7 @@ spec:
                   allowOverlappingExecution:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autocommit:
                     description: |-
@@ -546,7 +569,8 @@ spec:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -556,12 +580,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -576,7 +602,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -651,12 +678,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   lockTimeout:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -671,7 +700,8 @@ spec:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   noorderSequenceAsDefault:
                     description: |-
                       incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
@@ -696,7 +726,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -712,17 +743,20 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         usingCron:
                           description: |-
                             (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
@@ -759,12 +793,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   strictJsonOutput:
                     description: |-
                       standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
@@ -774,7 +810,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   targetCompletionInterval:
                     description: |-
                       fields hours, minutes, or seconds should be set) (see below for nested schema)
@@ -785,24 +822,28 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -872,7 +913,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -892,12 +934,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   warehouse:
                     description: |-
                       managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
@@ -907,12 +951,14 @@ spec:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                   when:
                     description: |-
                       (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.
@@ -1035,7 +1081,7 @@ spec:
                   allowOverlappingExecution:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      By default, Snowflake ensures that only one instance of a particular DAG is allowed to run at a time, setting the parameter value to TRUE permits DAG runs to overlap. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autocommit:
                     description: |-
@@ -1056,7 +1102,8 @@ spec:
                     description: |-
                       (Number) Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check CLIENT_MEMORY_LIMIT docs.
                       Parameter that specifies the maximum amount of memory the JDBC driver or ODBC driver should use for the result set from queries (in MB). For more information, check [CLIENT_MEMORY_LIMIT docs](https://docs.snowflake.com/en/sql-reference/parameters#client-memory-limit).
-                    type: number
+                    format: int64
+                    type: integer
                   clientMetadataRequestUseConnectionCtx:
                     description: |-
                       (Boolean) For specific ODBC functions and JDBC methods, this parameter can change the default search scope from all databases/schemas to the current database/schema. The narrower search typically returns fewer rows and executes more quickly. For more information, check CLIENT_METADATA_REQUEST_USE_CONNECTION_CTX docs.
@@ -1066,12 +1113,14 @@ spec:
                     description: |-
                       fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check CLIENT_PREFETCH_THREADS docs.
                       Parameter that specifies the number of threads used by the client to pre-fetch large result sets. The driver will attempt to honor the parameter value, but defines the minimum and maximum values (depending on your system’s resources) to improve performance. For more information, check [CLIENT_PREFETCH_THREADS docs](https://docs.snowflake.com/en/sql-reference/parameters#client-prefetch-threads).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultChunkSize:
                     description: |-
                       (Number) Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check CLIENT_RESULT_CHUNK_SIZE docs.
                       Parameter that specifies the maximum size of each set (or chunk) of query results to download (in MB). The JDBC driver downloads query results in chunks. For more information, check [CLIENT_RESULT_CHUNK_SIZE docs](https://docs.snowflake.com/en/sql-reference/parameters#client-result-chunk-size).
-                    type: number
+                    format: int64
+                    type: integer
                   clientResultColumnCaseInsensitive:
                     description: |-
                       insensitively in ResultSet.get* methods in JDBC. For more information, check CLIENT_RESULT_COLUMN_CASE_INSENSITIVE docs.
@@ -1086,7 +1135,8 @@ spec:
                     description: |-
                       between client attempts to update the token for the session. For more information, check CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs.
                       Number of seconds in-between client attempts to update the token for the session. For more information, check [CLIENT_SESSION_KEEP_ALIVE_HEARTBEAT_FREQUENCY docs](https://docs.snowflake.com/en/sql-reference/parameters#client-session-keep-alive-heartbeat-frequency).
-                    type: number
+                    format: int64
+                    type: integer
                   clientTimestampTypeMapping:
                     description: |-
                       (String) Specifies the TIMESTAMP_* variation to use when binding timestamp variables for JDBC or ODBC applications that use the bind API to load data. For more information, check CLIENT_TIMESTAMP_TYPE_MAPPING docs.
@@ -1174,12 +1224,14 @@ spec:
                     description: |-
                       (Number) Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check JSON_INDENT docs.
                       Specifies the number of blank spaces to indent each new element in JSON output in the session. Also specifies whether to insert newline characters after each element. For more information, check [JSON_INDENT docs](https://docs.snowflake.com/en/sql-reference/parameters#json-indent).
-                    type: number
+                    format: int64
+                    type: integer
                   lockTimeout:
                     description: |-
                       (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
                       Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
-                    type: number
+                    format: int64
+                    type: integer
                   logEventLevel:
                     description: |-
                       insensitive): TRACE | DEBUG | INFO | WARN | ERROR | FATAL | OFF. For more information, check LOG_EVENT_LEVEL docs.
@@ -1194,7 +1246,8 @@ spec:
                     description: |-
                       statement capability. For more information, check MULTI_STATEMENT_COUNT docs.
                       Number of statements to execute when using the multi-statement capability. For more information, check [MULTI_STATEMENT_COUNT docs](https://docs.snowflake.com/en/sql-reference/parameters#multi-statement-count).
-                    type: number
+                    format: int64
+                    type: integer
                   noorderSequenceAsDefault:
                     description: |-
                       incremented column in increasing or decreasing order. For more information, check NOORDER_SEQUENCE_AS_DEFAULT docs.
@@ -2715,7 +2768,8 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check ROWS_PER_RESULTSET docs.
                       Specifies the maximum number of rows returned in a result set. A value of 0 specifies no maximum. For more information, check [ROWS_PER_RESULTSET docs](https://docs.snowflake.com/en/sql-reference/parameters#rows-per-resultset).
-                    type: number
+                    format: int64
+                    type: integer
                   s3StageVpceDnsName:
                     description: |-
                       (String) Specifies the DNS name of an Amazon S3 interface endpoint. Requests sent to the internal stage of an account via AWS PrivateLink for Amazon S3 use this endpoint to connect. For more information, see Accessing Internal stages with dedicated interface endpoints. For more information, check S3_STAGE_VPCE_DNS_NAME docs.
@@ -2731,17 +2785,20 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `minutes`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `seconds`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with `minutes`, `hours`, and `using_cron`)
-                          type: number
+                          format: int64
+                          type: integer
                         usingCron:
                           description: |-
                             (String) Specifies a cron expression and time zone for periodically running the task. Supports a subset of standard cron utility syntax. (conflicts with seconds, minutes, and hours)
@@ -2877,19 +2934,22 @@ spec:
                                   of wait time inserted between runs of the task.
                                   Accepts positive integers. (conflicts with seconds,
                                   minutes, and using_cron)
-                                type: number
+                                format: int64
+                                type: integer
                               minutes:
                                 description: (Number) Specifies an interval (in minutes)
                                   of wait time inserted between runs of the task.
                                   Accepts positive integers. (conflicts with seconds,
                                   hours, and using_cron)
-                                type: number
+                                format: int64
+                                type: integer
                               seconds:
                                 description: (Number) Specifies an interval (in seconds)
                                   of wait time inserted between runs of the task.
                                   Accepts positive integers. (conflicts with minutes,
                                   hours, and using_cron)
-                                type: number
+                                format: int64
+                                type: integer
                             type: object
                           type: array
                         taskRelations:
@@ -2932,12 +2992,14 @@ spec:
                     description: |-
                       (Number) Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the MAX_CONCURRENCY_LEVEL parameter to ensure a warehouse is never backlogged. For more information, check STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, a SQL statement (query, DDL, DML, etc.) remains queued for a warehouse before it is canceled by the system. This parameter can be used in conjunction with the [MAX_CONCURRENCY_LEVEL](https://docs.snowflake.com/en/sql-reference/parameters#label-max-concurrency-level) parameter to ensure a warehouse is never backlogged. For more information, check [STATEMENT_QUEUED_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-queued-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check STATEMENT_TIMEOUT_IN_SECONDS docs.
                       Amount of time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system. For more information, check [STATEMENT_TIMEOUT_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#statement-timeout-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   strictJsonOutput:
                     description: |-
                       standard values; however, these non-standard values might result in Snowflake outputting JSON that is incompatible with other platforms and languages. This parameter, when enabled, ensures that Snowflake outputs valid/compatible JSON. For more information, check STRICT_JSON_OUTPUT docs.
@@ -2947,7 +3009,8 @@ spec:
                     description: |-
                       (Number) Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check SUSPEND_TASK_AFTER_NUM_FAILURES docs.
                       Specifies the number of consecutive failed task runs after which the current task is suspended automatically. The default is 0 (no automatic suspension). For more information, check [SUSPEND_TASK_AFTER_NUM_FAILURES docs](https://docs.snowflake.com/en/sql-reference/parameters#suspend-task-after-num-failures).
-                    type: number
+                    format: int64
+                    type: integer
                   targetCompletionInterval:
                     description: |-
                       fields hours, minutes, or seconds should be set) (see below for nested schema)
@@ -2958,24 +3021,28 @@ spec:
                           description: |-
                             (Number) Specifies an interval (in hours) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, minutes, and using_cron)
                             Specifies the target completion interval in hours. (conflicts with `minutes` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         minutes:
                           description: |-
                             (Number) Specifies an interval (in minutes) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with seconds, hours, and using_cron)
                             Specifies the target completion interval in minutes. (conflicts with `hours` and `seconds`)
-                          type: number
+                          format: int64
+                          type: integer
                         seconds:
                           description: |-
                             (Number) Specifies an interval (in seconds) of wait time inserted between runs of the task. Accepts positive integers. (conflicts with minutes, hours, and using_cron)
                             Specifies the target completion interval in seconds. (conflicts with `hours` and `minutes`)
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   taskAutoRetryAttempts:
                     description: |-
                       (Number) Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check TASK_AUTO_RETRY_ATTEMPTS docs.
                       Specifies the number of automatic task graph retry attempts. If any task graphs complete in a FAILED state, Snowflake can automatically retry the task graphs from the last task in the graph that failed. For more information, check [TASK_AUTO_RETRY_ATTEMPTS docs](https://docs.snowflake.com/en/sql-reference/parameters#task-auto-retry-attempts).
-                    type: number
+                    format: int64
+                    type: integer
                   timeInputFormat:
                     description: |-
                       (String) Specifies the input format for the TIME data type. For more information, see Date and time input and output formats. Any valid, supported time format or AUTO (AUTO specifies that Snowflake attempts to automatically detect the format of times stored in the system during the session). For more information, check TIME_INPUT_FORMAT docs.
@@ -3045,7 +3112,8 @@ spec:
                     description: |-
                       digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the YY date format component (i.e. years represented as 2 digits). For more information, check TWO_DIGIT_CENTURY_START docs.
                       Specifies the “century start” year for 2-digit years (i.e. the earliest year such dates can represent). This parameter prevents ambiguous dates when importing or converting data with the `YY` date format component (i.e. years represented as 2 digits). For more information, check [TWO_DIGIT_CENTURY_START docs](https://docs.snowflake.com/en/sql-reference/parameters#two-digit-century-start).
-                    type: number
+                    format: int64
+                    type: integer
                   unsupportedDdlAction:
                     description: |-
                       default) value specified for a constraint property returns an error. For more information, check UNSUPPORTED_DDL_ACTION docs.
@@ -3065,12 +3133,14 @@ spec:
                     description: |-
                       (Number) Minimum amount of time between Triggered Task executions in seconds For more information, check USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs.
                       Minimum amount of time between Triggered Task executions in seconds For more information, check [USER_TASK_MINIMUM_TRIGGER_INTERVAL_IN_SECONDS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-minimum-trigger-interval-in-seconds).
-                    type: number
+                    format: int64
+                    type: integer
                   userTaskTimeoutMs:
                     description: |-
                       (Number) Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check USER_TASK_TIMEOUT_MS docs.
                       Specifies the time limit on a single run of the task before it times out (in milliseconds). For more information, check [USER_TASK_TIMEOUT_MS docs](https://docs.snowflake.com/en/sql-reference/parameters#user-task-timeout-ms).
-                    type: number
+                    format: int64
+                    type: integer
                   warehouse:
                     description: |-
                       managed compute resources for runs of this task. Due to Snowflake limitations warehouse identifier can consist of only upper-cased letters. (Conflicts with user_task_managed_initial_warehouse_size) For more information about this resource, see docs.
@@ -3080,12 +3150,14 @@ spec:
                     description: |-
                       (Number) Specifies how the weeks in a given year are computed. 0: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. 1: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check WEEK_OF_YEAR_POLICY docs.
                       Specifies how the weeks in a given year are computed. `0`: The semantics used are equivalent to the ISO semantics, in which a week belongs to a given year if at least 4 days of that week are in that year. `1`: January 1 is included in the first week of the year and December 31 is included in the last week of the year. For more information, check [WEEK_OF_YEAR_POLICY docs](https://docs.snowflake.com/en/sql-reference/parameters#week-of-year-policy).
-                    type: number
+                    format: int64
+                    type: integer
                   weekStart:
                     description: |-
                       related date functions). 0: Legacy Snowflake behavior is used (i.e. ISO-like semantics). 1 (Monday) to 7 (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check WEEK_START docs.
                       Specifies the first day of the week (used by week-related date functions). `0`: Legacy Snowflake behavior is used (i.e. ISO-like semantics). `1` (Monday) to `7` (Sunday): All the week-related functions use weeks that start on the specified day of the week. For more information, check [WEEK_START docs](https://docs.snowflake.com/en/sql-reference/parameters#week-start).
-                    type: number
+                    format: int64
+                    type: integer
                   when:
                     description: |-
                       (String) Specifies a Boolean SQL expression; multiple conditions joined with AND/OR are supported. When a task is triggered (based on its SCHEDULE or AFTER setting), it validates the conditions of the expression to determine whether to execute. If the conditions of the expression are not met, then the task skips the current run. Any tasks that identify this task as a predecessor also don’t run.

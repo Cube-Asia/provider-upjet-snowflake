@@ -89,7 +89,7 @@ type ListingInitParameters struct {
 	Manifest []ManifestInitParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+	// Determines if the listing should be published.
 	Publish *string `json:"publish,omitempty" tf:"publish,omitempty"`
 
 	// (String) Specifies the identifier for the share to attach to the listing.
@@ -119,7 +119,7 @@ type ListingObservation struct {
 	Manifest []ManifestObservation `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+	// Determines if the listing should be published.
 	Publish *string `json:"publish,omitempty" tf:"publish,omitempty"`
 
 	// (String) Specifies the identifier for the share to attach to the listing.
@@ -149,7 +149,7 @@ type ListingParameters struct {
 	Manifest []ManifestParameters `json:"manifest,omitempty" tf:"manifest,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Determines if the listing should be published.
+	// Determines if the listing should be published.
 	// +kubebuilder:validation:Optional
 	Publish *string `json:"publish,omitempty" tf:"publish,omitempty"`
 

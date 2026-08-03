@@ -21,7 +21,7 @@ func (mg *CatalogIntegrationIcebergRest) GetTerraformResourceType() string {
 
 // GetConnectionDetailsMapping for this CatalogIntegrationIcebergRest
 func (tr *CatalogIntegrationIcebergRest) GetConnectionDetailsMapping() map[string]string {
-	return map[string]string{"bearer_rest_authentication[*].bearer_token": "bearerRestAuthentication[*].bearerTokenSecretRef", "oauth_rest_authentication[*].oauth_client_id": "oauthRestAuthentication[*].oauthClientIdSecretRef", "oauth_rest_authentication[*].oauth_client_secret": "oauthRestAuthentication[*].oauthClientSecretSecretRef"}
+	return map[string]string{"bearer_rest_authentication[*].bearer_token": "bearerRestAuthentication[*].bearerTokenSecretRef", "describe_output[*].oauth_rest_authentication[*].oauth_client_id": "status.atProvider.describeOutput[*].oauthRestAuthentication[*].oauthClientId", "oauth_rest_authentication[*].oauth_client_id": "oauthRestAuthentication[*].oauthClientIdSecretRef", "oauth_rest_authentication[*].oauth_client_secret": "oauthRestAuthentication[*].oauthClientSecretSecretRef"}
 }
 
 // GetObservation of this CatalogIntegrationIcebergRest

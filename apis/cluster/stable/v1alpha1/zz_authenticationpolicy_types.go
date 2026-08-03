@@ -352,18 +352,18 @@ type PatPolicyInitParameters struct {
 
 	// (Number) Specifies the default expiration time (in days) for a programmatic access token.
 	// Specifies the default expiration time (in days) for a programmatic access token.
-	DefaultExpiryInDays *float64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
+	DefaultExpiryInDays *int64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
 
 	// (Number) Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
 	// Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
-	MaxExpiryInDays *float64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
+	MaxExpiryInDays *int64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
 
 	// (String) Specifies the network policy evaluation for the PAT. Valid values are: ENFORCED_REQUIRED | ENFORCED_NOT_REQUIRED | NOT_ENFORCED.
 	// Specifies the network policy evaluation for the PAT. Valid values are: `ENFORCED_REQUIRED` | `ENFORCED_NOT_REQUIRED` | `NOT_ENFORCED`.
 	NetworkPolicyEvaluation *string `json:"networkPolicyEvaluation,omitempty" tf:"network_policy_evaluation,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	RequireRoleRestrictionForServiceUsers *string `json:"requireRoleRestrictionForServiceUsers,omitempty" tf:"require_role_restriction_for_service_users,omitempty"`
 }
 
@@ -371,18 +371,18 @@ type PatPolicyObservation struct {
 
 	// (Number) Specifies the default expiration time (in days) for a programmatic access token.
 	// Specifies the default expiration time (in days) for a programmatic access token.
-	DefaultExpiryInDays *float64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
+	DefaultExpiryInDays *int64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
 
 	// (Number) Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
 	// Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
-	MaxExpiryInDays *float64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
+	MaxExpiryInDays *int64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
 
 	// (String) Specifies the network policy evaluation for the PAT. Valid values are: ENFORCED_REQUIRED | ENFORCED_NOT_REQUIRED | NOT_ENFORCED.
 	// Specifies the network policy evaluation for the PAT. Valid values are: `ENFORCED_REQUIRED` | `ENFORCED_NOT_REQUIRED` | `NOT_ENFORCED`.
 	NetworkPolicyEvaluation *string `json:"networkPolicyEvaluation,omitempty" tf:"network_policy_evaluation,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	RequireRoleRestrictionForServiceUsers *string `json:"requireRoleRestrictionForServiceUsers,omitempty" tf:"require_role_restriction_for_service_users,omitempty"`
 }
 
@@ -391,12 +391,12 @@ type PatPolicyParameters struct {
 	// (Number) Specifies the default expiration time (in days) for a programmatic access token.
 	// Specifies the default expiration time (in days) for a programmatic access token.
 	// +kubebuilder:validation:Optional
-	DefaultExpiryInDays *float64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
+	DefaultExpiryInDays *int64 `json:"defaultExpiryInDays,omitempty" tf:"default_expiry_in_days,omitempty"`
 
 	// (Number) Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
 	// Specifies the maximum number of days that can be set for the expiration time for a programmatic access token.
 	// +kubebuilder:validation:Optional
-	MaxExpiryInDays *float64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
+	MaxExpiryInDays *int64 `json:"maxExpiryInDays,omitempty" tf:"max_expiry_in_days,omitempty"`
 
 	// (String) Specifies the network policy evaluation for the PAT. Valid values are: ENFORCED_REQUIRED | ENFORCED_NOT_REQUIRED | NOT_ENFORCED.
 	// Specifies the network policy evaluation for the PAT. Valid values are: `ENFORCED_REQUIRED` | `ENFORCED_NOT_REQUIRED` | `NOT_ENFORCED`.
@@ -404,7 +404,7 @@ type PatPolicyParameters struct {
 	NetworkPolicyEvaluation *string `json:"networkPolicyEvaluation,omitempty" tf:"network_policy_evaluation,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// If true, when you generate a programmatic access token for a service user, you must restrict the use of that token to a specific role. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	RequireRoleRestrictionForServiceUsers *string `json:"requireRoleRestrictionForServiceUsers,omitempty" tf:"require_role_restriction_for_service_users,omitempty"`
 }

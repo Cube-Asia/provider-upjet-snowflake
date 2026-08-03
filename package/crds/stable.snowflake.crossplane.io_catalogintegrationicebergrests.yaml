@@ -111,7 +111,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   enabled:
                     description: |-
@@ -179,7 +179,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   restConfig:
                     description: |-
                       (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)
@@ -288,7 +289,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   enabled:
                     description: |-
@@ -359,7 +360,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   restConfig:
                     description: |-
                       (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)
@@ -559,7 +561,7 @@ spec:
                   comment:
                     description: |-
                       (String) (Default: “) Specifies a comment for the catalog integration.
-                      (Default: “) Specifies a comment for the catalog integration.
+                      Specifies a comment for the catalog integration.
                     type: string
                   describeOutput:
                     description: |-
@@ -611,10 +613,6 @@ spec:
                                 items:
                                   type: string
                                 type: array
-                              oauthClientId:
-                                description: (String, Sensitive) Specifies the client
-                                  ID of the OAuth2 credential.
-                                type: string
                               oauthTokenUri:
                                 description: party identity provider. If not specified,
                                   Snowflake assumes the remote catalog provider is
@@ -626,7 +624,8 @@ spec:
                           description: based tables, specifies the number of seconds
                             to wait between attempts to poll your external cloud storage
                             for new metadata.
-                          type: number
+                          format: int64
+                          type: integer
                         restConfig:
                           description: '(Block List, Min: 1, Max: 1) Specifies information
                             about REST configuration. (see below for nested schema)'
@@ -714,7 +713,8 @@ spec:
                     description: |-
                       based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
                       Specifies the number of seconds to wait between attempts to poll the external Iceberg catalog for metadata updates for automated refresh. For Delta-based tables, specifies the number of seconds to wait between attempts to poll your external cloud storage for new metadata.
-                    type: number
+                    format: int64
+                    type: integer
                   restConfig:
                     description: |-
                       (Block List, Min: 1, Max: 1) Specifies information about REST configuration. (see below for nested schema)

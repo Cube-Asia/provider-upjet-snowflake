@@ -101,9 +101,7 @@ spec:
                       Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   gcpPubsubSubscriptionName:
                     description: |-
@@ -123,7 +121,7 @@ spec:
                   type:
                     description: |-
                       (String, Deprecated) (Default: QUEUE) A type of integration
-                      (Default: `QUEUE`) A type of integration
+                      A type of integration
                     type: string
                 type: object
               initProvider:
@@ -180,9 +178,7 @@ spec:
                       Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   gcpPubsubSubscriptionName:
                     description: |-
@@ -202,7 +198,7 @@ spec:
                   type:
                     description: |-
                       (String, Deprecated) (Default: QUEUE) A type of integration
-                      (Default: `QUEUE`) A type of integration
+                      A type of integration
                     type: string
                 type: object
               managementPolicies:
@@ -340,9 +336,7 @@ spec:
                       Direction of the cloud messaging with respect to Snowflake (required only for error notifications)
                     type: string
                   enabled:
-                    description: |-
-                      (Boolean) (Default: true)
-                      (Default: `true`)
+                    description: '(Boolean) (Default: true)'
                     type: boolean
                   fullyQualifiedName:
                     description: |-
@@ -375,7 +369,7 @@ spec:
                   type:
                     description: |-
                       (String, Deprecated) (Default: QUEUE) A type of integration
-                      (Default: `QUEUE`) A type of integration
+                      A type of integration
                     type: string
                 type: object
               conditions:

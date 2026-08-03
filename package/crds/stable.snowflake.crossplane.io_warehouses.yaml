@@ -77,13 +77,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspend:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                    type: number
+                      Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the warehouse.
@@ -92,7 +93,7 @@ spec:
                   enableQueryAcceleration:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   generation:
                     description: |-
@@ -108,22 +109,26 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of server clusters for the warehouse.
                       Specifies the maximum number of server clusters for the warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   maxConcurrencyLevel:
                     description: |-
                       (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
                       Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   minClusterCount:
                     description: |-
                       cluster warehouses).
                       Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
-                    type: number
+                    format: int64
+                    type: integer
                   queryAccelerationMaxScaleFactor:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                    type: number
+                      Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+                    format: int64
+                    type: integer
                   resourceConstraint:
                     description: |-
                       optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
@@ -143,12 +148,14 @@ spec:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
-                    type: number
+                    format: int64
+                    type: integer
                   warehouseSize:
                     description: |-
                       insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.
@@ -176,13 +183,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspend:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                    type: number
+                      Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the warehouse.
@@ -191,7 +199,7 @@ spec:
                   enableQueryAcceleration:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   generation:
                     description: |-
@@ -207,22 +215,26 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of server clusters for the warehouse.
                       Specifies the maximum number of server clusters for the warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   maxConcurrencyLevel:
                     description: |-
                       (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
                       Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   minClusterCount:
                     description: |-
                       cluster warehouses).
                       Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
-                    type: number
+                    format: int64
+                    type: integer
                   queryAccelerationMaxScaleFactor:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                    type: number
+                      Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+                    format: int64
+                    type: integer
                   resourceConstraint:
                     description: |-
                       optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
@@ -242,12 +254,14 @@ spec:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
-                    type: number
+                    format: int64
+                    type: integer
                   warehouseSize:
                     description: |-
                       insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.
@@ -353,13 +367,14 @@ spec:
                   autoResume:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to automatically resume a warehouse when a SQL statement (e.g. query) is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   autoSuspend:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
-                    type: number
+                      Specifies the number of seconds of inactivity after which a warehouse is automatically suspended.
+                    format: int64
+                    type: integer
                   comment:
                     description: |-
                       (String) Specifies a comment for the warehouse.
@@ -368,7 +383,7 @@ spec:
                   enableQueryAcceleration:
                     description: |-
                       uses special value that cannot be set in the configuration manually (default)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+                      Specifies whether to enable the query acceleration service for queries that rely on this warehouse for compute resources. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
                     type: string
                   fullyQualifiedName:
                     description: |-
@@ -392,17 +407,20 @@ spec:
                     description: |-
                       (Number) Specifies the maximum number of server clusters for the warehouse.
                       Specifies the maximum number of server clusters for the warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   maxConcurrencyLevel:
                     description: |-
                       (Number) Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
                       Object parameter that specifies the concurrency level for SQL statements (i.e. queries and DML) executed by a warehouse.
-                    type: number
+                    format: int64
+                    type: integer
                   minClusterCount:
                     description: |-
                       cluster warehouses).
                       Specifies the minimum number of server clusters for the warehouse (only applies to multi-cluster warehouses).
-                    type: number
+                    format: int64
+                    type: integer
                   parameters:
                     description: |-
                       (List of Object) Outputs the result of SHOW PARAMETERS IN WAREHOUSE for the given warehouse. (see below for nested schema)
@@ -484,8 +502,9 @@ spec:
                   queryAccelerationMaxScaleFactor:
                     description: |-
                       uses special value that cannot be set in the configuration manually (-1)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                      (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
-                    type: number
+                      Specifies the maximum scale factor for leasing compute resources for query acceleration. The scale factor is used as a multiplier based on warehouse size.
+                    format: int64
+                    type: integer
                   resourceConstraint:
                     description: |-
                       optimized warehouses. For setting generation please use the generation field. Please check Snowflake documentation for required warehouse sizes for each resource constraint. Valid values are (case-insensitive): MEMORY_1X | MEMORY_1X_x86 | MEMORY_16X | MEMORY_16X_x86 | MEMORY_64X | MEMORY_64X_x86. Gen2 warehouses are not available in all regions. Please consult the Snowflake Gen2 Region Availability documentation prior to configuration.
@@ -521,7 +540,8 @@ spec:
                             configuration manually (-1)) Specifies the number of seconds
                             of inactivity after which a warehouse is automatically
                             suspended.
-                          type: number
+                          format: int64
+                          type: integer
                         available:
                           description: (Number)
                           type: number
@@ -555,10 +575,12 @@ spec:
                         maxClusterCount:
                           description: (Number) Specifies the maximum number of server
                             clusters for the warehouse.
-                          type: number
+                          format: int64
+                          type: integer
                         minClusterCount:
                           description: cluster warehouses).
-                          type: number
+                          format: int64
+                          type: integer
                         name:
                           description: '(String) Identifier for the virtual warehouse;
                             must be unique for your account. Due to technical limitations
@@ -583,10 +605,12 @@ spec:
                             factor for leasing compute resources for query acceleration.
                             The scale factor is used as a multiplier based on warehouse
                             size.
-                          type: number
+                          format: int64
+                          type: integer
                         queued:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         quiescing:
                           description: (Number)
                           type: number
@@ -610,7 +634,8 @@ spec:
                           type: string
                         running:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         scalingPolicy:
                           description: 'cluster warehouse running in Auto-scale mode.
                             Valid values are (case-insensitive): STANDARD | ECONOMY.'
@@ -620,7 +645,8 @@ spec:
                           type: string
                         startedClusters:
                           description: (Number)
-                          type: number
+                          format: int64
+                          type: integer
                         state:
                           description: (String)
                           type: string
@@ -636,12 +662,14 @@ spec:
                     description: |-
                       (Number) Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
                       Object parameter that specifies the time, in seconds, a SQL statement (query, DDL, DML, etc.) can be queued on a warehouse before it is canceled by the system.
-                    type: number
+                    format: int64
+                    type: integer
                   statementTimeoutInSeconds:
                     description: |-
                       (Number) Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
                       Specifies the time, in seconds, after which a running SQL statement (query, DDL, DML, etc.) is canceled by the system
-                    type: number
+                    format: int64
+                    type: integer
                   warehouseSize:
                     description: |-
                       insensitive): XSMALL | X-SMALL | SMALL | MEDIUM | LARGE | XLARGE | X-LARGE | XXLARGE | X2LARGE | 2X-LARGE | XXXLARGE | X3LARGE | 3X-LARGE | X4LARGE | 4X-LARGE | X5LARGE | 5X-LARGE | X6LARGE | 6X-LARGE. Consult warehouse documentation for the details. Note: removing the size from config will result in the resource recreation.

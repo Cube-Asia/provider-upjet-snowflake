@@ -92,7 +92,7 @@ type StorageIntegrationAwsInitParameters struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -148,7 +148,7 @@ type StorageIntegrationAwsObservation struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }
 
@@ -197,7 +197,7 @@ type StorageIntegrationAwsParameters struct {
 	StorageProvider *string `json:"storageProvider,omitempty" tf:"storage_provider,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to use outbound private connectivity to harden the security posture. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	UsePrivatelinkEndpoint *string `json:"usePrivatelinkEndpoint,omitempty" tf:"use_privatelink_endpoint,omitempty"`
 }

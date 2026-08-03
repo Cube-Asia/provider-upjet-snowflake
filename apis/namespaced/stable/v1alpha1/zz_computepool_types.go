@@ -20,7 +20,7 @@ type ComputePoolDescribeOutputInitParameters struct {
 type ComputePoolDescribeOutputObservation struct {
 
 	// (Number)
-	ActiveNodes *float64 `json:"activeNodes,omitempty" tf:"active_nodes,omitempty"`
+	ActiveNodes *int64 `json:"activeNodes,omitempty" tf:"active_nodes,omitempty"`
 
 	// (String)
 	Application *string `json:"application,omitempty" tf:"application,omitempty"`
@@ -29,7 +29,7 @@ type ComputePoolDescribeOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the compute pool.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -41,7 +41,7 @@ type ComputePoolDescribeOutputObservation struct {
 	ErrorCode *string `json:"errorCode,omitempty" tf:"error_code,omitempty"`
 
 	// (Number)
-	IdleNodes *float64 `json:"idleNodes,omitempty" tf:"idle_nodes,omitempty"`
+	IdleNodes *int64 `json:"idleNodes,omitempty" tf:"idle_nodes,omitempty"`
 
 	// insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M | HIGHMEM_X64_L | HIGHMEM_X64_SL | GPU_NV_S | GPU_NV_M | GPU_NV_L | GPU_NV_XS | GPU_NV_SM | GPU_NV_2M | GPU_NV_3M | GPU_NV_SL | GPU_GCP_NV_L4_1_24G | GPU_GCP_NV_L4_4_24G | GPU_GCP_NV_A100_8_40G | GEN_ARM_G1_2 | GEN_ARM_G1_4 | GEN_ARM_G1_8 | GEN_ARM_G1_16 | GEN_ARM_G1_32 | GEN_X64_G2_2 | GEN_X64_G2_4 | GEN_X64_G2_8 | GEN_X64_G2_16 | GEN_X64_G2_32 | MEM_X64_G2_8 | MEM_X64_G2_32 | MEM_X64_G2_64 | MEM_X64_G2_96 | MEM_X64_G2_192 | GPU_L40S_G1_8 | GPU_L40S_G1_16 | GPU_L40S_G1_48 | GPU_L40S_G1_192 | GPU_R6K_G1_8 | GPU_R6K_G1_16 | GPU_R6K_G1_32 | GPU_R6K_G1_48 | GPU_R6K_G1_96 | GPU_R6K_G1_192 | GPU_A100_G1_12 | GPU_A100_G1_48. Not all instance families are supported in all regions. Run SHOW COMPUTE POOL INSTANCE FAMILIES to see the list of supported instance families in your region.
 	InstanceFamily *string `json:"instanceFamily,omitempty" tf:"instance_family,omitempty"`
@@ -50,19 +50,19 @@ type ComputePoolDescribeOutputObservation struct {
 	IsExclusive *bool `json:"isExclusive,omitempty" tf:"is_exclusive,omitempty"`
 
 	// (Number) Specifies the maximum number of nodes for the compute pool.
-	MaxNodes *float64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
 
 	// (Number) Specifies the minimum number of nodes for the compute pool.
-	MinNodes *float64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
 
 	// (String) Specifies the identifier for the compute pool; must be unique for the account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Number)
-	NumJobs *float64 `json:"numJobs,omitempty" tf:"num_jobs,omitempty"`
+	NumJobs *int64 `json:"numJobs,omitempty" tf:"num_jobs,omitempty"`
 
 	// (Number)
-	NumServices *float64 `json:"numServices,omitempty" tf:"num_services,omitempty"`
+	NumServices *int64 `json:"numServices,omitempty" tf:"num_services,omitempty"`
 
 	// (String)
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
@@ -77,7 +77,7 @@ type ComputePoolDescribeOutputObservation struct {
 	StatusMessage *string `json:"statusMessage,omitempty" tf:"status_message,omitempty"`
 
 	// (Number)
-	TargetNodes *float64 `json:"targetNodes,omitempty" tf:"target_nodes,omitempty"`
+	TargetNodes *int64 `json:"targetNodes,omitempty" tf:"target_nodes,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`
@@ -89,12 +89,12 @@ type ComputePoolDescribeOutputParameters struct {
 type ComputePoolInitParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	// Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the compute pool.
 	// Specifies a comment for the compute pool.
@@ -105,7 +105,7 @@ type ComputePoolInitParameters struct {
 	ForApplication *string `json:"forApplication,omitempty" tf:"for_application,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+	// Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
 	InitiallySuspended *string `json:"initiallySuspended,omitempty" tf:"initially_suspended,omitempty"`
 
 	// insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M | HIGHMEM_X64_L | HIGHMEM_X64_SL | GPU_NV_S | GPU_NV_M | GPU_NV_L | GPU_NV_XS | GPU_NV_SM | GPU_NV_2M | GPU_NV_3M | GPU_NV_SL | GPU_GCP_NV_L4_1_24G | GPU_GCP_NV_L4_4_24G | GPU_GCP_NV_A100_8_40G | GEN_ARM_G1_2 | GEN_ARM_G1_4 | GEN_ARM_G1_8 | GEN_ARM_G1_16 | GEN_ARM_G1_32 | GEN_X64_G2_2 | GEN_X64_G2_4 | GEN_X64_G2_8 | GEN_X64_G2_16 | GEN_X64_G2_32 | MEM_X64_G2_8 | MEM_X64_G2_32 | MEM_X64_G2_64 | MEM_X64_G2_96 | MEM_X64_G2_192 | GPU_L40S_G1_8 | GPU_L40S_G1_16 | GPU_L40S_G1_48 | GPU_L40S_G1_192 | GPU_R6K_G1_8 | GPU_R6K_G1_16 | GPU_R6K_G1_32 | GPU_R6K_G1_48 | GPU_R6K_G1_96 | GPU_R6K_G1_192 | GPU_A100_G1_12 | GPU_A100_G1_48. Not all instance families are supported in all regions. Run SHOW COMPUTE POOL INSTANCE FAMILIES to see the list of supported instance families in your region.
@@ -114,22 +114,22 @@ type ComputePoolInitParameters struct {
 
 	// (Number) Specifies the maximum number of nodes for the compute pool.
 	// Specifies the maximum number of nodes for the compute pool.
-	MaxNodes *float64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
 
 	// (Number) Specifies the minimum number of nodes for the compute pool.
 	// Specifies the minimum number of nodes for the compute pool.
-	MinNodes *float64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
 }
 
 type ComputePoolObservation struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	// Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the compute pool.
 	// Specifies a comment for the compute pool.
@@ -151,7 +151,7 @@ type ComputePoolObservation struct {
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+	// Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
 	InitiallySuspended *string `json:"initiallySuspended,omitempty" tf:"initially_suspended,omitempty"`
 
 	// insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M | HIGHMEM_X64_L | HIGHMEM_X64_SL | GPU_NV_S | GPU_NV_M | GPU_NV_L | GPU_NV_XS | GPU_NV_SM | GPU_NV_2M | GPU_NV_3M | GPU_NV_SL | GPU_GCP_NV_L4_1_24G | GPU_GCP_NV_L4_4_24G | GPU_GCP_NV_A100_8_40G | GEN_ARM_G1_2 | GEN_ARM_G1_4 | GEN_ARM_G1_8 | GEN_ARM_G1_16 | GEN_ARM_G1_32 | GEN_X64_G2_2 | GEN_X64_G2_4 | GEN_X64_G2_8 | GEN_X64_G2_16 | GEN_X64_G2_32 | MEM_X64_G2_8 | MEM_X64_G2_32 | MEM_X64_G2_64 | MEM_X64_G2_96 | MEM_X64_G2_192 | GPU_L40S_G1_8 | GPU_L40S_G1_16 | GPU_L40S_G1_48 | GPU_L40S_G1_192 | GPU_R6K_G1_8 | GPU_R6K_G1_16 | GPU_R6K_G1_32 | GPU_R6K_G1_48 | GPU_R6K_G1_96 | GPU_R6K_G1_192 | GPU_A100_G1_12 | GPU_A100_G1_48. Not all instance families are supported in all regions. Run SHOW COMPUTE POOL INSTANCE FAMILIES to see the list of supported instance families in your region.
@@ -160,11 +160,11 @@ type ComputePoolObservation struct {
 
 	// (Number) Specifies the maximum number of nodes for the compute pool.
 	// Specifies the maximum number of nodes for the compute pool.
-	MaxNodes *float64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
 
 	// (Number) Specifies the minimum number of nodes for the compute pool.
 	// Specifies the minimum number of nodes for the compute pool.
-	MinNodes *float64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
 
 	// (List of Object) Outputs the result of SHOW COMPUTE POOLS for the given compute pool. (see below for nested schema)
 	// Outputs the result of `SHOW COMPUTE POOLS` for the given compute pool.
@@ -174,14 +174,14 @@ type ComputePoolObservation struct {
 type ComputePoolParameters struct {
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
+	// Specifies whether to automatically resume a compute pool when a service or job is submitted to it. Available options are: "true" or "false". When the value is not set in the configuration the provider will put "default" there which means to use the Snowflake default for this value.
 	// +kubebuilder:validation:Optional
 	AutoResume *string `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`-1`)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
+	// Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
 	// +kubebuilder:validation:Optional
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the compute pool.
 	// Specifies a comment for the compute pool.
@@ -194,7 +194,7 @@ type ComputePoolParameters struct {
 	ForApplication *string `json:"forApplication,omitempty" tf:"for_application,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
-	// (Default: fallback to Snowflake default - uses special value that cannot be set in the configuration manually (`default`)) Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
+	// Specifies whether the compute pool is created initially in the suspended state. This field is used only when creating a compute pool. Changes on this field are ignored after creation.
 	// +kubebuilder:validation:Optional
 	InitiallySuspended *string `json:"initiallySuspended,omitempty" tf:"initially_suspended,omitempty"`
 
@@ -206,12 +206,12 @@ type ComputePoolParameters struct {
 	// (Number) Specifies the maximum number of nodes for the compute pool.
 	// Specifies the maximum number of nodes for the compute pool.
 	// +kubebuilder:validation:Optional
-	MaxNodes *float64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
 
 	// (Number) Specifies the minimum number of nodes for the compute pool.
 	// Specifies the minimum number of nodes for the compute pool.
 	// +kubebuilder:validation:Optional
-	MinNodes *float64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
 }
 
 type ComputePoolShowOutputInitParameters struct {
@@ -220,7 +220,7 @@ type ComputePoolShowOutputInitParameters struct {
 type ComputePoolShowOutputObservation struct {
 
 	// (Number)
-	ActiveNodes *float64 `json:"activeNodes,omitempty" tf:"active_nodes,omitempty"`
+	ActiveNodes *int64 `json:"activeNodes,omitempty" tf:"active_nodes,omitempty"`
 
 	// (String)
 	Application *string `json:"application,omitempty" tf:"application,omitempty"`
@@ -229,7 +229,7 @@ type ComputePoolShowOutputObservation struct {
 	AutoResume *bool `json:"autoResume,omitempty" tf:"auto_resume,omitempty"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Number of seconds of inactivity after which you want Snowflake to automatically suspend the compute pool.
-	AutoSuspendSecs *float64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
+	AutoSuspendSecs *int64 `json:"autoSuspendSecs,omitempty" tf:"auto_suspend_secs,omitempty"`
 
 	// (String) Specifies a comment for the compute pool.
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
@@ -238,7 +238,7 @@ type ComputePoolShowOutputObservation struct {
 	CreatedOn *string `json:"createdOn,omitempty" tf:"created_on,omitempty"`
 
 	// (Number)
-	IdleNodes *float64 `json:"idleNodes,omitempty" tf:"idle_nodes,omitempty"`
+	IdleNodes *int64 `json:"idleNodes,omitempty" tf:"idle_nodes,omitempty"`
 
 	// insensitive): CPU_X64_XS | CPU_X64_S | CPU_X64_M | CPU_X64_SL | CPU_X64_L | HIGHMEM_X64_S | HIGHMEM_X64_M | HIGHMEM_X64_L | HIGHMEM_X64_SL | GPU_NV_S | GPU_NV_M | GPU_NV_L | GPU_NV_XS | GPU_NV_SM | GPU_NV_2M | GPU_NV_3M | GPU_NV_SL | GPU_GCP_NV_L4_1_24G | GPU_GCP_NV_L4_4_24G | GPU_GCP_NV_A100_8_40G | GEN_ARM_G1_2 | GEN_ARM_G1_4 | GEN_ARM_G1_8 | GEN_ARM_G1_16 | GEN_ARM_G1_32 | GEN_X64_G2_2 | GEN_X64_G2_4 | GEN_X64_G2_8 | GEN_X64_G2_16 | GEN_X64_G2_32 | MEM_X64_G2_8 | MEM_X64_G2_32 | MEM_X64_G2_64 | MEM_X64_G2_96 | MEM_X64_G2_192 | GPU_L40S_G1_8 | GPU_L40S_G1_16 | GPU_L40S_G1_48 | GPU_L40S_G1_192 | GPU_R6K_G1_8 | GPU_R6K_G1_16 | GPU_R6K_G1_32 | GPU_R6K_G1_48 | GPU_R6K_G1_96 | GPU_R6K_G1_192 | GPU_A100_G1_12 | GPU_A100_G1_48. Not all instance families are supported in all regions. Run SHOW COMPUTE POOL INSTANCE FAMILIES to see the list of supported instance families in your region.
 	InstanceFamily *string `json:"instanceFamily,omitempty" tf:"instance_family,omitempty"`
@@ -247,19 +247,19 @@ type ComputePoolShowOutputObservation struct {
 	IsExclusive *bool `json:"isExclusive,omitempty" tf:"is_exclusive,omitempty"`
 
 	// (Number) Specifies the maximum number of nodes for the compute pool.
-	MaxNodes *float64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
+	MaxNodes *int64 `json:"maxNodes,omitempty" tf:"max_nodes,omitempty"`
 
 	// (Number) Specifies the minimum number of nodes for the compute pool.
-	MinNodes *float64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
+	MinNodes *int64 `json:"minNodes,omitempty" tf:"min_nodes,omitempty"`
 
 	// (String) Specifies the identifier for the compute pool; must be unique for the account. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	Name *string `json:"name,omitempty" tf:"name,omitempty"`
 
 	// (Number)
-	NumJobs *float64 `json:"numJobs,omitempty" tf:"num_jobs,omitempty"`
+	NumJobs *int64 `json:"numJobs,omitempty" tf:"num_jobs,omitempty"`
 
 	// (Number)
-	NumServices *float64 `json:"numServices,omitempty" tf:"num_services,omitempty"`
+	NumServices *int64 `json:"numServices,omitempty" tf:"num_services,omitempty"`
 
 	// (String)
 	Owner *string `json:"owner,omitempty" tf:"owner,omitempty"`
@@ -271,7 +271,7 @@ type ComputePoolShowOutputObservation struct {
 	State *string `json:"state,omitempty" tf:"state,omitempty"`
 
 	// (Number)
-	TargetNodes *float64 `json:"targetNodes,omitempty" tf:"target_nodes,omitempty"`
+	TargetNodes *int64 `json:"targetNodes,omitempty" tf:"target_nodes,omitempty"`
 
 	// (String)
 	UpdatedOn *string `json:"updatedOn,omitempty" tf:"updated_on,omitempty"`
