@@ -245,9 +245,20 @@ crddiff: $(UPTEST)
 	done
 	@$(OK) Checking breaking CRD schema changes
 
-schema-version-diff:
+# Terraform resource names this provider actually configures (union of
+# internal/resourcelist's Stable/Preview lists), used by schema-version-diff
+# to detect native state schema version bumps. Checked into git like
+# config/schema.json since CI's schema-version-diff job never runs
+# `make generate` first (see .github/workflows/ci.yml).
+config/generated.lst: internal/resourcelist/stable.go internal/resourcelist/preview.go
+	@$(INFO) writing config/generated.lst from internal/resourcelist
+	@grep -ohE '"snowflake_[a-z0-9_]+"' $^ | tr -d '"' | sort -u | \
+		python3 -c "import json,sys; print(json.dumps(sys.stdin.read().split(), indent=2))" > config/generated.lst
+	@$(OK) writing config/generated.lst from internal/resourcelist
+
+schema-version-diff: config/generated.lst
 	@$(INFO) Checking for native state schema version changes
-	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*:=[[:space:]]*(.+)/\1/p'); \
+	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*[^=]*=[[:space:]]*([^[:space:]#]+).*/\1/p'); \
 	echo Detected previous Terraform provider version: $${PREV_PROVIDER_VERSION}; \
 	echo Current Terraform provider version: $${TERRAFORM_PROVIDER_VERSION}; \
 	mkdir -p $(WORK_DIR); \
