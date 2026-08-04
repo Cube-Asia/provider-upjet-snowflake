@@ -1,6 +1,9 @@
 name: Publish Provider Package
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       version:
@@ -21,7 +24,7 @@ jobs:
     with:
       repository: provider-snowflake
       registry_org: cube-asia
-      version: ${{ github.event.inputs.version }}
+      version: ${{ github.event.inputs.version || github.ref_name }}
       go-version: ${{ github.event.inputs.go-version }}
       cleanup-disk: true
     secrets:
