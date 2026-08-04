@@ -16,7 +16,18 @@ on:
         required: false
 
 jobs:
+  authorize:
+    runs-on: ubuntu-24.04
+    environment: release
+    steps:
+      - name: Reject non-release refs
+        if: github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "::error::Publish must run from main or a vX.Y.Z tag, got ${{ github.ref }}"
+          exit 1
+
   publish-provider-package:
+    needs: authorize
     permissions:
       contents: read
       packages: write
