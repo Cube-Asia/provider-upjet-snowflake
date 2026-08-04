@@ -1,0 +1,20 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: SemanticView
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/semanticview
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: DATABASE
+    metrics:
+    - semanticExpression:
+      - qualifiedExpressionName: '"lt1"."m1"'
+        sqlExpression: SUM("lt1"."a1")
+    schema: SCHEMA
+    tables:
+    - tableAlias: lt1
+      tableName: ${snowflake_table.test.fully_qualified_name}

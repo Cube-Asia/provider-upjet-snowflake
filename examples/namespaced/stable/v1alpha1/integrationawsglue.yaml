@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: IntegrationAwsGlue
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/integrationawsglue
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: false
+    glueAwsRoleArn: arn:aws:iam::123456789012:role/testRole
+    glueCatalogId: "123456789012"

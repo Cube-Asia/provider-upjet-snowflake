@@ -1,0 +1,16 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ApiIntegrationAmazonApiGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/apiintegrationamazonapigateway
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiAllowedPrefixes:
+    - https://123456.execute-api.us-west-2.amazonaws.com/prod/
+    apiAwsRoleArn: arn:aws:iam::000000000001:role/test
+    apiProvider: aws_api_gateway
+    enabled: true

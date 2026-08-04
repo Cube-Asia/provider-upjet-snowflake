@@ -1,0 +1,56 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: UserProgrammaticAccessToken
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/userprogrammaticaccesstoken
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    user: USER
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/userprogrammaticaccesstoken
+  labels:
+    testing.upbound.io/example-name: role
+  name: role
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantAccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/userprogrammaticaccesstoken
+  labels:
+    testing.upbound.io/example-name: grant_role_to_user
+  name: grant-role-to-user
+  namespace: crossplane-system
+spec:
+  forProvider:
+    roleName: ROLE
+    userName: USER
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/userprogrammaticaccesstoken
+  labels:
+    testing.upbound.io/example-name: user
+  name: user
+  namespace: crossplane-system
+spec:
+  forProvider: {}

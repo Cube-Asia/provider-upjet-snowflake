@@ -1,0 +1,23 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: ExternalFunction
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/externalfunction
+  labels:
+    testing.upbound.io/example-name: test_ext_func
+  name: test-ext-func
+  namespace: crossplane-system
+spec:
+  forProvider:
+    apiIntegration: api_integration_name
+    arg:
+    - name: arg1
+      type: varchar
+    - name: arg2
+      type: varchar
+    database: my_test_db
+    name: my_function
+    returnBehavior: IMMUTABLE
+    returnType: variant
+    schema: my_test_schema
+    urlOfProxyAndResource: https://123456.execute-api.us-west-2.amazonaws.com/prod/test_func

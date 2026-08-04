@@ -1,0 +1,24 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: FunctionJava
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/functionjava
+  labels:
+    testing.upbound.io/example-name: w
+  name: w
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    functionDefinition: |2
+        class TestFunc {
+          public static String echoVarchar(String x) {
+            return x;
+          }
+        }
+    handler: TestFunc.echoVarchar
+    name: Name
+    returnType: VARCHAR(100)
+    schema: Schema

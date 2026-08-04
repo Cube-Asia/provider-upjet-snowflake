@@ -1,0 +1,12 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: Notebook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/notebook
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    database: DATABASE
+    schema: SCHEMA

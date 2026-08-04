@@ -1,0 +1,20 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Alert
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/alert
+  labels:
+    testing.upbound.io/example-name: alert
+  name: alert
+  namespace: crossplane-system
+spec:
+  forProvider:
+    action: select 1 as c
+    alertSchedule:
+    - interval: 10
+    comment: my alert
+    condition: select 1 as c
+    database: database
+    enabled: true
+    schema: schema
+    warehouse: warehouse

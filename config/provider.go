@@ -4,15 +4,18 @@ import (
 	// Note(turkenh): we are importing this to embed provider schema document
 	_ "embed"
 
+	sfprovider "github.com/Snowflake-Labs/terraform-provider-snowflake/v2/pkg/provider"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
 
-	nullCluster "github.com/crossplane/upjet-provider-template/config/cluster/null"
-	nullNamespaced "github.com/crossplane/upjet-provider-template/config/namespaced/null"
+	previewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/preview"
+	stableCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/stable"
+	previewNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/preview"
+	stableNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/stable"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane/upjet-provider-template"
+	resourcePrefix = "snowflake"
+	modulePath     = "github.com/Cube-Asia/provider-upjet-snowflake"
 )
 
 //go:embed schema.json
@@ -24,16 +27,22 @@ var providerMetadata string
 // GetProvider returns provider configuration
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithRootGroup("template.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithRootGroup("snowflake.crossplane.io"),
+		// all resources are reconciled via the Terraform Plugin SDK (no-fork
+		// mode); nothing goes through the CLI-fork include list.
+		ujconfig.WithIncludeList([]string{}),
+		ujconfig.WithTerraformPluginSDKIncludeList(ExternalNameConfigured()),
+		ujconfig.WithTerraformProvider(sfprovider.Provider()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
+			GrantPrivilegesReadGapWorkaround(),
 		))
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullCluster.Configure,
+		stableCluster.Configure,
+		previewCluster.Configure,
 	} {
 		configure(pc)
 	}
@@ -45,11 +54,14 @@ func GetProvider() *ujconfig.Provider {
 // GetProviderNamespaced returns the namespaced provider configuration
 func GetProviderNamespaced() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithRootGroup("template.m.crossplane.io"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithRootGroup("snowflake.m.crossplane.io"),
+		ujconfig.WithIncludeList([]string{}),
+		ujconfig.WithTerraformPluginSDKIncludeList(ExternalNameConfigured()),
+		ujconfig.WithTerraformProvider(sfprovider.Provider()),
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),
+			GrantPrivilegesReadGapWorkaround(),
 		),
 		ujconfig.WithExampleManifestConfiguration(ujconfig.ExampleManifestConfiguration{
 			ManagedResourceNamespace: "crossplane-system",
@@ -57,7 +69,8 @@ func GetProviderNamespaced() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		nullNamespaced.Configure,
+		stableNamespaced.Configure,
+		previewNamespaced.Configure,
 	} {
 		configure(pc)
 	}

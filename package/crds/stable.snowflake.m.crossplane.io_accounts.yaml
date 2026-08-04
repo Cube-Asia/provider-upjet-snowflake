@@ -1,0 +1,643 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: accounts.stable.snowflake.m.crossplane.io
+spec:
+  group: stable.snowflake.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Account
+    listKind: AccountList
+    plural: accounts
+    singular: account
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Account is the Schema for the Accounts API. The account resource
+          allows you to create and manage Snowflake accounts. For more information,
+          check account documentation https://docs.snowflake.com/en/user-guide/organizations-manage-accounts.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: AccountSpec defines the desired state of Account
+            properties:
+              forProvider:
+                properties:
+                  adminNameSecretRef:
+                    description: |-
+                      insensitive. External changes for this field won't be detected.
+                      Login name of the initial administrative user of the account. A new user is created in the new account with this name and password and granted the ACCOUNTADMIN role in the account. A login name can be any string consisting of letters, numbers, and underscores. Login names are always case-insensitive. External changes for this field won't be detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  adminPasswordSecretRef:
+                    description: Password for the initial administrative user of the
+                      account. Either admin_password or admin_rsa_public_key has to
+                      be specified. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  adminRsaPublicKey:
+                    description: Assigns a public key to the initial administrative
+                      user of the account. Either admin_password or admin_rsa_public_key
+                      has to be specified. External changes for this field won't be
+                      detected.
+                    type: string
+                  adminUserType:
+                    description: 'Used for setting the type of the first user that
+                      is assigned the ACCOUNTADMIN role during account creation. Valid
+                      options are: `PERSON` | `SERVICE` | `LEGACY_SERVICE` External
+                      changes for this field won''t be detected.'
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the account.
+                      Specifies a comment for the account.
+                    type: string
+                  consumptionBillingEntity:
+                    description: |-
+                      based billing.
+                      Determines which billing entity is responsible for the account's consumption-based billing.
+                    type: string
+                  edition:
+                    description: |-
+                      (String) Snowflake Edition of the account. See more about Snowflake Editions in the official documentation. Valid options are: STANDARD | ENTERPRISE | BUSINESS_CRITICAL
+                      Snowflake Edition of the account. See more about Snowflake Editions in the [official documentation](https://docs.snowflake.com/en/user-guide/intro-editions). Valid options are: `STANDARD` | `ENTERPRISE` | `BUSINESS_CRITICAL`
+                    type: string
+                  emailSecretRef:
+                    description: Email address of the initial administrative user
+                      of the account. This email address is used to send any notifications
+                      about the account. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  firstNameSecretRef:
+                    description: First name of the initial administrative user of
+                      the account. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  gracePeriodInDays:
+                    description: |-
+                      (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                      Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                    format: int64
+                    type: integer
+                  isOrgAdmin:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                      Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                    type: string
+                  lastNameSecretRef:
+                    description: Last name of the initial administrative user of the
+                      account. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  mustChangePassword:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                      Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                    type: string
+                  region:
+                    description: |-
+                      (String) Snowflake Region ID of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                      [Snowflake Region ID](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-snowflake-region-ids) of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                    type: string
+                  regionGroup:
+                    description: |-
+                      (String) ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the SHOW REGIONS command. For information about when you might need to specify region group, see Region groups.
+                      ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the [SHOW REGIONS](https://docs.snowflake.com/en/sql-reference/sql/show-regions) command. For information about when you might need to specify region group, see [Region groups](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-region-groups).
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  adminNameSecretRef:
+                    description: |-
+                      insensitive. External changes for this field won't be detected.
+                      Login name of the initial administrative user of the account. A new user is created in the new account with this name and password and granted the ACCOUNTADMIN role in the account. A login name can be any string consisting of letters, numbers, and underscores. Login names are always case-insensitive. External changes for this field won't be detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  adminPasswordSecretRef:
+                    description: Password for the initial administrative user of the
+                      account. Either admin_password or admin_rsa_public_key has to
+                      be specified. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  adminRsaPublicKey:
+                    description: Assigns a public key to the initial administrative
+                      user of the account. Either admin_password or admin_rsa_public_key
+                      has to be specified. External changes for this field won't be
+                      detected.
+                    type: string
+                  adminUserType:
+                    description: 'Used for setting the type of the first user that
+                      is assigned the ACCOUNTADMIN role during account creation. Valid
+                      options are: `PERSON` | `SERVICE` | `LEGACY_SERVICE` External
+                      changes for this field won''t be detected.'
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the account.
+                      Specifies a comment for the account.
+                    type: string
+                  consumptionBillingEntity:
+                    description: |-
+                      based billing.
+                      Determines which billing entity is responsible for the account's consumption-based billing.
+                    type: string
+                  edition:
+                    description: |-
+                      (String) Snowflake Edition of the account. See more about Snowflake Editions in the official documentation. Valid options are: STANDARD | ENTERPRISE | BUSINESS_CRITICAL
+                      Snowflake Edition of the account. See more about Snowflake Editions in the [official documentation](https://docs.snowflake.com/en/user-guide/intro-editions). Valid options are: `STANDARD` | `ENTERPRISE` | `BUSINESS_CRITICAL`
+                    type: string
+                  emailSecretRef:
+                    description: Email address of the initial administrative user
+                      of the account. This email address is used to send any notifications
+                      about the account. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  firstNameSecretRef:
+                    description: First name of the initial administrative user of
+                      the account. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  gracePeriodInDays:
+                    description: |-
+                      (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                      Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                    format: int64
+                    type: integer
+                  isOrgAdmin:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                      Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                    type: string
+                  lastNameSecretRef:
+                    description: Last name of the initial administrative user of the
+                      account. This field cannot be used whenever admin_user_type
+                      is set to SERVICE. External changes for this field won't be
+                      detected.
+                    properties:
+                      key:
+                        type: string
+                      name:
+                        description: Name of the secret.
+                        type: string
+                    required:
+                    - key
+                    - name
+                    type: object
+                  mustChangePassword:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                      Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                    type: string
+                  region:
+                    description: |-
+                      (String) Snowflake Region ID of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                      [Snowflake Region ID](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-snowflake-region-ids) of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                    type: string
+                  regionGroup:
+                    description: |-
+                      (String) ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the SHOW REGIONS command. For information about when you might need to specify region group, see Region groups.
+                      ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the [SHOW REGIONS](https://docs.snowflake.com/en/sql-reference/sql/show-regions) command. For information about when you might need to specify region group, see [Region groups](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-region-groups).
+                    type: string
+                required:
+                - adminNameSecretRef
+                - emailSecretRef
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.adminNameSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.adminNameSecretRef)'
+            - message: spec.forProvider.edition is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.edition)
+                || (has(self.initProvider) && has(self.initProvider.edition))'
+            - message: spec.forProvider.emailSecretRef is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.emailSecretRef)'
+            - message: spec.forProvider.gracePeriodInDays is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.gracePeriodInDays)
+                || (has(self.initProvider) && has(self.initProvider.gracePeriodInDays))'
+          status:
+            description: AccountStatus defines the observed state of Account.
+            properties:
+              atProvider:
+                properties:
+                  adminRsaPublicKey:
+                    description: Assigns a public key to the initial administrative
+                      user of the account. Either admin_password or admin_rsa_public_key
+                      has to be specified. External changes for this field won't be
+                      detected.
+                    type: string
+                  adminUserType:
+                    description: 'Used for setting the type of the first user that
+                      is assigned the ACCOUNTADMIN role during account creation. Valid
+                      options are: `PERSON` | `SERVICE` | `LEGACY_SERVICE` External
+                      changes for this field won''t be detected.'
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the account.
+                      Specifies a comment for the account.
+                    type: string
+                  consumptionBillingEntity:
+                    description: |-
+                      based billing.
+                      Determines which billing entity is responsible for the account's consumption-based billing.
+                    type: string
+                  edition:
+                    description: |-
+                      (String) Snowflake Edition of the account. See more about Snowflake Editions in the official documentation. Valid options are: STANDARD | ENTERPRISE | BUSINESS_CRITICAL
+                      Snowflake Edition of the account. See more about Snowflake Editions in the [official documentation](https://docs.snowflake.com/en/user-guide/intro-editions). Valid options are: `STANDARD` | `ENTERPRISE` | `BUSINESS_CRITICAL`
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  gracePeriodInDays:
+                    description: |-
+                      (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                      Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
+                    format: int64
+                    type: integer
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  isOrgAdmin:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                      Sets an account property that determines whether the ORGADMIN role is enabled in the account. Only an organization administrator (i.e. user with the ORGADMIN role) can set the property.
+                    type: string
+                  mustChangePassword:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                      Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
+                    type: string
+                  region:
+                    description: |-
+                      (String) Snowflake Region ID of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                      [Snowflake Region ID](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-snowflake-region-ids) of the region where the account is created. If no value is provided, Snowflake creates the account in the same Snowflake Region as the current account (i.e. the account in which the CREATE ACCOUNT statement is executed.)
+                    type: string
+                  regionGroup:
+                    description: |-
+                      (String) ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the SHOW REGIONS command. For information about when you might need to specify region group, see Region groups.
+                      ID of the region group where the account is created. To retrieve the region group ID for existing accounts in your organization, execute the [SHOW REGIONS](https://docs.snowflake.com/en/sql-reference/sql/show-regions) command. For information about when you might need to specify region group, see [Region groups](https://docs.snowflake.com/en/user-guide/admin-account-identifier.html#label-region-groups).
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW ACCOUNTS for the given account. (see below for nested schema)
+                      Outputs the result of `SHOW ACCOUNTS` for the given account.
+                    items:
+                      properties:
+                        accountLocator:
+                          description: (String)
+                          type: string
+                        accountLocatorUrl:
+                          description: (String)
+                          type: string
+                        accountName:
+                          description: (String)
+                          type: string
+                        accountOldUrlLastUsed:
+                          description: (String)
+                          type: string
+                        accountOldUrlSavedOn:
+                          description: (String)
+                          type: string
+                        accountUrl:
+                          description: (String)
+                          type: string
+                        comment:
+                          description: (String) Specifies a comment for the account.
+                          type: string
+                        consumptionBillingEntityName:
+                          description: (String)
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        droppedOn:
+                          description: (String)
+                          type: string
+                        edition:
+                          description: '(String) Snowflake Edition of the account.
+                            See more about Snowflake Editions in the official documentation.
+                            Valid options are: STANDARD | ENTERPRISE | BUSINESS_CRITICAL'
+                          type: string
+                        isEventsAccount:
+                          description: (Boolean)
+                          type: boolean
+                        isOrgAdmin:
+                          description: uses special value that cannot be set in the
+                            configuration manually (default)) Sets an account property
+                            that determines whether the ORGADMIN role is enabled in
+                            the account. Only an organization administrator (i.e.
+                            user with the ORGADMIN role) can set the property.
+                          type: boolean
+                        isOrganizationAccount:
+                          description: (Boolean)
+                          type: boolean
+                        managedAccounts:
+                          description: (Number)
+                          format: int64
+                          type: integer
+                        marketplaceConsumerBillingEntityName:
+                          description: (String)
+                          type: string
+                        marketplaceProviderBillingEntityName:
+                          description: (String)
+                          type: string
+                        movedOn:
+                          description: (String)
+                          type: string
+                        movedToOrganization:
+                          description: (String)
+                          type: string
+                        oldAccountUrl:
+                          description: (String)
+                          type: string
+                        organizationName:
+                          description: (String)
+                          type: string
+                        organizationOldUrl:
+                          description: (String)
+                          type: string
+                        organizationOldUrlLastUsed:
+                          description: (String)
+                          type: string
+                        organizationOldUrlSavedOn:
+                          description: (String)
+                          type: string
+                        organizationUrlExpirationOn:
+                          description: (String)
+                          type: string
+                        regionGroup:
+                          description: (String) ID of the region group where the account
+                            is created. To retrieve the region group ID for existing
+                            accounts in your organization, execute the SHOW REGIONS
+                            command. For information about when you might need to
+                            specify region group, see Region groups.
+                          type: string
+                        restoredOn:
+                          description: (String)
+                          type: string
+                        scheduledDeletionTime:
+                          description: (String)
+                          type: string
+                        snowflakeRegion:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

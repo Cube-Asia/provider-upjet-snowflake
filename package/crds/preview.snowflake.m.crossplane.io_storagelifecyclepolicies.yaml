@@ -1,0 +1,461 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: storagelifecyclepolicies.preview.snowflake.m.crossplane.io
+spec:
+  group: preview.snowflake.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: StorageLifecyclePolicy
+    listKind: StorageLifecyclePolicyList
+    plural: storagelifecyclepolicies
+    singular: storagelifecyclepolicy
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: StorageLifecyclePolicy is the Schema for the StorageLifecyclePolicys
+          API. Resource used to manage storage lifecycle policy objects. For more
+          information, check storage lifecycle policy documentation https://docs.snowflake.com/en/sql-reference/sql/create-storage-lifecycle-policy.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: StorageLifecyclePolicySpec defines the desired state of StorageLifecyclePolicy
+            properties:
+              forProvider:
+                properties:
+                  archiveForDays:
+                    description: |-
+                      (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                      Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                    format: int64
+                    type: integer
+                  archiveTier:
+                    description: |-
+                      insensitive): COOL | COLD.
+                      Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.
+                    type: string
+                  argument:
+                    description: |-
+                      (Block List, Min: 1) List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration. (see below for nested schema)
+                      List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the storage lifecycle policy; must be unique for the database and schema in which the storage lifecycle policy is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            The argument name.
+                          type: string
+                        type:
+                          description: |-
+                            (String) The argument type. For more information about data types, check Snowflake docs.
+                            The argument type. For more information about data types, check [Snowflake docs](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  body:
+                    description: |-
+                      valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                      Specifies the SQL expression. The expression can be any boolean-valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the storage lifecycle policy.
+                      Specifies a comment for the storage lifecycle policy.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the storage lifecycle policy. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the storage lifecycle policy. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the storage lifecycle policy. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The schema in which to create the storage lifecycle policy. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                required:
+                - database
+                - schema
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  archiveForDays:
+                    description: |-
+                      (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                      Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                    format: int64
+                    type: integer
+                  archiveTier:
+                    description: |-
+                      insensitive): COOL | COLD.
+                      Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.
+                    type: string
+                  argument:
+                    description: |-
+                      (Block List, Min: 1) List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration. (see below for nested schema)
+                      List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the storage lifecycle policy; must be unique for the database and schema in which the storage lifecycle policy is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            The argument name.
+                          type: string
+                        type:
+                          description: |-
+                            (String) The argument type. For more information about data types, check Snowflake docs.
+                            The argument type. For more information about data types, check [Snowflake docs](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  body:
+                    description: |-
+                      valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                      Specifies the SQL expression. The expression can be any boolean-valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the storage lifecycle policy.
+                      Specifies a comment for the storage lifecycle policy.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.argument is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.argument)
+                || (has(self.initProvider) && has(self.initProvider.argument))'
+            - message: spec.forProvider.body is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.body)
+                || (has(self.initProvider) && has(self.initProvider.body))'
+          status:
+            description: StorageLifecyclePolicyStatus defines the observed state of
+              StorageLifecyclePolicy.
+            properties:
+              atProvider:
+                properties:
+                  archiveForDays:
+                    description: |-
+                      (Number) Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                      Specifies the number of days to keep rows that match the policy expression in archive storage. If set, Snowflake moves the data into archive storage according to the value you select for archive_tier. If unset, Snowflake expires the rows from the table without archiving the data.
+                    format: int64
+                    type: integer
+                  archiveTier:
+                    description: |-
+                      insensitive): COOL | COLD.
+                      Specifies the type of storage tier to use for archiving rows. After you set the ARCHIVE_TIER for a policy, you can’t modify it. If you don’t specify this parameter, the policy is an expiration policy that deletes rows without archiving them. Valid values are (case-insensitive): `COOL` | `COLD`.
+                    type: string
+                  argument:
+                    description: |-
+                      (Block List, Min: 1) List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration. (see below for nested schema)
+                      List of the arguments for the storage lifecycle policy. A signature specifies a set of attributes that must be considered to determine whether the row is ready for expiration.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the storage lifecycle policy; must be unique for the database and schema in which the storage lifecycle policy is created. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            The argument name.
+                          type: string
+                        type:
+                          description: |-
+                            (String) The argument type. For more information about data types, check Snowflake docs.
+                            The argument type. For more information about data types, check [Snowflake docs](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  body:
+                    description: |-
+                      valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                      Specifies the SQL expression. The expression can be any boolean-valued SQL expression. To mitigate permadiff on this field, the provider replaces blank characters with a space. This can lead to false positives in cases where a change in case or run of whitespace is semantically significant.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the storage lifecycle policy.
+                      Specifies a comment for the storage lifecycle policy.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the storage lifecycle policy. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the storage lifecycle policy. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  describeOutput:
+                    description: |-
+                      (List of Object) Outputs the result of DESCRIBE STORAGE LIFECYCLE POLICY for the given storage lifecycle policy. (see below for nested schema)
+                      Outputs the result of `DESCRIBE STORAGE LIFECYCLE POLICY` for the given storage lifecycle policy.
+                    items:
+                      properties:
+                        archiveForDays:
+                          description: (Number) Specifies the number of days to keep
+                            rows that match the policy expression in archive storage.
+                            If set, Snowflake moves the data into archive storage
+                            according to the value you select for archive_tier. If
+                            unset, Snowflake expires the rows from the table without
+                            archiving the data.
+                          format: int64
+                          type: integer
+                        archiveTier:
+                          description: 'insensitive): COOL | COLD.'
+                          type: string
+                        body:
+                          description: valued SQL expression. To mitigate permadiff
+                            on this field, the provider replaces blank characters
+                            with a space. This can lead to false positives in cases
+                            where a change in case or run of whitespace is semantically
+                            significant.
+                          type: string
+                        databaseName:
+                          description: (String)
+                          type: string
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            storage lifecycle policy; must be unique for the database
+                            and schema in which the storage lifecycle policy is created.
+                            Due to technical limitations (read more here), avoid using
+                            the following characters: |, ., ".'
+                          type: string
+                        returnType:
+                          description: (String)
+                          type: string
+                        schemaName:
+                          description: (String)
+                          type: string
+                        signature:
+                          description: (List of Object) (see below for nested schema)
+                          items:
+                            properties:
+                              name:
+                                description: '(String) Specifies the identifier for
+                                  the storage lifecycle policy; must be unique for
+                                  the database and schema in which the storage lifecycle
+                                  policy is created. Due to technical limitations
+                                  (read more here), avoid using the following characters:
+                                  |, ., ".'
+                                type: string
+                              type:
+                                description: (String) The argument type. For more
+                                  information about data types, check Snowflake docs.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the storage lifecycle policy. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The schema in which to create the storage lifecycle policy. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW STORAGE LIFECYCLE POLICIES for the given storage lifecycle policy. (see below for nested schema)
+                      Outputs the result of `SHOW STORAGE LIFECYCLE POLICIES` for the given storage lifecycle policy.
+                    items:
+                      properties:
+                        comment:
+                          description: (String) Specifies a comment for the storage
+                            lifecycle policy.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        databaseName:
+                          description: (String)
+                          type: string
+                        kind:
+                          description: (String)
+                          type: string
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            storage lifecycle policy; must be unique for the database
+                            and schema in which the storage lifecycle policy is created.
+                            Due to technical limitations (read more here), avoid using
+                            the following characters: |, ., ".'
+                          type: string
+                        options:
+                          description: (String)
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                        schemaName:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

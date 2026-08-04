@@ -1,0 +1,22 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Account
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/account
+  labels:
+    testing.upbound.io/example-name: minimal
+  name: minimal
+  namespace: crossplane-system
+spec:
+  forProvider:
+    adminNameSecretRef:
+      key: example-key
+      name: example-secret
+    adminPasswordSecretRef:
+      key: example-key
+      name: example-secret
+    edition: STANDARD
+    emailSecretRef:
+      key: example-key
+      name: example-secret
+    gracePeriodInDays: 3

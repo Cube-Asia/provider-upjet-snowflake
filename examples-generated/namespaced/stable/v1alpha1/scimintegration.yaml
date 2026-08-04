@@ -1,0 +1,15 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: ScimIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/scimintegration
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: true
+    runAsRole: GENERIC_SCIM_PROVISIONER
+    scimClient: GENERIC
+    syncPassword: true

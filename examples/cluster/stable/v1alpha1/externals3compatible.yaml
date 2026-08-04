@@ -1,0 +1,14 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: ExternalS3Compatible
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/externals3compatible
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    database: my_database
+    endpoint: s3.my-provider.com
+    schema: my_schema
+    url: s3compat://bucket/path/

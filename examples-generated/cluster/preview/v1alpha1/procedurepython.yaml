@@ -1,0 +1,26 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: ProcedurePython
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/procedurepython
+  labels:
+    testing.upbound.io/example-name: w
+  name: w
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    handler: echoVarchar
+    name: Name
+    procedureDefinition: |2
+        def echoVarchar(x):
+        result = ''
+        for a in range(5):
+          result += x
+        return result
+    returnType: VARCHAR(100)
+    runtimeVersion: "3.9"
+    schema: Schema
+    snowparkPackage: 1.14.0

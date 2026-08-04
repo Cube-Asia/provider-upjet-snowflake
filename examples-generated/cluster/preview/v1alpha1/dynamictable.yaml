@@ -1,0 +1,17 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: DynamicTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/dynamictable
+  labels:
+    testing.upbound.io/example-name: dt
+  name: dt
+spec:
+  forProvider:
+    comment: example comment
+    database: mydb
+    query: SELECT product_id, product_name FROM "mydb"."myschema"."staging_table"
+    schema: myschema
+    targetLag:
+    - maximumDuration: 20 minutes
+    warehouse: mywh

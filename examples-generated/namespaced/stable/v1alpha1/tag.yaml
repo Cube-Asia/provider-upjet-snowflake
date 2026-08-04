@@ -1,0 +1,13 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Tag
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/tag
+  labels:
+    testing.upbound.io/example-name: tag
+  name: tag
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+    schema: schema

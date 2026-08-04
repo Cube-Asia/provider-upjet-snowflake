@@ -1,0 +1,18 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: WithAuthorizationCodeGrant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/withauthorizationcodegrant
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    apiAuthentication: ${snowflake_api_authentication_integration_with_authorization_code_grant.example.fully_qualified_name}
+    database: EXAMPLE_DB
+    oauthRefreshTokenExpiryTime: "2025-01-02 15:04:01"
+    oauthRefreshTokenSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    schema: EXAMPLE_SCHEMA

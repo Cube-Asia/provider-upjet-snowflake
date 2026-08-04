@@ -1,0 +1,27 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: ProcedureScala
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/procedurescala
+  labels:
+    testing.upbound.io/example-name: w
+  name: w
+spec:
+  forProvider:
+    arguments:
+    - argDataType: VARCHAR(100)
+      argName: x
+    database: Database
+    handler: TestFunc.echoVarchar
+    name: Name
+    procedureDefinition: |2
+        import com.snowflake.snowpark_java.Session
+        class TestFunc {
+          def echoVarchar(session : Session, x : String): String = {
+            return x
+          }
+        }
+    returnType: VARCHAR(100)
+    runtimeVersion: "2.12"
+    schema: Schema
+    snowparkPackage: 1.14.0

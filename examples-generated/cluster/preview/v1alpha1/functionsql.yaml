@@ -1,0 +1,19 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: FunctionSql
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/functionsql
+  labels:
+    testing.upbound.io/example-name: minimal
+  name: minimal
+spec:
+  forProvider:
+    arguments:
+    - argDataType: FLOAT
+      argName: arg_name
+    database: ${snowflake_database.test.name}
+    functionDefinition: |
+      arg_name
+    name: my_sql_function
+    returnType: FLOAT
+    schema: ${snowflake_schema.test.name}

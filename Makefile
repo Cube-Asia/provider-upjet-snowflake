@@ -1,8 +1,8 @@
 # ====================================================================================
 # Setup Project
 
-PROJECT_NAME ?= upjet-provider-template
-PROJECT_REPO ?= github.com/crossplane/$(PROJECT_NAME)
+PROJECT_NAME ?= provider-snowflake
+PROJECT_REPO ?= github.com/Cube-Asia/provider-upjet-snowflake
 
 export TERRAFORM_VERSION ?= 1.5.7
 
@@ -10,12 +10,12 @@ export TERRAFORM_VERSION ?= 1.5.7
 # licensed under BSL, which is not permitted.
 TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAFORM_VERSION)\n1.6" | sort -V | head -n1`" ] && echo 1 || echo 0)
 
-export TERRAFORM_PROVIDER_SOURCE ?= hashicorp/null
-export TERRAFORM_PROVIDER_REPO ?= https://github.com/hashicorp/terraform-provider-null
-export TERRAFORM_PROVIDER_VERSION ?= 3.2.4
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-null
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://releases.hashicorp.com/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/$(TERRAFORM_PROVIDER_VERSION)
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-null_v3.2.4_x5
+export TERRAFORM_PROVIDER_SOURCE ?= snowflakedb/snowflake
+export TERRAFORM_PROVIDER_REPO ?= https://github.com/snowflakedb/terraform-provider-snowflake
+export TERRAFORM_PROVIDER_VERSION ?= 2.19.0
+export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-snowflake
+export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= $(TERRAFORM_PROVIDER_REPO)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)
+export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-snowflake_v2.19.0
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
@@ -44,7 +44,7 @@ NPROCS ?= 1
 # to half the number of CPU cores.
 GO_TEST_PARALLEL := $(shell echo $$(( $(NPROCS) / 2 )))
 
-GO_REQUIRED_VERSION ?= 1.24
+GO_REQUIRED_VERSION ?= 1.26.4
 GOLANGCILINT_VERSION ?= 2.12.1
 GO_STATIC_PACKAGES = $(GO_PROJECT)/cmd/provider $(GO_PROJECT)/cmd/generator
 GO_LDFLAGS += -X $(GO_PROJECT)/internal/version.Version=$(VERSION)
@@ -65,18 +65,18 @@ CROSSPLANE_VERSION = 2.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/crossplane-contrib
-IMAGES = $(PROJECT_NAME)
+REGISTRY_ORGS ?= ghcr.io/cube-asia
+IMAGES = provider-snowflake
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= ghcr.io/crossplane-contrib
+XPKG_REG_ORGS ?= ghcr.io/cube-asia
 # NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/crossplane-contrib
-XPKGS = $(PROJECT_NAME)
+XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/cube-asia
+XPKGS = provider-snowflake
 -include build/makelib/xpkg.mk
 
 # ====================================================================================
@@ -95,7 +95,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.upjet-provider-template: do.build.images
+xpkg.build.provider-snowflake: do.build.images
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
@@ -129,16 +129,37 @@ $(TERRAFORM_PROVIDER_SCHEMA): $(TERRAFORM)
 	@$(TERRAFORM) -chdir=$(TERRAFORM_WORKDIR) providers schema -json=true > $(TERRAFORM_PROVIDER_SCHEMA) 2>> $(TERRAFORM_WORKDIR)/terraform-logs.txt
 	@$(OK) generating provider schema for $(TERRAFORM_PROVIDER_SOURCE) $(TERRAFORM_PROVIDER_VERSION)
 
-pull-docs:
-	@if [ ! -d "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" ]; then \
-  		mkdir -p "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" && \
-		git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" --sparse "$(TERRAFORM_PROVIDER_REPO)" "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)"; \
-	fi
-	@git -C "$(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)" sparse-checkout set "$(TERRAFORM_DOCS_PATH)"
+generate.init: $(TERRAFORM_PROVIDER_SCHEMA) fetch-snowflake-provider-src
 
-generate.init: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs
+# Vendors the Snowflake TF provider source (patched to import as a Go
+# library) into .work/ for upjet's no-fork mode. This same checkout also
+# backs doc scraping: apis/generate.go's `//go:generate` scraper directive
+# reads docs straight out of $(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)/$(TERRAFORM_DOCS_PATH)
+# — one clone serves both, not two.
+#
+# ponytail: upstream (github.com/snowflakedb/terraform-provider-snowflake)
+# tags v2.x releases but its go.mod still declares the pre-v2 module path
+# (no "/v2" suffix), which Go's semantic import versioning rejects outright
+# for every v2 tag - not something a version bump fixes. Workaround: patch
+# the checkout's own module path (and every internal import) to add "/v2"
+# in place, and point go.mod's `replace` directive at this checkout. Drop
+# this target (and the SNOWFLAKE_SRC_DIR/SNOWFLAKE_OLD_MODULE_PATH vars,
+# and the `replace` line in go.mod) the day upstream fixes its own go.mod.
+SNOWFLAKE_SRC_DIR := $(WORK_DIR)/$(TERRAFORM_PROVIDER_SOURCE)
+SNOWFLAKE_OLD_MODULE_PATH := github.com/Snowflake-Labs/terraform-provider-snowflake
+fetch-snowflake-provider-src:
+	@if [ "$$(cat "$(SNOWFLAKE_SRC_DIR)/.fetched-version" 2>/dev/null)" = "$(TERRAFORM_PROVIDER_VERSION)" ]; then \
+		exit 0; \
+	fi; \
+	rm -rf "$(SNOWFLAKE_SRC_DIR)" && mkdir -p "$(SNOWFLAKE_SRC_DIR)" && \
+	git clone -c advice.detachedHead=false --depth 1 --filter=blob:none --branch "v$(TERRAFORM_PROVIDER_VERSION)" "$(TERRAFORM_PROVIDER_REPO)" "$(SNOWFLAKE_SRC_DIR)"; \
+	sed -i "s#^module $(SNOWFLAKE_OLD_MODULE_PATH)\$$#module $(SNOWFLAKE_OLD_MODULE_PATH)/v2#" "$(SNOWFLAKE_SRC_DIR)/go.mod"; \
+	grep -rlZ "\"$(SNOWFLAKE_OLD_MODULE_PATH)/" --include='*.go' "$(SNOWFLAKE_SRC_DIR)" | xargs -0 -r sed -i "s#\"$(SNOWFLAKE_OLD_MODULE_PATH)/#\"$(SNOWFLAKE_OLD_MODULE_PATH)/v2/#g"; \
+	echo "$(TERRAFORM_PROVIDER_VERSION)" > "$(SNOWFLAKE_SRC_DIR)/.fetched-version"
 
-.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) pull-docs check-terraform-version
+go.build: fetch-snowflake-provider-src
+
+.PHONY: $(TERRAFORM_PROVIDER_SCHEMA) check-terraform-version fetch-snowflake-provider-src
 # ====================================================================================
 # Targets
 
@@ -224,9 +245,20 @@ crddiff: $(UPTEST)
 	done
 	@$(OK) Checking breaking CRD schema changes
 
-schema-version-diff:
+# Terraform resource names this provider actually configures (union of
+# internal/resourcelist's Stable/Preview lists), used by schema-version-diff
+# to detect native state schema version bumps. Checked into git like
+# config/schema.json since CI's schema-version-diff job never runs
+# `make generate` first (see .github/workflows/ci.yml).
+config/generated.lst: internal/resourcelist/stable.go internal/resourcelist/preview.go
+	@$(INFO) writing config/generated.lst from internal/resourcelist
+	@grep -ohE '"snowflake_[a-z0-9_]+"' $^ | tr -d '"' | sort -u | \
+		python3 -c "import json,sys; print(json.dumps(sys.stdin.read().split(), indent=2))" > config/generated.lst
+	@$(OK) writing config/generated.lst from internal/resourcelist
+
+schema-version-diff: config/generated.lst
 	@$(INFO) Checking for native state schema version changes
-	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*:=[[:space:]]*(.+)/\1/p'); \
+	@export PREV_PROVIDER_VERSION=$$(git cat-file -p "${GITHUB_BASE_REF}:Makefile" | sed -nr 's/^export[[:space:]]*TERRAFORM_PROVIDER_VERSION[[:space:]]*[^=]*=[[:space:]]*([^[:space:]#]+).*/\1/p'); \
 	echo Detected previous Terraform provider version: $${PREV_PROVIDER_VERSION}; \
 	echo Current Terraform provider version: $${TERRAFORM_PROVIDER_VERSION}; \
 	mkdir -p $(WORK_DIR); \
@@ -234,7 +266,12 @@ schema-version-diff:
 	./scripts/version_diff.py config/generated.lst "$(WORK_DIR)/schema.json.$${PREV_PROVIDER_VERSION}" config/schema.json
 	@$(OK) Checking for native state schema version changes
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+resource-support:
+	@$(INFO) Regenerating resource support tables in README.md
+	@./hack/resource_support.sh
+	@$(OK) Regenerating resource support tables in README.md
+
+.PHONY: cobertura submodules fallthrough run crds.clean resource-support
 
 # ====================================================================================
 # Special Targets
@@ -244,6 +281,7 @@ Crossplane Targets:
     cobertura             Generate a coverage report for cobertura applying exclusions on generated files.
     submodules            Update the submodules, such as the common build scripts.
     run                   Run crossplane locally, out-of-cluster. Useful for development.
+    resource-support      Regenerate the Resource Support tables in README.md.
 
 endef
 # The reason CROSSPLANE_MAKE_HELP is used instead of CROSSPLANE_HELP is because the crossplane
@@ -258,5 +296,14 @@ help-special: crossplane.help
 .PHONY: crossplane.help help-special
 
 # TODO(negz): Update CI to use these targets.
+# NOTE: attached to go.modules.download/go.modules.check (not vendor/
+# vendor.check) because golang.mk already defines `vendor: modules.download`
+# with no prerequisite on this fetch step. Make merges same-target rules by
+# appending, it does not let a later rule reorder an earlier one's
+# prerequisites - so putting the fetch on `vendor` itself would still let
+# `modules.download` (and its `go mod download`) run first. go.modules.download
+# and go.modules.check start with zero prerequisites, so adding this one here
+# is unambiguous: it always runs before their recipe does.
+go.modules.download go.modules.check: fetch-snowflake-provider-src
 vendor: modules.download
 vendor.check: modules.check

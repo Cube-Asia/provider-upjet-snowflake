@@ -1,0 +1,10 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: AccountAuthenticationPolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/accountauthenticationpolicyattachment
+  labels:
+    testing.upbound.io/example-name: attachment
+  name: attachment
+spec:
+  forProvider: {}

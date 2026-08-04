@@ -1,0 +1,19 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: AuthenticationIntegrationWithAuthorizationCodeGrant
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/authenticationintegrationwithauthorizationcodegrant
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+spec:
+  forProvider:
+    enabled: true
+    oauthClientIdSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    oauthClientSecretSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system

@@ -1,0 +1,36 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Pipe
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/pipe
+  labels:
+    testing.upbound.io/example-name: pipe
+  name: pipe
+  namespace: crossplane-system
+spec:
+  forProvider:
+    autoIngest: false
+    awsSnsTopicArn: '...'
+    comment: A pipe.
+    copyStatement: copy into ${snowflake_table.table.fully_qualified_name} from @${snowflake_stage.stage.fully_qualified_name}
+    database: ${snowflake_database.database.name}
+    schema: ${snowflake_schema.schema.name}
+
+---
+
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: Stage
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/pipe
+  labels:
+    testing.upbound.io/example-name: stage
+  name: stage
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: ${snowflake_database.database.name}
+    encryption: TYPE = 'NONE'
+    schema: ${snowflake_schema.schema.name}
+    storageIntegration: ${snowflake_storage_integration.storage_integration.name}
+    url: s3://com.example.bucket/prefix

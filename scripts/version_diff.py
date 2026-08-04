@@ -17,13 +17,17 @@ if __name__ == "__main__":
         bump = json.load(f)
 
     provider_name = None
-    for k in base["provider_schemas"]:
+    for k in bump["provider_schemas"]:
         # the first key is the provider name
         provider_name = k
         break
     if provider_name is None:
-        print(f"Cannot extract the provider name from the base schema: {base_path}")
+        print(f"Cannot extract the provider name from the bumped schema: {bumped_path}")
         sys.exit(-1)
+    if provider_name not in base["provider_schemas"]:
+        print(f'Provider "{provider_name}" is not present in the base schema {base_path} '
+              "(base predates this provider, or targets a different one) - nothing to compare.")
+        sys.exit(0)
     base_schemas = base["provider_schemas"][provider_name]["resource_schemas"]
     bumped_schemas = bump["provider_schemas"][provider_name]["resource_schemas"]
 

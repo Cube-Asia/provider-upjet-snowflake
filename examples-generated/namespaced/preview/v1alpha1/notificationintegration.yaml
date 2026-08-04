@@ -1,0 +1,15 @@
+apiVersion: preview.snowflake.m.crossplane.io/v1alpha1
+kind: NotificationIntegration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/notificationintegration
+  labels:
+    testing.upbound.io/example-name: azure
+  name: azure
+  namespace: crossplane-system
+spec:
+  forProvider:
+    azureStorageQueuePrimaryUri: https://myaccount.queue.core.windows.net/myqueue
+    azureTenantId: a123b4c5-1234-123a-a12b-1a23b45678c9
+    enabled: true
+    notificationProvider: AZURE_STORAGE_QUEUE

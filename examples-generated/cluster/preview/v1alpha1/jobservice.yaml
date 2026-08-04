@@ -1,0 +1,16 @@
+apiVersion: preview.snowflake.crossplane.io/v1alpha1
+kind: JobService
+metadata:
+  annotations:
+    meta.upbound.io/example-id: preview/v1alpha1/jobservice
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+spec:
+  forProvider:
+    database: ${snowflake_database.test.name}
+    fromSpecification:
+    - file: spec.yaml
+      stage: ${snowflake_stage.test.fully_qualified_name}
+    in_compute_pool: ${snowflake_compute_pool.test.name}
+    schema: ${snowflake_schema.test.name}

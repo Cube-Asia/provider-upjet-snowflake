@@ -1,0 +1,53 @@
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: GrantDatabaseRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantdatabaserole
+  labels:
+    testing.upbound.io/example-name: g
+  name: g
+spec:
+  forProvider:
+    databaseRoleName: '"${var.database}"."${snowflake_database_role.database_role.name}"'
+    parentRoleName: ${snowflake_account_role.parent_role.name}
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantdatabaserole
+  labels:
+    testing.upbound.io/example-name: parent_role
+  name: parent-role
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: DatabaseRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantdatabaserole
+  labels:
+    testing.upbound.io/example-name: database_role
+  name: database-role
+spec:
+  forProvider:
+    database: ${var.database}
+
+---
+
+apiVersion: stable.snowflake.crossplane.io/v1alpha1
+kind: DatabaseRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantdatabaserole
+  labels:
+    testing.upbound.io/example-name: parent_database_role
+  name: parent-database-role
+spec:
+  forProvider:
+    database: ${var.database}

@@ -20,7 +20,7 @@
       "description": "Bump Go version in workflows",
       "fileMatch": ["^\\.github\\/workflows\\/[^/]+\\.ya?ml$"],
       "matchStrings": [
-        "GO_VERSION: '(?<currentValue>.*?)'\\n"
+        "GO_VERSION: \"(?<currentValue>.*?)\"\\n"
       ],
       "datasourceTemplate": "golang-version",
       "depNameTemplate": "golang"
@@ -32,7 +32,7 @@
       "description": "Bump golangci-lint version in workflows",
       "fileMatch": ["^\\.github\\/workflows\\/[^/]+\\.ya?ml$"],
       "matchStrings": [
-        "GOLANGCI_VERSION: '(?<currentValue>.*?)'\\n"
+        "GOLANGCI_VERSION: \"(?<currentValue>.*?)\"\\n"
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "golangci/golangci-lint"
@@ -44,7 +44,7 @@
       "description": "Bump Docker Buildx version in workflows",
       "fileMatch": ["^\\.github\\/workflows\\/[^/]+\\.ya?ml$"],
       "matchStrings": [
-        "DOCKER_BUILDX_VERSION: '(?<currentValue>.*?)'\\n"
+        "DOCKER_BUILDX_VERSION: \"(?<currentValue>.*?)\"\\n"
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "docker/buildx"
@@ -107,7 +107,7 @@
       "customType": "regex",
       "description": "Bump Crossplane CLI version in the Makefile",
       "fileMatch": ["^Makefile$"],
-      "matchStrings": ["CROSSPLANE_CLI_VERSION ??= (?<currentValue>.*?)\\n"],
+      "matchStrings": ["CROSSPLANE_CLI_VERSION \\??= (?<currentValue>.*?)\\n"],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "crossplane/crossplane"
     }

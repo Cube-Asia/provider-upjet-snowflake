@@ -1,0 +1,12 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountParameter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/accountparameter
+  labels:
+    testing.upbound.io/example-name: p
+  name: p
+  namespace: crossplane-system
+spec:
+  forProvider:
+    value: "true"

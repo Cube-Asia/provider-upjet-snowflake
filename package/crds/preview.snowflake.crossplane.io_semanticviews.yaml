@@ -1,0 +1,1135 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: semanticviews.preview.snowflake.crossplane.io
+spec:
+  group: preview.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: SemanticView
+    listKind: SemanticViewList
+    plural: semanticviews
+    singular: semanticview
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: SemanticView is the Schema for the SemanticViews API. Resource
+          used to manage semantic views. For more information, check semantic views
+          documentation https://docs.snowflake.com/en/sql-reference/sql/create-semantic-view.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: SemanticViewSpec defines the desired state of SemanticView
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the semantic view.
+                      Specifies a comment for the semantic view.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the semantic view. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the semantic view. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  dimensions:
+                    description: |-
+                      (see below for nested schema)
+                      The list of dimensions in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the dimension.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the dimension.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the dimension.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  facts:
+                    description: |-
+                      (see below for nested schema)
+                      The list of facts in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the fact.
+                          type: string
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the fact, including the table name and a unique identifier for the fact: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the fact.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the fact.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  metrics:
+                    description: |-
+                      (see below for nested schema)
+                      Specify a list of metrics for the semantic view. Each metric can have either a semantic expression or a window function in its definition. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the metric is private.
+                          type: string
+                        semanticExpression:
+                          description: |-
+                            (Block List, Max: 1) Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function. (see below for nested schema)
+                            Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function.
+                          items:
+                            properties:
+                              comment:
+                                description: |-
+                                  (String) Specifies a comment for the semantic view.
+                                  Specifies a comment for the semantic expression.
+                                type: string
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric.
+                                type: string
+                              synonym:
+                                description: |-
+                                  (Set of String) List of synonyms for the logical table.
+                                  List of synonyms for this semantic expression.
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        windowFunction:
+                          description: |-
+                            (Block List, Max: 1) Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression. (see below for nested schema)
+                            Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression.
+                          items:
+                            properties:
+                              overClause:
+                                description: |-
+                                  (Block List, Min: 1, Max: 1) Specify the partition by, order by or frame over which the window function is to be computed. (see below for nested schema)
+                                  Specify the partition by, order by or frame over which the window function is to be computed.
+                                items:
+                                  properties:
+                                    orderBy:
+                                      description: |-
+                                        (String) Specifies an order by clause. It must be a complete SQL expression, including any [ ASC | DESC ] [ NULLS { FIRST | LAST } ] modifiers.
+                                        Specifies an order by clause. It must be a complete SQL expression, including any `[ ASC | DESC ] [ NULLS { FIRST | LAST } ]` modifiers.
+                                      type: string
+                                    partitionBy:
+                                      description: |-
+                                        (String) Specifies a partition by clause.
+                                        Specifies a partition by clause.
+                                      type: string
+                                    windowFrameClause:
+                                      description: |-
+                                        (String) Specifies a window frame clause.
+                                        Specifies a window frame clause.
+                                      type: string
+                                  type: object
+                                type: array
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric following the `<window_function>(<metric>)` format.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  relationships:
+                    description: |-
+                      (see below for nested schema)
+                      The list of relationships between the logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        referencedRelationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the second logical table that are referred to by the first logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        referencedTableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                        relationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the first logical table that refers to columns in another logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        relationshipIdentifier:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an optional identifier for the relationship. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the semantic view. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The schema in which to create the semantic view. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  tables:
+                    description: |-
+                      (see below for nested schema)
+                      The list of logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the logical table.
+                          type: string
+                        primaryKey:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Definitions of primary keys in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the logical table.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tableAlias:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an alias for a logical table in the semantic view. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableName:
+                          description: |-
+                            (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            Specifies an identifier for the logical table. Example: `"\"<db_name>\".\"<schema_name>\".\"<table_name>\""`. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                          type: string
+                        unique:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake. (see below for nested schema)
+                            Definitions of unique key combinations in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            properties:
+                              values:
+                                description: |-
+                                  (List of String) Unique key combinations in the logical table.
+                                  Unique key combinations in the logical table.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                required:
+                - database
+                - schema
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the semantic view.
+                      Specifies a comment for the semantic view.
+                    type: string
+                  dimensions:
+                    description: |-
+                      (see below for nested schema)
+                      The list of dimensions in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the dimension.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the dimension.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the dimension.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  facts:
+                    description: |-
+                      (see below for nested schema)
+                      The list of facts in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the fact.
+                          type: string
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the fact, including the table name and a unique identifier for the fact: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the fact.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the fact.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  metrics:
+                    description: |-
+                      (see below for nested schema)
+                      Specify a list of metrics for the semantic view. Each metric can have either a semantic expression or a window function in its definition. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the metric is private.
+                          type: string
+                        semanticExpression:
+                          description: |-
+                            (Block List, Max: 1) Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function. (see below for nested schema)
+                            Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function.
+                          items:
+                            properties:
+                              comment:
+                                description: |-
+                                  (String) Specifies a comment for the semantic view.
+                                  Specifies a comment for the semantic expression.
+                                type: string
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric.
+                                type: string
+                              synonym:
+                                description: |-
+                                  (Set of String) List of synonyms for the logical table.
+                                  List of synonyms for this semantic expression.
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        windowFunction:
+                          description: |-
+                            (Block List, Max: 1) Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression. (see below for nested schema)
+                            Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression.
+                          items:
+                            properties:
+                              overClause:
+                                description: |-
+                                  (Block List, Min: 1, Max: 1) Specify the partition by, order by or frame over which the window function is to be computed. (see below for nested schema)
+                                  Specify the partition by, order by or frame over which the window function is to be computed.
+                                items:
+                                  properties:
+                                    orderBy:
+                                      description: |-
+                                        (String) Specifies an order by clause. It must be a complete SQL expression, including any [ ASC | DESC ] [ NULLS { FIRST | LAST } ] modifiers.
+                                        Specifies an order by clause. It must be a complete SQL expression, including any `[ ASC | DESC ] [ NULLS { FIRST | LAST } ]` modifiers.
+                                      type: string
+                                    partitionBy:
+                                      description: |-
+                                        (String) Specifies a partition by clause.
+                                        Specifies a partition by clause.
+                                      type: string
+                                    windowFrameClause:
+                                      description: |-
+                                        (String) Specifies a window frame clause.
+                                        Specifies a window frame clause.
+                                      type: string
+                                  type: object
+                                type: array
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric following the `<window_function>(<metric>)` format.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  relationships:
+                    description: |-
+                      (see below for nested schema)
+                      The list of relationships between the logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        referencedRelationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the second logical table that are referred to by the first logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        referencedTableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                        relationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the first logical table that refers to columns in another logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        relationshipIdentifier:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an optional identifier for the relationship. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  tables:
+                    description: |-
+                      (see below for nested schema)
+                      The list of logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the logical table.
+                          type: string
+                        primaryKey:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Definitions of primary keys in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the logical table.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tableAlias:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an alias for a logical table in the semantic view. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableName:
+                          description: |-
+                            (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            Specifies an identifier for the logical table. Example: `"\"<db_name>\".\"<schema_name>\".\"<table_name>\""`. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                          type: string
+                        unique:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake. (see below for nested schema)
+                            Definitions of unique key combinations in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            properties:
+                              values:
+                                description: |-
+                                  (List of String) Unique key combinations in the logical table.
+                                  Unique key combinations in the logical table.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.tables is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.tables)
+                || (has(self.initProvider) && has(self.initProvider.tables))'
+          status:
+            description: SemanticViewStatus defines the observed state of SemanticView.
+            properties:
+              atProvider:
+                properties:
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the semantic view.
+                      Specifies a comment for the semantic view.
+                    type: string
+                  database:
+                    description: |-
+                      (String) The database in which to create the semantic view. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The database in which to create the semantic view. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  dimensions:
+                    description: |-
+                      (see below for nested schema)
+                      The list of dimensions in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the dimension.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the dimension.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the dimension.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  facts:
+                    description: |-
+                      (see below for nested schema)
+                      The list of facts in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the fact.
+                          type: string
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the fact is private.
+                          type: string
+                        qualifiedExpressionName:
+                          description: |-
+                            (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                            Specifies a qualified name for the fact, including the table name and a unique identifier for the fact: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`.
+                          type: string
+                        sqlExpression:
+                          description: |-
+                            (String) The SQL expression used to compute the dimension.
+                            The SQL expression used to compute the fact.
+                          type: string
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the fact.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                      type: object
+                    type: array
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  metrics:
+                    description: |-
+                      (see below for nested schema)
+                      Specify a list of metrics for the semantic view. Each metric can have either a semantic expression or a window function in its definition. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        isPrivate:
+                          description: |-
+                            uses special value that cannot be set in the configuration manually (default)) Specifies whether the fact is private.
+                            Specifies whether the metric is private.
+                          type: string
+                        semanticExpression:
+                          description: |-
+                            (Block List, Max: 1) Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function. (see below for nested schema)
+                            Specifies a semantic expression for a metric definition. Cannot be used in combination with a window function.
+                          items:
+                            properties:
+                              comment:
+                                description: |-
+                                  (String) Specifies a comment for the semantic view.
+                                  Specifies a comment for the semantic expression.
+                                type: string
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric.
+                                type: string
+                              synonym:
+                                description: |-
+                                  (Set of String) List of synonyms for the logical table.
+                                  List of synonyms for this semantic expression.
+                                items:
+                                  type: string
+                                type: array
+                                x-kubernetes-list-type: set
+                            type: object
+                          type: array
+                        windowFunction:
+                          description: |-
+                            (Block List, Max: 1) Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression. (see below for nested schema)
+                            Specifies a window function for a metric definition. Cannot be used in combination with a semantic expression.
+                          items:
+                            properties:
+                              overClause:
+                                description: |-
+                                  (Block List, Min: 1, Max: 1) Specify the partition by, order by or frame over which the window function is to be computed. (see below for nested schema)
+                                  Specify the partition by, order by or frame over which the window function is to be computed.
+                                items:
+                                  properties:
+                                    orderBy:
+                                      description: |-
+                                        (String) Specifies an order by clause. It must be a complete SQL expression, including any [ ASC | DESC ] [ NULLS { FIRST | LAST } ] modifiers.
+                                        Specifies an order by clause. It must be a complete SQL expression, including any `[ ASC | DESC ] [ NULLS { FIRST | LAST } ]` modifiers.
+                                      type: string
+                                    partitionBy:
+                                      description: |-
+                                        (String) Specifies a partition by clause.
+                                        Specifies a partition by clause.
+                                      type: string
+                                    windowFrameClause:
+                                      description: |-
+                                        (String) Specifies a window frame clause.
+                                        Specifies a window frame clause.
+                                      type: string
+                                  type: object
+                                type: array
+                              qualifiedExpressionName:
+                                description: |-
+                                  (String) Specifies a qualified name for the dimension, including the table name and a unique identifier for the dimension: <table_alias>.<semantic_expression_name>. Remember to wrap each part in double quotes like "\"<table_alias>\".\"<semantic_expression_name>\"".
+                                  Specifies a qualified name for the metric: `<table_alias>.<semantic_expression_name>`. Remember to wrap each part in double quotes like `"\"<table_alias>\".\"<semantic_expression_name>\""`. For the [derived metric](https://docs.snowflake.com/en/user-guide/views-semantic/sql#label-semantic-views-create-derived-metrics) omit the `<table_alias>.` part but still wrap in double quotes, e.g. `"\"<semantic_expression_name>\""`.
+                                type: string
+                              sqlExpression:
+                                description: |-
+                                  (String) The SQL expression used to compute the dimension.
+                                  The SQL expression used to compute the metric following the `<window_function>(<metric>)` format.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  relationships:
+                    description: |-
+                      (see below for nested schema)
+                      The list of relationships between the logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        referencedRelationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the second logical table that are referred to by the first logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        referencedTableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies the other logical table and one or more of its columns that are referred to by the first logical table. Each referenced table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                        relationshipColumns:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                            Specifies one or more columns in the first logical table that refers to columns in another logical table. Column names in this list are case-sensitive - the provider uses double quotes to wrap each of them when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        relationshipIdentifier:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an optional identifier for the relationship. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableNameOrAlias:
+                          description: |-
+                            (Block List, Min: 1, Max: 1) Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a table_name or a table_alias, not both. (see below for nested schema)
+                            Specifies one of the logical tables that refers to columns in another logical table. Each table can have either a `table_name` or a `table_alias`, not both.
+                          items:
+                            properties:
+                              tableAlias:
+                                description: |-
+                                  sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                  The alias used for the logical table, cannot be used in combination with the `table_name`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                              tableName:
+                                description: |-
+                                  (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                                  The name of the logical table, cannot be used in combination with the `table_alias`. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                                type: string
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the semantic view. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                      The schema in which to create the semantic view. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW SEMANTIC VIEWS for the given semantic view. (see below for nested schema)
+                      Outputs the result of `SHOW SEMANTIC VIEWS` for the given semantic view.
+                    items:
+                      properties:
+                        comment:
+                          description: (String) Specifies a comment for the semantic
+                            view.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        databaseName:
+                          description: (String)
+                          type: string
+                        extension:
+                          description: (String)
+                          type: string
+                        name:
+                          description: '(String) Specifies the identifier for the
+                            semantic view; must be unique within the schema. Due to
+                            technical limitations (read more here), avoid using the
+                            following characters: |, ., ".'
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                        schemaName:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                  tables:
+                    description: |-
+                      (see below for nested schema)
+                      The list of logical tables in the semantic view. External changes for this field won't be detected.
+                    items:
+                      properties:
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the semantic view.
+                            Specifies a comment for the logical table.
+                          type: string
+                        primaryKey:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Definitions of primary keys in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            type: string
+                          type: array
+                        synonym:
+                          description: |-
+                            (Set of String) List of synonyms for the logical table.
+                            List of synonyms for the logical table.
+                          items:
+                            type: string
+                          type: array
+                          x-kubernetes-list-type: set
+                        tableAlias:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                            Specifies an alias for a logical table in the semantic view. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          type: string
+                        tableName:
+                          description: |-
+                            (String) Specifies an identifier for the logical table. Example: "\"<db_name>\".\"<schema_name>\".\"<table_name>\"". Due to technical limitations (read more here), avoid using the following characters: |, ., ".
+                            Specifies an identifier for the logical table. Example: `"\"<db_name>\".\"<schema_name>\".\"<table_name>\""`. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
+                          type: string
+                        unique:
+                          description: |-
+                            sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake. (see below for nested schema)
+                            Definitions of unique key combinations in the logical table. This field is case-sensitive - the provider uses double quotes to wrap it when sending the SQL to Snowflake.
+                          items:
+                            properties:
+                              values:
+                                description: |-
+                                  (List of String) Unique key combinations in the logical table.
+                                  Unique key combinations in the logical table.
+                                items:
+                                  type: string
+                                type: array
+                            type: object
+                          type: array
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

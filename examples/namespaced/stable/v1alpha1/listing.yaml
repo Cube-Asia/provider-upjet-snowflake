@@ -1,0 +1,18 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Listing
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/listing
+  labels:
+    testing.upbound.io/example-name: basic_inlined
+  name: basic-inlined
+  namespace: crossplane-system
+spec:
+  forProvider:
+    manifest:
+    - fromString: |
+        title: title
+        subtitle: subtitle
+        description: description
+        listing_terms:
+          type: OFFLINE

@@ -1,0 +1,531 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: listings.stable.snowflake.crossplane.io
+spec:
+  group: stable.snowflake.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Listing
+    listKind: ListingList
+    plural: listings
+    singular: listing
+  scope: Cluster
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Listing is the Schema for the Listings API. Resource used to
+          manage listing objects. For more information, check listing documentation
+          https://other-docs.snowflake.com/en/collaboration/collaboration-listings-about.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: ListingSpec defines the desired state of Listing
+            properties:
+              deletionPolicy:
+                default: Delete
+                description: |-
+                  DeletionPolicy specifies what will happen to the underlying external
+                  when this managed resource is deleted - either "Delete" or "Orphan" the
+                  external resource.
+                  This field is planned to be deprecated in favor of the ManagementPolicies
+                  field in a future release. Currently, both could be set independently and
+                  non-default values would be honored if the feature flag is enabled.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                enum:
+                - Orphan
+                - Delete
+                type: string
+              forProvider:
+                properties:
+                  applicationPackage:
+                    description: |-
+                      (String) Specifies the application package attached to the listing.
+                      Specifies the application package attached to the listing.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the listing.
+                      Specifies a comment for the listing.
+                    type: string
+                  manifest:
+                    description: |-
+                      (see below for nested schema)
+                      Specifies the way manifest is provided for the listing. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). External changes for this field won't be detected.
+                    items:
+                      properties:
+                        fromStage:
+                          description: |-
+                            (Block List, Max: 1) Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see Listing manifest reference. A proper YAML indentation (2 spaces) is required. (see below for nested schema)
+                            Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). A proper YAML indentation (2 spaces) is required.
+                          items:
+                            properties:
+                              location:
+                                description: |-
+                                  (String) Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                  Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                type: string
+                              stage:
+                                description: |-
+                                  (String) Identifier of the stage where the manifest file is located.
+                                  Identifier of the stage where the manifest file is located.
+                                type: string
+                              versionComment:
+                                description: |-
+                                  (String) Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the SHOW VERSIONS IN LISTING command output.
+                                  Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command output.
+                                type: string
+                              versionName:
+                                description: |-
+                                  sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the SHOW VERSIONS IN LISTING command. The resource does not track the changes on the specified stage.
+                                  Represents manifest version name. It's case-sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command. The resource does not track the changes on the specified stage.
+                                type: string
+                            type: object
+                          type: array
+                        fromString:
+                          description: |-
+                            (String) Manifest provided as a string. For more information on manifest syntax, see Listing manifest reference. Also, the multiline string syntax is a must here. A proper YAML indentation (2 spaces) is required. The provider wraps it in $$ by default, so be aware of that while referencing the argument in the spec definition. Using $$ in this field is disallowed.
+                            Manifest provided as a string. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). Also, the [multiline string syntax](https://developer.hashicorp. A proper YAML indentation (2 spaces) is required. The provider wraps it in `$$` by default, so be aware of that while referencing the argument in the spec definition. Using `$$` in this field is disallowed.
+                          type: string
+                      type: object
+                    type: array
+                  publish:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
+                      Determines if the listing should be published.
+                    type: string
+                  share:
+                    description: |-
+                      (String) Specifies the identifier for the share to attach to the listing.
+                      Specifies the identifier for the share to attach to the listing.
+                    type: string
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  applicationPackage:
+                    description: |-
+                      (String) Specifies the application package attached to the listing.
+                      Specifies the application package attached to the listing.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the listing.
+                      Specifies a comment for the listing.
+                    type: string
+                  manifest:
+                    description: |-
+                      (see below for nested schema)
+                      Specifies the way manifest is provided for the listing. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). External changes for this field won't be detected.
+                    items:
+                      properties:
+                        fromStage:
+                          description: |-
+                            (Block List, Max: 1) Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see Listing manifest reference. A proper YAML indentation (2 spaces) is required. (see below for nested schema)
+                            Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). A proper YAML indentation (2 spaces) is required.
+                          items:
+                            properties:
+                              location:
+                                description: |-
+                                  (String) Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                  Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                type: string
+                              stage:
+                                description: |-
+                                  (String) Identifier of the stage where the manifest file is located.
+                                  Identifier of the stage where the manifest file is located.
+                                type: string
+                              versionComment:
+                                description: |-
+                                  (String) Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the SHOW VERSIONS IN LISTING command output.
+                                  Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command output.
+                                type: string
+                              versionName:
+                                description: |-
+                                  sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the SHOW VERSIONS IN LISTING command. The resource does not track the changes on the specified stage.
+                                  Represents manifest version name. It's case-sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command. The resource does not track the changes on the specified stage.
+                                type: string
+                            type: object
+                          type: array
+                        fromString:
+                          description: |-
+                            (String) Manifest provided as a string. For more information on manifest syntax, see Listing manifest reference. Also, the multiline string syntax is a must here. A proper YAML indentation (2 spaces) is required. The provider wraps it in $$ by default, so be aware of that while referencing the argument in the spec definition. Using $$ in this field is disallowed.
+                            Manifest provided as a string. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). Also, the [multiline string syntax](https://developer.hashicorp. A proper YAML indentation (2 spaces) is required. The provider wraps it in `$$` by default, so be aware of that while referencing the argument in the spec definition. Using `$$` in this field is disallowed.
+                          type: string
+                      type: object
+                    type: array
+                  publish:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
+                      Determines if the listing should be published.
+                    type: string
+                  share:
+                    description: |-
+                      (String) Specifies the identifier for the share to attach to the listing.
+                      Specifies the identifier for the share to attach to the listing.
+                    type: string
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  This field is planned to replace the DeletionPolicy field in a future
+                  release. Currently, both could be set independently and non-default
+                  values would be honored if the feature flag is enabled. If both are
+                  custom, the DeletionPolicy field will be ignored.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                  policy:
+                    description: Policies for referencing.
+                    properties:
+                      resolution:
+                        default: Required
+                        description: |-
+                          Resolution specifies whether resolution of this reference is required.
+                          The default is 'Required', which means the reconcile will fail if the
+                          reference cannot be resolved. 'Optional' means this reference will be
+                          a no-op if it cannot be resolved.
+                        enum:
+                        - Required
+                        - Optional
+                        type: string
+                      resolve:
+                        description: |-
+                          Resolve specifies when this reference should be resolved. The default
+                          is 'IfNotPresent', which will attempt to resolve the reference only when
+                          the corresponding field is not present. Use 'Always' to resolve the
+                          reference on every reconcile.
+                        enum:
+                        - Always
+                        - IfNotPresent
+                        type: string
+                    type: object
+                required:
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                  namespace:
+                    description: Namespace of the secret.
+                    type: string
+                required:
+                - name
+                - namespace
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.manifest is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.manifest)
+                || (has(self.initProvider) && has(self.initProvider.manifest))'
+          status:
+            description: ListingStatus defines the observed state of Listing.
+            properties:
+              atProvider:
+                properties:
+                  applicationPackage:
+                    description: |-
+                      (String) Specifies the application package attached to the listing.
+                      Specifies the application package attached to the listing.
+                    type: string
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the listing.
+                      Specifies a comment for the listing.
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  manifest:
+                    description: |-
+                      (see below for nested schema)
+                      Specifies the way manifest is provided for the listing. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). External changes for this field won't be detected.
+                    items:
+                      properties:
+                        fromStage:
+                          description: |-
+                            (Block List, Max: 1) Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see Listing manifest reference. A proper YAML indentation (2 spaces) is required. (see below for nested schema)
+                            Manifest provided from a given stage. If the manifest file is in the root, only stage needs to be passed. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). A proper YAML indentation (2 spaces) is required.
+                          items:
+                            properties:
+                              location:
+                                description: |-
+                                  (String) Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                  Location of the manifest file in the stage. If not specified, the manifest file will be expected to be at the root of the stage.
+                                type: string
+                              stage:
+                                description: |-
+                                  (String) Identifier of the stage where the manifest file is located.
+                                  Identifier of the stage where the manifest file is located.
+                                type: string
+                              versionComment:
+                                description: |-
+                                  (String) Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the SHOW VERSIONS IN LISTING command output.
+                                  Specifies a comment for the listing version. Whenever a new version is created, this comment will be associated with it. The comment on the version will be visible in the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command output.
+                                type: string
+                              versionName:
+                                description: |-
+                                  sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the SHOW VERSIONS IN LISTING command. The resource does not track the changes on the specified stage.
+                                  Represents manifest version name. It's case-sensitive and used in manifest versioning. Version name should be specified or changed whenever any changes in the manifest should be applied to the listing. Later on the versions of the listing can be analyzed by calling the [SHOW VERSIONS IN LISTING](https://docs.snowflake.com/en/sql-reference/sql/show-versions-in-listing) command. The resource does not track the changes on the specified stage.
+                                type: string
+                            type: object
+                          type: array
+                        fromString:
+                          description: |-
+                            (String) Manifest provided as a string. For more information on manifest syntax, see Listing manifest reference. Also, the multiline string syntax is a must here. A proper YAML indentation (2 spaces) is required. The provider wraps it in $$ by default, so be aware of that while referencing the argument in the spec definition. Using $$ in this field is disallowed.
+                            Manifest provided as a string. For more information on manifest syntax, see [Listing manifest reference](https://docs.snowflake.com/en/progaccess/listing-manifest-reference). Also, the [multiline string syntax](https://developer.hashicorp. A proper YAML indentation (2 spaces) is required. The provider wraps it in `$$` by default, so be aware of that while referencing the argument in the spec definition. Using `$$` in this field is disallowed.
+                          type: string
+                      type: object
+                    type: array
+                  publish:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (default)) Determines if the listing should be published.
+                      Determines if the listing should be published.
+                    type: string
+                  share:
+                    description: |-
+                      (String) Specifies the identifier for the share to attach to the listing.
+                      Specifies the identifier for the share to attach to the listing.
+                    type: string
+                  showOutput:
+                    description: |-
+                      (List of Object) Outputs the result of SHOW LISTINGS for the given listing. (see below for nested schema)
+                      Outputs the result of `SHOW LISTINGS` for the given listing.
+                    items:
+                      properties:
+                        comment:
+                          description: (String) Specifies a comment for the listing.
+                          type: string
+                        createdOn:
+                          description: (String)
+                          type: string
+                        detailedTargetAccounts:
+                          description: (String)
+                          type: string
+                        distribution:
+                          description: (String)
+                          type: string
+                        globalName:
+                          description: (String)
+                          type: string
+                        isApplication:
+                          description: (Boolean)
+                          type: boolean
+                        isByRequest:
+                          description: (Boolean)
+                          type: boolean
+                        isLimitedTrial:
+                          description: (Boolean)
+                          type: boolean
+                        isMonetized:
+                          description: (Boolean)
+                          type: boolean
+                        isMountlessQueryable:
+                          description: (Boolean)
+                          type: boolean
+                        isTargeted:
+                          description: (Boolean)
+                          type: boolean
+                        name:
+                          description: (String) Specifies the listing identifier (name).
+                            It must be unique within the organization, regardless
+                            of which Snowflake region the account is located in. Must
+                            start with an alphabetic character and cannot contain
+                            spaces or special characters except for underscores and
+                            hyphens.
+                          type: string
+                        organizationProfileName:
+                          description: (String)
+                          type: string
+                        owner:
+                          description: (String)
+                          type: string
+                        ownerRoleType:
+                          description: (String)
+                          type: string
+                        profile:
+                          description: (String)
+                          type: string
+                        publishedOn:
+                          description: (String)
+                          type: string
+                        regions:
+                          description: (String)
+                          type: string
+                        rejectedOn:
+                          description: (String)
+                          type: string
+                        reviewState:
+                          description: (String)
+                          type: string
+                        state:
+                          description: (String)
+                          type: string
+                        subtitle:
+                          description: (String)
+                          type: string
+                        targetAccounts:
+                          description: (String)
+                          type: string
+                        title:
+                          description: (String)
+                          type: string
+                        uniformListingLocator:
+                          description: (String)
+                          type: string
+                        updatedOn:
+                          description: (String)
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

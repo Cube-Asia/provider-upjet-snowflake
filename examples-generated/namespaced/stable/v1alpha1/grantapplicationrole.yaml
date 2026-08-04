@@ -1,0 +1,27 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantApplicationRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantapplicationrole
+  labels:
+    testing.upbound.io/example-name: g
+  name: g
+  namespace: crossplane-system
+spec:
+  forProvider:
+    applicationRoleName: ${local.application_role_identifier}
+    parentAccountRoleName: ${snowflake_account_role.role.name}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantapplicationrole
+  labels:
+    testing.upbound.io/example-name: role
+  name: role
+  namespace: crossplane-system
+spec:
+  forProvider: {}

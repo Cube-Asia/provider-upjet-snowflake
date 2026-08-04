@@ -1,0 +1,13 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Execute
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/execute
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    execute: CREATE DATABASE ABC
+    revert: DROP DATABASE ABC

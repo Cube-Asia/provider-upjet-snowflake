@@ -1,0 +1,24 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: IntegrationOpenCatalog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/integrationopencatalog
+  labels:
+    testing.upbound.io/example-name: basic
+  name: basic
+  namespace: crossplane-system
+spec:
+  forProvider:
+    enabled: false
+    restAuthentication:
+    - oauthAllowedScopes:
+      - PRINCIPAL_ROLE:ALL
+      oauthClientIdSecretRef:
+        key: example-key
+        name: example-secret
+      oauthClientSecretSecretRef:
+        key: example-key
+        name: example-secret
+    restConfig:
+    - catalogName: my_catalog
+      catalogUri: https://your-org.snowflakecomputing.com/polaris/api/catalog

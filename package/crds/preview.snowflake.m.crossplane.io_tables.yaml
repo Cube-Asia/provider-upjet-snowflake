@@ -1,0 +1,692 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.20.1
+  name: tables.preview.snowflake.m.crossplane.io
+spec:
+  group: preview.snowflake.m.crossplane.io
+  names:
+    categories:
+    - crossplane
+    - managed
+    - snowflake
+    kind: Table
+    listKind: TableList
+    plural: tables
+    singular: table
+  scope: Namespaced
+  versions:
+  - additionalPrinterColumns:
+    - jsonPath: .status.conditions[?(@.type=='Synced')].status
+      name: SYNCED
+      type: string
+    - jsonPath: .status.conditions[?(@.type=='Ready')].status
+      name: READY
+      type: string
+    - jsonPath: .metadata.annotations.crossplane\.io/external-name
+      name: EXTERNAL-NAME
+      type: string
+    - jsonPath: .metadata.creationTimestamp
+      name: AGE
+      type: date
+    name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: Table is the Schema for the Tables API.
+        properties:
+          apiVersion:
+            description: |-
+              APIVersion defines the versioned schema of this representation of an object.
+              Servers should convert recognized schemas to the latest internal value, and
+              may reject unrecognized values.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
+            type: string
+          kind:
+            description: |-
+              Kind is a string value representing the REST resource this object represents.
+              Servers may infer this from the endpoint the client submits requests to.
+              Cannot be updated.
+              In CamelCase.
+              More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: TableSpec defines the desired state of Table
+            properties:
+              forProvider:
+                properties:
+                  changeTracking:
+                    description: |-
+                      (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
+                    type: boolean
+                  clusterBy:
+                    description: |-
+                      (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                      A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                    items:
+                      type: string
+                    type: array
+                  column:
+                    description: |-
+                      (Block List, Min: 1) Definitions of a column to create in the table. Minimum one required. (see below for nested schema)
+                      Definitions of a column to create in the table. Minimum one required.
+                    items:
+                      properties:
+                        collate:
+                          description: |-
+                            (String) (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
+                          type: string
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the table.
+                            Column comment
+                          type: string
+                        default:
+                          description: |-
+                            (Block List, Max: 1) Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied (see below for nested schema)
+                            Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied
+                          items:
+                            properties:
+                              constant:
+                                description: |-
+                                  (String) The default constant value for the column
+                                  The default constant value for the column
+                                type: string
+                              expression:
+                                description: |-
+                                  (String) The default expression value for the column
+                                  The default expression value for the column
+                                type: string
+                              sequence:
+                                description: |-
+                                  (String) The default sequence to use for the column
+                                  The default sequence to use for the column
+                                type: string
+                            type: object
+                          type: array
+                        identity:
+                          description: |-
+                            (Block List, Max: 1) Defines the identity start/step values for a column. Note Identity/default are mutually exclusive. (see below for nested schema)
+                            Defines the identity start/step values for a column. **Note** Identity/default are mutually exclusive.
+                          items:
+                            properties:
+                              startNum:
+                                description: |-
+                                  (Number) (Default: 1) The number to start incrementing at.
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
+                              stepNum:
+                                description: |-
+                                  (Number) (Default: 1) Step size to increment by.
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
+                            type: object
+                          type: array
+                        maskingPolicy:
+                          description: |-
+                            (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Column name
+                          type: string
+                        nullable:
+                          description: |-
+                            (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                          type: boolean
+                        type:
+                          description: |-
+                            (String) Column type, e.g. VARIANT. For a full list of column types, see Summary of Data Types.
+                            Column type, e.g. VARIANT. For a full list of column types, see [Summary of Data Types](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the table.
+                      Specifies a comment for the table.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
+                  database:
+                    description: |-
+                      (String) The database in which to create the table.
+                      The database in which to create the table.
+                    type: string
+                  primaryKey:
+                    description: |-
+                      (Block List, Max: 1, Deprecated) Definitions of primary key constraint to create on table (see below for nested schema)
+                      Definitions of primary key constraint to create on table
+                    items:
+                      properties:
+                        keys:
+                          description: |-
+                            (List of String) Columns to use in primary key
+                            Columns to use in primary key
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Name of constraint
+                          type: string
+                      type: object
+                    type: array
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the table.
+                      The schema in which to create the table.
+                    type: string
+                  tag:
+                    description: |-
+                      (Block List, Deprecated) Definitions of a tag to associate with the resource. (see below for nested schema)
+                      Definitions of a tag to associate with the resource.
+                    items:
+                      properties:
+                        database:
+                          description: |-
+                            (String) The database in which to create the table.
+                            Name of the database that the tag was created in.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Tag name, e.g. department.
+                          type: string
+                        schema:
+                          description: |-
+                            (String) The schema in which to create the table.
+                            Name of the schema that the tag was created in.
+                          type: string
+                        value:
+                          description: |-
+                            (String) Tag value, e.g. marketing_info.
+                            Tag value, e.g. marketing_info.
+                          type: string
+                      type: object
+                    type: array
+                required:
+                - database
+                - schema
+                type: object
+              initProvider:
+                description: |-
+                  THIS IS A BETA FIELD. It will be honored
+                  unless the Management Policies feature flag is disabled.
+                  InitProvider holds the same fields as ForProvider, with the exception
+                  of Identifier and other resource reference fields. The fields that are
+                  in InitProvider are merged into ForProvider when the resource is created.
+                  The same fields are also added to the terraform ignore_changes hook, to
+                  avoid updating them after creation. This is useful for fields that are
+                  required on creation, but we do not desire to update them after creation,
+                  for example because of an external controller is managing them, like an
+                  autoscaler.
+                properties:
+                  changeTracking:
+                    description: |-
+                      (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
+                    type: boolean
+                  clusterBy:
+                    description: |-
+                      (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                      A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                    items:
+                      type: string
+                    type: array
+                  column:
+                    description: |-
+                      (Block List, Min: 1) Definitions of a column to create in the table. Minimum one required. (see below for nested schema)
+                      Definitions of a column to create in the table. Minimum one required.
+                    items:
+                      properties:
+                        collate:
+                          description: |-
+                            (String) (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
+                          type: string
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the table.
+                            Column comment
+                          type: string
+                        default:
+                          description: |-
+                            (Block List, Max: 1) Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied (see below for nested schema)
+                            Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied
+                          items:
+                            properties:
+                              constant:
+                                description: |-
+                                  (String) The default constant value for the column
+                                  The default constant value for the column
+                                type: string
+                              expression:
+                                description: |-
+                                  (String) The default expression value for the column
+                                  The default expression value for the column
+                                type: string
+                              sequence:
+                                description: |-
+                                  (String) The default sequence to use for the column
+                                  The default sequence to use for the column
+                                type: string
+                            type: object
+                          type: array
+                        identity:
+                          description: |-
+                            (Block List, Max: 1) Defines the identity start/step values for a column. Note Identity/default are mutually exclusive. (see below for nested schema)
+                            Defines the identity start/step values for a column. **Note** Identity/default are mutually exclusive.
+                          items:
+                            properties:
+                              startNum:
+                                description: |-
+                                  (Number) (Default: 1) The number to start incrementing at.
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
+                              stepNum:
+                                description: |-
+                                  (Number) (Default: 1) Step size to increment by.
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
+                            type: object
+                          type: array
+                        maskingPolicy:
+                          description: |-
+                            (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Column name
+                          type: string
+                        nullable:
+                          description: |-
+                            (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                          type: boolean
+                        type:
+                          description: |-
+                            (String) Column type, e.g. VARIANT. For a full list of column types, see Summary of Data Types.
+                            Column type, e.g. VARIANT. For a full list of column types, see [Summary of Data Types](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the table.
+                      Specifies a comment for the table.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
+                  primaryKey:
+                    description: |-
+                      (Block List, Max: 1, Deprecated) Definitions of primary key constraint to create on table (see below for nested schema)
+                      Definitions of primary key constraint to create on table
+                    items:
+                      properties:
+                        keys:
+                          description: |-
+                            (List of String) Columns to use in primary key
+                            Columns to use in primary key
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Name of constraint
+                          type: string
+                      type: object
+                    type: array
+                  tag:
+                    description: |-
+                      (Block List, Deprecated) Definitions of a tag to associate with the resource. (see below for nested schema)
+                      Definitions of a tag to associate with the resource.
+                    items:
+                      properties:
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Tag name, e.g. department.
+                          type: string
+                        value:
+                          description: |-
+                            (String) Tag value, e.g. marketing_info.
+                            Tag value, e.g. marketing_info.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              managementPolicies:
+                default:
+                - '*'
+                description: |-
+                  THIS IS A BETA FIELD. It is on by default but can be opted out
+                  through a Crossplane feature flag.
+                  ManagementPolicies specify the array of actions Crossplane is allowed to
+                  take on the managed and external resources.
+                  See the design doc for more information: https://github.com/crossplane/crossplane/blob/499895a25d1a1a0ba1604944ef98ac7a1a71f197/design/design-doc-observe-only-resources.md?plain=1#L223
+                  and this one: https://github.com/crossplane/crossplane/blob/444267e84783136daa93568b364a5f01228cacbe/design/one-pager-ignore-changes.md
+                items:
+                  description: |-
+                    A ManagementAction represents an action that the Crossplane controllers
+                    can take on an external resource.
+                  enum:
+                  - Observe
+                  - Create
+                  - Update
+                  - Delete
+                  - LateInitialize
+                  - '*'
+                  type: string
+                type: array
+              providerConfigRef:
+                default:
+                  kind: ClusterProviderConfig
+                  name: default
+                description: |-
+                  ProviderConfigReference specifies how the provider that will be used to
+                  create, observe, update, and delete this managed resource should be
+                  configured.
+                properties:
+                  kind:
+                    description: Kind of the referenced object.
+                    type: string
+                  name:
+                    description: Name of the referenced object.
+                    type: string
+                required:
+                - kind
+                - name
+                type: object
+              writeConnectionSecretToRef:
+                description: |-
+                  WriteConnectionSecretToReference specifies the namespace and name of a
+                  Secret to which any connection details for this managed resource should
+                  be written. Connection details frequently include the endpoint, username,
+                  and password required to connect to the managed resource.
+                properties:
+                  name:
+                    description: Name of the secret.
+                    type: string
+                required:
+                - name
+                type: object
+            required:
+            - forProvider
+            type: object
+            x-kubernetes-validations:
+            - message: spec.forProvider.column is a required parameter
+              rule: '!(''*'' in self.managementPolicies || ''Create'' in self.managementPolicies
+                || ''Update'' in self.managementPolicies) || has(self.forProvider.column)
+                || (has(self.initProvider) && has(self.initProvider.column))'
+          status:
+            description: TableStatus defines the observed state of Table.
+            properties:
+              atProvider:
+                properties:
+                  changeTracking:
+                    description: |-
+                      (Boolean) (Default: false) Specifies whether to enable change tracking on the table. Default false.
+                      Specifies whether to enable change tracking on the table. Default false.
+                    type: boolean
+                  clusterBy:
+                    description: |-
+                      (List of String) A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                      A list of one or more table columns/expressions to be used as clustering key(s) for the table
+                    items:
+                      type: string
+                    type: array
+                  column:
+                    description: |-
+                      (Block List, Min: 1) Definitions of a column to create in the table. Minimum one required. (see below for nested schema)
+                      Definitions of a column to create in the table. Minimum one required.
+                    items:
+                      properties:
+                        collate:
+                          description: |-
+                            (String) (Default: “) Column collation, e.g. utf8
+                            Column collation, e.g. utf8
+                          type: string
+                        comment:
+                          description: |-
+                            (String) Specifies a comment for the table.
+                            Column comment
+                          type: string
+                        default:
+                          description: |-
+                            (Block List, Max: 1) Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied (see below for nested schema)
+                            Defines the column default value; note due to limitations of Snowflake's ALTER TABLE ADD/MODIFY COLUMN updates to default will not be applied
+                          items:
+                            properties:
+                              constant:
+                                description: |-
+                                  (String) The default constant value for the column
+                                  The default constant value for the column
+                                type: string
+                              expression:
+                                description: |-
+                                  (String) The default expression value for the column
+                                  The default expression value for the column
+                                type: string
+                              sequence:
+                                description: |-
+                                  (String) The default sequence to use for the column
+                                  The default sequence to use for the column
+                                type: string
+                            type: object
+                          type: array
+                        identity:
+                          description: |-
+                            (Block List, Max: 1) Defines the identity start/step values for a column. Note Identity/default are mutually exclusive. (see below for nested schema)
+                            Defines the identity start/step values for a column. **Note** Identity/default are mutually exclusive.
+                          items:
+                            properties:
+                              startNum:
+                                description: |-
+                                  (Number) (Default: 1) The number to start incrementing at.
+                                  The number to start incrementing at.
+                                format: int64
+                                type: integer
+                              stepNum:
+                                description: |-
+                                  (Number) (Default: 1) Step size to increment by.
+                                  Step size to increment by.
+                                format: int64
+                                type: integer
+                            type: object
+                          type: array
+                        maskingPolicy:
+                          description: |-
+                            (String) (Default: “) Masking policy to apply on column. It has to be a fully qualified name.
+                            Masking policy to apply on column. It has to be a fully qualified name.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Column name
+                          type: string
+                        nullable:
+                          description: |-
+                            (Boolean) (Default: true) Whether this column can contain null values. Note: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                            Whether this column can contain null values. **Note**: Depending on your Snowflake version, the default value will not suffice if this column is used in a primary key constraint.
+                          type: boolean
+                        schemaEvolutionRecord:
+                          description: |-
+                            (String) Record of schema evolution.
+                            Record of schema evolution.
+                          type: string
+                        type:
+                          description: |-
+                            (String) Column type, e.g. VARIANT. For a full list of column types, see Summary of Data Types.
+                            Column type, e.g. VARIANT. For a full list of column types, see [Summary of Data Types](https://docs.snowflake.com/en/sql-reference/intro-summary-data-types).
+                          type: string
+                      type: object
+                    type: array
+                  comment:
+                    description: |-
+                      (String) Specifies a comment for the table.
+                      Specifies a comment for the table.
+                    type: string
+                  dataRetentionTimeInDays:
+                    description: |-
+                      uses special value that cannot be set in the configuration manually (-1)) Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                      Specifies the retention period for the table so that Time Travel actions (SELECT, CLONE, UNDROP) can be performed on historical data in the table. If you wish to inherit the parent schema setting then pass in the schema attribute to this argument or do not fill this parameter at all; the default value for this field is -1, which is a fallback to use Snowflake default - in this case the schema value
+                    format: int64
+                    type: integer
+                  database:
+                    description: |-
+                      (String) The database in which to create the table.
+                      The database in which to create the table.
+                    type: string
+                  fullyQualifiedName:
+                    description: |-
+                      (String) Fully qualified name of the resource. For more information, see object name resolution.
+                      Fully qualified name of the resource. For more information, see [object name resolution](https://docs.snowflake.com/en/sql-reference/name-resolution).
+                    type: string
+                  id:
+                    description: (String) The ID of this resource.
+                    type: string
+                  owner:
+                    description: |-
+                      (String) Name of the role that owns the table.
+                      Name of the role that owns the table.
+                    type: string
+                  primaryKey:
+                    description: |-
+                      (Block List, Max: 1, Deprecated) Definitions of primary key constraint to create on table (see below for nested schema)
+                      Definitions of primary key constraint to create on table
+                    items:
+                      properties:
+                        keys:
+                          description: |-
+                            (List of String) Columns to use in primary key
+                            Columns to use in primary key
+                          items:
+                            type: string
+                          type: array
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Name of constraint
+                          type: string
+                      type: object
+                    type: array
+                  schema:
+                    description: |-
+                      (String) The schema in which to create the table.
+                      The schema in which to create the table.
+                    type: string
+                  tag:
+                    description: |-
+                      (Block List, Deprecated) Definitions of a tag to associate with the resource. (see below for nested schema)
+                      Definitions of a tag to associate with the resource.
+                    items:
+                      properties:
+                        database:
+                          description: |-
+                            (String) The database in which to create the table.
+                            Name of the database that the tag was created in.
+                          type: string
+                        name:
+                          description: |-
+                            (String) Specifies the identifier for the table; must be unique for the database and schema in which the table is created.
+                            Tag name, e.g. department.
+                          type: string
+                        schema:
+                          description: |-
+                            (String) The schema in which to create the table.
+                            Name of the schema that the tag was created in.
+                          type: string
+                        value:
+                          description: |-
+                            (String) Tag value, e.g. marketing_info.
+                            Tag value, e.g. marketing_info.
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              conditions:
+                description: Conditions of the resource.
+                items:
+                  description: A Condition that may apply to a resource.
+                  properties:
+                    lastTransitionTime:
+                      description: |-
+                        LastTransitionTime is the last time this condition transitioned from one
+                        status to another.
+                      format: date-time
+                      type: string
+                    message:
+                      description: |-
+                        A Message containing details about this condition's last transition from
+                        one status to another, if any.
+                      type: string
+                    observedGeneration:
+                      description: |-
+                        ObservedGeneration represents the .metadata.generation that the condition was set based upon.
+                        For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date
+                        with respect to the current state of the instance.
+                      format: int64
+                      type: integer
+                    reason:
+                      description: A Reason for this condition's last transition from
+                        one status to another.
+                      type: string
+                    status:
+                      description: Status of this condition; is it currently True,
+                        False, or Unknown?
+                      type: string
+                    type:
+                      description: |-
+                        Type of this condition. At most one of each condition type may apply to
+                        a resource at any point in time.
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
+                x-kubernetes-list-map-keys:
+                - type
+                x-kubernetes-list-type: map
+              observedGeneration:
+                description: |-
+                  ObservedGeneration is the latest metadata.generation
+                  which resulted in either a ready state, or stalled due to error
+                  it can not recover from without human intervention.
+                format: int64
+                type: integer
+            type: object
+        required:
+        - spec
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,91 @@
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantOwnership
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    accountRoleName: ${snowflake_role.test.name}
+    "on":
+    - objectName: '"${snowflake_database.test.name}"."${snowflake_schema.test.name}"'
+      objectType: SCHEMA
+    outboundPrivileges: COPY
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: DatabaseRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantAccountRole
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    roleName: role
+    userName: username
+
+---
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  annotations:
+    meta.upbound.io/example-id: stable/v1alpha1/grantownership
+  labels:
+    testing.upbound.io/example-name: test
+  name: test
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: database
+    provider: ${snowflake.secondary}

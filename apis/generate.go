@@ -16,6 +16,12 @@
 
 // Generate documentation from Terraform docs.
 //go:generate go run github.com/crossplane/upjet/v2/cmd/scraper -n ${TERRAFORM_PROVIDER_SOURCE} -r ../.work/${TERRAFORM_PROVIDER_SOURCE}/${TERRAFORM_DOCS_PATH} -o ../config/provider-metadata.yaml
+// Fix scraper bug: when a resource doc has no example code blocks,
+// the scraper falls back to using the full page_title as the resource
+// name, producing broken YAML keys like
+// "snowflake_user_public_keys Resource - terraform-provider-snowflake:".
+// This strips the suffix from keys, name fields, and title fields.
+//go:generate bash -c "sed -i 's/ Resource - terraform-provider-[a-z]*//g' ../config/provider-metadata.yaml"
 
 // Run Upjet generator
 //go:generate go run ../cmd/generator/main.go ..

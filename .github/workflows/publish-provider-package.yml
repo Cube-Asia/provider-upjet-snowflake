@@ -1,6 +1,9 @@
 name: Publish Provider Package
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       version:
@@ -9,15 +12,30 @@ on:
         required: false
       go-version:
         description: 'Go version to use if building needs to be done'
-        default: '1.24'
+        default: '1.26.4'
         required: false
 
 jobs:
+  authorize:
+    runs-on: ubuntu-24.04
+    environment: release
+    steps:
+      - name: Reject non-release refs
+        if: github.ref != 'refs/heads/main' && !startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "::error::Publish must run from main or a vX.Y.Z tag, got ${{ github.ref }}"
+          exit 1
+
   publish-provider-package:
+    needs: authorize
+    permissions:
+      contents: read
+      packages: write
     uses: crossplane-contrib/provider-workflows/.github/workflows/publish-provider.yml@451c4dc6ad3691b0a702a997a0ac24e8bbc8bbaa # main
     with:
-      repository: provider-template
-      version: ${{ github.event.inputs.version }}
+      repository: provider-snowflake
+      registry_org: cube-asia
+      version: ${{ github.event.inputs.version || github.ref_name }}
       go-version: ${{ github.event.inputs.go-version }}
       cleanup-disk: true
     secrets:
