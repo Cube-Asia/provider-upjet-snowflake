@@ -11,7 +11,20 @@ on:
         required: true
 
 jobs:
+  validate-version:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Validate version is semver
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          if ! [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::'$VERSION' is not a valid semver tag (expected e.g. v1.2.3 or v1.2.3-alpha.1)"
+            exit 1
+          fi
+
   tag:
+    needs: validate-version
     uses: crossplane-contrib/provider-workflows/.github/workflows/tag.yml@451c4dc6ad3691b0a702a997a0ac24e8bbc8bbaa # main
     with:
       version: ${{ github.event.inputs.version }}

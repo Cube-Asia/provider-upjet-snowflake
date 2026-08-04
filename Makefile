@@ -65,18 +65,18 @@ CROSSPLANE_VERSION = 2.2.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= ghcr.io/Cube-Asia
-IMAGES = $(PROJECT_NAME)
+REGISTRY_ORGS ?= ghcr.io/cube-asia
+IMAGES = provider-snowflake
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= ghcr.io/Cube-Asia
+XPKG_REG_ORGS ?= ghcr.io/cube-asia
 # NOTE(hasheddan): skip promoting on xpkg.crossplane.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/Cube-Asia
-XPKGS = $(PROJECT_NAME)
+XPKG_REG_ORGS_NO_PROMOTE ?= ghcr.io/cube-asia
+XPKGS = provider-snowflake
 -include build/makelib/xpkg.mk
 
 # ====================================================================================

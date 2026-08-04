@@ -10,9 +10,9 @@ on:
 
 env:
   # Common versions
-  GO_VERSION: '1.25'
-  GOLANGCI_VERSION: 'v2.12.1'
-  DOCKER_BUILDX_VERSION: 'v0.34.1'
+  GO_VERSION: "1.26.4"
+  GOLANGCI_VERSION: "v2.12.1"
+  DOCKER_BUILDX_VERSION: "v0.34.1"
 
 jobs:
   detect-noop:
@@ -50,11 +50,16 @@ jobs:
           MODIFIED_CRD_LIST: ${{ steps.modified-crds.outputs.all_changed_files }}
         run: |
           make crddiff
+      - name: Check for Terraform provider version bump
+        id: modified-makefile
+        uses: tj-actions/changed-files@9426d40962ed5378910ee2e21d5f8c6fcbf2dd96 # v47.0.6
+        with:
+          files: |
+            Makefile
       - name: Report native schema version changes
-        if: ${{ inputs.upjet-based-provider }}
+        if: steps.modified-makefile.outputs.any_changed == 'true'
         run: |
           make schema-version-diff
-
 
   lint:
     runs-on: ubuntu-24.04
@@ -89,6 +94,15 @@ jobs:
           path: .work/pkg
           key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Cache Terraform Provider Source & Tooling
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            .work/snowflakedb
+            .cache/tools
+          key: ${{ runner.os }}-tf-tools-${{ hashFiles('Makefile') }}
+          restore-keys: ${{ runner.os }}-tf-tools-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -137,6 +151,15 @@ jobs:
           key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-pkg-
 
+      - name: Cache Terraform Provider Source & Tooling
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            .work/snowflakedb
+            .cache/tools
+          key: ${{ runner.os }}-tf-tools-${{ hashFiles('Makefile') }}
+          restore-keys: ${{ runner.os }}-tf-tools-
+
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
@@ -179,6 +202,15 @@ jobs:
           path: .work/pkg
           key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Cache Terraform Provider Source & Tooling
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            .work/snowflakedb
+            .cache/tools
+          key: ${{ runner.os }}-tf-tools-${{ hashFiles('Makefile') }}
+          restore-keys: ${{ runner.os }}-tf-tools-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -228,6 +260,15 @@ jobs:
           path: .work/pkg
           key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Cache Terraform Provider Source & Tooling
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            .work/snowflakedb
+            .cache/tools
+          key: ${{ runner.os }}-tf-tools-${{ hashFiles('Makefile') }}
+          restore-keys: ${{ runner.os }}-tf-tools-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
@@ -288,6 +329,15 @@ jobs:
           path: .work/pkg
           key: ${{ runner.os }}-pkg-${{ hashFiles('**/go.sum') }}
           restore-keys: ${{ runner.os }}-pkg-
+
+      - name: Cache Terraform Provider Source & Tooling
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: |
+            .work/snowflakedb
+            .cache/tools
+          key: ${{ runner.os }}-tf-tools-${{ hashFiles('Makefile') }}
+          restore-keys: ${{ runner.os }}-tf-tools-
 
       - name: Vendor Dependencies
         run: make vendor vendor.check
