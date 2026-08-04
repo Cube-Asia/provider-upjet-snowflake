@@ -285,5 +285,14 @@ help-special: crossplane.help
 .PHONY: crossplane.help help-special
 
 # TODO(negz): Update CI to use these targets.
+# NOTE: attached to go.modules.download/go.modules.check (not vendor/
+# vendor.check) because golang.mk already defines `vendor: modules.download`
+# with no prerequisite on this fetch step. Make merges same-target rules by
+# appending, it does not let a later rule reorder an earlier one's
+# prerequisites - so putting the fetch on `vendor` itself would still let
+# `modules.download` (and its `go mod download`) run first. go.modules.download
+# and go.modules.check start with zero prerequisites, so adding this one here
+# is unambiguous: it always runs before their recipe does.
+go.modules.download go.modules.check: fetch-snowflake-provider-src
 vendor: modules.download
 vendor.check: modules.check
