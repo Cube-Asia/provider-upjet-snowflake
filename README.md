@@ -50,7 +50,7 @@ those walked through the manual test procedure (no automated test suite
 exists yet). To mark a resource tested, add its Terraform name to
 `hack/tested_resources.txt` and re-run the script.
 
-4 / 130 resources manually tested.
+5 / 130 resources manually tested.
 
 ### Stable (74)
 
@@ -81,7 +81,7 @@ exists yet). To mark a resource tested, add its Terraform name to
 | GrantApplicationRole | `snowflake_grant_application_role` | ⬜ |
 | GrantDatabaseRole | `snowflake_grant_database_role` | ⬜ |
 | GrantOwnership | `snowflake_grant_ownership` | ✅ |
-| GrantPrivilegesToAccountRole | `snowflake_grant_privileges_to_account_role` | ⬜ |
+| GrantPrivilegesToAccountRole | `snowflake_grant_privileges_to_account_role` | ✅ |
 | GrantPrivilegesToDatabaseRole | `snowflake_grant_privileges_to_database_role` | ⬜ |
 | GrantPrivilegesToShare | `snowflake_grant_privileges_to_share` | ⬜ |
 | ImageRepository | `snowflake_image_repository` | ⬜ |
