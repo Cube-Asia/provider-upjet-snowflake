@@ -2,6 +2,12 @@ apiVersion: meta.pkg.crossplane.io/v1
 kind: Provider
 metadata:
   name: provider-snowflake
+  annotations:
+    meta.crossplane.io/maintainer: Cube Asia <opensource@cube.id>
+    meta.crossplane.io/source: github.com/cube-asia/provider-upjet-snowflake
+    meta.crossplane.io/license: Apache-2.0
+    meta.crossplane.io/description: Crossplane provider for Snowflake.
+    meta.crossplane.io/readme: A Crossplane provider for managing Snowflake resources.
 spec:
   capabilities:
     - SafeStart

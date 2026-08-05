@@ -1,0 +1,61 @@
+This project is a larger work that combines with software written by third
+parties, licensed under their own terms.
+
+Notably, this larger work combines with the following components, which are
+licensed under the MIT License (see <https://opensource.org/license/mit/> or
+the individual projects listed below).
+<https://github.com/snowflakedb/terraform-provider-snowflake>
+<https://github.com/Azure/azure-sdk-for-go>
+<https://github.com/BurntSushi/toml>
+<https://github.com/apparentlymart/go-textseg>
+<https://github.com/cespare/xxhash>
+<https://github.com/fatih/color>
+<https://github.com/gabriel-vasile/mimetype>
+<https://github.com/goccy/go-json>
+<https://github.com/goccy/go-yaml>
+<https://github.com/golang-jwt/jwt>
+<https://github.com/hashicorp/go-cty>
+<https://github.com/hashicorp/go-hclog>
+<https://github.com/jmoiron/sqlx>
+<https://github.com/klauspost/cpuid>
+<https://github.com/mattn/go-colorable>
+<https://github.com/mattn/go-isatty>
+<https://github.com/mitchellh/copystructure>
+<https://github.com/mitchellh/go-testing-interface>
+<https://github.com/mitchellh/go-wordwrap>
+<https://github.com/mitchellh/mapstructure>
+<https://github.com/mitchellh/reflectwalk>
+<https://github.com/pelletier/go-toml>
+<https://github.com/stretchr/testify>
+<https://github.com/youmark/pkcs8>
+<https://github.com/zclconf/go-cty>
+
+This larger work also combines with the following components, which are
+licensed under a BSD-style license (2- or 3-clause; see the individual
+projects listed below for the exact terms).
+<https://github.com/davecgh/go-spew> (ISC License)
+<https://github.com/google/go-cmp> (BSD-3-Clause)
+<https://github.com/klauspost/compress> (BSD-3-Clause, with Apache-2.0 and
+  MIT licensed subcomponents identified in its own LICENSE file)
+<https://github.com/pierrec/lz4> (BSD-style)
+<https://github.com/pkg/browser> (BSD-2-Clause)
+<https://github.com/pmezard/go-difflib> (BSD-3-Clause)
+<https://github.com/vmihailenco/msgpack> (BSD-2-Clause)
+<https://github.com/vmihailenco/tagparser> (BSD-2-Clause)
+<https://github.com/zeebo/xxh3> (BSD-2-Clause)
+<https://golang.org/x/> (crypto, exp, mod, net, oauth2, sync, sys, term,
+  text, tools; BSD-3-Clause)
+
+This larger work also combines with the following components, which are
+licensed under the Mozilla Public License 2.0 (see
+<https://www.mozilla.org/en-US/MPL/2.0/> or the individual projects listed
+below).
+<https://github.com/hashicorp/go-uuid>
+<https://github.com/hashicorp/go-version>
+<https://github.com/hashicorp/hcl>
+<https://github.com/hashicorp/logutils>
+<https://github.com/hashicorp/terraform-json>
+<https://github.com/hashicorp/terraform-plugin-go>
+<https://github.com/hashicorp/terraform-plugin-log>
+<https://github.com/hashicorp/terraform-plugin-sdk>
+<https://github.com/hashicorp/terraform-plugin-testing>
