@@ -83,7 +83,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+        run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -139,7 +139,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+        run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -191,7 +191,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+        run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -249,7 +249,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+        run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -318,7 +318,7 @@ jobs:
 
       - name: Find the Go Build Cache
         id: go
-        run: echo "cache=$(make go.cachedir)" >> $GITHUB_OUTPUT
+        run: echo "cache=$(make go.cachedir)" >> "$GITHUB_OUTPUT"
 
       - name: Cache the Go Build Cache
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0

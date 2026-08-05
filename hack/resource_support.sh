@@ -39,6 +39,7 @@ render_table() {
 		[[ -z "$name" ]] && continue
 		status="⬜"
 		is_tested "$name" && status="✅"
+		# shellcheck disable=SC2016 # backticks are literal markdown, not command substitution
 		printf '| %s | `%s` | %s |\n' "$(to_kind "$name")" "$name" "$status"
 	done < <(extract_resources "$file")
 }
