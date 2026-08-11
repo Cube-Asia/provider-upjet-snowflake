@@ -9,3 +9,9 @@ snowflake_user
 snowflake_grant_ownership
 snowflake_grant_account_role
 snowflake_grant_privileges_to_account_role
+
+snowflake_database
+snowflake_schema
+snowflake_database_role
+snowflake_grant_database_role
+snowflake_grant_privileges_to_database_role

@@ -50,7 +50,7 @@ those walked through the manual test procedure (no automated test suite
 exists yet). To mark a resource tested, add its Terraform name to
 `hack/tested_resources.txt` and re-run the script.
 
-5 / 130 resources manually tested.
+10 / 130 resources manually tested.
 
 ### Stable (74)
 
@@ -71,18 +71,18 @@ exists yet). To mark a resource tested, add its Terraform name to
 | ComputePool | `snowflake_compute_pool` | ⬜ |
 | CurrentAccount | `snowflake_current_account` | ⬜ |
 | CurrentOrganizationAccount | `snowflake_current_organization_account` | ⬜ |
-| Database | `snowflake_database` | ⬜ |
-| DatabaseRole | `snowflake_database_role` | ⬜ |
+| Database | `snowflake_database` | ✅ |
+| DatabaseRole | `snowflake_database_role` | ✅ |
 | Execute | `snowflake_execute` | ⬜ |
 | ExternalOauthIntegration | `snowflake_external_oauth_integration` | ⬜ |
 | ExternalVolume | `snowflake_external_volume` | ⬜ |
 | GitRepository | `snowflake_git_repository` | ⬜ |
 | GrantAccountRole | `snowflake_grant_account_role` | ✅ |
 | GrantApplicationRole | `snowflake_grant_application_role` | ⬜ |
-| GrantDatabaseRole | `snowflake_grant_database_role` | ⬜ |
+| GrantDatabaseRole | `snowflake_grant_database_role` | ✅ |
 | GrantOwnership | `snowflake_grant_ownership` | ✅ |
 | GrantPrivilegesToAccountRole | `snowflake_grant_privileges_to_account_role` | ✅ |
-| GrantPrivilegesToDatabaseRole | `snowflake_grant_privileges_to_database_role` | ⬜ |
+| GrantPrivilegesToDatabaseRole | `snowflake_grant_privileges_to_database_role` | ✅ |
 | GrantPrivilegesToShare | `snowflake_grant_privileges_to_share` | ⬜ |
 | ImageRepository | `snowflake_image_repository` | ⬜ |
 | LegacyServiceUser | `snowflake_legacy_service_user` | ⬜ |
@@ -97,7 +97,7 @@ exists yet). To mark a resource tested, add its Terraform name to
 | ResourceMonitor | `snowflake_resource_monitor` | ⬜ |
 | RowAccessPolicy | `snowflake_row_access_policy` | ⬜ |
 | Saml2Integration | `snowflake_saml2_integration` | ⬜ |
-| Schema | `snowflake_schema` | ⬜ |
+| Schema | `snowflake_schema` | ✅ |
 | ScimIntegration | `snowflake_scim_integration` | ⬜ |
 | SecondaryConnection | `snowflake_secondary_connection` | ⬜ |
 | SecondaryDatabase | `snowflake_secondary_database` | ⬜ |

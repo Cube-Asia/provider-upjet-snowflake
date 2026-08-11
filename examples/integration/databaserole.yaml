@@ -1,0 +1,155 @@
+# snowflake_database
+# snowflake_schema
+# snowflake_database_role
+# snowflake_grant_database_role
+# snowflake_grant_privileges_to_database_role
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Database
+metadata:
+  name: crossplane-db
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  name: crossplane-schema
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: crossplane-db
+
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: Schema
+metadata:
+  name: crossplane-schema
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: crossplane-db
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: DatabaseRole
+metadata:
+  name: crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: crossplane-db
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: DatabaseRole
+metadata:
+  name: crossplane-children-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    database: crossplane-db
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantDatabaseRole
+metadata:
+  name: grant-db-role-to-parent-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    parentRoleName: crossplane-parent-role
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantDatabaseRole
+metadata:
+  name: grant-child-db-role-to-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-children-db-role
+    parentDatabaseRoleName: crossplane-db.crossplane-db-role
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToDatabaseRole
+metadata:
+  name: database-grant-crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    onDatabase: crossplane-db
+    privileges:
+      - CREATE SCHEMA
+      - MODIFY
+      - USAGE
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToDatabaseRole
+metadata:
+  name: schema-grant-all-crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    withGrantOption: false
+    privileges:
+      - USAGE
+    onSchema:
+      - allSchemasInDatabase: crossplane-db
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToDatabaseRole
+metadata:
+  name: schema-grant-future-crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    withGrantOption: false
+    privileges:
+      - USAGE
+    onSchema:
+      - futureSchemasInDatabase: crossplane-db
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToDatabaseRole
+metadata:
+  name: schema-object-grants-all-crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    withGrantOption: false
+    privileges:
+      - SELECT
+      - REFERENCES
+      - UPDATE
+      - INSERT
+      - DELETE
+      - "EVOLVE SCHEMA"
+    onSchemaObject:
+      - all:
+          - objectTypePlural: TABLES
+            inSchema: crossplane-db.crossplane-schema
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToDatabaseRole
+metadata:
+  name: schema-object-grants-future-crossplane-db-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    databaseRoleName: crossplane-db.crossplane-db-role
+    withGrantOption: false
+    privileges:
+      - SELECT
+      - REFERENCES
+      - UPDATE
+      - INSERT
+      - DELETE
+      - "EVOLVE SCHEMA"
+    onSchemaObject:
+      - future:
+          - objectTypePlural: TABLES
+            inSchema: crossplane-db.crossplane-schema
