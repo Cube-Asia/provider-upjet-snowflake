@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiIntegrationInitParameters struct {
@@ -33,7 +33,7 @@ type ApiIntegrationInitParameters struct {
 
 	// (String, Sensitive) The API key (also called a “subscription key”).
 	// The API key (also called a “subscription key”).
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the HTTPS proxy service type.
 	// Specifies the HTTPS proxy service type.
@@ -151,7 +151,7 @@ type ApiIntegrationParameters struct {
 	// (String, Sensitive) The API key (also called a “subscription key”).
 	// The API key (also called a “subscription key”).
 	// +kubebuilder:validation:Optional
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the HTTPS proxy service type.
 	// Specifies the HTTPS proxy service type.
@@ -185,8 +185,8 @@ type ApiIntegrationParameters struct {
 
 // ApiIntegrationSpec defines the desired state of ApiIntegration
 type ApiIntegrationSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApiIntegrationParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ApiIntegrationParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -202,8 +202,8 @@ type ApiIntegrationSpec struct {
 
 // ApiIntegrationStatus defines the observed state of ApiIntegration.
 type ApiIntegrationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiIntegrationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiIntegrationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GrantPrivilegesToDatabaseRoleInitParameters struct {
@@ -426,8 +426,8 @@ type GrantPrivilegesToDatabaseRoleParameters struct {
 
 // GrantPrivilegesToDatabaseRoleSpec defines the desired state of GrantPrivilegesToDatabaseRole
 type GrantPrivilegesToDatabaseRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     GrantPrivilegesToDatabaseRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   GrantPrivilegesToDatabaseRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -443,8 +443,8 @@ type GrantPrivilegesToDatabaseRoleSpec struct {
 
 // GrantPrivilegesToDatabaseRoleStatus defines the observed state of GrantPrivilegesToDatabaseRole.
 type GrantPrivilegesToDatabaseRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GrantPrivilegesToDatabaseRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GrantPrivilegesToDatabaseRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

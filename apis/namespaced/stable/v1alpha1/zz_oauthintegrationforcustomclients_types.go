@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AllowedRolesListInitParameters struct {
@@ -466,7 +465,7 @@ type OauthIntegrationForCustomClientsInitParameters struct {
 
 	// (String, Sensitive) Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI.
 	// Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI.
-	OauthRedirectURISecretRef v1.LocalSecretKeySelector `json:"oauthRedirectUriSecretRef" tf:"-"`
+	OauthRedirectURISecretRef v2.LocalSecretKeySelector `json:"oauthRedirectUriSecretRef" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
 	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
@@ -625,7 +624,7 @@ type OauthIntegrationForCustomClientsParameters struct {
 	// (String, Sensitive) Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI.
 	// Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI.
 	// +kubebuilder:validation:Optional
-	OauthRedirectURISecretRef v1.LocalSecretKeySelector `json:"oauthRedirectUriSecretRef" tf:"-"`
+	OauthRedirectURISecretRef v2.LocalSecretKeySelector `json:"oauthRedirectUriSecretRef" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
 	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
@@ -765,8 +764,8 @@ type OauthIntegrationForCustomClientsSpec struct {
 
 // OauthIntegrationForCustomClientsStatus defines the observed state of OauthIntegrationForCustomClients.
 type OauthIntegrationForCustomClientsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OauthIntegrationForCustomClientsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OauthIntegrationForCustomClientsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

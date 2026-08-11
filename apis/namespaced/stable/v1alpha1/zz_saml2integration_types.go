@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AllowedEmailPatternsInitParameters struct {
@@ -266,7 +265,7 @@ type Saml2IntegrationInitParameters struct {
 
 	// ----BEGIN CERTIFICATE----- and ending -----END CERTIFICATE----- markers.
 	// The Base64 encoded IdP signing certificate on a single line without the leading -----BEGIN CERTIFICATE----- and ending -----END CERTIFICATE----- markers.
-	Saml2X509CertSecretRef v1.LocalSecretKeySelector `json:"saml2X509CertSecretRef" tf:"-"`
+	Saml2X509CertSecretRef v2.LocalSecretKeySelector `json:"saml2X509CertSecretRef" tf:"-"`
 }
 
 type Saml2IntegrationObservation struct {
@@ -431,7 +430,7 @@ type Saml2IntegrationParameters struct {
 	// ----BEGIN CERTIFICATE----- and ending -----END CERTIFICATE----- markers.
 	// The Base64 encoded IdP signing certificate on a single line without the leading -----BEGIN CERTIFICATE----- and ending -----END CERTIFICATE----- markers.
 	// +kubebuilder:validation:Optional
-	Saml2X509CertSecretRef v1.LocalSecretKeySelector `json:"saml2X509CertSecretRef" tf:"-"`
+	Saml2X509CertSecretRef v2.LocalSecretKeySelector `json:"saml2X509CertSecretRef" tf:"-"`
 }
 
 type Saml2IntegrationShowOutputInitParameters struct {
@@ -711,8 +710,8 @@ type Saml2IntegrationSpec struct {
 
 // Saml2IntegrationStatus defines the observed state of Saml2Integration.
 type Saml2IntegrationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        Saml2IntegrationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               Saml2IntegrationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

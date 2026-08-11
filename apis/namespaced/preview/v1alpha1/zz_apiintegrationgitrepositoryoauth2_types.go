@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiIntegrationGitRepositoryOauth2DescribeOutputInitParameters struct {
@@ -94,7 +93,7 @@ type ApiIntegrationGitRepositoryOauth2InitParameters struct {
 	OauthClientID *string `json:"oauthClientId,omitempty" tf:"oauth_client_id,omitempty"`
 
 	// The client secret for the OAuth 2.0 application. External changes for this field won't be detected.
-	OauthClientSecretSecretRef v1.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
@@ -215,7 +214,7 @@ type ApiIntegrationGitRepositoryOauth2Parameters struct {
 
 	// The client secret for the OAuth 2.0 application. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthClientSecretSecretRef v1.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
 	// Specifies the validity period (in seconds) for the OAuth 2.0 refresh token.
@@ -279,8 +278,8 @@ type ApiIntegrationGitRepositoryOauth2Spec struct {
 
 // ApiIntegrationGitRepositoryOauth2Status defines the observed state of ApiIntegrationGitRepositoryOauth2.
 type ApiIntegrationGitRepositoryOauth2Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiIntegrationGitRepositoryOauth2Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiIntegrationGitRepositoryOauth2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

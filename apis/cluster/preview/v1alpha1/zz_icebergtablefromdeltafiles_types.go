@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AutoRefreshStatusInitParameters struct {
@@ -412,8 +412,8 @@ type ReplaceInvalidCharactersParameters struct {
 
 // IcebergTableFromDeltaFilesSpec defines the desired state of IcebergTableFromDeltaFiles
 type IcebergTableFromDeltaFilesSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     IcebergTableFromDeltaFilesParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   IcebergTableFromDeltaFilesParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -429,8 +429,8 @@ type IcebergTableFromDeltaFilesSpec struct {
 
 // IcebergTableFromDeltaFilesStatus defines the observed state of IcebergTableFromDeltaFiles.
 type IcebergTableFromDeltaFilesStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        IcebergTableFromDeltaFilesObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               IcebergTableFromDeltaFilesObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

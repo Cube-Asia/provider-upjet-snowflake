@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AtInitParameters struct {
@@ -373,8 +373,8 @@ type StreamOnExternalTableShowOutputParameters struct {
 
 // StreamOnExternalTableSpec defines the desired state of StreamOnExternalTable
 type StreamOnExternalTableSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StreamOnExternalTableParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StreamOnExternalTableParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -390,8 +390,8 @@ type StreamOnExternalTableSpec struct {
 
 // StreamOnExternalTableStatus defines the observed state of StreamOnExternalTable.
 type StreamOnExternalTableStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StreamOnExternalTableObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StreamOnExternalTableObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

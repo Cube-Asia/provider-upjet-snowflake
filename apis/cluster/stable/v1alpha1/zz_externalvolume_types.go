@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AzureStorageLocationInitParameters struct {
@@ -228,7 +228,7 @@ type StorageLocationInitParameters struct {
 
 	// compatible storage location. Only applicable for S3COMPAT storage provider.
 	// Specifies the AWS secret key for the S3-compatible storage location. Only applicable for S3COMPAT storage provider.
-	StorageAwsSecretKeySecretRef *v1.SecretKeySelector `json:"storageAwsSecretKeySecretRef,omitempty" tf:"-"`
+	StorageAwsSecretKeySecretRef *v2.SecretKeySelector `json:"storageAwsSecretKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the base URL for your cloud storage location.
 	// Specifies the base URL for your cloud storage location.
@@ -342,7 +342,7 @@ type StorageLocationParameters struct {
 	// compatible storage location. Only applicable for S3COMPAT storage provider.
 	// Specifies the AWS secret key for the S3-compatible storage location. Only applicable for S3COMPAT storage provider.
 	// +kubebuilder:validation:Optional
-	StorageAwsSecretKeySecretRef *v1.SecretKeySelector `json:"storageAwsSecretKeySecretRef,omitempty" tf:"-"`
+	StorageAwsSecretKeySecretRef *v2.SecretKeySelector `json:"storageAwsSecretKeySecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the base URL for your cloud storage location.
 	// Specifies the base URL for your cloud storage location.
@@ -408,8 +408,8 @@ type StorageLocationsParameters struct {
 
 // ExternalVolumeSpec defines the desired state of ExternalVolume
 type ExternalVolumeSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ExternalVolumeParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ExternalVolumeParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -425,8 +425,8 @@ type ExternalVolumeSpec struct {
 
 // ExternalVolumeStatus defines the observed state of ExternalVolume.
 type ExternalVolumeStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ExternalVolumeObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ExternalVolumeObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

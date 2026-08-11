@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CatalogIntegrationOpenCatalogDescribeOutputInitParameters struct {
@@ -164,10 +163,10 @@ type CatalogIntegrationOpenCatalogRestAuthenticationInitParameters struct {
 
 	// (String, Sensitive) Specifies the client ID of the OAuth2 credential associated with your Open Catalog service connection.
 	// Specifies the client ID of the OAuth2 credential associated with your Open Catalog service connection.
-	OauthClientIDSecretRef v1.LocalSecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.LocalSecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the secret of the OAuth2 credential associated with your Open Catalog service connection. External changes for this field won't be detected.
-	OauthClientSecretSecretRef v1.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
 	// Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
@@ -195,11 +194,11 @@ type CatalogIntegrationOpenCatalogRestAuthenticationParameters struct {
 	// (String, Sensitive) Specifies the client ID of the OAuth2 credential associated with your Open Catalog service connection.
 	// Specifies the client ID of the OAuth2 credential associated with your Open Catalog service connection.
 	// +kubebuilder:validation:Optional
-	OauthClientIDSecretRef v1.LocalSecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.LocalSecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the secret of the OAuth2 credential associated with your Open Catalog service connection. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthClientSecretSecretRef v1.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.LocalSecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
 	// Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
@@ -350,8 +349,8 @@ type CatalogIntegrationOpenCatalogSpec struct {
 
 // CatalogIntegrationOpenCatalogStatus defines the observed state of CatalogIntegrationOpenCatalog.
 type CatalogIntegrationOpenCatalogStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogIntegrationOpenCatalogObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogIntegrationOpenCatalogObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

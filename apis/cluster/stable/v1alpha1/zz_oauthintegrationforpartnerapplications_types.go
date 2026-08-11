@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DescribeOutputAllowedRolesListInitParameters struct {
@@ -484,7 +484,7 @@ type OauthIntegrationForPartnerApplicationsInitParameters struct {
 
 	// (String, Sensitive) Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI. The field should be only set when OAUTH_CLIENT = LOOKER. In any other case the field should be left out empty.
 	// Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI. The field should be only set when OAUTH_CLIENT = LOOKER. In any other case the field should be left out empty.
-	OauthRedirectURISecretRef *v1.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
+	OauthRedirectURISecretRef *v2.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
 	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
@@ -588,7 +588,7 @@ type OauthIntegrationForPartnerApplicationsParameters struct {
 	// (String, Sensitive) Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI. The field should be only set when OAUTH_CLIENT = LOOKER. In any other case the field should be left out empty.
 	// Specifies the client URI. After a user is authenticated, the web browser is redirected to this URI. The field should be only set when OAUTH_CLIENT = LOOKER. In any other case the field should be left out empty.
 	// +kubebuilder:validation:Optional
-	OauthRedirectURISecretRef *v1.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
+	OauthRedirectURISecretRef *v2.SecretKeySelector `json:"oauthRedirectUriSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
 	// Specifies how long refresh tokens should be valid (in seconds). OAUTH_ISSUE_REFRESH_TOKENS must be set to TRUE.
@@ -666,8 +666,8 @@ type RelatedParametersOauthAddPrivilegedRolesToBlockedListParameters struct {
 
 // OauthIntegrationForPartnerApplicationsSpec defines the desired state of OauthIntegrationForPartnerApplications
 type OauthIntegrationForPartnerApplicationsSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     OauthIntegrationForPartnerApplicationsParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   OauthIntegrationForPartnerApplicationsParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -683,8 +683,8 @@ type OauthIntegrationForPartnerApplicationsSpec struct {
 
 // OauthIntegrationForPartnerApplicationsStatus defines the observed state of OauthIntegrationForPartnerApplications.
 type OauthIntegrationForPartnerApplicationsStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        OauthIntegrationForPartnerApplicationsObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               OauthIntegrationForPartnerApplicationsObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

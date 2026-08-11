@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ObjectIdentifierInitParameters struct {
@@ -158,8 +157,8 @@ type ObjectParameterSpec struct {
 
 // ObjectParameterStatus defines the observed state of ObjectParameter.
 type ObjectParameterStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ObjectParameterObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ObjectParameterObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

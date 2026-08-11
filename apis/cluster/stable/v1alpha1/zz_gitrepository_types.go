@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type GitRepositoryDescribeOutputInitParameters struct {
@@ -193,8 +193,8 @@ type GitRepositoryShowOutputParameters struct {
 
 // GitRepositorySpec defines the desired state of GitRepository
 type GitRepositorySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     GitRepositoryParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   GitRepositoryParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -210,8 +210,8 @@ type GitRepositorySpec struct {
 
 // GitRepositoryStatus defines the observed state of GitRepository.
 type GitRepositoryStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        GitRepositoryObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               GitRepositoryObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DescribeOutputLocationInitParameters struct {
@@ -30,11 +29,11 @@ type StageExternalS3CompatibleCredentialsInitParameters struct {
 
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
-	AwsKeyIDSecretRef v1.LocalSecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
+	AwsKeyIDSecretRef v2.LocalSecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
-	AwsSecretKeySecretRef v1.LocalSecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
+	AwsSecretKeySecretRef v2.LocalSecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
 }
 
 type StageExternalS3CompatibleCredentialsObservation struct {
@@ -45,12 +44,12 @@ type StageExternalS3CompatibleCredentialsParameters struct {
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
 	// +kubebuilder:validation:Optional
-	AwsKeyIDSecretRef v1.LocalSecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
+	AwsKeyIDSecretRef v2.LocalSecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
 	// +kubebuilder:validation:Optional
-	AwsSecretKeySecretRef v1.LocalSecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
+	AwsSecretKeySecretRef v2.LocalSecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
 }
 
 type StageExternalS3CompatibleDescribeOutputDirectoryTableInitParameters struct {
@@ -1544,8 +1543,8 @@ type StageExternalS3CompatibleSpec struct {
 
 // StageExternalS3CompatibleStatus defines the observed state of StageExternalS3Compatible.
 type StageExternalS3CompatibleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageExternalS3CompatibleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageExternalS3CompatibleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

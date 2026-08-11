@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ArgumentsInitParameters struct {
@@ -698,8 +698,8 @@ type TraceLevelParameters struct {
 
 // FunctionJavaSpec defines the desired state of FunctionJava
 type FunctionJavaSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     FunctionJavaParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   FunctionJavaParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -715,8 +715,8 @@ type FunctionJavaSpec struct {
 
 // FunctionJavaStatus defines the observed state of FunctionJava.
 type FunctionJavaStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        FunctionJavaObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               FunctionJavaObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ExternalOauthAddPrivilegedRolesToBlockedListInitParameters struct {
@@ -655,8 +654,8 @@ type ExternalOauthIntegrationSpec struct {
 
 // ExternalOauthIntegrationStatus defines the observed state of ExternalOauthIntegration.
 type ExternalOauthIntegrationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ExternalOauthIntegrationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ExternalOauthIntegrationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

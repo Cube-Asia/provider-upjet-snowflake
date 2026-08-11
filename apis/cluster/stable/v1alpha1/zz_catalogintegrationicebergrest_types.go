@@ -10,13 +10,13 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type BearerRestAuthenticationInitParameters struct {
 
 	// The bearer token for the identity provider. External changes for this field won't be detected.
-	BearerTokenSecretRef v1.SecretKeySelector `json:"bearerTokenSecretRef" tf:"-"`
+	BearerTokenSecretRef v2.SecretKeySelector `json:"bearerTokenSecretRef" tf:"-"`
 }
 
 type BearerRestAuthenticationObservation struct {
@@ -26,7 +26,7 @@ type BearerRestAuthenticationParameters struct {
 
 	// The bearer token for the identity provider. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	BearerTokenSecretRef v1.SecretKeySelector `json:"bearerTokenSecretRef" tf:"-"`
+	BearerTokenSecretRef v2.SecretKeySelector `json:"bearerTokenSecretRef" tf:"-"`
 }
 
 type CatalogIntegrationIcebergRestDescribeOutputInitParameters struct {
@@ -114,10 +114,10 @@ type CatalogIntegrationIcebergRestOauthRestAuthenticationInitParameters struct {
 
 	// (String, Sensitive) Specifies the client ID of the OAuth2 credential.
 	// Specifies the client ID of the OAuth2 credential.
-	OauthClientIDSecretRef v1.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the secret of the OAuth2 credential. External changes for this field won't be detected.
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
 	// Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
@@ -145,11 +145,11 @@ type CatalogIntegrationIcebergRestOauthRestAuthenticationParameters struct {
 	// (String, Sensitive) Specifies the client ID of the OAuth2 credential.
 	// Specifies the client ID of the OAuth2 credential.
 	// +kubebuilder:validation:Optional
-	OauthClientIDSecretRef v1.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the secret of the OAuth2 credential. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
 	// Specifies URL for the third-party identity provider. If not specified, Snowflake assumes the remote catalog provider is the identity provider.
@@ -465,8 +465,8 @@ type Sigv4RestAuthenticationParameters struct {
 
 // CatalogIntegrationIcebergRestSpec defines the desired state of CatalogIntegrationIcebergRest
 type CatalogIntegrationIcebergRestSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CatalogIntegrationIcebergRestParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CatalogIntegrationIcebergRestParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -482,8 +482,8 @@ type CatalogIntegrationIcebergRestSpec struct {
 
 // CatalogIntegrationIcebergRestStatus defines the observed state of CatalogIntegrationIcebergRest.
 type CatalogIntegrationIcebergRestStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CatalogIntegrationIcebergRestObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CatalogIntegrationIcebergRestObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

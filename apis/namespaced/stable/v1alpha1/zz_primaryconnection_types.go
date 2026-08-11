@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PrimaryConnectionInitParameters struct {
@@ -128,8 +127,8 @@ type PrimaryConnectionSpec struct {
 
 // PrimaryConnectionStatus defines the observed state of PrimaryConnection.
 type PrimaryConnectionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PrimaryConnectionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PrimaryConnectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

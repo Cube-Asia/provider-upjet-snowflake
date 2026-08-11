@@ -10,17 +10,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccountInitParameters struct {
 
 	// insensitive. External changes for this field won't be detected.
 	// Login name of the initial administrative user of the account. A new user is created in the new account with this name and password and granted the ACCOUNTADMIN role in the account. A login name can be any string consisting of letters, numbers, and underscores. Login names are always case-insensitive. External changes for this field won't be detected.
-	AdminNameSecretRef v1.SecretKeySelector `json:"adminNameSecretRef" tf:"-"`
+	AdminNameSecretRef v2.SecretKeySelector `json:"adminNameSecretRef" tf:"-"`
 
 	// Password for the initial administrative user of the account. Either admin_password or admin_rsa_public_key has to be specified. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Assigns a public key to the initial administrative user of the account. Either admin_password or admin_rsa_public_key has to be specified. External changes for this field won't be detected.
 	AdminRsaPublicKey *string `json:"adminRsaPublicKey,omitempty" tf:"admin_rsa_public_key,omitempty"`
@@ -41,10 +41,10 @@ type AccountInitParameters struct {
 	Edition *string `json:"edition,omitempty" tf:"edition,omitempty"`
 
 	// Email address of the initial administrative user of the account. This email address is used to send any notifications about the account. External changes for this field won't be detected.
-	EmailSecretRef v1.SecretKeySelector `json:"emailSecretRef" tf:"-"`
+	EmailSecretRef v2.SecretKeySelector `json:"emailSecretRef" tf:"-"`
 
 	// First name of the initial administrative user of the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	FirstNameSecretRef *v1.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
+	FirstNameSecretRef *v2.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
 
 	// (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
@@ -55,7 +55,7 @@ type AccountInitParameters struct {
 	IsOrgAdmin *string `json:"isOrgAdmin,omitempty" tf:"is_org_admin,omitempty"`
 
 	// Last name of the initial administrative user of the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
-	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
+	LastNameSecretRef *v2.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
@@ -127,11 +127,11 @@ type AccountParameters struct {
 	// insensitive. External changes for this field won't be detected.
 	// Login name of the initial administrative user of the account. A new user is created in the new account with this name and password and granted the ACCOUNTADMIN role in the account. A login name can be any string consisting of letters, numbers, and underscores. Login names are always case-insensitive. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	AdminNameSecretRef v1.SecretKeySelector `json:"adminNameSecretRef" tf:"-"`
+	AdminNameSecretRef v2.SecretKeySelector `json:"adminNameSecretRef" tf:"-"`
 
 	// Password for the initial administrative user of the account. Either admin_password or admin_rsa_public_key has to be specified. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	AdminPasswordSecretRef *v1.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
+	AdminPasswordSecretRef *v2.SecretKeySelector `json:"adminPasswordSecretRef,omitempty" tf:"-"`
 
 	// Assigns a public key to the initial administrative user of the account. Either admin_password or admin_rsa_public_key has to be specified. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
@@ -158,11 +158,11 @@ type AccountParameters struct {
 
 	// Email address of the initial administrative user of the account. This email address is used to send any notifications about the account. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	EmailSecretRef v1.SecretKeySelector `json:"emailSecretRef" tf:"-"`
+	EmailSecretRef v2.SecretKeySelector `json:"emailSecretRef" tf:"-"`
 
 	// First name of the initial administrative user of the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	FirstNameSecretRef *v1.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
+	FirstNameSecretRef *v2.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
 
 	// (Number) Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
 	// Specifies the number of days during which the account can be restored ("undropped"). The minimum is 3 days and the maximum is 90 days.
@@ -176,7 +176,7 @@ type AccountParameters struct {
 
 	// Last name of the initial administrative user of the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
+	LastNameSecretRef *v2.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (default)) Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
 	// Specifies whether the new user created to administer the account is forced to change their password upon first login into the account. This field cannot be used whenever admin_user_type is set to SERVICE. External changes for this field won't be detected.
@@ -292,8 +292,8 @@ type ShowOutputParameters struct {
 
 // AccountSpec defines the desired state of Account
 type AccountSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccountParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccountParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -309,8 +309,8 @@ type AccountSpec struct {
 
 // AccountStatus defines the observed state of Account.
 type AccountStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccountObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DefaultWorkloadIdentityAwsInitParameters struct {
@@ -1630,7 +1629,7 @@ type ServiceUserInitParameters struct {
 
 	// (String, Sensitive) Email address for the user.
 	// Email address for the user.
-	EmailSecretRef *v1.LocalSecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
+	EmailSecretRef *v2.LocalSecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs.
 	// Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check [ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs](https://docs.snowflake.com/en/sql-reference/parameters#enable-unload-physical-type-optimization).
@@ -1686,7 +1685,7 @@ type ServiceUserInitParameters struct {
 
 	// insensitive.
 	// The name users use to log in. If not supplied, snowflake will use name instead. Login names are always case-insensitive.
-	LoginNameSecretRef *v1.LocalSecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
+	LoginNameSecretRef *v2.LocalSecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. Note because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
 	// Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
@@ -2253,7 +2252,7 @@ type ServiceUserParameters struct {
 	// (String, Sensitive) Email address for the user.
 	// Email address for the user.
 	// +kubebuilder:validation:Optional
-	EmailSecretRef *v1.LocalSecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
+	EmailSecretRef *v2.LocalSecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs.
 	// Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check [ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs](https://docs.snowflake.com/en/sql-reference/parameters#enable-unload-physical-type-optimization).
@@ -2323,7 +2322,7 @@ type ServiceUserParameters struct {
 	// insensitive.
 	// The name users use to log in. If not supplied, snowflake will use name instead. Login names are always case-insensitive.
 	// +kubebuilder:validation:Optional
-	LoginNameSecretRef *v1.LocalSecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
+	LoginNameSecretRef *v2.LocalSecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. Note because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
 	// Specifies the number of minutes until the temporary lock on the user login is cleared. To protect against unauthorized user login, Snowflake places a temporary lock on a user after five consecutive unsuccessful login attempts. When creating a user, this property can be set to prevent them from logging in until the specified amount of time passes. To remove a lock immediately for a user, specify a value of 0 for this parameter. **Note** because this value changes continuously after setting it, the provider is currently NOT handling the external changes to it. External changes for this field won't be detected.
@@ -2897,8 +2896,8 @@ type ServiceUserSpec struct {
 
 // ServiceUserStatus defines the observed state of ServiceUser.
 type ServiceUserStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ServiceUserObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ServiceUserObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

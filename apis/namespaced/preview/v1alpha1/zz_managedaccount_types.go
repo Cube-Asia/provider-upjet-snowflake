@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ManagedAccountInitParameters struct {
@@ -22,7 +21,7 @@ type ManagedAccountInitParameters struct {
 
 	// provided password policy.
 	// Password for the initial user in the managed account. Check [Snowflake-provided password policy](https://docs.snowflake.com/en/user-guide/admin-user-management#snowflake-provided-password-policy).
-	AdminPasswordSecretRef v1.LocalSecretKeySelector `json:"adminPasswordSecretRef" tf:"-"`
+	AdminPasswordSecretRef v2.LocalSecretKeySelector `json:"adminPasswordSecretRef" tf:"-"`
 
 	// (String) Specifies a comment for the managed account.
 	// Specifies a comment for the managed account.
@@ -85,7 +84,7 @@ type ManagedAccountParameters struct {
 	// provided password policy.
 	// Password for the initial user in the managed account. Check [Snowflake-provided password policy](https://docs.snowflake.com/en/user-guide/admin-user-management#snowflake-provided-password-policy).
 	// +kubebuilder:validation:Optional
-	AdminPasswordSecretRef v1.LocalSecretKeySelector `json:"adminPasswordSecretRef" tf:"-"`
+	AdminPasswordSecretRef v2.LocalSecretKeySelector `json:"adminPasswordSecretRef" tf:"-"`
 
 	// (String) Specifies a comment for the managed account.
 	// Specifies a comment for the managed account.
@@ -117,8 +116,8 @@ type ManagedAccountSpec struct {
 
 // ManagedAccountStatus defines the observed state of ManagedAccount.
 type ManagedAccountStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ManagedAccountObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ManagedAccountObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

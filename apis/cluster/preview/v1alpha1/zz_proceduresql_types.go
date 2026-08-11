@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ProcedureSqlArgumentsInitParameters struct {
@@ -484,8 +484,8 @@ type ProcedureSqlShowOutputParameters struct {
 
 // ProcedureSqlSpec defines the desired state of ProcedureSql
 type ProcedureSqlSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ProcedureSqlParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ProcedureSqlParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -501,8 +501,8 @@ type ProcedureSqlSpec struct {
 
 // ProcedureSqlStatus defines the observed state of ProcedureSql.
 type ProcedureSqlStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ProcedureSqlObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ProcedureSqlObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

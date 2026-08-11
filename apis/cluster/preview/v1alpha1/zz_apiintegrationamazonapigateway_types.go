@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiIntegrationAmazonApiGatewayInitParameters struct {
@@ -28,7 +28,7 @@ type ApiIntegrationAmazonApiGatewayInitParameters struct {
 	APIBlockedPrefixes []*string `json:"apiBlockedPrefixes,omitempty" tf:"api_blocked_prefixes,omitempty"`
 
 	// Specifies the API key (secret) that Snowflake uses to authenticate when making calls to the proxy service. External changes for this field won't be detected.
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// insensitive): aws_api_gateway | aws_private_api_gateway | aws_gov_api_gateway | aws_gov_private_api_gateway.
 	// Specifies the type of AWS gateway. Valid values are (case-insensitive): `aws_api_gateway` | `aws_private_api_gateway` | `aws_gov_api_gateway` | `aws_gov_private_api_gateway`.
@@ -104,7 +104,7 @@ type ApiIntegrationAmazonApiGatewayParameters struct {
 
 	// Specifies the API key (secret) that Snowflake uses to authenticate when making calls to the proxy service. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// insensitive): aws_api_gateway | aws_private_api_gateway | aws_gov_api_gateway | aws_gov_private_api_gateway.
 	// Specifies the type of AWS gateway. Valid values are (case-insensitive): `aws_api_gateway` | `aws_private_api_gateway` | `aws_gov_api_gateway` | `aws_gov_private_api_gateway`.
@@ -184,8 +184,8 @@ type ShowOutputParameters struct {
 
 // ApiIntegrationAmazonApiGatewaySpec defines the desired state of ApiIntegrationAmazonApiGateway
 type ApiIntegrationAmazonApiGatewaySpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApiIntegrationAmazonApiGatewayParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ApiIntegrationAmazonApiGatewayParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -201,8 +201,8 @@ type ApiIntegrationAmazonApiGatewaySpec struct {
 
 // ApiIntegrationAmazonApiGatewayStatus defines the observed state of ApiIntegrationAmazonApiGateway.
 type ApiIntegrationAmazonApiGatewayStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiIntegrationAmazonApiGatewayObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiIntegrationAmazonApiGatewayObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

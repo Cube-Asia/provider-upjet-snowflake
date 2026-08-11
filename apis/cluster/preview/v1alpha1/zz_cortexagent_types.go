@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type CortexAgentDescribeOutputInitParameters struct {
@@ -252,8 +252,8 @@ type ShowOutputProfileParameters struct {
 
 // CortexAgentSpec defines the desired state of CortexAgent
 type CortexAgentSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     CortexAgentParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   CortexAgentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -269,8 +269,8 @@ type CortexAgentSpec struct {
 
 // CortexAgentStatus defines the observed state of CortexAgent.
 type CortexAgentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        CortexAgentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               CortexAgentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
