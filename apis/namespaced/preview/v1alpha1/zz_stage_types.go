@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StageInitParameters struct {
@@ -30,7 +29,7 @@ type StageInitParameters struct {
 
 	// (String, Sensitive) Specifies the credentials for the stage.
 	// Specifies the credentials for the stage.
-	CredentialsSecretRef *v1.LocalSecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
+	CredentialsSecretRef *v2.LocalSecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the directory settings for the stage.
 	// Specifies the directory settings for the stage.
@@ -139,7 +138,7 @@ type StageParameters struct {
 	// (String, Sensitive) Specifies the credentials for the stage.
 	// Specifies the credentials for the stage.
 	// +kubebuilder:validation:Optional
-	CredentialsSecretRef *v1.LocalSecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
+	CredentialsSecretRef *v2.LocalSecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) The database in which to create the stage.
 	// The database in which to create the stage.
@@ -259,8 +258,8 @@ type StageSpec struct {
 
 // StageStatus defines the observed state of Stage.
 type StageStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

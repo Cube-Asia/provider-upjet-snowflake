@@ -10,15 +10,14 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AwsCseInitParameters struct {
 
 	// bit or 256-bit client-side master key.
 	// Specifies the 128-bit or 256-bit client-side master key.
-	MasterKeySecretRef v1.LocalSecretKeySelector `json:"masterKeySecretRef" tf:"-"`
+	MasterKeySecretRef v2.LocalSecretKeySelector `json:"masterKeySecretRef" tf:"-"`
 }
 
 type AwsCseObservation struct {
@@ -29,7 +28,7 @@ type AwsCseParameters struct {
 	// bit or 256-bit client-side master key.
 	// Specifies the 128-bit or 256-bit client-side master key.
 	// +kubebuilder:validation:Optional
-	MasterKeySecretRef v1.LocalSecretKeySelector `json:"masterKeySecretRef" tf:"-"`
+	MasterKeySecretRef v2.LocalSecretKeySelector `json:"masterKeySecretRef" tf:"-"`
 }
 
 type AwsSseKMSInitParameters struct {
@@ -94,7 +93,7 @@ type StageExternalS3CredentialsInitParameters struct {
 
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
-	AwsKeyIDSecretRef *v1.LocalSecretKeySelector `json:"awsKeyIdSecretRef,omitempty" tf:"-"`
+	AwsKeyIDSecretRef *v2.LocalSecretKeySelector `json:"awsKeyIdSecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the AWS IAM role ARN to use for accessing the bucket.
 	// Specifies the AWS IAM role ARN to use for accessing the bucket.
@@ -102,11 +101,11 @@ type StageExternalS3CredentialsInitParameters struct {
 
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
-	AwsSecretKeySecretRef *v1.LocalSecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
+	AwsSecretKeySecretRef *v2.LocalSecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS session token for temporary credentials.
 	// Specifies the AWS session token for temporary credentials.
-	AwsTokenSecretRef *v1.LocalSecretKeySelector `json:"awsTokenSecretRef,omitempty" tf:"-"`
+	AwsTokenSecretRef *v2.LocalSecretKeySelector `json:"awsTokenSecretRef,omitempty" tf:"-"`
 }
 
 type StageExternalS3CredentialsObservation struct {
@@ -121,7 +120,7 @@ type StageExternalS3CredentialsParameters struct {
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
 	// +kubebuilder:validation:Optional
-	AwsKeyIDSecretRef *v1.LocalSecretKeySelector `json:"awsKeyIdSecretRef,omitempty" tf:"-"`
+	AwsKeyIDSecretRef *v2.LocalSecretKeySelector `json:"awsKeyIdSecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the AWS IAM role ARN to use for accessing the bucket.
 	// Specifies the AWS IAM role ARN to use for accessing the bucket.
@@ -131,12 +130,12 @@ type StageExternalS3CredentialsParameters struct {
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
 	// +kubebuilder:validation:Optional
-	AwsSecretKeySecretRef *v1.LocalSecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
+	AwsSecretKeySecretRef *v2.LocalSecretKeySelector `json:"awsSecretKeySecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS session token for temporary credentials.
 	// Specifies the AWS session token for temporary credentials.
 	// +kubebuilder:validation:Optional
-	AwsTokenSecretRef *v1.LocalSecretKeySelector `json:"awsTokenSecretRef,omitempty" tf:"-"`
+	AwsTokenSecretRef *v2.LocalSecretKeySelector `json:"awsTokenSecretRef,omitempty" tf:"-"`
 }
 
 type StageExternalS3DescribeOutputDirectoryTableInitParameters struct {
@@ -1755,8 +1754,8 @@ type StageExternalS3Spec struct {
 
 // StageExternalS3Status defines the observed state of StageExternalS3.
 type StageExternalS3Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageExternalS3Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageExternalS3Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

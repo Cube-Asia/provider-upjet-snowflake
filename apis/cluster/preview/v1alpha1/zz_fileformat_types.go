@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type FileFormatInitParameters struct {
@@ -478,8 +478,8 @@ type FileFormatParameters struct {
 
 // FileFormatSpec defines the desired state of FileFormat
 type FileFormatSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     FileFormatParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   FileFormatParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -495,8 +495,8 @@ type FileFormatSpec struct {
 
 // FileFormatStatus defines the observed state of FileFormat.
 type FileFormatStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        FileFormatObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               FileFormatObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

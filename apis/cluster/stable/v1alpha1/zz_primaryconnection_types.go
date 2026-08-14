@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type PrimaryConnectionInitParameters struct {
@@ -110,8 +110,8 @@ type PrimaryConnectionShowOutputParameters struct {
 
 // PrimaryConnectionSpec defines the desired state of PrimaryConnection
 type PrimaryConnectionSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     PrimaryConnectionParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   PrimaryConnectionParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -127,8 +127,8 @@ type PrimaryConnectionSpec struct {
 
 // PrimaryConnectionStatus defines the observed state of PrimaryConnection.
 type PrimaryConnectionStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        PrimaryConnectionObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               PrimaryConnectionObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

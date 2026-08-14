@@ -1,0 +1,77 @@
+# snowflake_account_role
+# snowflake_user
+# snowflake_grant_ownership
+# snowflake_grant_account_role
+# snowflake_grant_privileges_to_account_role
+
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: User
+metadata:
+  name: crossplane-user
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  name: crossplane-parent-role
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: AccountRole
+metadata:
+  name: crossplane-child-role
+  namespace: crossplane-system
+spec:
+  forProvider: {}
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantOwnership
+metadata:
+  name: crossplane-parent-own-child-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    accountRoleName: crossplane-parent-role
+    outboundPrivileges: REVOKE
+    "on":
+      - objectName: crossplane-child-role
+        objectType: ROLE
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantAccountRole
+metadata:
+  name: grant-user-to-parent-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    userName: crossplane-user
+    roleName: crossplane-parent-role
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantAccountRole
+metadata:
+  name: grant-parent-to-child-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    parentRoleName: crossplane-parent-role
+    roleName: crossplane-child-role
+
+---
+apiVersion: stable.snowflake.m.crossplane.io/v1alpha1
+kind: GrantPrivilegesToAccountRole
+metadata:
+  name: grant-priv-to-parent-role
+  namespace: crossplane-system
+spec:
+  forProvider:
+    accountRoleName: crossplane-parent-role
+    onAccount: true
+    privileges:
+      - CREATE DATABASE
+      - CREATE USER
+      - CREATE ROLE

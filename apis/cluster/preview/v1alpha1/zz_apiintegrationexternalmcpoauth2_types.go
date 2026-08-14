@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiIntegrationExternalMcpOauth2DescribeOutputInitParameters struct {
@@ -101,7 +101,7 @@ type ApiIntegrationExternalMcpOauth2InitParameters struct {
 	OauthClientID *string `json:"oauthClientId,omitempty" tf:"oauth_client_id,omitempty"`
 
 	// Specifies the OAuth 2.0 client secret for the MCP server. External changes for this field won't be detected.
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
@@ -205,7 +205,7 @@ type ApiIntegrationExternalMcpOauth2Parameters struct {
 
 	// Specifies the OAuth 2.0 client secret for the MCP server. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
 	// Specifies the validity period (in seconds) for refresh tokens issued by the MCP server.
@@ -247,8 +247,8 @@ type ApiIntegrationExternalMcpOauth2ShowOutputParameters struct {
 
 // ApiIntegrationExternalMcpOauth2Spec defines the desired state of ApiIntegrationExternalMcpOauth2
 type ApiIntegrationExternalMcpOauth2Spec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApiIntegrationExternalMcpOauth2Parameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ApiIntegrationExternalMcpOauth2Parameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -264,8 +264,8 @@ type ApiIntegrationExternalMcpOauth2Spec struct {
 
 // ApiIntegrationExternalMcpOauth2Status defines the observed state of ApiIntegrationExternalMcpOauth2.
 type ApiIntegrationExternalMcpOauth2Status struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiIntegrationExternalMcpOauth2Observation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiIntegrationExternalMcpOauth2Observation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

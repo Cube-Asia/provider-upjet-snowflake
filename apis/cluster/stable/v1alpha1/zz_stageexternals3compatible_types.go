@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DescribeOutputLocationInitParameters struct {
@@ -29,11 +29,11 @@ type StageExternalS3CompatibleCredentialsInitParameters struct {
 
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
-	AwsKeyIDSecretRef v1.SecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
+	AwsKeyIDSecretRef v2.SecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
-	AwsSecretKeySecretRef v1.SecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
+	AwsSecretKeySecretRef v2.SecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
 }
 
 type StageExternalS3CompatibleCredentialsObservation struct {
@@ -44,12 +44,12 @@ type StageExternalS3CompatibleCredentialsParameters struct {
 	// (String, Sensitive) Specifies the AWS access key ID.
 	// Specifies the AWS access key ID.
 	// +kubebuilder:validation:Optional
-	AwsKeyIDSecretRef v1.SecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
+	AwsKeyIDSecretRef v2.SecretKeySelector `json:"awsKeyIdSecretRef" tf:"-"`
 
 	// (String, Sensitive) Specifies the AWS secret access key.
 	// Specifies the AWS secret access key.
 	// +kubebuilder:validation:Optional
-	AwsSecretKeySecretRef v1.SecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
+	AwsSecretKeySecretRef v2.SecretKeySelector `json:"awsSecretKeySecretRef" tf:"-"`
 }
 
 type StageExternalS3CompatibleDescribeOutputDirectoryTableInitParameters struct {
@@ -1526,8 +1526,8 @@ type StageExternalS3CompatibleShowOutputParameters struct {
 
 // StageExternalS3CompatibleSpec defines the desired state of StageExternalS3Compatible
 type StageExternalS3CompatibleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StageExternalS3CompatibleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StageExternalS3CompatibleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1543,8 +1543,8 @@ type StageExternalS3CompatibleSpec struct {
 
 // StageExternalS3CompatibleStatus defines the observed state of StageExternalS3Compatible.
 type StageExternalS3CompatibleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageExternalS3CompatibleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageExternalS3CompatibleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

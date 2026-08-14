@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AccountAuthenticationPolicyAttachmentInitParameters struct {
@@ -27,8 +27,8 @@ type AccountAuthenticationPolicyAttachmentParameters struct {
 
 // AccountAuthenticationPolicyAttachmentSpec defines the desired state of AccountAuthenticationPolicyAttachment
 type AccountAuthenticationPolicyAttachmentSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     AccountAuthenticationPolicyAttachmentParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   AccountAuthenticationPolicyAttachmentParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -44,8 +44,8 @@ type AccountAuthenticationPolicyAttachmentSpec struct {
 
 // AccountAuthenticationPolicyAttachmentStatus defines the observed state of AccountAuthenticationPolicyAttachment.
 type AccountAuthenticationPolicyAttachmentStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        AccountAuthenticationPolicyAttachmentObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               AccountAuthenticationPolicyAttachmentObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

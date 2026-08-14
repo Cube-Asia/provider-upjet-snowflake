@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AtInitParameters struct {
@@ -391,8 +390,8 @@ type StreamOnExternalTableSpec struct {
 
 // StreamOnExternalTableStatus defines the observed state of StreamOnExternalTable.
 type StreamOnExternalTableStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StreamOnExternalTableObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StreamOnExternalTableObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

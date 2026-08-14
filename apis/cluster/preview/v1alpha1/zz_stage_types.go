@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type StageInitParameters struct {
@@ -29,7 +29,7 @@ type StageInitParameters struct {
 
 	// (String, Sensitive) Specifies the credentials for the stage.
 	// Specifies the credentials for the stage.
-	CredentialsSecretRef *v1.SecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
+	CredentialsSecretRef *v2.SecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) Specifies the directory settings for the stage.
 	// Specifies the directory settings for the stage.
@@ -138,7 +138,7 @@ type StageParameters struct {
 	// (String, Sensitive) Specifies the credentials for the stage.
 	// Specifies the credentials for the stage.
 	// +kubebuilder:validation:Optional
-	CredentialsSecretRef *v1.SecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
+	CredentialsSecretRef *v2.SecretKeySelector `json:"credentialsSecretRef,omitempty" tf:"-"`
 
 	// (String) The database in which to create the stage.
 	// The database in which to create the stage.
@@ -241,8 +241,8 @@ type StageTagParameters struct {
 
 // StageSpec defines the desired state of Stage
 type StageSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StageParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StageParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -258,8 +258,8 @@ type StageSpec struct {
 
 // StageStatus defines the observed state of Stage.
 type StageStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

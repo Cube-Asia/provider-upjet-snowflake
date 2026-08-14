@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiIntegrationAzureApiManagementDescribeOutputInitParameters struct {
@@ -60,7 +60,7 @@ type ApiIntegrationAzureApiManagementInitParameters struct {
 	APIBlockedPrefixes []*string `json:"apiBlockedPrefixes,omitempty" tf:"api_blocked_prefixes,omitempty"`
 
 	// Specifies the API key (secret) that Snowflake uses to authenticate when making calls to the proxy service. Snowflake returns a masked value for this field in DESCRIBE output, so external changes to it cannot be detected. External changes for this field won't be detected.
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The 'Application (client) ID' of the Azure AD app for your Azure API Management instance.
 	// The 'Application (client) ID' of the Azure AD app for your Azure API Management instance.
@@ -135,7 +135,7 @@ type ApiIntegrationAzureApiManagementParameters struct {
 
 	// Specifies the API key (secret) that Snowflake uses to authenticate when making calls to the proxy service. Snowflake returns a masked value for this field in DESCRIBE output, so external changes to it cannot be detected. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	APIKeySecretRef *v1.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
+	APIKeySecretRef *v2.SecretKeySelector `json:"apiKeySecretRef,omitempty" tf:"-"`
 
 	// (String) The 'Application (client) ID' of the Azure AD app for your Azure API Management instance.
 	// The 'Application (client) ID' of the Azure AD app for your Azure API Management instance.
@@ -187,8 +187,8 @@ type ApiIntegrationAzureApiManagementShowOutputParameters struct {
 
 // ApiIntegrationAzureApiManagementSpec defines the desired state of ApiIntegrationAzureApiManagement
 type ApiIntegrationAzureApiManagementSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApiIntegrationAzureApiManagementParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ApiIntegrationAzureApiManagementParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -204,8 +204,8 @@ type ApiIntegrationAzureApiManagementSpec struct {
 
 // ApiIntegrationAzureApiManagementStatus defines the observed state of ApiIntegrationAzureApiManagement.
 type ApiIntegrationAzureApiManagementStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiIntegrationAzureApiManagementObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiIntegrationAzureApiManagementObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

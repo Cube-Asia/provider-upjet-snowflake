@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecretWithGenericStringDescribeOutputInitParameters struct {
@@ -67,7 +66,7 @@ type SecretWithGenericStringInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Specifies the string to store in the secret. The string can be an API token or a string of sensitive value that can be used in the handler code of a UDF or stored procedure. For details, see [Creating and using an external access integration](https://docs.snowflake.com/en/developer-guide/external-network-access/creating-using-external-network-access). You should not use this property to store any kind of OAuth token; use one of the other secret types for your OAuth use cases. External changes for this field won't be detected.
-	SecretStringSecretRef v1.LocalSecretKeySelector `json:"secretStringSecretRef" tf:"-"`
+	SecretStringSecretRef v2.LocalSecretKeySelector `json:"secretStringSecretRef" tf:"-"`
 }
 
 type SecretWithGenericStringObservation struct {
@@ -123,7 +122,7 @@ type SecretWithGenericStringParameters struct {
 
 	// Specifies the string to store in the secret. The string can be an API token or a string of sensitive value that can be used in the handler code of a UDF or stored procedure. For details, see [Creating and using an external access integration](https://docs.snowflake.com/en/developer-guide/external-network-access/creating-using-external-network-access). You should not use this property to store any kind of OAuth token; use one of the other secret types for your OAuth use cases. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	SecretStringSecretRef v1.LocalSecretKeySelector `json:"secretStringSecretRef" tf:"-"`
+	SecretStringSecretRef v2.LocalSecretKeySelector `json:"secretStringSecretRef" tf:"-"`
 }
 
 type SecretWithGenericStringShowOutputInitParameters struct {
@@ -182,8 +181,8 @@ type SecretWithGenericStringSpec struct {
 
 // SecretWithGenericStringStatus defines the observed state of SecretWithGenericString.
 type SecretWithGenericStringStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretWithGenericStringObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretWithGenericStringObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

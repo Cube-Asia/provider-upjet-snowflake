@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecretWithAuthorizationCodeGrantDescribeOutputInitParameters struct {
@@ -74,7 +74,7 @@ type SecretWithAuthorizationCodeGrantInitParameters struct {
 	OauthRefreshTokenExpiryTime *string `json:"oauthRefreshTokenExpiryTime,omitempty" tf:"oauth_refresh_token_expiry_time,omitempty"`
 
 	// Specifies the token as a string that is used to obtain a new access token from the OAuth authorization server when the access token expires. External changes for this field won't be detected.
-	OauthRefreshTokenSecretRef v1.SecretKeySelector `json:"oauthRefreshTokenSecretRef" tf:"-"`
+	OauthRefreshTokenSecretRef v2.SecretKeySelector `json:"oauthRefreshTokenSecretRef" tf:"-"`
 }
 
 type SecretWithAuthorizationCodeGrantObservation struct {
@@ -143,7 +143,7 @@ type SecretWithAuthorizationCodeGrantParameters struct {
 
 	// Specifies the token as a string that is used to obtain a new access token from the OAuth authorization server when the access token expires. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthRefreshTokenSecretRef v1.SecretKeySelector `json:"oauthRefreshTokenSecretRef" tf:"-"`
+	OauthRefreshTokenSecretRef v2.SecretKeySelector `json:"oauthRefreshTokenSecretRef" tf:"-"`
 
 	// (String) The schema in which to create the secret. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The schema in which to create the secret. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -190,8 +190,8 @@ type SecretWithAuthorizationCodeGrantShowOutputParameters struct {
 
 // SecretWithAuthorizationCodeGrantSpec defines the desired state of SecretWithAuthorizationCodeGrant
 type SecretWithAuthorizationCodeGrantSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     SecretWithAuthorizationCodeGrantParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   SecretWithAuthorizationCodeGrantParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -207,8 +207,8 @@ type SecretWithAuthorizationCodeGrantSpec struct {
 
 // SecretWithAuthorizationCodeGrantStatus defines the observed state of SecretWithAuthorizationCodeGrant.
 type SecretWithAuthorizationCodeGrantStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretWithAuthorizationCodeGrantObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretWithAuthorizationCodeGrantObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

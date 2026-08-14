@@ -172,7 +172,6 @@ func main() {
 		WorkspaceStore:        terraform.NewWorkspaceStore(log),
 		OperationTrackerStore: opTrackerStore,
 		SetupFn:               clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion, clusterProvider),
-		StartWebhooks:         *certsDir != "",
 	}
 
 	namespacedOpts := tjcontroller.Options{
@@ -194,7 +193,6 @@ func main() {
 		WorkspaceStore:        terraform.NewWorkspaceStore(log),
 		OperationTrackerStore: opTrackerStore,
 		SetupFn:               clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion, namespacedProvider),
-		StartWebhooks:         *certsDir != "",
 	}
 
 	if *enableManagementPolicies {
@@ -218,6 +216,11 @@ func main() {
 		}
 		clusterOpts.ChangeLogOptions = &clo
 		namespacedOpts.ChangeLogOptions = &clo
+	}
+
+	if *certsDir != "" {
+		kingpin.FatalIfError(controllerCluster.SetupWebhookWithManager(mgr), "Cannot setup cluster-scoped Snowflake conversion webhooks")
+		kingpin.FatalIfError(controllerNamespaced.SetupWebhookWithManager(mgr), "Cannot setup namespaced Snowflake conversion webhooks")
 	}
 
 	canSafeStart, err := canWatchCRD(context.TODO(), mgr)

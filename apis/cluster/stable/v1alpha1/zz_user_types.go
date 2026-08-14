@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type UserInitParameters struct {
@@ -108,7 +108,7 @@ type UserInitParameters struct {
 
 	// (String, Sensitive) Email address for the user.
 	// Email address for the user.
-	EmailSecretRef *v1.SecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
+	EmailSecretRef *v2.SecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs.
 	// Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check [ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs](https://docs.snowflake.com/en/sql-reference/parameters#enable-unload-physical-type-optimization).
@@ -128,7 +128,7 @@ type UserInitParameters struct {
 
 	// (String, Sensitive) First name of the user.
 	// First name of the user.
-	FirstNameSecretRef *v1.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
+	FirstNameSecretRef *v2.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
 
 	// (String) Display format for GEOGRAPHY values. For more information, check GEOGRAPHY_OUTPUT_FORMAT docs.
 	// Display format for [GEOGRAPHY values](https://docs.snowflake.com/en/sql-reference/data-types-geospatial.html#label-data-types-geography). For more information, check [GEOGRAPHY_OUTPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#geography-output-format).
@@ -156,7 +156,7 @@ type UserInitParameters struct {
 
 	// (String, Sensitive) Last name of the user.
 	// Last name of the user.
-	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
+	LastNameSecretRef *v2.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
@@ -172,11 +172,11 @@ type UserInitParameters struct {
 
 	// insensitive.
 	// The name users use to log in. If not supplied, snowflake will use name instead. Login names are always case-insensitive.
-	LoginNameSecretRef *v1.SecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
+	LoginNameSecretRef *v2.SecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Middle name of the user.
 	// Middle name of the user.
-	MiddleNameSecretRef *v1.SecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
+	MiddleNameSecretRef *v2.SecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
 	// Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
@@ -207,7 +207,7 @@ type UserInitParameters struct {
 	OdbcTreatDecimalAsInt *bool `json:"odbcTreatDecimalAsInt,omitempty" tf:"odbc_treat_decimal_as_int,omitempty"`
 
 	// Password for the user. Use carefully. External changes for this field won't be detected.
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to prevent data unload operations to internal (Snowflake) stages using COPY INTO  statements. For more information, check PREVENT_UNLOAD_TO_INTERNAL_STAGES docs.
 	// Specifies whether to prevent data unload operations to internal (Snowflake) stages using [COPY INTO <location>](https://docs.snowflake.com/en/sql-reference/sql/copy-into-location) statements. For more information, check [PREVENT_UNLOAD_TO_INTERNAL_STAGES docs](https://docs.snowflake.com/en/sql-reference/parameters#prevent-unload-to-internal-stages).
@@ -762,7 +762,7 @@ type UserParameters struct {
 	// (String, Sensitive) Email address for the user.
 	// Email address for the user.
 	// +kubebuilder:validation:Optional
-	EmailSecretRef *v1.SecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
+	EmailSecretRef *v2.SecretKeySelector `json:"emailSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs.
 	// Specifies whether to set the schema for unloaded Parquet files based on the logical column data types (i.e. the types in the unload SQL query or source table) or on the unloaded column values (i.e. the smallest data types and precision that support the values in the output columns of the unload SQL statement or source table). For more information, check [ENABLE_UNLOAD_PHYSICAL_TYPE_OPTIMIZATION docs](https://docs.snowflake.com/en/sql-reference/parameters#enable-unload-physical-type-optimization).
@@ -787,7 +787,7 @@ type UserParameters struct {
 	// (String, Sensitive) First name of the user.
 	// First name of the user.
 	// +kubebuilder:validation:Optional
-	FirstNameSecretRef *v1.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
+	FirstNameSecretRef *v2.SecretKeySelector `json:"firstNameSecretRef,omitempty" tf:"-"`
 
 	// (String) Display format for GEOGRAPHY values. For more information, check GEOGRAPHY_OUTPUT_FORMAT docs.
 	// Display format for [GEOGRAPHY values](https://docs.snowflake.com/en/sql-reference/data-types-geospatial.html#label-data-types-geography). For more information, check [GEOGRAPHY_OUTPUT_FORMAT docs](https://docs.snowflake.com/en/sql-reference/parameters#geography-output-format).
@@ -822,7 +822,7 @@ type UserParameters struct {
 	// (String, Sensitive) Last name of the user.
 	// Last name of the user.
 	// +kubebuilder:validation:Optional
-	LastNameSecretRef *v1.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
+	LastNameSecretRef *v2.SecretKeySelector `json:"lastNameSecretRef,omitempty" tf:"-"`
 
 	// (Number) Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check LOCK_TIMEOUT docs.
 	// Number of seconds to wait while trying to lock a resource, before timing out and aborting the statement. For more information, check [LOCK_TIMEOUT docs](https://docs.snowflake.com/en/sql-reference/parameters#lock-timeout).
@@ -842,12 +842,12 @@ type UserParameters struct {
 	// insensitive.
 	// The name users use to log in. If not supplied, snowflake will use name instead. Login names are always case-insensitive.
 	// +kubebuilder:validation:Optional
-	LoginNameSecretRef *v1.SecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
+	LoginNameSecretRef *v2.SecretKeySelector `json:"loginNameSecretRef,omitempty" tf:"-"`
 
 	// (String, Sensitive) Middle name of the user.
 	// Middle name of the user.
 	// +kubebuilder:validation:Optional
-	MiddleNameSecretRef *v1.SecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
+	MiddleNameSecretRef *v2.SecretKeySelector `json:"middleNameSecretRef,omitempty" tf:"-"`
 
 	// uses special value that cannot be set in the configuration manually (-1)) Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
 	// Specifies the number of minutes to temporarily bypass MFA for the user. This property can be used to allow a MFA-enrolled user to temporarily bypass MFA during login in the event that their MFA device is not available. External changes for this field won't be detected.
@@ -886,7 +886,7 @@ type UserParameters struct {
 
 	// Password for the user. Use carefully. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef *v1.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
+	PasswordSecretRef *v2.SecretKeySelector `json:"passwordSecretRef,omitempty" tf:"-"`
 
 	// (Boolean) Specifies whether to prevent data unload operations to internal (Snowflake) stages using COPY INTO  statements. For more information, check PREVENT_UNLOAD_TO_INTERNAL_STAGES docs.
 	// Specifies whether to prevent data unload operations to internal (Snowflake) stages using [COPY INTO <location>](https://docs.snowflake.com/en/sql-reference/sql/copy-into-location) statements. For more information, check [PREVENT_UNLOAD_TO_INTERNAL_STAGES docs](https://docs.snowflake.com/en/sql-reference/parameters#prevent-unload-to-internal-stages).
@@ -2738,8 +2738,8 @@ type UserShowOutputParameters struct {
 
 // UserSpec defines the desired state of User
 type UserSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     UserParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   UserParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -2755,8 +2755,8 @@ type UserSpec struct {
 
 // UserStatus defines the observed state of User.
 type UserStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        UserObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               UserObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

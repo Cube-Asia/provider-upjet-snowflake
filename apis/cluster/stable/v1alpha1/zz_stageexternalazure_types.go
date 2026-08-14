@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type AvroInitParameters struct {
@@ -41,7 +41,7 @@ type AzureCseInitParameters struct {
 
 	// bit or 256-bit client-side master key.
 	// Specifies the 128-bit or 256-bit client-side master key.
-	MasterKeySecretRef v1.SecretKeySelector `json:"masterKeySecretRef" tf:"-"`
+	MasterKeySecretRef v2.SecretKeySelector `json:"masterKeySecretRef" tf:"-"`
 }
 
 type AzureCseObservation struct {
@@ -52,14 +52,14 @@ type AzureCseParameters struct {
 	// bit or 256-bit client-side master key.
 	// Specifies the 128-bit or 256-bit client-side master key.
 	// +kubebuilder:validation:Optional
-	MasterKeySecretRef v1.SecretKeySelector `json:"masterKeySecretRef" tf:"-"`
+	MasterKeySecretRef v2.SecretKeySelector `json:"masterKeySecretRef" tf:"-"`
 }
 
 type CredentialsInitParameters struct {
 
 	// (String, Sensitive) Specifies the shared access signature (SAS) token for Azure.
 	// Specifies the shared access signature (SAS) token for Azure.
-	AzureSasTokenSecretRef v1.SecretKeySelector `json:"azureSasTokenSecretRef" tf:"-"`
+	AzureSasTokenSecretRef v2.SecretKeySelector `json:"azureSasTokenSecretRef" tf:"-"`
 }
 
 type CredentialsObservation struct {
@@ -70,7 +70,7 @@ type CredentialsParameters struct {
 	// (String, Sensitive) Specifies the shared access signature (SAS) token for Azure.
 	// Specifies the shared access signature (SAS) token for Azure.
 	// +kubebuilder:validation:Optional
-	AzureSasTokenSecretRef v1.SecretKeySelector `json:"azureSasTokenSecretRef" tf:"-"`
+	AzureSasTokenSecretRef v2.SecretKeySelector `json:"azureSasTokenSecretRef" tf:"-"`
 }
 
 type CsvInitParameters struct {
@@ -1603,8 +1603,8 @@ type XMLParameters struct {
 
 // StageExternalAzureSpec defines the desired state of StageExternalAzure
 type StageExternalAzureSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     StageExternalAzureParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   StageExternalAzureParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -1620,8 +1620,8 @@ type StageExternalAzureSpec struct {
 
 // StageExternalAzureStatus defines the observed state of StageExternalAzure.
 type StageExternalAzureStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        StageExternalAzureObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               StageExternalAzureObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

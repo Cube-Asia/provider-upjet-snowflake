@@ -10,8 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
-	v2 "github.com/crossplane/crossplane-runtime/v2/apis/common/v2"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type SecretWithBasicAuthenticationDescribeOutputInitParameters struct {
@@ -67,11 +66,11 @@ type SecretWithBasicAuthenticationInitParameters struct {
 	Comment *string `json:"comment,omitempty" tf:"comment,omitempty"`
 
 	// Specifies the password value to store in the secret. External changes for this field won't be detected.
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String, Sensitive) Specifies the username value to store in the secret.
 	// Specifies the username value to store in the secret.
-	UsernameSecretRef v1.LocalSecretKeySelector `json:"usernameSecretRef" tf:"-"`
+	UsernameSecretRef v2.LocalSecretKeySelector `json:"usernameSecretRef" tf:"-"`
 }
 
 type SecretWithBasicAuthenticationObservation struct {
@@ -122,7 +121,7 @@ type SecretWithBasicAuthenticationParameters struct {
 
 	// Specifies the password value to store in the secret. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	PasswordSecretRef v1.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
+	PasswordSecretRef v2.LocalSecretKeySelector `json:"passwordSecretRef" tf:"-"`
 
 	// (String) The schema in which to create the secret. Due to technical limitations (read more here), avoid using the following characters: |, ., ".
 	// The schema in which to create the secret. Due to technical limitations (read more [here](../guides/identifiers_rework_design_decisions#known-limitations-and-identifier-recommendations)), avoid using the following characters: `|`, `.`, `"`.
@@ -132,7 +131,7 @@ type SecretWithBasicAuthenticationParameters struct {
 	// (String, Sensitive) Specifies the username value to store in the secret.
 	// Specifies the username value to store in the secret.
 	// +kubebuilder:validation:Optional
-	UsernameSecretRef v1.LocalSecretKeySelector `json:"usernameSecretRef" tf:"-"`
+	UsernameSecretRef v2.LocalSecretKeySelector `json:"usernameSecretRef" tf:"-"`
 }
 
 type SecretWithBasicAuthenticationShowOutputInitParameters struct {
@@ -191,8 +190,8 @@ type SecretWithBasicAuthenticationSpec struct {
 
 // SecretWithBasicAuthenticationStatus defines the observed state of SecretWithBasicAuthentication.
 type SecretWithBasicAuthenticationStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        SecretWithBasicAuthenticationObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               SecretWithBasicAuthenticationObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type DatabaseRoleInitParameters struct {
@@ -102,8 +102,8 @@ type DatabaseRoleShowOutputParameters struct {
 
 // DatabaseRoleSpec defines the desired state of DatabaseRole
 type DatabaseRoleSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     DatabaseRoleParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   DatabaseRoleParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -119,8 +119,8 @@ type DatabaseRoleSpec struct {
 
 // DatabaseRoleStatus defines the observed state of DatabaseRole.
 type DatabaseRoleStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        DatabaseRoleObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               DatabaseRoleObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true

@@ -10,7 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	v1 "github.com/crossplane/crossplane-runtime/v2/apis/common/v1"
+	v2 "github.com/crossplane/crossplane/apis/v2/core/v2"
 )
 
 type ApiAuthenticationIntegrationWithAuthorizationCodeGrantInitParameters struct {
@@ -42,10 +42,10 @@ type ApiAuthenticationIntegrationWithAuthorizationCodeGrantInitParameters struct
 
 	// (String, Sensitive) Specifies the client ID for the OAuth application in the external service.
 	// Specifies the client ID for the OAuth application in the external service.
-	OauthClientIDSecretRef v1.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the client secret for the OAuth application in the ServiceNow instance from the previous step. The connector uses this to request an access token from the ServiceNow instance. External changes for this field won't be detected.
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
@@ -143,11 +143,11 @@ type ApiAuthenticationIntegrationWithAuthorizationCodeGrantParameters struct {
 	// (String, Sensitive) Specifies the client ID for the OAuth application in the external service.
 	// Specifies the client ID for the OAuth application in the external service.
 	// +kubebuilder:validation:Optional
-	OauthClientIDSecretRef v1.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
+	OauthClientIDSecretRef v2.SecretKeySelector `json:"oauthClientIdSecretRef" tf:"-"`
 
 	// Specifies the client secret for the OAuth application in the ServiceNow instance from the previous step. The connector uses this to request an access token from the ServiceNow instance. External changes for this field won't be detected.
 	// +kubebuilder:validation:Optional
-	OauthClientSecretSecretRef v1.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
+	OauthClientSecretSecretRef v2.SecretKeySelector `json:"oauthClientSecretSecretRef" tf:"-"`
 
 	// (Number) Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
 	// Specifies the value to determine the validity of the refresh token obtained from the OAuth server.
@@ -462,8 +462,8 @@ type ParentIntegrationParameters struct {
 
 // ApiAuthenticationIntegrationWithAuthorizationCodeGrantSpec defines the desired state of ApiAuthenticationIntegrationWithAuthorizationCodeGrant
 type ApiAuthenticationIntegrationWithAuthorizationCodeGrantSpec struct {
-	v1.ResourceSpec `json:",inline"`
-	ForProvider     ApiAuthenticationIntegrationWithAuthorizationCodeGrantParameters `json:"forProvider"`
+	v2.ClusterManagedResourceSpec `json:",inline"`
+	ForProvider                   ApiAuthenticationIntegrationWithAuthorizationCodeGrantParameters `json:"forProvider"`
 	// THIS IS A BETA FIELD. It will be honored
 	// unless the Management Policies feature flag is disabled.
 	// InitProvider holds the same fields as ForProvider, with the exception
@@ -479,8 +479,8 @@ type ApiAuthenticationIntegrationWithAuthorizationCodeGrantSpec struct {
 
 // ApiAuthenticationIntegrationWithAuthorizationCodeGrantStatus defines the observed state of ApiAuthenticationIntegrationWithAuthorizationCodeGrant.
 type ApiAuthenticationIntegrationWithAuthorizationCodeGrantStatus struct {
-	v1.ResourceStatus `json:",inline"`
-	AtProvider        ApiAuthenticationIntegrationWithAuthorizationCodeGrantObservation `json:"atProvider,omitempty"`
+	v2.ManagedResourceStatus `json:",inline"`
+	AtProvider               ApiAuthenticationIntegrationWithAuthorizationCodeGrantObservation `json:"atProvider,omitempty"`
 }
 
 // +kubebuilder:object:root=true
