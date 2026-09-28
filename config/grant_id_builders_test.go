@@ -11,6 +11,24 @@ import (
 // makes every observe fail (see the OnObject regression this suite grew out
 // of). Each case asserts the FULL ID string, so an upstream shape change
 // fails loudly here instead of in a cluster.
+//
+// Expected shapes are derived from the upstream encoder, not from this
+// fork's own output: helpers.EncodeResourceIdentifier joins parts with the
+// pipe delimiter (pkg/helpers/resource_identifier.go:18), and the ID types
+// fix the part order:
+//   - GrantAccountRoleId.String: roleFQN | objType | granteeFQN
+//     (pkg/resources/grant_account_role_identifier.go:16)
+//   - GrantDatabaseRoleId.String: dbRoleFQN | objType | granteeFQN, where
+//     the parent-database-role marker is sdk.ObjectTypeDatabaseRole =
+//     "DATABASE ROLE" with a space (grant_database_role_identifier.go:16,
+//     pkg/sdk/object_types.go:22)
+//   - GrantPrivilegesToShareId.String: shareFQN | privileges-joined | kind
+//     | targetFQN (grant_privileges_to_share_identifier.go:30)
+//   - GrantOwnershipId.String: targetKind | roleName | outboundPrivs (empty
+//     when nil) | blockKind | dataParts (grant_ownership_identifier.go:65)
+//
+// The privileges base "role|wgo|alwaysApply|privs" encoding mirrors the
+// three grant-privileges resources' shared ID layout.
 
 func TestBuildGrantAccountRoleID(t *testing.T) {
 	cases := map[string]struct {
