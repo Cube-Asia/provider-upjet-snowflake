@@ -8,6 +8,12 @@ import (
 	sfresources "github.com/Snowflake-Labs/terraform-provider-snowflake/v2/pkg/resources"
 )
 
+// onSchemaObjectKey is the shared parameters map key for the
+// on_schema_object grant parameter across both tests in this file; goconst
+// (min-occurrences: 5 on this layer — the test-file exclusion arrives with a
+// later layer) requires the repeated key to be a named constant.
+const onSchemaObjectKey = "on_schema_object"
+
 // Regression coverage for the OnObject marker gate: the single-object case of
 // on_schema_object must always emit the 8-part
 // "…|OnSchemaObject|OnObject|<object_type>|<object_name>" ID. Omitting the
@@ -25,7 +31,7 @@ func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 	}{
 		"SingleObjectWithoutAllPrivileges": {
 			parameters: map[string]any{
-				"on_schema_object": []any{
+				onSchemaObjectKey: []any{
 					map[string]any{
 						"object_type": "TABLE",
 						"object_name": `"DB"."PUBLIC"."TBL"`,
@@ -37,7 +43,7 @@ func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 		"SingleObjectWithAllPrivileges": {
 			parameters: map[string]any{
 				"all_privileges": true,
-				"on_schema_object": []any{
+				onSchemaObjectKey: []any{
 					map[string]any{
 						"object_type": "TABLE",
 						"object_name": `"DB"."PUBLIC"."TBL"`,
@@ -48,7 +54,7 @@ func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 		},
 		"OnAllBlockUnchanged": {
 			parameters: map[string]any{
-				"on_schema_object": []any{
+				onSchemaObjectKey: []any{
 					map[string]any{
 						"all": []any{
 							map[string]any{
@@ -63,7 +69,7 @@ func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 		},
 		"OnFutureBlockUnchanged": {
 			parameters: map[string]any{
-				"on_schema_object": []any{
+				onSchemaObjectKey: []any{
 					map[string]any{
 						"future": []any{
 							map[string]any{
@@ -125,7 +131,7 @@ func TestGrantPrivilegesToDatabaseRole_GetIDFnHealsLegacyAnnotation(t *testing.T
 		"with_grant_option":  false,
 		"always_apply":       false,
 		"privileges":         []any{"SELECT"},
-		"on_schema_object": []any{
+		onSchemaObjectKey: []any{
 			map[string]any{
 				"object_type": "TABLE",
 				"object_name": `"APP_DB"."PUBLIC"."APP_TABLE"`,
