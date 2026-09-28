@@ -244,26 +244,25 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 	}
 }
 
-// metaCache memoizes the configured Terraform provider meta keyed by the
+// metaCache memoizes the configured Terraform provider meta, keyed by the
 // provider configuration digest.
 //
 // Why it exists: ConfigureProvider on the shared schema.Provider mints a
-// *live* Snowflake session on every call — sdk.NewClient runs
-// sqlx.Connect (sql.Open + Ping), then CurrentAccount and CurrentSession
-// round trips — and nothing ever closes the previous session. Upjet invokes
-// the SetupFn once per managed-resource reconcile, so before this cache
-// every reconcile opened an authenticated session, a database/sql pool
-// (with its connectionOpener goroutine) and an HTTP transport, then threw
-// the reference away. Under the 2026-09-28 roster that compounded to a
-// ~1.5-2 GiB/h straight-line memory climb and a killed node
-// (HANDOFF-2026-09-28-provider-snowflake-oom.md in pcm).
+// live Snowflake session on every call. sdk.NewClient runs sqlx.Connect
+// (sql.Open plus Ping) and then CurrentAccount and CurrentSession round
+// trips. Nothing ever closes the previous session. Upjet invokes the
+// SetupFn once per managed-resource reconcile, so before this cache every
+// reconcile opened an authenticated session, a database/sql pool (with its
+// connectionOpener goroutine) and an HTTP transport, then dropped the
+// reference. In practice this caused a straight-line memory climb of about
+// 1.5-2 GiB per hour until the pod ran out of memory and was killed.
 //
-// Trade-off: when the configuration (e.g. the private key) changes, the
-// old session's meta is replaced, not closed — the SDK Client type lives in
-// an internal package we cannot name here, and closing immediately could
-// pull the connection pool out from under concurrent reconciles still
-// holding the previous meta. A rotation therefore leaks exactly one
-// session, once per change, instead of one per reconcile.
+// Trade-off: when the configuration (for example the private key) changes,
+// the old session's meta is replaced, not closed. The SDK Client type lives
+// in an internal package we cannot name here, and closing it immediately
+// could remove the connection pool under concurrent reconciles that still
+// hold the previous meta. A rotation therefore leaks exactly one session,
+// once per change, instead of one per reconcile.
 type metaCache struct {
 	mu      sync.Mutex
 	entries map[string]cacheEntry
@@ -273,30 +272,30 @@ type metaCache struct {
 }
 
 // cacheEntry pairs a configured meta with its mint time. Entries expire
-// after the cache TTL: gosnowflake renews an expired *session* token
+// after the cache TTL. gosnowflake renews an expired *session* token
 // transparently (390112 → renewExpiredSessionToken, restful.go), but the
 // *master* token has no verified recovery path in the vendored driver
-// (renewRestfulSession renews with the master token itself; a pooled conn
-// idled past its lifetime fails renewal with a plain error, which
+// (renewRestfulSession renews with the master token itself, and a pooled
+// conn idled past its lifetime fails renewal with a plain error that
 // database/sql does not discard). Expiring entries bounds re-logins to
-// 24/day per configuration and removes any stale-session class outright.
+// 24 per day per configuration and removes the whole stale-session class.
 type cacheEntry struct {
 	meta    any
 	created time.Time
 }
 
-// metaFor returns the cached meta for key, calling configure exactly once on
-// a miss. The lock is held across the check, the configure, and the store so
-// concurrent misses on a cold cache cannot race past each other into
-// duplicate sessions. Entries are keyed by the provider configuration digest
-// so reconciles referencing different ProviderConfigs (e.g. live and shadow
+// metaFor returns the cached meta for key, and calls configure exactly once
+// on a miss. The lock is held across the check, the configure, and the
+// store, so concurrent misses on a cold cache cannot race into duplicate
+// sessions. Entries are keyed by the provider configuration digest, so
+// reconciles that reference different ProviderConfigs (for example rotated
 // credentials) keep independent sessions instead of thrashing one slot. The
 // map is bounded by the number of distinct configurations this provider
-// instance resolves, each entry at most one TTL old.
+// instance resolves, and each entry is at most one TTL old.
 //
 // The vendored provider.Context is opaque (internal package), so nothing
-// here can or should Close it; expiry simply orphans the old client, which
-// is reclaimed when the provider restarts.
+// here can or should Close it. Expiry only orphans the old client, which is
+// reclaimed when the provider restarts.
 func (c *metaCache) metaFor(key string, configure func() (any, error)) (any, error) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -322,8 +321,8 @@ func (c *metaCache) metaFor(key string, configure func() (any, error)) (any, err
 
 // hashConfiguration derives the cache key from the provider configuration.
 // json.Marshal sorts map keys, so the digest is stable across reconciles.
-// The digest covers secret material (password, private key) by design — it
-// must never be logged.
+// The digest covers secret material (password, private key) by design, so
+// it must never be logged.
 func hashConfiguration(cfg map[string]any) (string, error) {
 	b, err := json.Marshal(cfg)
 	if err != nil {
