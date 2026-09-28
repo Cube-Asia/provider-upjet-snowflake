@@ -9,15 +9,14 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
-// normalizeSFObjectID re-quotes a Snowflake object identifier written as a
-// bare name ("role"), an already-quoted name (`"role"`), or a
-// fully-qualified name ("db"."role"), producing the canonical form the TF
-// provider's SDK emits from AccountObjectIdentifier/DatabaseObjectIdentifier
-// .FullyQualifiedName() — each dot-segment wrapped in double quotes.
-// ponytail: splits on every unconditional ".", so a quoted segment
-// containing a literal dot ("my.db"."role") mis-splits. Snowflake object
-// names containing dots are rare; upgrade to a quote-aware splitter if one
-// shows up in practice.
+// normalizeSFObjectID re-quotes a Snowflake object identifier. The input can be a
+// bare name ("role"), an already-quoted name (`"role"`), or a fully-qualified name
+// ("db"."role"). The output matches the form the TF provider's SDK emits from
+// AccountObjectIdentifier/DatabaseObjectIdentifier.FullyQualifiedName(). Each
+// dot-segment is wrapped in double quotes.
+// The function splits on every ".". A quoted segment with a literal dot
+// ("my.db"."role") splits wrongly. Snowflake object names with dots are rare.
+// Use a quote-aware splitter if such a name shows up in practice.
 func normalizeSFObjectID(raw string) string {
 	segments := strings.Split(raw, ".")
 	for i, seg := range segments {
@@ -47,9 +46,9 @@ func buildGrantAccountRoleID(parameters map[string]any) (string, error) {
 }
 
 // GrantAccountRoleIdentifier returns an ExternalName for snowflake_grant_account_role.
-// No field is omitted from spec.forProvider — role_name, parent_role_name, and
-// user_name all stay visible, allowing multiple grants to share a role_name
-// (matching the TF for_each pattern) since the K8s identity is decoupled from
+// No field is omitted from spec.forProvider. role_name, parent_role_name, and
+// user_name all stay visible, so multiple grants can share a role_name. This
+// matches the TF for_each pattern because the K8s identity does not depend on
 // any single field.
 func GrantAccountRoleIdentifier() config.ExternalName {
 	return config.NewExternalNameFrom(config.IdentifierFromProvider,
@@ -103,8 +102,8 @@ func GrantApplicationRoleIdentifier() config.ExternalName {
 // '<db_role_fqn>|ROLE|<parent_role>' or
 // '<db_role_fqn>|DATABASE ROLE|<parent_db_role>' or
 // '<db_role_fqn>|SHARE|<share>'.
-// Note: sdk.ObjectTypeDatabaseRole.String() is "DATABASE ROLE" (space), not
-// "DATABASE_ROLE" — verified against pkg/sdk/object_types.go.
+// Note: sdk.ObjectTypeDatabaseRole.String() is "DATABASE ROLE" (with a space),
+// not "DATABASE_ROLE". Verified against pkg/sdk/object_types.go.
 func buildGrantDatabaseRoleID(parameters map[string]any) (string, error) {
 	dbRoleName, _ := parameters["database_role_name"].(string)
 	if dbRoleName == "" {
@@ -182,11 +181,11 @@ func onSchemaBlockSuffix(onSchema map[string]any) (string, []string, bool) {
 // Returns (grant sub-type, suffix parts, found, error).
 // The single-object case ALWAYS carries the OnObject sub-type marker:
 // ParseGrantPrivilegesTo{Account,Database}RoleId only accepts the 8-part
-// "…|OnSchemaObject|OnObject|<object_type>|<object_name>" form
-// (grant_privileges_to_database_role_identifier.go errors
-// "invalid OnSchemaObjectGrantKind" otherwise), and the upstream encoder
+// "…|OnSchemaObject|OnObject|<object_type>|<object_name>" form.
+// grant_privileges_to_database_role_identifier.go errors
+// "invalid OnSchemaObjectGrantKind" for any other form. The upstream encoder
 // (grant_privileges_identifier_commons.go OnSchemaObjectGrantData.String)
-// emits OnObject unconditionally — all_privileges does not change the ID.
+// emits OnObject unconditionally. all_privileges does not change the ID.
 func onSchemaObjectBlockSuffix(so map[string]any) (string, []string, bool, error) {
 	// Single object: object_type + object_name
 	if objType, _ := so["object_type"].(string); objType != "" {
@@ -488,9 +487,9 @@ func buildGrantPrivilegesToDatabaseRoleID(parameters map[string]any) (string, er
 //
 //	<to_share>|<privileges>|<grant_type>|<grant_identifier>
 //
-// No field is omitted from spec.forProvider — to_share stays as a regular
-// spec parameter, allowing multiple grants under the same share (different
-// on_* targets, matching the TF for_each pattern).
+// No field is omitted from spec.forProvider. to_share stays as a regular
+// spec parameter, so multiple grants under the same share are possible
+// with different on_* targets. This matches the TF for_each pattern.
 func GrantPrivilegesToShareIdentifier() config.ExternalName {
 	return config.NewExternalNameFrom(
 		config.IdentifierFromProvider,
@@ -535,8 +534,8 @@ func buildGrantPrivilegesToShareID(parameters map[string]any) (string, error) {
 		return "", fmt.Errorf("grant_privileges_to_share: to_share is required")
 	}
 
-	// ponytail: inline privileges formatting, not reusing grantPrivilegesBaseStr
-	// because share grants don't have with_grant_option or always_apply fields.
+	// Inline privileges formatting, not a call to grantPrivilegesBaseStr.
+	// Share grants have no with_grant_option or always_apply fields.
 	privs := formatSharePrivileges(parameters)
 	if privs == "" {
 		return "", fmt.Errorf("grant_privileges_to_share: privileges is required")

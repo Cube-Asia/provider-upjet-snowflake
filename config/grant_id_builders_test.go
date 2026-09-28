@@ -7,15 +7,15 @@ import (
 	"testing"
 )
 
-// Encode-side tests for the grant ID builders. The builders reconstruct the
+// Encode-side tests for the grant ID builders. The builders rebuild the
 // compound, pipe-separated import IDs that the upstream Snowflake provider's
-// parsers accept on observe and import; a wrong part count or a wrong marker
+// parsers accept on observe and import. A wrong part count or a wrong marker
 // makes every observe fail (see the OnObject regression this suite grew out
 // of). Each case asserts the FULL ID string, so an upstream shape change
-// fails loudly here instead of in a cluster.
+// fails here and not in a cluster.
 //
-// Expected shapes are derived from the upstream encoder, not from this
-// fork's own output: helpers.EncodeResourceIdentifier joins parts with the
+// The expected shapes come from the upstream encoder, not from this fork's
+// own output: helpers.EncodeResourceIdentifier joins parts with the
 // pipe delimiter (pkg/helpers/resource_identifier.go:18), and the ID types
 // fix the part order:
 //   - GrantAccountRoleId.String: roleFQN | objType | granteeFQN
@@ -29,8 +29,8 @@ import (
 //   - GrantOwnershipId.String: targetKind | roleName | outboundPrivs (empty
 //     when nil) | blockKind | dataParts (grant_ownership_identifier.go:65)
 //
-// The privileges base "role|wgo|alwaysApply|privs" encoding mirrors the
-// three grant-privileges resources' shared ID layout.
+// The privileges base "role|wgo|alwaysApply|privs" encoding copies the
+// shared ID layout of the three grant-privileges resources.
 
 func TestBuildGrantAccountRoleID(t *testing.T) {
 	cases := map[string]struct {
@@ -290,8 +290,8 @@ func TestBuildGrantPrivilegesToDatabaseRoleID(t *testing.T) {
 			want: `"DB"."R"|false|false|SELECT|OnSchema|OnFutureSchemasInDatabase|"DB"`,
 		},
 		"OnSchemaObjectSingleWithoutAllPrivileges": {
-			// The exact shape that regressed: all_privileges unset must still
-			// carry the OnObject marker.
+			// The exact shape that regressed: when all_privileges is unset, the
+			// ID must still carry the OnObject marker.
 			parameters: map[string]any{
 				"database_role_name": `"DB"."R"`,
 				"privileges":         []any{"SELECT"},
@@ -440,12 +440,12 @@ func assertIDOrError(t *testing.T, got string, err error, wantID, wantErr string
 
 // The grant-privileges external ID is the storage format for everything the
 // Read path cannot recover from Snowflake: the role name, grant option, and
-// privilege set all survive only inside this string. The upstream builders
-// emit it bare, while IDs observed in a live Snowflake account are quoted by
-// Snowflake's ID delegation ("role"|true|...), so the parser must accept
-// quoted segments and the encoder/parser pair must round-trip losslessly.
-// If either side changes shape, grants owned by the old format stop being
-// recognized.
+// privilege set survive only inside this string. The upstream builders emit
+// it bare, while IDs observed in a live Snowflake account are quoted by
+// Snowflake's ID delegation ("role"|true|...). The parser must accept quoted
+// segments, and the encoder/parser pair must round-trip without losing
+// data. If either side changes shape, grants written in the old format stop
+// being recognized.
 
 func TestGrantPrivilegesAccountRoleIDRoundTrip(t *testing.T) {
 	params := map[string]any{
@@ -508,8 +508,8 @@ func TestGrantPrivilegesAccountRoleIDDeterministicPrivilegeOrder(t *testing.T) {
 			"on_account_object": []any{map[string]any{"object_type": "DATABASE", "object_name": "d"}},
 		})
 	}
-	// The same set in a different input order must yield the same ID —
-	// otherwise Create and Read would disagree about which grant exists.
+	// The same set in a different input order must yield the same ID.
+	// Otherwise Create and Read would disagree about which grant exists.
 	idAB, err := build([]any{"CREATE USER", "CREATE DATABASE"})
 	if err != nil {
 		t.Fatalf("build AB: %v", err)
@@ -543,7 +543,7 @@ func TestGrantPrivilegesDatabaseRoleIDRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("build: %v", err)
 	}
-	// Pin the exact wire form for the bare-name shape — the table above
+	// Pin the exact wire form for the bare-name shape. The table above
 	// covers the quoted form ("DB"), so together both segment styles are
 	// drift-pinned without duplicating an assertion.
 	want := "db-rw|false|false|USAGE|OnDatabase|analytics"

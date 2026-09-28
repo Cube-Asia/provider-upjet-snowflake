@@ -8,20 +8,20 @@ import (
 	sfresources "github.com/Snowflake-Labs/terraform-provider-snowflake/v2/pkg/resources"
 )
 
-// onSchemaObjectKey is the shared parameters map key for the
-// on_schema_object grant parameter across both tests in this file; goconst
-// (min-occurrences: 5 on this layer — the test-file exclusion arrives with a
-// later layer) requires the repeated key to be a named constant.
+// onSchemaObjectKey is the shared parameters map key for the on_schema_object
+// grant parameter. Both tests in this file use it. goconst (min-occurrences: 5
+// on this layer) requires the repeated key to be a named constant. The
+// test-file exclusion arrives with a later layer.
 const onSchemaObjectKey = "on_schema_object"
 
-// Regression coverage for the OnObject marker gate: the single-object case of
+// Regression coverage for the OnObject marker gate. The single-object case of
 // on_schema_object must always emit the 8-part
 // "…|OnSchemaObject|OnObject|<object_type>|<object_name>" ID. Omitting the
-// marker when all_privileges=false produced a 7-part ID that
-// ParseGrantPrivilegesTo{Account,Database}RoleId rejects with
-// "invalid OnSchemaObjectGrantKind" on every observe, so the grant could
-// never become Ready (upstream's OnSchemaObjectGrantData.String always
-// writes OnObject, regardless of all_privileges).
+// marker when all_privileges=false produced a 7-part ID.
+// ParseGrantPrivilegesTo{Account,Database}RoleId rejects that ID with
+// "invalid OnSchemaObjectGrantKind" on every observe, so the grant could never
+// become Ready. Upstream's OnSchemaObjectGrantData.String always writes
+// OnObject, regardless of all_privileges.
 func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 	const base = `"R"|false|false|SELECT`
 
@@ -104,23 +104,23 @@ func TestProcessOnSchemaObjectID_SingleObjectAlwaysEmitsOnObject(t *testing.T) {
 }
 
 // TestGrantPrivilegesToDatabaseRole_GetIDFnHealsLegacyAnnotation locks the
-// observe-path heal for the live stuck grants: MRs created by provider builds before
-// the OnObject fix carry a stored external-name in the legacy 7-part form
-// (OnSchemaObject|<object_type>|<object_name>, no marker), which
-// sfresources.ParseGrantPrivilegesToDatabaseRoleId rejects with "invalid
-// OnSchemaObjectGrantKind" on every observe - the grant could never go
-// Ready and the spec's shadow rehearsal and smoke test cannot run.
+// observe-path heal for the live stuck grants. MRs created by provider builds
+// before the OnObject fix carry a stored external-name in the legacy 7-part
+// form (OnSchemaObject|<object_type>|<object_name>, no marker).
+// sfresources.ParseGrantPrivilegesToDatabaseRoleId rejects that form with
+// "invalid OnSchemaObjectGrantKind" on every observe. The grant could never go
+// Ready, and the spec's shadow rehearsal and smoke test cannot run.
 //
-// The heal is structural, not a data migration: upjet's connect step calls
-// GetIDFn BEFORE anything parses an ID (upjet
-// pkg/controller/external_tfpluginsdk.go), and this resource's GetIDFn
-// rebuilds the ID from the complete spec parameters, falling back to the
-// stored annotation only when the builder errors. So once the fixed builder
-// deploys, the legacy annotation is never parsed: the rebuilt modern ID is
-// what upstream's parser receives, and the stuck MR heals on its next
-// reconcile. This test pins that chain end to end - including that the
-// legacy string really is unparsable (the bug) and that the rebuilt string
-// parses AND re-encodes identically (the heal).
+// The heal is structural, not a data migration. Upjet's connect step calls
+// GetIDFn before anything parses an ID (upjet
+// pkg/controller/external_tfpluginsdk.go). This resource's GetIDFn rebuilds
+// the ID from the complete spec parameters. It falls back to the stored
+// annotation only when the builder errors. Once the fixed builder deploys, the
+// legacy annotation is never parsed. The rebuilt modern ID is what upstream's
+// parser receives, and the stuck MR heals on its next reconcile. This test
+// pins that chain end to end. It proves the legacy string is unparsable (the
+// bug) and that the rebuilt string parses and re-encodes identically (the
+// heal).
 func TestGrantPrivilegesToDatabaseRole_GetIDFnHealsLegacyAnnotation(t *testing.T) {
 	const legacy = `"APP_DB"."APP_DB_RO_REPORTING"|false|false|SELECT|OnSchemaObject|TABLE|"APP_DB"."PUBLIC"."APP_TABLE"`
 	const modern = `"APP_DB"."APP_DB_RO_REPORTING"|false|false|SELECT|OnSchemaObject|OnObject|TABLE|"APP_DB"."PUBLIC"."APP_TABLE"`
@@ -157,7 +157,7 @@ func TestGrantPrivilegesToDatabaseRole_GetIDFnHealsLegacyAnnotation(t *testing.T
 	if err != nil {
 		t.Fatalf("ParseGrantPrivilegesToDatabaseRoleId(%q) error = %v", got, err)
 	}
-	// Re-encode so a silently-lossy parse cannot pass.
+	// Re-encode so a parse that silently drops parts cannot pass.
 	if reencoded := id.String(); reencoded != modern {
 		t.Fatalf("parsed ID re-encodes as %q, want %q", reencoded, modern)
 	}
