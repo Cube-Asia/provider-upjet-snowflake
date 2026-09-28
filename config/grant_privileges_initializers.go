@@ -101,7 +101,7 @@ func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 // <role>|<with_grant_option>|<always_apply>|<privileges>|... prefix used by
 // both snowflake_grant_privileges_to_account_role and
 // snowflake_grant_privileges_to_database_role compound IDs. See
-// grantPrivilegesBaseStr in external_name.go for the encoder.
+// grantPrivilegesBaseStr in grant_id_builders.go for the encoder.
 func parseGrantPrivilegesBaseID(id string) (roleName string, withGrantOption, alwaysApply, allPrivileges bool, privileges []string, ok bool) {
 	parts := strings.SplitN(id, "|", 5)
 	if len(parts) < 4 || parts[0] == "" {
