@@ -1,6 +1,8 @@
 package config
 
 import (
+	"reflect"
+	"sort"
 	"strings"
 	"testing"
 )
@@ -429,5 +431,133 @@ func assertIDOrError(t *testing.T, got string, err error, wantID, wantErr string
 	}
 	if got != wantID {
 		t.Errorf("ID = %q, want %q", got, wantID)
+	}
+}
+
+// ---------------------------------------------------------------------------
+// Round-trip and determinism (adopted from the standalone round-trip PR)
+// ---------------------------------------------------------------------------
+
+// The grant-privileges external ID is the storage format for everything the
+// Read path cannot recover from Snowflake: the role name, grant option, and
+// privilege set all survive only inside this string. The upstream builders
+// emit it bare, while IDs observed in a live Snowflake account are quoted by
+// Snowflake's ID delegation ("role"|true|...), so the parser must accept
+// quoted segments and the encoder/parser pair must round-trip losslessly.
+// If either side changes shape, grants owned by the old format stop being
+// recognized.
+
+func TestGrantPrivilegesAccountRoleIDRoundTrip(t *testing.T) {
+	params := map[string]any{
+		"account_role_name": "test-e2e-role",
+		"with_grant_option": true,
+		"privileges":        []any{"USAGE"},
+		"on_account_object": []any{map[string]any{"object_type": "DATABASE", "object_name": "test-e2e-db"}},
+	}
+
+	id, err := buildGrantPrivilegesToAccountRoleID(params)
+	if err != nil {
+		t.Fatalf("build: %v", err)
+	}
+	want := "test-e2e-role|true|false|USAGE|OnAccountObject|DATABASE|test-e2e-db"
+	if id != want {
+		t.Fatalf("builder id = %q, want %q", id, want)
+	}
+
+	role, wgo, aa, all, privs, ok := parseGrantPrivilegesBaseID(id)
+	if !ok {
+		t.Fatalf("parse(%q) failed", id)
+	}
+	if role != "test-e2e-role" || !wgo || aa || all {
+		t.Fatalf("parse(%q) = (%q, %v, %v, %v)", id, role, wgo, aa, all)
+	}
+	if !reflect.DeepEqual(privs, []string{"USAGE"}) {
+		t.Fatalf("privileges = %q, want [USAGE]", privs)
+	}
+
+	// Rebuilding from the parsed fields must reproduce the exact ID.
+	// (The builder consumes the JSON-decoded []any shape; the parser
+	// returns []string, so convert.)
+	privsAny := make([]any, len(privs))
+	for i, p := range privs {
+		privsAny[i] = p
+	}
+	rebuilt := map[string]any{
+		"account_role_name": role,
+		"with_grant_option": wgo,
+		"always_apply":      aa,
+		"all_privileges":    all,
+		"privileges":        privsAny,
+		"on_account_object": []any{map[string]any{"object_type": "DATABASE", "object_name": "test-e2e-db"}},
+	}
+	id2, err := buildGrantPrivilegesToAccountRoleID(rebuilt)
+	if err != nil {
+		t.Fatalf("rebuild: %v", err)
+	}
+	if id2 != id {
+		t.Fatalf("rebuild id = %q, want original %q", id2, id)
+	}
+}
+
+func TestGrantPrivilegesAccountRoleIDDeterministicPrivilegeOrder(t *testing.T) {
+	build := func(privs []any) (string, error) {
+		return buildGrantPrivilegesToAccountRoleID(map[string]any{
+			"account_role_name": "r",
+			"with_grant_option": false,
+			"privileges":        privs,
+			"on_account_object": []any{map[string]any{"object_type": "DATABASE", "object_name": "d"}},
+		})
+	}
+	// The same set in a different input order must yield the same ID —
+	// otherwise Create and Read would disagree about which grant exists.
+	idAB, err := build([]any{"CREATE USER", "CREATE DATABASE"})
+	if err != nil {
+		t.Fatalf("build AB: %v", err)
+	}
+	idBA, err := build([]any{"CREATE DATABASE", "CREATE USER"})
+	if err != nil {
+		t.Fatalf("build BA: %v", err)
+	}
+	if idAB != idBA {
+		t.Fatalf("privilege order changed the ID: %q vs %q", idAB, idBA)
+	}
+	_, _, _, _, privs, ok := parseGrantPrivilegesBaseID(idAB)
+	if !ok {
+		t.Fatalf("parse(%q) failed", idAB)
+	}
+	got := append([]string(nil), privs...)
+	sort.Strings(got)
+	if !reflect.DeepEqual(got, []string{"CREATE DATABASE", "CREATE USER"}) {
+		t.Fatalf("privileges = %q, want the input set", privs)
+	}
+}
+
+func TestGrantPrivilegesDatabaseRoleIDRoundTrip(t *testing.T) {
+	params := map[string]any{
+		"database_role_name": "db-rw",
+		"with_grant_option":  false,
+		"privileges":         []any{"USAGE"},
+		"on_database":        "analytics",
+	}
+	id, err := buildGrantPrivilegesToDatabaseRoleID(params)
+	if err != nil {
+		t.Fatalf("build: %v", err)
+	}
+	// Pin the exact wire form for the bare-name shape — the table above
+	// covers the quoted form ("DB"), so together both segment styles are
+	// drift-pinned without duplicating an assertion.
+	want := "db-rw|false|false|USAGE|OnDatabase|analytics"
+	if id != want {
+		t.Fatalf("builder id = %q, want %q", id, want)
+	}
+	role, wgo, aa, all, privs, ok := parseGrantPrivilegesBaseID(id)
+	if !ok {
+		t.Fatalf("parse(%q) failed", id)
+	}
+	if role != "db-rw" || wgo || aa || all {
+		t.Fatalf("parse(%q) = (%q, %v, %v, %v)", id, role, wgo, aa, all)
+	}
+	if !reflect.DeepEqual(privs, []string{"USAGE"}) {
+		t.Fatalf("privileges = %q, want [USAGE]", privs)
 	}
 }

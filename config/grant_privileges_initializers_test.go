@@ -2,6 +2,7 @@ package config
 
 import (
 	"context"
+	"reflect"
 	"testing"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
@@ -32,6 +33,10 @@ func TestParseGrantPrivilegesBaseID(t *testing.T) {
 		},
 		"malformed": {
 			id: "not-enough-parts",
+			ok: false,
+		},
+		"empty role": {
+			id: "|true|false|USAGE|OnDatabase|db",
 			ok: false,
 		},
 	}
@@ -130,5 +135,27 @@ func TestWrapGrantPrivilegesReadContext_BackfillsMissingForceNewField(t *testing
 	}
 	if d2.Id() != "" {
 		t.Fatalf("Id() = %q, want empty after upstream deletion", d2.Id())
+	}
+}
+
+// The builders emit the external ID bare, but IDs observed in a live Snowflake account
+// arrive quoted — Snowflake's ID delegation quotes each name segment. The
+// parser must accept quoted segments verbatim so grants created by this
+// provider keep parsing on the Read path after the ID round-trips through
+// Snowflake.
+func TestParseGrantPrivilegesBaseIDLiveWireFormat(t *testing.T) {
+	const liveID = `"test-e2e-role"|true|false|USAGE|OnAccountObject|DATABASE|"test-e2e-db"`
+	role, wgo, aa, all, privs, ok := parseGrantPrivilegesBaseID(liveID)
+	if !ok {
+		t.Fatalf("parse(%s) failed", liveID)
+	}
+	if role != `"test-e2e-role"` {
+		t.Fatalf("role = %q, want the verbatim quoted segment", role)
+	}
+	if !wgo || aa || all {
+		t.Fatalf("flags = (%v, %v, %v), want (true, false, false)", wgo, aa, all)
+	}
+	if !reflect.DeepEqual(privs, []string{"USAGE"}) {
+		t.Fatalf("privileges = %q, want [USAGE]", privs)
 	}
 }
