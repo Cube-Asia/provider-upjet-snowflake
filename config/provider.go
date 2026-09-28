@@ -6,11 +6,6 @@ import (
 
 	sfprovider "github.com/Snowflake-Labs/terraform-provider-snowflake/v2/pkg/provider"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
-
-	previewCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/preview"
-	stableCluster "github.com/Cube-Asia/provider-upjet-snowflake/config/cluster/stable"
-	previewNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/preview"
-	stableNamespaced "github.com/Cube-Asia/provider-upjet-snowflake/config/namespaced/stable"
 )
 
 const (
@@ -41,8 +36,8 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		stableCluster.Configure,
-		previewCluster.Configure,
+		ConfigureStableGroup,
+		ConfigurePreviewGroup,
 	} {
 		configure(pc)
 	}
@@ -69,8 +64,8 @@ func GetProviderNamespaced() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		stableNamespaced.Configure,
-		previewNamespaced.Configure,
+		ConfigureStableGroup,
+		ConfigurePreviewGroup,
 	} {
 		configure(pc)
 	}
