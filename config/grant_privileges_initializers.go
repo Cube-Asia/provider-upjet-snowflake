@@ -76,6 +76,15 @@ func wrapGrantPrivilegesReadContext(roleNameKey string) func(r *ujconfig.Resourc
 // the resource's own compound ID (see parseGrantPrivilegesBaseID). privileges
 // is deliberately left untouched — Read() already recomputes it correctly
 // from a live "SHOW GRANTS" call.
+//
+// strict_privilege_management is pinned to false on every refresh, including
+// when the spec asks for true. This mirrors upstream Import exactly
+// (grant_privileges_to_account_role.go: d.Set("strict_privilege_management",
+// false) — it is not encoded in the compound ID, so Import cannot recover
+// it). Setting it true additionally requires the provider-level
+// GRANTS_STRICT_PRIVILEGE_MANAGEMENT experimental feature, which no known
+// claim enables. If a claim ever needs it, the backfill must learn to
+// respect a set state value instead of mirroring Import.
 func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 	roleName, withGrantOption, alwaysApply, allPrivileges, _, ok := parseGrantPrivilegesBaseID(d.Id())
 	if !ok {
