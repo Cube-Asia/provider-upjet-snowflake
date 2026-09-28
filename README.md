@@ -50,7 +50,7 @@ those walked through the manual test procedure (no automated test suite
 exists yet). To mark a resource tested, add its Terraform name to
 `hack/tested_resources.txt` and re-run the script.
 
-10 / 130 resources manually tested.
+11 / 130 resources manually tested.
 
 ### Stable (74)
 
@@ -106,7 +106,7 @@ exists yet). To mark a resource tested, add its Terraform name to
 | SecretWithClientCredentials | `snowflake_secret_with_client_credentials` | ⬜ |
 | SecretWithGenericString | `snowflake_secret_with_generic_string` | ⬜ |
 | Service | `snowflake_service` | ⬜ |
-| ServiceUser | `snowflake_service_user` | ⬜ |
+| ServiceUser | `snowflake_service_user` | ✅ |
 | SessionPolicy | `snowflake_session_policy` | ⬜ |
 | SharedDatabase | `snowflake_shared_database` | ⬜ |
 | StageExternalAzure | `snowflake_stage_external_azure` | ⬜ |
