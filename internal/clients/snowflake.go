@@ -2,7 +2,10 @@ package clients
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
+	"sync"
+	"time"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
@@ -190,6 +193,13 @@ func buildProviderConfiguration(creds map[string]string) (map[string]any, error)
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string, ujprovider *ujconfig.Provider) terraform.SetupFn {
+	// One cache per SetupFn (there are two setups in main.go, one per scope,
+	// each backed by its own *schema.Provider). It retains the configured
+	// provider meta so a reconcile re-mints a Snowflake SDK session only when
+	// the provider configuration changes or the entry expires, not on every
+	// call.
+	var cache = metaCache{ttl: time.Hour}
+
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
 			Version: version,
@@ -218,16 +228,124 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 			return ps, err
 		}
 
-		if ujprovider == nil || ujprovider.TerraformProvider == nil {
-			return ps, errors.New(errConfigureProvider + ": no terraform provider configured")
+		key, err := hashConfiguration(ps.Configuration)
+		if err != nil {
+			return ps, errors.Wrap(err, "cannot hash provider configuration")
 		}
-		diags := ujprovider.TerraformProvider.Configure(ctx, &tfsdk.ResourceConfig{Config: ps.Configuration})
-		if diags.HasError() {
-			return ps, errors.Errorf("%s: %v", errConfigureProvider, diags)
+
+		meta, err := cache.metaFor(key, func() (any, error) {
+			return configureAndMeta(ctx, ujprovider, ps.Configuration)
+		})
+		if err != nil {
+			return ps, err
 		}
-		ps.Meta = ujprovider.TerraformProvider.Meta()
+		ps.Meta = meta
 		return ps, nil
 	}
+}
+
+// metaCache memoizes the configured Terraform provider meta keyed by the
+// provider configuration digest.
+//
+// Why it exists: ConfigureProvider on the shared schema.Provider mints a
+// *live* Snowflake session on every call — sdk.NewClient runs
+// sqlx.Connect (sql.Open + Ping), then CurrentAccount and CurrentSession
+// round trips — and nothing ever closes the previous session. Upjet invokes
+// the SetupFn once per managed-resource reconcile, so before this cache
+// every reconcile opened an authenticated session, a database/sql pool
+// (with its connectionOpener goroutine) and an HTTP transport, then threw
+// the reference away. Under the 2026-09-28 roster that compounded to a
+// ~1.5-2 GiB/h straight-line memory climb and a killed node
+// (HANDOFF-2026-09-28-provider-snowflake-oom.md in pcm).
+//
+// Trade-off: when the configuration (e.g. the private key) changes, the
+// old session's meta is replaced, not closed — the SDK Client type lives in
+// an internal package we cannot name here, and closing immediately could
+// pull the connection pool out from under concurrent reconciles still
+// holding the previous meta. A rotation therefore leaks exactly one
+// session, once per change, instead of one per reconcile.
+type metaCache struct {
+	mu      sync.Mutex
+	entries map[string]cacheEntry
+	ttl     time.Duration
+	// now is injectable for tests; nil means time.Now.
+	now func() time.Time
+}
+
+// cacheEntry pairs a configured meta with its mint time. Entries expire
+// after the cache TTL: gosnowflake renews an expired *session* token
+// transparently (390112 → renewExpiredSessionToken, restful.go), but the
+// *master* token has no verified recovery path in the vendored driver
+// (renewRestfulSession renews with the master token itself; a pooled conn
+// idled past its lifetime fails renewal with a plain error, which
+// database/sql does not discard). Expiring entries bounds re-logins to
+// 24/day per configuration and removes any stale-session class outright.
+type cacheEntry struct {
+	meta    any
+	created time.Time
+}
+
+// metaFor returns the cached meta for key, calling configure exactly once on
+// a miss. The lock is held across the check, the configure, and the store so
+// concurrent misses on a cold cache cannot race past each other into
+// duplicate sessions. Entries are keyed by the provider configuration digest
+// so reconciles referencing different ProviderConfigs (e.g. live and shadow
+// credentials) keep independent sessions instead of thrashing one slot. The
+// map is bounded by the number of distinct configurations this provider
+// instance resolves, each entry at most one TTL old.
+//
+// The vendored provider.Context is opaque (internal package), so nothing
+// here can or should Close it; expiry simply orphans the old client, which
+// is reclaimed when the provider restarts.
+func (c *metaCache) metaFor(key string, configure func() (any, error)) (any, error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	now := c.now
+	if now == nil {
+		now = time.Now
+	}
+	if entry, ok := c.entries[key]; ok && now().Sub(entry.created) < c.ttl {
+		return entry.meta, nil
+	}
+	meta, err := configure()
+	if err != nil {
+		// Do not cache failures: a transient configure error must not pin
+		// the cache to a missing entry, and the next call retries.
+		return nil, err
+	}
+	if c.entries == nil {
+		c.entries = make(map[string]cacheEntry)
+	}
+	c.entries[key] = cacheEntry{meta: meta, created: now()}
+	return meta, nil
+}
+
+// hashConfiguration derives the cache key from the provider configuration.
+// json.Marshal sorts map keys, so the digest is stable across reconciles.
+// The digest covers secret material (password, private key) by design — it
+// must never be logged.
+func hashConfiguration(cfg map[string]any) (string, error) {
+	b, err := json.Marshal(cfg)
+	if err != nil {
+		return "", err
+	}
+	sum := sha256.Sum256(b)
+	return string(sum[:]), nil
+}
+
+// configureAndMeta runs the Terraform provider's Configure and returns the
+// resulting meta. It is a package variable so tests can observe how many
+// times the (session-minting) configure step runs without contacting a
+// Snowflake endpoint.
+var configureAndMeta = func(ctx context.Context, ujprovider *ujconfig.Provider, cfg map[string]any) (any, error) {
+	if ujprovider == nil || ujprovider.TerraformProvider == nil {
+		return nil, errors.New(errConfigureProvider + ": no terraform provider configured")
+	}
+	diags := ujprovider.TerraformProvider.Configure(ctx, &tfsdk.ResourceConfig{Config: cfg})
+	if diags.HasError() {
+		return nil, errors.Errorf("%s: %v", errConfigureProvider, diags)
+	}
+	return ujprovider.TerraformProvider.Meta(), nil
 }
 
 func toSharedPCSpec(pc *clusterv1beta1.ProviderConfig) (*namespacedv1beta1.ProviderConfigSpec, error) {
