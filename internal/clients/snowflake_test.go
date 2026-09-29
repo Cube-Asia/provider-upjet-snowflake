@@ -3,6 +3,7 @@ package clients
 import (
 	"context"
 	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -20,6 +21,7 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/types"
 	clientgoscheme "k8s.io/client-go/kubernetes/scheme"
 	crclient "sigs.k8s.io/controller-runtime/pkg/client"
 	crfake "sigs.k8s.io/controller-runtime/pkg/client/fake"
@@ -125,10 +127,22 @@ func TestTerraformSetupBuilderConcurrentReconcilesMintOneSession(t *testing.T) {
 	const reconciles = 16
 	errs := make(chan error, reconciles)
 	var wg sync.WaitGroup
-	for range reconciles {
+	for i := range reconciles {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
+			// Each reconcile gets its own managed resource: the runtime
+			// applicator tracks usage with a Get->Create (then an
+			// update) keyed by the managed UID, and the fake client has
+			// no retry - two goroutines sharing one UID collide inside
+			// the applicator. A real MR is never reconciled
+			// concurrently; concurrency here is what stresses the
+			// session cache, and every mg still resolves the same
+			// ProviderConfig, so the cache must still mint one session.
+			mgi := *mg
+			mg := &mgi
+			mg.Name = fmt.Sprintf("xr-%d", i)
+			mg.UID = types.UID(fmt.Sprintf("unit-%d", i))
 			ps, err := setup(ctx, kClient, mg)
 			if err == nil && ps.Meta == nil {
 				err = errors.New("nil meta")
