@@ -3,12 +3,16 @@ package clients
 import (
 	"context"
 	"errors"
+	"io/fs"
+	"os"
+	"regexp"
 	"sync"
 	"sync/atomic"
 	"testing"
 	"time"
 
 	"github.com/Cube-Asia/provider-upjet-snowflake/apis/cluster/v1beta1"
+	namespacedv1beta1 "github.com/Cube-Asia/provider-upjet-snowflake/apis/namespaced/v1beta1"
 
 	rfake "github.com/crossplane/crossplane-runtime/v2/pkg/resource/fake"
 	xpv2 "github.com/crossplane/crossplane/apis/v2/core/v2"
@@ -274,7 +278,7 @@ func TestTerraformSetupBuilderAlternatingConfigurationsKeepIndependentSessions(t
 // deterministic.
 func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 	now := time.Unix(0, 0)
-	c := &metaCache{ttl: time.Hour, now: func() time.Time { return now }}
+	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
 
 	var calls atomic.Int32
 	configure := func() (any, error) {
@@ -283,11 +287,11 @@ func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 	}
 
 	// The first call mints and the immediate second call is memoized.
-	first, err := c.metaFor("key", configure)
+	first, err := c.metaFor("key", time.Hour, configure)
 	if err != nil {
 		t.Fatalf("first metaFor: %v", err)
 	}
-	again, err := c.metaFor("key", configure)
+	again, err := c.metaFor("key", time.Hour, configure)
 	if err != nil {
 		t.Fatalf("second metaFor: %v", err)
 	}
@@ -297,7 +301,7 @@ func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 
 	// Just inside the TTL the same entry is still served.
 	now = now.Add(time.Hour - time.Second)
-	inside, err := c.metaFor("key", configure)
+	inside, err := c.metaFor("key", time.Hour, configure)
 	if err != nil {
 		t.Fatalf("metaFor inside TTL: %v", err)
 	}
@@ -307,7 +311,7 @@ func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 
 	// Past the TTL a fresh session is minted.
 	now = now.Add(2 * time.Second)
-	expired, err := c.metaFor("key", configure)
+	expired, err := c.metaFor("key", time.Hour, configure)
 	if err != nil {
 		t.Fatalf("metaFor past TTL: %v", err)
 	}
@@ -316,7 +320,7 @@ func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 	}
 
 	// And the fresh entry is memoized in turn.
-	fresh, err := c.metaFor("key", configure)
+	fresh, err := c.metaFor("key", time.Hour, configure)
 	if err != nil {
 		t.Fatalf("metaFor after expiry: %v", err)
 	}
@@ -355,5 +359,200 @@ func TestHashConfigurationIsStable(t *testing.T) {
 	}
 	if firstHash == rotatedHash {
 		t.Fatal("different configurations hashed identically")
+	}
+}
+
+// A sweep past ttl+grace closes the evicted session and deletes its entry,
+// whether or not the same key was reconfigured: this is what bounds both
+// leaks - the replaced-on-expiry session and the entry of a configuration
+// that stopped being resolved (for example after a key rotation). Entries
+// inside the grace window stay, so a reconcile still holding the previous
+// meta keeps a live pool.
+func TestMetaCacheSweepClosesAndDeletesStaleEntries(t *testing.T) {
+	now := time.Unix(0, 0)
+	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	configure := func() (any, error) { return &struct{}{}, nil }
+
+	var closed atomic.Int32
+	restore := closeMeta
+	t.Cleanup(func() { closeMeta = restore })
+	closeMeta = func(any) { closed.Add(1) }
+
+	if _, err := c.metaFor("rotate-away", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor rotate-away: %v", err)
+	}
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor key: %v", err)
+	}
+
+	// At ttl+1s the expired "key" entry is replaced but NOT yet closed:
+	// the grace window keeps the old pool alive past replacement.
+	now = now.Add(time.Hour + time.Second)
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor past ttl: %v", err)
+	}
+	if got := closed.Load(); got != 0 {
+		t.Fatalf("closed %d sessions inside the grace window, want 0", got)
+	}
+
+	// Past the grace period the superseded "key" meta (retired at 3601s)
+	// is closed, and the never-resolved-again "rotate-away" entry leaves
+	// the map to await its own close.
+	now = now.Add(5 * time.Minute)
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor past grace: %v", err)
+	}
+	if got := closed.Load(); got != 1 {
+		t.Fatalf("closed %d sessions past the grace window, want 1", got)
+	}
+	c.mu.Lock()
+	_, hasRotate := c.entries["rotate-away"]
+	fresh := c.entries["key"]
+	c.mu.Unlock()
+	if hasRotate {
+		t.Fatal("stale rotate-away entry should have been swept from the map")
+	}
+	if !fresh.created.After(time.Unix(0, 0)) {
+		t.Fatal("the live key entry should have survived the sweep")
+	}
+
+	// One more grace period later the rotate-away session is closed too.
+	now = now.Add(5 * time.Minute)
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor after rotate-away grace: %v", err)
+	}
+	if got := closed.Load(); got != 2 {
+		t.Fatalf("closed %d sessions after the final grace window, want 2", got)
+	}
+}
+
+// sessionCacheTTL resolves spec.sessionCacheTtl when set and positive, and
+// falls back to the default otherwise, so a ProviderConfig controls its own
+// re-login rate without a controller restart.
+func TestSessionCacheTTLResolves(t *testing.T) {
+	hour := time.Hour
+	half := 30 * time.Minute
+	zero := time.Duration(0)
+	for name, tc := range map[string]struct {
+		spec *namespacedv1beta1.ProviderConfigSpec
+		want time.Duration
+	}{
+		"nil spec":          {nil, defaultSessionCacheTTL},
+		"nil field":         {&namespacedv1beta1.ProviderConfigSpec{}, defaultSessionCacheTTL},
+		"set":               {&namespacedv1beta1.ProviderConfigSpec{SessionCacheTTL: &metav1.Duration{Duration: half}}, half},
+		"zero means unset":  {&namespacedv1beta1.ProviderConfigSpec{SessionCacheTTL: &metav1.Duration{Duration: zero}}, defaultSessionCacheTTL},
+		"negative is unset": {&namespacedv1beta1.ProviderConfigSpec{SessionCacheTTL: &metav1.Duration{Duration: -hour}}, defaultSessionCacheTTL},
+	} {
+		t.Run(name, func(t *testing.T) {
+			if got := sessionCacheTTL(tc.spec); got != tc.want {
+				t.Fatalf("sessionCacheTTL = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
+// closeMeta reaches the Snowflake SDK client by walking the vendored meta
+// type's exported Client field by reflection. That type lives in an internal
+// package of the vendored provider, so a field rename there would turn the
+// sweep's Close into a silent no-op and reintroduce the leak. This guard
+// reads the vendored source and fails when the shape closeMeta relies on
+// changes. The check is skipped when the vendored checkout is absent (it is
+// provisioned by `make fetch-snowflake-provider-src`); when present, a
+// changed shape is a hard failure.
+func TestCloseMetaGuardAgainstFieldRename(t *testing.T) {
+	const rel = ".work/snowflakedb/snowflake/pkg/internal/provider/provider_context.go"
+	src, err := os.ReadFile(rel)
+	if errors.Is(err, fs.ErrNotExist) {
+		t.Skipf("vendored provider checkout not present at %s; run make fetch-snowflake-provider-src", rel)
+	}
+	if err != nil {
+		t.Fatalf("cannot read vendored provider context: %v", err)
+	}
+	if !regexp.MustCompile(`Client\s+\*sdk\.Client`).Match(src) {
+		t.Fatal("vendored provider.Context no longer has an exported `Client *sdk.Client` field; closeMeta's reflection walk is a silent no-op and must be updated")
+	}
+}
+
+// A failed configure must not queue the superseded meta for closing twice:
+// the old entry stays in the map across the failure, and only a successful
+// reconfigure retires it. Double-retirement would close one session twice.
+func TestMetaCacheConfigureErrorDoesNotDoubleRetire(t *testing.T) {
+	now := time.Unix(0, 0)
+	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	configure := func() (any, error) { return &struct{}{}, nil }
+
+	var closed atomic.Int32
+	restore := closeMeta
+	t.Cleanup(func() { closeMeta = restore })
+	closeMeta = func(any) { closed.Add(1) }
+
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor: %v", err)
+	}
+
+	// After expiry, two consecutive failed reconfigures keep the same old
+	// entry in the map; neither may retire it.
+	now = now.Add(2 * time.Hour)
+	boom := errors.New("boom")
+	failing := func() (any, error) { return nil, boom }
+	if _, err := c.metaFor("key", time.Hour, failing); !errors.Is(err, boom) {
+		t.Fatalf("first failing metaFor: %v", err)
+	}
+	if _, err := c.metaFor("key", time.Hour, failing); !errors.Is(err, boom) {
+		t.Fatalf("second failing metaFor: %v", err)
+	}
+
+	// The successful reconfigure retires the old meta exactly once.
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor after failures: %v", err)
+	}
+	now = now.Add(6 * time.Minute)
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor past grace: %v", err)
+	}
+	if got := closed.Load(); got != 1 {
+		t.Fatalf("closed %d sessions, want exactly 1", got)
+	}
+}
+
+// Each entry ages by the TTL in force when it was minted: a reconcile
+// against a short-TTL ProviderConfig must not evict a long-TTL
+// configuration's still-live session.
+func TestMetaCachePerEntryTTLIsolation(t *testing.T) {
+	now := time.Unix(0, 0)
+	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+
+	var calls atomic.Int32
+	configure := func() (any, error) {
+		n := calls.Add(1)
+		return &struct{ n int }{n: int(n)}, nil
+	}
+
+	long, err := c.metaFor("long", time.Hour, configure)
+	if err != nil {
+		t.Fatalf("metaFor long: %v", err)
+	}
+
+	// Halfway through the long entry's life, a short-TTL config reconciles
+	// repeatedly - well past the short TTL plus grace.
+	now = now.Add(30 * time.Minute)
+	shortTTL := time.Minute
+	for i := 0; i < 3; i++ {
+		if _, err := c.metaFor("short", shortTTL, configure); err != nil {
+			t.Fatalf("metaFor short %d: %v", i, err)
+		}
+		now = now.Add(90 * time.Second)
+	}
+	// That is ~3m45s of short-TTL activity; the long entry (30m old, its
+	// own ttl is 1h) must still be served from cache.
+	got, err := c.metaFor("long", time.Hour, configure)
+	if err != nil {
+		t.Fatalf("metaFor long again: %v", err)
+	}
+	if got != long {
+		t.Fatal("short-TTL activity must not evict a live long-TTL entry")
+	}
+	if got := calls.Load(); got != 4 {
+		t.Fatalf("configured %d times, want 4 (long + 3 short)", got)
 	}
 }

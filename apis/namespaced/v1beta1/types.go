@@ -10,6 +10,14 @@ import (
 type ProviderConfigSpec struct {
 	// Credentials required to authenticate to this provider.
 	Credentials ProviderCredentials `json:"credentials"`
+
+	// SessionCacheTTL is how long the provider keeps a configured Snowflake
+	// session before re-minting it. Optional; defaults to 1h. Changing it
+	// takes effect on the next reconcile, without a controller restart.
+	// +kubebuilder:validation:Type=string
+	// +kubebuilder:validation:Pattern=`^([0-9]+(\.[0-9]+)?(ms|s|m|h))+$`
+	// +optional
+	SessionCacheTTL *metav1.Duration `json:"sessionCacheTtl,omitempty"`
 }
 
 // ProviderCredentials required to authenticate.

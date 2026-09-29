@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/json"
+	"reflect"
 	"sync"
 	"time"
 
@@ -190,6 +191,26 @@ func buildProviderConfiguration(creds map[string]string) (map[string]any, error)
 	return cfg, nil
 }
 
+const (
+	// defaultSessionCacheTTL is used when a ProviderConfig does not set
+	// spec.sessionCacheTtl.
+	defaultSessionCacheTTL = time.Hour
+	// evictionGrace is how long past the TTL an entry survives before the
+	// sweep closes and deletes it, so an in-flight reconcile holding the
+	// previous meta is never surprised by a closed pool.
+	evictionGrace = 5 * time.Minute
+)
+
+// sessionCacheTTL resolves the cache TTL for one ProviderConfig: its
+// spec.sessionCacheTtl when set and positive, defaultSessionCacheTTL
+// otherwise.
+func sessionCacheTTL(spec *namespacedv1beta1.ProviderConfigSpec) time.Duration {
+	if spec == nil || spec.SessionCacheTTL == nil || spec.SessionCacheTTL.Duration <= 0 {
+		return defaultSessionCacheTTL
+	}
+	return spec.SessionCacheTTL.Duration
+}
+
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string, ujprovider *ujconfig.Provider) terraform.SetupFn {
@@ -197,8 +218,10 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 	// each backed by its own *schema.Provider). It retains the configured
 	// provider meta so a reconcile re-mints a Snowflake SDK session only when
 	// the provider configuration changes or the entry expires, not on every
-	// call.
-	var cache = metaCache{ttl: time.Hour}
+	// call. The TTL comes from each ProviderConfig's spec.sessionCacheTtl
+	// (defaulting to defaultSessionCacheTTL), so it can be tuned per provider
+	// with a kubectl edit, without a controller restart.
+	var cache = metaCache{grace: evictionGrace}
 
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
@@ -233,7 +256,7 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 			return ps, errors.Wrap(err, "cannot hash provider configuration")
 		}
 
-		meta, err := cache.metaFor(key, func() (any, error) {
+		meta, err := cache.metaFor(key, sessionCacheTTL(pcSpec), func() (any, error) {
 			return configureAndMeta(ctx, ujprovider, ps.Configuration)
 		})
 		if err != nil {
@@ -258,15 +281,21 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 // 1.5-2 GiB per hour until the pod ran out of memory and was killed.
 //
 // Trade-off: when the configuration (for example the private key) changes,
-// the old session's meta is replaced, not closed. The SDK Client type lives
-// in an internal package we cannot name here, and closing it immediately
-// could remove the connection pool under concurrent reconciles that still
-// hold the previous meta. A rotation therefore leaks exactly one session,
-// once per change, instead of one per reconcile.
+// the old meta is retired - out of service immediately, closed one grace
+// period later - so any reconcile still holding it keeps a live pool. A
+// stale session is therefore closed at most ttl+2xgrace after it was
+// minted, instead of leaking one per reconcile.
 type metaCache struct {
 	mu      sync.Mutex
 	entries map[string]cacheEntry
+	// retired holds metas that stopped being served and are waiting out the
+	// grace period before their sessions are closed.
+	retired []retiredEntry
 	ttl     time.Duration
+	// grace is how long an entry may outlive ttl before the sweep closes
+	// and deletes it. The buffer ensures no in-flight reconcile is still
+	// holding the evicted meta when its session is closed.
+	grace time.Duration
 	// now is injectable for tests; nil means time.Now.
 	now func() time.Time
 }
@@ -282,6 +311,19 @@ type metaCache struct {
 type cacheEntry struct {
 	meta    any
 	created time.Time
+	// ttl is the TTL in force when this entry was minted. Entries age by
+	// their own ttl, so a short-TTL ProviderConfig cannot evict a
+	// long-TTL configuration's live session.
+	ttl time.Duration
+}
+
+// retiredEntry is a meta that stopped being served (its entry expired and
+// was replaced, or the sweep removed it). The sweep closes it once it has
+// been out of service for the grace period, so a reconcile still holding it
+// is never surprised by a closed pool.
+type retiredEntry struct {
+	meta    any
+	retired time.Time
 }
 
 // metaFor returns the cached meta for key, and calls configure exactly once
@@ -289,34 +331,109 @@ type cacheEntry struct {
 // store, so concurrent misses on a cold cache cannot race into duplicate
 // sessions. Entries are keyed by the provider configuration digest, so
 // reconciles that reference different ProviderConfigs (for example rotated
-// credentials) keep independent sessions instead of thrashing one slot. The
-// map is bounded by the number of distinct configurations this provider
-// instance resolves, and each entry is at most one TTL old.
+// credentials) keep independent sessions instead of thrashing one slot.
 //
-// The vendored provider.Context is opaque (internal package), so nothing
-// here can or should Close it. Expiry only orphans the old client, which is
-// reclaimed when the provider restarts.
-func (c *metaCache) metaFor(key string, configure func() (any, error)) (any, error) {
+// The cache is bounded: every miss first sweeps. A replaced or removed meta
+// is retired - kept out of service for the grace period, then closed - so a
+// configuration that stops being resolved (for example after a key rotation
+// replaces its digest) ages out of the map instead of living forever, and
+// an expired entry's session is closed instead of being silently replaced.
+func (c *metaCache) metaFor(key string, ttl time.Duration, configure func() (any, error)) (any, error) {
 	c.mu.Lock()
-	defer c.mu.Unlock()
-	now := c.now
-	if now == nil {
-		now = time.Now
+	clock := c.now
+	if clock == nil {
+		clock = time.Now
 	}
-	if entry, ok := c.entries[key]; ok && now().Sub(entry.created) < c.ttl {
+	t := clock()
+	due := c.sweep(t)
+	if entry, ok := c.entries[key]; ok && t.Sub(entry.created) < entry.ttl {
+		c.mu.Unlock()
+		closeAll(due)
 		return entry.meta, nil
 	}
 	meta, err := configure()
+	if err == nil {
+		// The entry is expired or new: the previous meta is about to stop
+		// being served. Retire it for the post-grace close instead of
+		// dropping the reference (which would leak its session pool and
+		// opener goroutine). Retiring only after a successful configure
+		// keeps a failed attempt from queuing the same meta twice.
+		if prev, ok := c.entries[key]; ok {
+			c.retired = append(c.retired, retiredEntry{meta: prev.meta, retired: t})
+		}
+		if c.entries == nil {
+			c.entries = make(map[string]cacheEntry)
+		}
+		c.entries[key] = cacheEntry{meta: meta, created: t, ttl: ttl}
+	}
+	c.mu.Unlock()
+	closeAll(due)
 	if err != nil {
 		// Do not cache failures: a transient configure error must not pin
 		// the cache to a missing entry, and the next call retries.
 		return nil, err
 	}
-	if c.entries == nil {
-		c.entries = make(map[string]cacheEntry)
-	}
-	c.entries[key] = cacheEntry{meta: meta, created: now()}
 	return meta, nil
+}
+
+// sweep retires map entries past their own ttl+grace and drops retired
+// metas whose grace period has elapsed. It runs under the lock but never
+// closes: Close can block on the network, so the matured metas are returned
+// and closed by the caller after the lock is released.
+func (c *metaCache) sweep(t time.Time) []any {
+	for key, entry := range c.entries {
+		if t.Sub(entry.created) < entry.ttl+c.grace {
+			continue
+		}
+		c.retired = append(c.retired, retiredEntry{meta: entry.meta, retired: t})
+		delete(c.entries, key)
+	}
+	// A fresh slice, not a reslice of the old backing array: the tail of
+	// the old array would keep referencing closed metas and defeat the GC.
+	due := make([]any, 0, len(c.retired))
+	keep := make([]retiredEntry, 0, len(c.retired))
+	for _, entry := range c.retired {
+		if t.Sub(entry.retired) < c.grace {
+			keep = append(keep, entry)
+			continue
+		}
+		due = append(due, entry.meta)
+	}
+	c.retired = keep
+	return due
+}
+
+// closeAll closes matured metas. Errors are intentionally ignored: an
+// evicted session is dead weight either way, and a failed Close only means
+// the driver reclaims the socket itself.
+func closeAll(metas []any) {
+	for _, meta := range metas {
+		closeMeta(meta)
+	}
+}
+
+// closeMeta closes the Snowflake SDK client behind a configured meta, if it
+// can be reached. The meta type (*internal/provider.Context in the vendored
+// provider) is in an internal package we cannot name, so this walks to its
+// exported Client field by reflection and closes it through its Close
+// method. Anything else - a stubbed test meta, a renamed or unexported
+// field, a client without Close - is a no-op. TestCloseMetaGuardAgainstFieldRename
+// fails if the vendored type ever loses that shape, so this cannot decay
+// into a silent leak.
+var closeMeta = func(meta any) {
+	v := reflect.ValueOf(meta)
+	if v.Kind() != reflect.Pointer || v.IsNil() {
+		return
+	}
+	f := v.Elem().FieldByName("Client")
+	if !f.IsValid() || !f.CanInterface() {
+		return
+	}
+	c, ok := f.Interface().(interface{ Close() error })
+	if !ok || c == nil {
+		return
+	}
+	_ = c.Close()
 }
 
 // hashConfiguration derives the cache key from the provider configuration.
