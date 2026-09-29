@@ -328,7 +328,11 @@ type retiredEntry struct {
 // metaFor returns the cached meta for key, and calls configure exactly once
 // on a miss. The lock is held across the check, the configure, and the
 // store, so concurrent misses on a cold cache cannot race into duplicate
-// sessions. Entries are keyed by the provider configuration digest, so
+// sessions. The cost of that guarantee: configure is a Snowflake login, so
+// while one key's miss is minting (including each TTL re-mint), calls for
+// every other key block on this mutex - hits included. Known trade-off;
+// singleflight would lift the cross-key blocking if it ever matters.
+// Entries are keyed by the provider configuration digest, so
 // reconciles that reference different ProviderConfigs (for example rotated
 // credentials) keep independent sessions instead of thrashing one slot.
 //
