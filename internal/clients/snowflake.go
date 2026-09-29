@@ -346,7 +346,15 @@ func (c *metaCache) metaFor(key string, ttl time.Duration, configure func() (any
 	}
 	t := clock()
 	due := c.sweep(t)
-	if entry, ok := c.entries[key]; ok && t.Sub(entry.created) < entry.ttl {
+	if entry, ok := c.entries[key]; ok && t.Sub(entry.created) < ttl {
+		if entry.ttl != ttl {
+			// An edited spec.sessionCacheTtl applies to the live
+			// session immediately: the hit check above already used
+			// the new TTL, and re-aging the entry makes the sweep age
+			// it by the new value too.
+			entry.ttl = ttl
+			c.entries[key] = entry
+		}
 		c.mu.Unlock()
 		closeAll(due)
 		return entry.meta, nil

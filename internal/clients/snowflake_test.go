@@ -3,8 +3,8 @@ package clients
 import (
 	"context"
 	"errors"
-	"io/fs"
 	"os"
+	"path/filepath"
 	"regexp"
 	"sync"
 	"sync/atomic"
@@ -456,17 +456,30 @@ func TestSessionCacheTTLResolves(t *testing.T) {
 // package of the vendored provider, so a field rename there would turn the
 // sweep's Close into a silent no-op and reintroduce the leak. This guard
 // reads the vendored source and fails when the shape closeMeta relies on
-// changes. The check is skipped when the vendored checkout is absent (it is
-// provisioned by `make fetch-snowflake-provider-src`); when present, a
-// changed shape is a hard failure.
+// changes. The check never skips: go.mod's replace directive makes the
+// package unbuildable without the vendored checkout, so an absent file
+// means a broken environment, not an unrelated one.
 func TestCloseMetaGuardAgainstFieldRename(t *testing.T) {
-	const rel = ".work/snowflakedb/snowflake/pkg/internal/provider/provider_context.go"
-	src, err := os.ReadFile(rel)
-	if errors.Is(err, fs.ErrNotExist) {
-		t.Skipf("vendored provider checkout not present at %s; run make fetch-snowflake-provider-src", rel)
-	}
+	// go test runs with the package directory as cwd; walk up to the
+	// module root before joining the vendored path.
+	root, err := os.Getwd()
 	if err != nil {
-		t.Fatalf("cannot read vendored provider context: %v", err)
+		t.Fatalf("cannot get working directory: %v", err)
+	}
+	for {
+		if _, err := os.Stat(filepath.Join(root, "go.mod")); err == nil {
+			break
+		}
+		parent := filepath.Dir(root)
+		if parent == root {
+			t.Fatal("cannot find module root")
+		}
+		root = parent
+	}
+	rel := filepath.Join(root, ".work", "snowflakedb", "snowflake", "pkg", "internal", "provider", "provider_context.go")
+	src, err := os.ReadFile(rel)
+	if err != nil {
+		t.Fatalf("cannot read vendored provider context at %s (provisioned by make fetch-snowflake-provider-src): %v", rel, err)
 	}
 	if !regexp.MustCompile(`Client\s+\*sdk\.Client`).Match(src) {
 		t.Fatal("vendored provider.Context no longer has an exported `Client *sdk.Client` field; closeMeta's reflection walk is a silent no-op and must be updated")
@@ -554,5 +567,37 @@ func TestMetaCachePerEntryTTLIsolation(t *testing.T) {
 	}
 	if got := calls.Load(); got != 4 {
 		t.Fatalf("configured %d times, want 4 (long + 3 short)", got)
+	}
+}
+
+// Editing spec.sessionCacheTtl applies to the live session immediately:
+// the entry is re-aged with the new TTL on the next hit, so a lowered one
+// expires the session on the next boundary instead of at the old deadline.
+func TestMetaCacheEditedTTLAppliesToLiveSession(t *testing.T) {
+	now := time.Unix(0, 0)
+	c := &metaCache{grace: 5 * time.Minute, now: func() time.Time { return now }}
+
+	var calls atomic.Int32
+	configure := func() (any, error) {
+		n := calls.Add(1)
+		return &struct{ n int }{n: int(n)}, nil
+	}
+
+	if _, err := c.metaFor("key", time.Hour, configure); err != nil {
+		t.Fatalf("metaFor: %v", err)
+	}
+
+	// 90 seconds in - far inside the original hour, but past a lowered
+	// one-minute TTL - the next reconcile reconfigures.
+	now = now.Add(90 * time.Second)
+	got, err := c.metaFor("key", time.Minute, configure)
+	if err != nil {
+		t.Fatalf("metaFor with lowered ttl: %v", err)
+	}
+	if calls.Load() != 2 {
+		t.Fatalf("lowered TTL did not expire the live session at its boundary (calls=%d)", calls.Load())
+	}
+	if got == nil {
+		t.Fatal("expected a fresh meta")
 	}
 }
