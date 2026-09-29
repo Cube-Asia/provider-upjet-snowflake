@@ -292,7 +292,7 @@ func TestTerraformSetupBuilderAlternatingConfigurationsKeepIndependentSessions(t
 // deterministic.
 func TestMetaCacheExpiresEntriesAfterTTL(t *testing.T) {
 	now := time.Unix(0, 0)
-	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	c := &metaCache{grace: 5 * time.Minute, now: func() time.Time { return now }}
 
 	var calls atomic.Int32
 	configure := func() (any, error) {
@@ -384,7 +384,7 @@ func TestHashConfigurationIsStable(t *testing.T) {
 // meta keeps a live pool.
 func TestMetaCacheSweepClosesAndDeletesStaleEntries(t *testing.T) {
 	now := time.Unix(0, 0)
-	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	c := &metaCache{grace: 5 * time.Minute, now: func() time.Time { return now }}
 	configure := func() (any, error) { return &struct{}{}, nil }
 
 	var closed atomic.Int32
@@ -505,7 +505,7 @@ func TestCloseMetaGuardAgainstFieldRename(t *testing.T) {
 // reconfigure retires it. Double-retirement would close one session twice.
 func TestMetaCacheConfigureErrorDoesNotDoubleRetire(t *testing.T) {
 	now := time.Unix(0, 0)
-	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	c := &metaCache{grace: 5 * time.Minute, now: func() time.Time { return now }}
 	configure := func() (any, error) { return &struct{}{}, nil }
 
 	var closed atomic.Int32
@@ -547,7 +547,7 @@ func TestMetaCacheConfigureErrorDoesNotDoubleRetire(t *testing.T) {
 // configuration's still-live session.
 func TestMetaCachePerEntryTTLIsolation(t *testing.T) {
 	now := time.Unix(0, 0)
-	c := &metaCache{ttl: time.Hour, grace: 5 * time.Minute, now: func() time.Time { return now }}
+	c := &metaCache{grace: 5 * time.Minute, now: func() time.Time { return now }}
 
 	var calls atomic.Int32
 	configure := func() (any, error) {

@@ -291,7 +291,6 @@ type metaCache struct {
 	// retired holds metas that stopped being served and are waiting out the
 	// grace period before their sessions are closed.
 	retired []retiredEntry
-	ttl     time.Duration
 	// grace is how long an entry may outlive ttl before the sweep closes
 	// and deletes it. The buffer ensures no in-flight reconcile is still
 	// holding the evicted meta when its session is closed.
