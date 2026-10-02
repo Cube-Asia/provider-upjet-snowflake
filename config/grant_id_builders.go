@@ -9,6 +9,16 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/config"
 )
 
+const (
+	// accountRoleNameKey is the grant resource parameter that carries the
+	// account role name. It is also the roleNameKey that selects the
+	// account-role Read wrapper in grant_privileges_initializers.go.
+	accountRoleNameKey = "account_role_name"
+	// databaseRoleNameKey is the grant resource parameter that carries the
+	// database role name.
+	databaseRoleNameKey = "database_role_name"
+)
+
 // normalizeSFObjectID re-quotes a Snowflake object identifier. The input can be a
 // bare name ("role"), an already-quoted name (`"role"`), or a fully-qualified name
 // ("db"."role"). The output matches the form the TF provider's SDK emits from
@@ -105,7 +115,7 @@ func GrantApplicationRoleIdentifier() config.ExternalName {
 // Note: sdk.ObjectTypeDatabaseRole.String() is "DATABASE ROLE" (with a space),
 // not "DATABASE_ROLE". Verified against pkg/sdk/object_types.go.
 func buildGrantDatabaseRoleID(parameters map[string]any) (string, error) {
-	dbRoleName, _ := parameters["database_role_name"].(string)
+	dbRoleName, _ := parameters[databaseRoleNameKey].(string)
 	if dbRoleName == "" {
 		return "", fmt.Errorf("grant_database_role: database_role_name is required")
 	}
@@ -314,10 +324,10 @@ func GrantOwnershipIdentifier() config.ExternalName {
 // from the resource parameters.
 func buildGrantOwnershipID(parameters map[string]any) (string, error) {
 	var roleType, roleID string
-	if v, _ := parameters["account_role_name"].(string); v != "" {
+	if v, _ := parameters[accountRoleNameKey].(string); v != "" {
 		roleType = "ToAccountRole"
 		roleID = v
-	} else if v, _ := parameters["database_role_name"].(string); v != "" {
+	} else if v, _ := parameters[databaseRoleNameKey].(string); v != "" {
 		roleType = "ToDatabaseRole"
 		roleID = v
 	}
@@ -398,7 +408,7 @@ func GrantPrivilegesToAccountRoleIdentifier() config.ExternalName {
 }
 
 func buildGrantPrivilegesToAccountRoleID(parameters map[string]any) (string, error) {
-	roleName, _ := parameters["account_role_name"].(string)
+	roleName, _ := parameters[accountRoleNameKey].(string)
 	if roleName == "" {
 		return "", fmt.Errorf("grant_privileges_to_account_role: account_role_name is required")
 	}
@@ -453,7 +463,7 @@ func GrantPrivilegesToDatabaseRoleIdentifier() config.ExternalName {
 }
 
 func buildGrantPrivilegesToDatabaseRoleID(parameters map[string]any) (string, error) {
-	roleName, _ := parameters["database_role_name"].(string)
+	roleName, _ := parameters[databaseRoleNameKey].(string)
 	if roleName == "" {
 		return "", fmt.Errorf("grant_privileges_to_database_role: database_role_name is required")
 	}

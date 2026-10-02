@@ -77,13 +77,18 @@ func wrapGrantPrivilegesReadContext(roleNameKey string) func(r *ujconfig.Resourc
 // correctly from a live "SHOW GRANTS" call.
 //
 // strict_privilege_management is pinned to false on every refresh, even when
-// the spec asks for true. This mirrors upstream Import exactly
-// (grant_privileges_to_account_role.go: d.Set("strict_privilege_management",
-// false). It is not encoded in the compound ID, so Import cannot recover it.
-// Setting it to true additionally requires the provider-level
-// GRANTS_STRICT_PRIVILEGE_MANAGEMENT experimental feature. No known claim
-// enables it. If a claim ever needs it, the backfill must learn to respect a
-// set state value instead of mirroring Import.
+// the spec asks for true. The pin covers account-role grants only. This
+// mirrors upstream Import exactly (grant_privileges_to_account_role.go:
+// d.Set("strict_privilege_management", false). It is not encoded in the
+// compound ID, so Import cannot recover it. The database-role resource has
+// no such attribute in the vendored v2.19.0 schema. d.Set on a missing key
+// makes the SDK log "[ERROR] setting state: Invalid address to set" on every
+// Read. So the pin is gated on roleNameKey. If a provider bump adds the
+// field to the database-role schema, mirror that version's Import behavior
+// here in the same change. Setting it to true additionally requires the
+// provider-level GRANTS_STRICT_PRIVILEGE_MANAGEMENT experimental feature. No
+// known claim enables it. If a claim ever needs it, the backfill must learn
+// to respect a set state value instead of mirroring Import.
 func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 	roleName, withGrantOption, alwaysApply, allPrivileges, _, ok := parseGrantPrivilegesBaseID(d.Id())
 	if !ok {
@@ -93,7 +98,10 @@ func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 	_ = d.Set("with_grant_option", withGrantOption)
 	_ = d.Set("always_apply", alwaysApply)
 	_ = d.Set("all_privileges", allPrivileges)
-	_ = d.Set("strict_privilege_management", false)
+	// account_role_name only: see the strict_privilege_management note above.
+	if roleNameKey == accountRoleNameKey {
+		_ = d.Set("strict_privilege_management", false)
+	}
 }
 
 // parseGrantPrivilegesBaseID decodes the shared
@@ -126,9 +134,9 @@ func GrantPrivilegesReadGapWorkaround() ujconfig.ResourceOption {
 	return func(r *ujconfig.Resource) {
 		switch r.Name {
 		case "snowflake_grant_privileges_to_account_role":
-			wrapGrantPrivilegesReadContext("account_role_name")(r)
+			wrapGrantPrivilegesReadContext(accountRoleNameKey)(r)
 		case "snowflake_grant_privileges_to_database_role":
-			wrapGrantPrivilegesReadContext("database_role_name")(r)
+			wrapGrantPrivilegesReadContext(databaseRoleNameKey)(r)
 		}
 	}
 }
