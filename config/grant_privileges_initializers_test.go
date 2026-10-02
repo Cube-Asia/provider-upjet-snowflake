@@ -64,9 +64,10 @@ func TestParseGrantPrivilegesBaseID(t *testing.T) {
 	}
 }
 
-// testGrantPrivilegesSchema mirrors the fields of
+// testGrantPrivilegesSchema copies the fields of
 // grantPrivilegesToAccountRoleSchema that backfillGrantPrivilegesFields
-// touches, enough to exercise d.Set/d.Get through *schema.ResourceData.
+// touches. The copy is enough to exercise d.Set/d.Get through
+// *schema.ResourceData.
 func testGrantPrivilegesSchema() map[string]*schema.Schema {
 	return map[string]*schema.Schema{
 		"account_role_name":           {Type: schema.TypeString, Optional: true},
@@ -83,17 +84,18 @@ func testGrantPrivilegesSchema() map[string]*schema.Schema {
 }
 
 // TestWrapGrantPrivilegesReadContext_BackfillsMissingForceNewField locks the
-// actual bug: with_grant_option is ForceNew and the real Read() never sets
-// it, only Import does. The wrapped ReadContext must backfill it (and its
-// siblings) from the resource's own ID after every real Read, regardless of
-// whether the incoming ResourceData already had it set.
+// actual bug. with_grant_option is ForceNew. The real Read() never sets it.
+// Only Import sets it. The wrapped ReadContext must backfill it and its
+// siblings from the resource's own ID after every real Read. It must do this
+// even when the incoming ResourceData already has a value.
 func TestWrapGrantPrivilegesReadContext_BackfillsMissingForceNewField(t *testing.T) {
 	sc := testGrantPrivilegesSchema()
 	var realReadCalls int
 	realRead := func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
 		realReadCalls++
-		// Mirrors the real upstream Read(): sets privileges, never touches
-		// with_grant_option/all_privileges/always_apply/strict_privilege_management.
+		// Mirrors the real upstream Read(). It sets privileges and never
+		// touches with_grant_option, all_privileges, always_apply, or
+		// strict_privilege_management.
 		return diag.FromErr(d.Set("privileges", []string{"CREATE DATABASE", "CREATE USER"}))
 	}
 
@@ -120,8 +122,8 @@ func TestWrapGrantPrivilegesReadContext_BackfillsMissingForceNewField(t *testing
 		t.Fatalf("privileges len = %d, want 2 (real Read's value must survive)", got)
 	}
 
-	// A resource found deleted upstream (Read clears the ID) must not panic
-	// or attempt to parse an empty ID.
+	// If the resource is gone upstream, Read clears the ID. The wrapper must
+	// not panic and must not try to parse an empty ID.
 	deletedRead := func(_ context.Context, d *schema.ResourceData, _ any) diag.Diagnostics {
 		d.SetId("")
 		return nil
@@ -138,11 +140,11 @@ func TestWrapGrantPrivilegesReadContext_BackfillsMissingForceNewField(t *testing
 	}
 }
 
-// The builders emit the external ID bare, but IDs observed in a live Snowflake account
-// arrive quoted — Snowflake's ID delegation quotes each name segment. The
-// parser must accept quoted segments verbatim so grants created by this
-// provider keep parsing on the Read path after the ID round-trips through
-// Snowflake.
+// The builders emit the external ID bare. IDs observed in a live Snowflake
+// account arrive quoted, because Snowflake's ID delegation quotes each name
+// segment. The parser must accept quoted segments verbatim. Grants created
+// by this provider then keep parsing on the Read path after the ID
+// round-trips through Snowflake.
 func TestParseGrantPrivilegesBaseIDLiveWireFormat(t *testing.T) {
 	const liveID = `"test-e2e-role"|true|false|USAGE|OnAccountObject|DATABASE|"test-e2e-db"`
 	role, wgo, aa, all, privs, ok := parseGrantPrivilegesBaseID(liveID)

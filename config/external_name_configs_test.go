@@ -7,23 +7,23 @@ import (
 	"github.com/Cube-Asia/provider-upjet-snowflake/internal/resourcelist"
 )
 
-// TestExternalNameConfigsCoverResourcelist pins the contract between the
-// hand-maintained external-name table and the hand-maintained resource
-// lists: every configured resource must appear in internal/resourcelist,
-// and every listed resource must have an external-name entry.
+// TestExternalNameConfigsCoverResourcelist checks that the hand-maintained
+// external-name table and the hand-maintained resource lists stay in step.
+// Every configured resource must appear in internal/resourcelist. Every
+// listed resource must have an external-name entry.
 //
-// ExternalNameConfigurations skips a table key it cannot find in the
-// provider schema without an error, and a listed resource without a table
-// entry silently falls back to default external-name handling. Either way
-// the failure surfaces only in a cluster, as an observe or create that
-// cannot reconstruct IDs. This test fails at generation time instead: a
+// ExternalNameConfigurations skips a table key that is missing from the
+// provider schema. It does not report an error. A listed resource without a
+// table entry silently falls back to default external-name handling. Either
+// way, the failure appears only in a cluster, as an observe or create that
+// cannot reconstruct IDs. This test fails at generation time instead. A
 // resource name belongs in BOTH internal/resourcelist and
 // ExternalNameConfigs, or in neither.
 func TestExternalNameConfigsCoverResourcelist(t *testing.T) {
 	want := append(slices.Clone(resourcelist.StableResources), resourcelist.PreviewResources...)
 	if len(want) == 0 {
-		// An empty resourcelist would make the comparison below pass
-		// vacuously; fail loudly instead.
+		// If the resourcelist is empty, the comparison below passes
+		// without checking anything. Fail loudly instead.
 		t.Fatal("internal/resourcelist is empty; is the list being generated or reset?")
 	}
 

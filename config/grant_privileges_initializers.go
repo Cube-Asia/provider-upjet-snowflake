@@ -12,42 +12,41 @@ import (
 // ---------------------------------------------------------------------------
 // snowflake_grant_privileges_to_{account,database}_role Read() gap workaround
 //
-// The upstream Snowflake TF provider's Read function for these two resources
-// only calls d.Set("privileges", ...) (and conditionally
-// always_apply_trigger) on every refresh. It never re-sets with_grant_option,
-// all_privileges, always_apply, or strict_privilege_management — only
-// Import does, from the compound ID (see
+// The Read function of the upstream Snowflake TF provider sets only
+// d.Set("privileges", ...) (and conditionally always_apply_trigger) on every
+// refresh. It never sets with_grant_option, all_privileges, always_apply, or
+// strict_privilege_management again. Only Import sets them, and Import reads
+// them from the compound ID (see
 // .work/snowflakedb/snowflake/pkg/resources/grant_privileges_to_{account,database}_role.go,
-// Read* vs Import* functions). This is not a live-drift check either way:
-// Snowflake's grant-option state isn't re-queried by Read; even Import only
-// derives these fields from the ID string, never from a live API call. So
-// backfilling them from the ID on every Read is exactly what Import already
-// does, just on every refresh instead of once.
+// Read* vs Import* functions). This backfill is not a live-drift check. Read
+// does not query Snowflake again for the grant-option state. Even Import
+// derives these fields from the ID string, never from a live API call. So a
+// backfill from the ID on every Read matches what Import already does. The
+// only difference is that it runs on every refresh instead of once.
 //
-// Why this has to be a Read wrapper and not something further up the stack:
-// upjet's no-fork Observe() calls schema.Resource.RefreshWithoutUpgrade,
-// seeded from an in-memory per-resource cache (upjet's OperationTrackerStore)
-// that is populated once by Create/Update/Observe and then reused for the
-// life of the provider process — atProvider (status) is only consulted to
-// reconstruct that cache when it's cold (e.g. right after a provider
-// restart). A managed.Initializer backfilling status.atProvider therefore
-// only helps immediately after a restart; a resource created and observed
-// within the same long-running process keeps hitting the incomplete cached
-// state forever. Observe's diff is computed against the FRESHLY REFRESHED
-// state (diffState = newState, set right after RefreshWithoutUpgrade, before
-// the diff call) — so wrapping ReadContext fixes the state before every
-// single diff, regardless of which path (cold reconstruction or warm cache)
-// fed it in.
+// Why a Read wrapper, and not something further up the stack:
+// upjet's no-fork Observe() calls schema.Resource.RefreshWithoutUpgrade.
+// That call uses an in-memory per-resource cache (upjet's
+// OperationTrackerStore). Create/Update/Observe populate the cache once. The
+// provider process then reuses it for its whole life. atProvider (status) is
+// consulted only to rebuild the cache when it is cold (for example right
+// after a provider restart). A managed.Initializer that backfills
+// status.atProvider therefore helps only right after a restart. A resource
+// created and observed within the same long-running process keeps seeing the
+// incomplete cached state forever. Observe computes its diff against the
+// FRESHLY REFRESHED state (diffState = newState, set right after
+// RefreshWithoutUpgrade, before the diff call). So wrapping ReadContext
+// fixes the state before every diff, no matter which path (cold
+// reconstruction or warm cache) fed it in.
 //
-// with_grant_option is ForceNew in the TF schema, so leaving it unset
-// permanently trips upjet's assertNoForceNew guard: "refuse to update the
+// with_grant_option is ForceNew in the TF schema. If the field stays unset,
+// upjet's assertNoForceNew guard fails forever with: "refuse to update the
 // external resource ... requires replacing it: cannot change the value of
 // the argument with_grant_option". SYNCED never recovers on its own.
 //
-// The wrap wires through *schema.Resource.ReadContext — an SDK-supported,
+// The wrap goes through *schema.Resource.ReadContext. The SDK supports this
 // mutable function field on the object github.com/Snowflake-Labs/... hands
-// us via ujconfig.WithTerraformProvider — not an edit to any vendored .go
-// file.
+// us via ujconfig.WithTerraformProvider. No vendored .go file is edited.
 // ---------------------------------------------------------------------------
 
 // wrapGrantPrivilegesReadContext returns a config.ResourceOption that wraps
@@ -62,8 +61,8 @@ func wrapGrantPrivilegesReadContext(roleNameKey string) func(r *ujconfig.Resourc
 		r.TerraformResource.ReadContext = func(ctx context.Context, d *schema.ResourceData, meta any) diag.Diagnostics {
 			diags := orig(ctx, d, meta)
 			if diags.HasError() || d.Id() == "" {
-				// Real error, or the resource was found deleted upstream
-				// (Read cleared the ID) — nothing to backfill.
+				// This is a real error, or Read found the resource deleted
+				// upstream and cleared the ID. There is nothing to backfill.
 				return diags
 			}
 			backfillGrantPrivilegesFields(d, roleNameKey)
@@ -72,19 +71,19 @@ func wrapGrantPrivilegesReadContext(roleNameKey string) func(r *ujconfig.Resourc
 	}
 }
 
-// backfillGrantPrivilegesFields sets the fields Read() forgets, decoded from
-// the resource's own compound ID (see parseGrantPrivilegesBaseID). privileges
-// is deliberately left untouched — Read() already recomputes it correctly
-// from a live "SHOW GRANTS" call.
+// backfillGrantPrivilegesFields sets the fields Read() forgets. It decodes
+// them from the resource's own compound ID (see parseGrantPrivilegesBaseID).
+// privileges is deliberately left untouched. Read() already recomputes it
+// correctly from a live "SHOW GRANTS" call.
 //
-// strict_privilege_management is pinned to false on every refresh, including
-// when the spec asks for true. This mirrors upstream Import exactly
+// strict_privilege_management is pinned to false on every refresh, even when
+// the spec asks for true. This mirrors upstream Import exactly
 // (grant_privileges_to_account_role.go: d.Set("strict_privilege_management",
-// false) — it is not encoded in the compound ID, so Import cannot recover
-// it). Setting it true additionally requires the provider-level
-// GRANTS_STRICT_PRIVILEGE_MANAGEMENT experimental feature, which no known
-// claim enables. If a claim ever needs it, the backfill must learn to
-// respect a set state value instead of mirroring Import.
+// false). It is not encoded in the compound ID, so Import cannot recover it.
+// Setting it to true additionally requires the provider-level
+// GRANTS_STRICT_PRIVILEGE_MANAGEMENT experimental feature. No known claim
+// enables it. If a claim ever needs it, the backfill must learn to respect a
+// set state value instead of mirroring Import.
 func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 	roleName, withGrantOption, alwaysApply, allPrivileges, _, ok := parseGrantPrivilegesBaseID(d.Id())
 	if !ok {
@@ -101,7 +100,7 @@ func backfillGrantPrivilegesFields(d *schema.ResourceData, roleNameKey string) {
 // <role>|<with_grant_option>|<always_apply>|<privileges>|... prefix used by
 // both snowflake_grant_privileges_to_account_role and
 // snowflake_grant_privileges_to_database_role compound IDs. See
-// grantPrivilegesBaseStr in external_name.go for the encoder.
+// grantPrivilegesBaseStr in grant_id_builders.go for the encoder.
 func parseGrantPrivilegesBaseID(id string) (roleName string, withGrantOption, alwaysApply, allPrivileges bool, privileges []string, ok bool) {
 	parts := strings.SplitN(id, "|", 5)
 	if len(parts) < 4 || parts[0] == "" {
@@ -121,8 +120,8 @@ func parseGrantPrivilegesBaseID(id string) (roleName string, withGrantOption, al
 }
 
 // GrantPrivilegesReadGapWorkaround wires the ReadContext wrapper above onto
-// the two affected resources. Applied as a default resource option so it
-// covers both the cluster-scoped and namespaced-scoped providers uniformly.
+// the two affected resources. It runs as a default resource option, so it
+// covers the cluster-scoped and namespaced-scoped providers the same way.
 func GrantPrivilegesReadGapWorkaround() ujconfig.ResourceOption {
 	return func(r *ujconfig.Resource) {
 		switch r.Name {
