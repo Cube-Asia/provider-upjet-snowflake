@@ -2,7 +2,11 @@ package clients
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
+	"reflect"
+	"sync"
+	"time"
 
 	"github.com/crossplane/crossplane-runtime/v2/pkg/resource"
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
@@ -187,9 +191,38 @@ func buildProviderConfiguration(creds map[string]string) (map[string]any, error)
 	return cfg, nil
 }
 
+const (
+	// defaultSessionCacheTTL is used when a ProviderConfig does not set
+	// spec.sessionCacheTtl.
+	defaultSessionCacheTTL = time.Hour
+	// evictionGrace is how long past the TTL an entry survives before the
+	// sweep closes and deletes it, so an in-flight reconcile holding the
+	// previous meta is never surprised by a closed pool.
+	evictionGrace = 5 * time.Minute
+)
+
+// sessionCacheTTL resolves the cache TTL for one ProviderConfig: its
+// spec.sessionCacheTtl when set and positive, defaultSessionCacheTTL
+// otherwise.
+func sessionCacheTTL(spec *namespacedv1beta1.ProviderConfigSpec) time.Duration {
+	if spec == nil || spec.SessionCacheTTL == nil || spec.SessionCacheTTL.Duration <= 0 {
+		return defaultSessionCacheTTL
+	}
+	return spec.SessionCacheTTL.Duration
+}
+
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
 // returns Terraform provider setup configuration
 func TerraformSetupBuilder(version, providerSource, providerVersion string, ujprovider *ujconfig.Provider) terraform.SetupFn {
+	// One cache per SetupFn (there are two setups in main.go, one per scope,
+	// each backed by its own *schema.Provider). It retains the configured
+	// provider meta so a reconcile re-mints a Snowflake SDK session only when
+	// the provider configuration changes or the entry expires, not on every
+	// call. The TTL comes from each ProviderConfig's spec.sessionCacheTtl
+	// (defaulting to defaultSessionCacheTTL), so it can be tuned per provider
+	// with a kubectl edit, without a controller restart.
+	var cache = metaCache{grace: evictionGrace}
+
 	return func(ctx context.Context, client client.Client, mg resource.Managed) (terraform.Setup, error) {
 		ps := terraform.Setup{
 			Version: version,
@@ -218,16 +251,228 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string, ujpr
 			return ps, err
 		}
 
-		if ujprovider == nil || ujprovider.TerraformProvider == nil {
-			return ps, errors.New(errConfigureProvider + ": no terraform provider configured")
+		key, err := hashConfiguration(ps.Configuration)
+		if err != nil {
+			return ps, errors.Wrap(err, "cannot hash provider configuration")
 		}
-		diags := ujprovider.TerraformProvider.Configure(ctx, &tfsdk.ResourceConfig{Config: ps.Configuration})
-		if diags.HasError() {
-			return ps, errors.Errorf("%s: %v", errConfigureProvider, diags)
+
+		meta, err := cache.metaFor(key, sessionCacheTTL(pcSpec), func() (any, error) {
+			return configureAndMeta(ctx, ujprovider, ps.Configuration)
+		})
+		if err != nil {
+			return ps, err
 		}
-		ps.Meta = ujprovider.TerraformProvider.Meta()
+		ps.Meta = meta
 		return ps, nil
 	}
+}
+
+// metaCache memoizes the configured Terraform provider meta, keyed by the
+// provider configuration digest.
+//
+// Why it exists: ConfigureProvider on the shared schema.Provider mints a
+// live Snowflake session on every call. sdk.NewClient runs sqlx.Connect
+// (sql.Open plus Ping) and then CurrentAccount and CurrentSession round
+// trips. Nothing ever closes the previous session. Upjet invokes the
+// SetupFn once per managed-resource reconcile, so before this cache every
+// reconcile opened an authenticated session, a database/sql pool (with its
+// connectionOpener goroutine) and an HTTP transport, then dropped the
+// reference. In practice this caused a straight-line memory climb of about
+// 1.5-2 GiB per hour until the pod ran out of memory and was killed.
+//
+// Trade-off: when the configuration (for example the private key) changes,
+// the old meta is retired - out of service immediately, closed one grace
+// period later - so any reconcile still holding it keeps a live pool. A
+// stale session is therefore closed at most ttl+2xgrace after it was
+// minted, instead of leaking one per reconcile.
+type metaCache struct {
+	mu      sync.Mutex
+	entries map[string]cacheEntry
+	// retired holds metas that stopped being served and are waiting out the
+	// grace period before their sessions are closed.
+	retired []retiredEntry
+	// grace is how long an entry may outlive ttl before the sweep closes
+	// and deletes it. The buffer ensures no in-flight reconcile is still
+	// holding the evicted meta when its session is closed.
+	grace time.Duration
+	// now is injectable for tests; nil means time.Now.
+	now func() time.Time
+}
+
+// cacheEntry pairs a configured meta with its mint time. Entries expire
+// after the cache TTL. gosnowflake renews an expired *session* token
+// transparently (390112 → renewExpiredSessionToken, restful.go), but the
+// *master* token has no verified recovery path in the vendored driver
+// (renewRestfulSession renews with the master token itself, and a pooled
+// conn idled past its lifetime fails renewal with a plain error that
+// database/sql does not discard). Expiring entries bounds re-logins to
+// 24 per day per configuration and removes the whole stale-session class.
+type cacheEntry struct {
+	meta    any
+	created time.Time
+	// ttl is the TTL in force when this entry was minted. Entries age by
+	// their own ttl, so a short-TTL ProviderConfig cannot evict a
+	// long-TTL configuration's live session.
+	ttl time.Duration
+}
+
+// retiredEntry is a meta that stopped being served (its entry expired and
+// was replaced, or the sweep removed it). The sweep closes it once it has
+// been out of service for the grace period, so a reconcile still holding it
+// is never surprised by a closed pool.
+type retiredEntry struct {
+	meta    any
+	retired time.Time
+}
+
+// metaFor returns the cached meta for key, and calls configure exactly once
+// on a miss. The lock is held across the check, the configure, and the
+// store, so concurrent misses on a cold cache cannot race into duplicate
+// sessions. The cost of that guarantee: configure is a Snowflake login, so
+// while one key's miss is minting (including each TTL re-mint), calls for
+// every other key block on this mutex - hits included. Known trade-off;
+// singleflight would lift the cross-key blocking if it ever matters.
+// Entries are keyed by the provider configuration digest, so
+// reconciles that reference different ProviderConfigs (for example rotated
+// credentials) keep independent sessions instead of thrashing one slot.
+//
+// The cache is bounded: every miss first sweeps. A replaced or removed meta
+// is retired - kept out of service for the grace period, then closed - so a
+// configuration that stops being resolved (for example after a key rotation
+// replaces its digest) ages out of the map instead of living forever, and
+// an expired entry's session is closed instead of being silently replaced.
+func (c *metaCache) metaFor(key string, ttl time.Duration, configure func() (any, error)) (any, error) {
+	c.mu.Lock()
+	clock := c.now
+	if clock == nil {
+		clock = time.Now
+	}
+	t := clock()
+	due := c.sweep(t)
+	if entry, ok := c.entries[key]; ok && t.Sub(entry.created) < ttl {
+		if entry.ttl != ttl {
+			// An edited spec.sessionCacheTtl applies to the live
+			// session immediately: the hit check above already used
+			// the new TTL, and re-aging the entry makes the sweep age
+			// it by the new value too.
+			entry.ttl = ttl
+			c.entries[key] = entry
+		}
+		c.mu.Unlock()
+		closeAll(due)
+		return entry.meta, nil
+	}
+	meta, err := configure()
+	if err == nil {
+		// The entry is expired or new: the previous meta is about to stop
+		// being served. Retire it for the post-grace close instead of
+		// dropping the reference (which would leak its session pool and
+		// opener goroutine). Retiring only after a successful configure
+		// keeps a failed attempt from queuing the same meta twice.
+		if prev, ok := c.entries[key]; ok {
+			c.retired = append(c.retired, retiredEntry{meta: prev.meta, retired: t})
+		}
+		if c.entries == nil {
+			c.entries = make(map[string]cacheEntry)
+		}
+		c.entries[key] = cacheEntry{meta: meta, created: t, ttl: ttl}
+	}
+	c.mu.Unlock()
+	closeAll(due)
+	if err != nil {
+		// Do not cache failures: a transient configure error must not pin
+		// the cache to a missing entry, and the next call retries.
+		return nil, err
+	}
+	return meta, nil
+}
+
+// sweep retires map entries past their own ttl+grace and drops retired
+// metas whose grace period has elapsed. It runs under the lock but never
+// closes: Close can block on the network, so the matured metas are returned
+// and closed by the caller after the lock is released.
+func (c *metaCache) sweep(t time.Time) []any {
+	for key, entry := range c.entries {
+		if t.Sub(entry.created) < entry.ttl+c.grace {
+			continue
+		}
+		c.retired = append(c.retired, retiredEntry{meta: entry.meta, retired: t})
+		delete(c.entries, key)
+	}
+	// A fresh slice, not a reslice of the old backing array: the tail of
+	// the old array would keep referencing closed metas and defeat the GC.
+	due := make([]any, 0, len(c.retired))
+	keep := make([]retiredEntry, 0, len(c.retired))
+	for _, entry := range c.retired {
+		if t.Sub(entry.retired) < c.grace {
+			keep = append(keep, entry)
+			continue
+		}
+		due = append(due, entry.meta)
+	}
+	c.retired = keep
+	return due
+}
+
+// closeAll closes matured metas. Errors are intentionally ignored: an
+// evicted session is dead weight either way, and a failed Close only means
+// the driver reclaims the socket itself.
+func closeAll(metas []any) {
+	for _, meta := range metas {
+		closeMeta(meta)
+	}
+}
+
+// closeMeta closes the Snowflake SDK client behind a configured meta, if it
+// can be reached. The meta type (*internal/provider.Context in the vendored
+// provider) is in an internal package we cannot name, so this walks to its
+// exported Client field by reflection and closes it through its Close
+// method. Anything else - a stubbed test meta, a renamed or unexported
+// field, a client without Close - is a no-op. TestCloseMetaGuardAgainstFieldRename
+// fails if the vendored type ever loses that shape, so this cannot decay
+// into a silent leak.
+var closeMeta = func(meta any) {
+	v := reflect.ValueOf(meta)
+	if v.Kind() != reflect.Pointer || v.IsNil() {
+		return
+	}
+	f := v.Elem().FieldByName("Client")
+	if !f.IsValid() || !f.CanInterface() {
+		return
+	}
+	c, ok := f.Interface().(interface{ Close() error })
+	if !ok || c == nil {
+		return
+	}
+	_ = c.Close()
+}
+
+// hashConfiguration derives the cache key from the provider configuration.
+// json.Marshal sorts map keys, so the digest is stable across reconciles.
+// The digest covers secret material (password, private key) by design, so
+// it must never be logged.
+func hashConfiguration(cfg map[string]any) (string, error) {
+	b, err := json.Marshal(cfg)
+	if err != nil {
+		return "", err
+	}
+	sum := sha256.Sum256(b)
+	return string(sum[:]), nil
+}
+
+// configureAndMeta runs the Terraform provider's Configure and returns the
+// resulting meta. It is a package variable so tests can observe how many
+// times the (session-minting) configure step runs without contacting a
+// Snowflake endpoint.
+var configureAndMeta = func(ctx context.Context, ujprovider *ujconfig.Provider, cfg map[string]any) (any, error) {
+	if ujprovider == nil || ujprovider.TerraformProvider == nil {
+		return nil, errors.New(errConfigureProvider + ": no terraform provider configured")
+	}
+	diags := ujprovider.TerraformProvider.Configure(ctx, &tfsdk.ResourceConfig{Config: cfg})
+	if diags.HasError() {
+		return nil, errors.Errorf("%s: %v", errConfigureProvider, diags)
+	}
+	return ujprovider.TerraformProvider.Meta(), nil
 }
 
 func toSharedPCSpec(pc *clusterv1beta1.ProviderConfig) (*namespacedv1beta1.ProviderConfigSpec, error) {

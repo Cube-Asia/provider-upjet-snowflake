@@ -63,6 +63,7 @@ func main() {
 
 		webhookPort          = app.Flag("webhook-port", "The port the webhook listens on").Default("9443").Envar("WEBHOOK_PORT").Int()
 		metricsBindAddress   = app.Flag("metrics-bind-address", "The address the metrics server listens on").Default(":8080").Envar("METRICS_BIND_ADDRESS").String()
+		pprofBindAddress     = app.Flag("pprof-bind-address", "The address the pprof debug server listens on; empty disables pprof").Default("").Envar("PPROF_BIND_ADDRESS").String()
 		changelogsSocketPath = app.Flag("changelogs-socket-path", "Path for changelogs socket (if enabled)").Default("/var/run/changelogs/changelogs.sock").Envar("CHANGELOGS_SOCKET_PATH").String()
 
 		terraformVersion = app.Flag("terraform-version", "Terraform version.").Required().Envar("TERRAFORM_VERSION").String()
@@ -128,6 +129,12 @@ func main() {
 		Metrics: metricsserver.Options{
 			BindAddress: *metricsBindAddress,
 		},
+		// Opt-in pprof endpoint (disabled by default), owned by the
+		// controller-runtime manager: it profiles the running provider in
+		// place - the metrics endpoint exposes aggregate go_goroutines and
+		// heap series, while pprof provides per-goroutine stacks and heap
+		// profiles.
+		PprofBindAddress: *pprofBindAddress,
 		WebhookServer: webhook.NewServer(
 			webhook.Options{
 				CertDir: *certsDir,

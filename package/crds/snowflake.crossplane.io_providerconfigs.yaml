@@ -107,6 +107,13 @@ spec:
                 required:
                 - source
                 type: object
+              sessionCacheTtl:
+                description: |-
+                  SessionCacheTTL is how long the provider keeps a configured Snowflake
+                  session before re-minting it. Optional; defaults to 1h. Changing it
+                  takes effect on the next reconcile, without a controller restart.
+                pattern: ^([0-9]+(\.[0-9]+)?(ms|s|m|h))+$
+                type: string
             required:
             - credentials
             type: object
