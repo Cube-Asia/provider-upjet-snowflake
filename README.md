@@ -117,11 +117,11 @@ exists yet). To mark a resource tested, add its Terraform name to
 | StorageIntegrationAws | `snowflake_storage_integration_aws` | ⬜ |
 | StorageIntegrationAzure | `snowflake_storage_integration_azure` | ⬜ |
 | StorageIntegrationGcs | `snowflake_storage_integration_gcs` | ⬜ |
-| Streamlit | `snowflake_streamlit` | ⬜ |
 | StreamOnDirectoryTable | `snowflake_stream_on_directory_table` | ⬜ |
 | StreamOnExternalTable | `snowflake_stream_on_external_table` | ⬜ |
 | StreamOnTable | `snowflake_stream_on_table` | ⬜ |
 | StreamOnView | `snowflake_stream_on_view` | ⬜ |
+| Streamlit | `snowflake_streamlit` | ⬜ |
 | Tag | `snowflake_tag` | ⬜ |
 | TagAssociation | `snowflake_tag_association` | ⬜ |
 | Task | `snowflake_task` | ⬜ |

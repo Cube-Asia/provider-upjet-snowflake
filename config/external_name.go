@@ -295,19 +295,18 @@ func onSchemaBlockSuffix(onSchema map[string]any) (string, []string, bool) {
 
 // onSchemaObjectBlockSuffix constructs the ID suffix for an on_schema_object block.
 // Returns (grant sub-type, suffix parts, found, error).
-// "all_privileges" is checked to determine whether to include an extra
-// OnObject sub-type marker for the single-object case. This matches the
-// TF provider's ID generation logic (from acceptance test ID comments).
-func onSchemaObjectBlockSuffix(so map[string]any, allPrivileges bool) (string, []string, bool, error) {
+// The single-object case ALWAYS carries the OnObject sub-type marker:
+// ParseGrantPrivilegesTo{Account,Database}RoleId only accepts the 8-part
+// "…|OnSchemaObject|OnObject|<object_type>|<object_name>" form
+// (grant_privileges_to_database_role_identifier.go errors
+// "invalid OnSchemaObjectGrantKind" otherwise), and the upstream encoder
+// (grant_privileges_identifier_commons.go OnSchemaObjectGrantData.String)
+// emits OnObject unconditionally — all_privileges does not change the ID.
+func onSchemaObjectBlockSuffix(so map[string]any) (string, []string, bool, error) {
 	// Single object: object_type + object_name
 	if objType, _ := so["object_type"].(string); objType != "" {
 		objName, _ := so["object_name"].(string)
-		if allPrivileges {
-			return "OnObject", []string{objType, objName}, true, nil
-		}
-		// Without all_privileges, the TF provider omits the OnObject
-		// marker in the ID: OnSchemaObject|<type>|<name>
-		return "", []string{objType, objName}, true, nil
+		return "OnObject", []string{objType, objName}, true, nil
 	}
 	// OnAll: all[0] sub-block
 	if allRaw, _ := so["all"].([]any); len(allRaw) > 0 {
@@ -490,17 +489,12 @@ func processOnSchemaObjectID(parameters map[string]any, base, resourceName strin
 	if !ok {
 		return "", false, fmt.Errorf("%s: invalid 'on_schema_object' block", resourceName)
 	}
-	allPrivileges := paramBool(parameters, "all_privileges")
-	subType, suffix, found, err := onSchemaObjectBlockSuffix(soBlock, allPrivileges)
+	subType, suffix, found, err := onSchemaObjectBlockSuffix(soBlock)
 	if err != nil {
 		return "", false, fmt.Errorf("%s: %w", resourceName, err)
 	}
 	if !found {
 		return "", false, fmt.Errorf("%s: on_schema_object block variant not recognized", resourceName)
-	}
-	if subType == "" {
-		// all_privileges=false, single object: omit OnObject sub-type marker
-		return fmt.Sprintf("%s|OnSchemaObject|%s", base, strings.Join(suffix, "|")), true, nil
 	}
 	return fmt.Sprintf("%s|OnSchemaObject|%s|%s", base, subType, strings.Join(suffix, "|")), true, nil
 }
